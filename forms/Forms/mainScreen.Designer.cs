@@ -37,12 +37,15 @@
             title_label = new Label();
             checkbox_write_credentials_in_file = new CheckBox();
             password_label = new Label();
+            label1 = new Label();
+            amount_jobs = new TextBox();
+            amout_jobs_label = new Label();
             SuspendLayout();
             // 
             // job_label
             // 
             job_label.AutoSize = true;
-            job_label.Location = new Point(21, 217);
+            job_label.Location = new Point(39, 247);
             job_label.Name = "job_label";
             job_label.Size = new Size(131, 15);
             job_label.TabIndex = 0;
@@ -50,40 +53,41 @@
             // 
             // txtbox_job
             // 
-            txtbox_job.Location = new Point(21, 235);
+            txtbox_job.Location = new Point(39, 265);
             txtbox_job.Name = "txtbox_job";
-            txtbox_job.Size = new Size(153, 23);
+            txtbox_job.Size = new Size(200, 23);
             txtbox_job.TabIndex = 1;
             // 
             // send_button
             // 
             send_button.Font = new Font("Segoe UI", 12F);
-            send_button.Location = new Point(137, 382);
+            send_button.Location = new Point(97, 370);
             send_button.Name = "send_button";
             send_button.Size = new Size(92, 36);
             send_button.TabIndex = 2;
-            send_button.Text = "Enviar";
+            send_button.Text = "Aplicar";
             send_button.UseVisualStyleBackColor = true;
             send_button.Click += sendButton_Click;
             // 
             // txtbox_user
             // 
-            txtbox_user.Location = new Point(21, 68);
+            txtbox_user.Location = new Point(41, 111);
             txtbox_user.Name = "txtbox_user";
-            txtbox_user.Size = new Size(153, 23);
+            txtbox_user.Size = new Size(200, 23);
             txtbox_user.TabIndex = 3;
             // 
             // txtbox_password
             // 
-            txtbox_password.Location = new Point(21, 123);
+            txtbox_password.Location = new Point(41, 165);
             txtbox_password.Name = "txtbox_password";
-            txtbox_password.Size = new Size(153, 23);
+            txtbox_password.PasswordChar = '*';
+            txtbox_password.Size = new Size(200, 23);
             txtbox_password.TabIndex = 4;
             // 
             // user_label
             // 
             user_label.AutoSize = true;
-            user_label.Location = new Point(21, 50);
+            user_label.Location = new Point(41, 93);
             user_label.Name = "user_label";
             user_label.Size = new Size(98, 15);
             user_label.TabIndex = 5;
@@ -95,17 +99,16 @@
             title_label.FlatStyle = FlatStyle.Flat;
             title_label.Font = new Font("Segoe UI", 14F);
             title_label.ForeColor = SystemColors.ActiveCaptionText;
-            title_label.Location = new Point(21, 9);
+            title_label.Location = new Point(39, 39);
             title_label.Name = "title_label";
             title_label.Size = new Size(217, 25);
             title_label.TabIndex = 7;
             title_label.Text = "LINKEDIN AUTOMATION";
-            title_label.Visible = false;
             // 
             // checkbox_write_credentials_in_file
             // 
             checkbox_write_credentials_in_file.AutoSize = true;
-            checkbox_write_credentials_in_file.Location = new Point(21, 161);
+            checkbox_write_credentials_in_file.Location = new Point(41, 194);
             checkbox_write_credentials_in_file.Name = "checkbox_write_credentials_in_file";
             checkbox_write_credentials_in_file.Size = new Size(182, 19);
             checkbox_write_credentials_in_file.TabIndex = 8;
@@ -115,18 +118,44 @@
             // password_label
             // 
             password_label.AutoSize = true;
-            password_label.Location = new Point(21, 105);
+            password_label.Location = new Point(41, 147);
             password_label.Name = "password_label";
             password_label.Size = new Size(42, 15);
             password_label.TabIndex = 9;
             password_label.Text = "Senha:";
+            // 
+            // label1
+            // 
+            label1.Location = new Point(0, 0);
+            label1.Name = "label1";
+            label1.Size = new Size(100, 23);
+            label1.TabIndex = 0;
+            // 
+            // amount_jobs
+            // 
+            amount_jobs.Location = new Point(39, 318);
+            amount_jobs.Name = "amount_jobs";
+            amount_jobs.Size = new Size(44, 23);
+            amount_jobs.TabIndex = 10;
+            // 
+            // amout_jobs_label
+            // 
+            amout_jobs_label.AutoSize = true;
+            amout_jobs_label.Location = new Point(39, 300);
+            amout_jobs_label.Name = "amout_jobs_label";
+            amout_jobs_label.Size = new Size(73, 15);
+            amout_jobs_label.TabIndex = 11;
+            amout_jobs_label.Text = "N° de vagas:";
             // 
             // mainScreen
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImageLayout = ImageLayout.Center;
-            ClientSize = new Size(356, 444);
+            ClientSize = new Size(287, 442);
+            Controls.Add(amout_jobs_label);
+            Controls.Add(amount_jobs);
+            Controls.Add(label1);
             Controls.Add(password_label);
             Controls.Add(checkbox_write_credentials_in_file);
             Controls.Add(title_label);
@@ -136,6 +165,7 @@
             Controls.Add(send_button);
             Controls.Add(txtbox_job);
             Controls.Add(job_label);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "mainScreen";
             Text = "mainScreen";
             Load += mainScreen_Load;
@@ -156,5 +186,8 @@
         private Label title_label;
         private CheckBox checkbox_write_credentials_in_file;
         private Label password_label;
+        private Label label1;
+        private TextBox amount_jobs;
+        private Label amout_jobs_label;
     }
 }

@@ -20,10 +20,13 @@ namespace forms
                 txtbox_user.Text,
                 txtbox_password.Text,
                 checkbox_write_credentials_in_file.Checked,
-                txtbox_job.Text
+                txtbox_job.Text,
+                Int32.Parse(amount_jobs.Text)
             );
 
             await Script.Main(form);
         }
+
+        
     }
 }
