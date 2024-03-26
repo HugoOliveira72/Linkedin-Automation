@@ -57,7 +57,7 @@
             // 
             // send_button
             // 
-            send_button.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            send_button.Font = new Font("Segoe UI", 12F);
             send_button.Location = new Point(137, 382);
             send_button.Name = "send_button";
             send_button.Size = new Size(92, 36);
@@ -93,9 +93,9 @@
             // 
             title_label.AutoSize = true;
             title_label.FlatStyle = FlatStyle.Flat;
-            title_label.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point);
+            title_label.Font = new Font("Segoe UI", 14F);
             title_label.ForeColor = SystemColors.ActiveCaptionText;
-            title_label.Location = new Point(12, 9);
+            title_label.Location = new Point(21, 9);
             title_label.Name = "title_label";
             title_label.Size = new Size(217, 25);
             title_label.TabIndex = 7;

@@ -1,5 +1,6 @@
 ﻿using Linkedin_Automation.Model;
 using Linkedin_Automation.Utilities;
+using playwright.Model;
 using System.Text;
 
 namespace Linkedin_Automation.Credencials
@@ -8,13 +9,12 @@ namespace Linkedin_Automation.Credencials
     {
         // Diretorio de exec 
         // Linkedin_Automation\\bin\\Debug\\net6.0"
-        private static string USERPATH = "../../../Files/userInfo.txt"; 
+        private static string USERPATH = "../../../../playwright/Files/userInfo.txt";
         private static StringUtilities stringUtilities = new StringUtilities();
 
         public User User { get; set; }
 
-        public Credencials()
-            
+        public Credencials(FormObject formObject)
         {
             // LER DADOS DOS USUARIOS
             /// Utiliza enconding diferente para ler caracteres especiais, Windows 1252
@@ -23,13 +23,27 @@ namespace Linkedin_Automation.Credencials
 
             Encoding windows_1252 = Encoding.GetEncoding(1252);
 
-            //VERIFICAÇÃO EXISTENCIA CREDENCIALS.TXT
-            if (!File.Exists(USERPATH))
+            //ADICIONAR DADOS DO FORMULARIO AO CREDENCIALS.TXT
+            if (formObject.CheckboxWriteCredentials)
             {
-                File.WriteAllText(USERPATH, "");
-                stringUtilities.errorPattern("\nPreencha as credenciais no arquivo 'Files/userInfo.txt'", null, true);
-                Console.ReadKey();
+                ///Criar arquivo userinfo.txt
+                //File.WriteAllText(USERPATH, "");
+
+                using (StreamWriter writer = new StreamWriter(USERPATH))
+                {
+                    writer.WriteLine(formObject.TxtboxUser);
+                    writer.WriteLine(formObject.TxtboxPassword);
+                }
+
+                //VERIFICAÇÃO EXISTENCIA CREDENCIALS.TXT
+                //if (!File.Exists(USERPATH))
+                //{
+                //    File.WriteAllText(USERPATH, "");
+                //    stringUtilities.errorPattern("\nPreencha as credenciais no arquivo 'Files/userInfo.txt'", null, true);
+                //    Console.ReadKey();
+                //}
             }
+
 
             // LEITURA CREDENCIALS.TXT
             List<string> userLines = new List<string>();

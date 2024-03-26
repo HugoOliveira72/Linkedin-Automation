@@ -1,13 +1,4 @@
-﻿using Linkedin_Automation.Credencials;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using playwright.Model;
 
 namespace forms
 {
@@ -18,19 +9,20 @@ namespace forms
             InitializeComponent();
         }
 
-
         private void mainScreen_Load(object sender, EventArgs e)
         {
 
         }
-        private void sendButton_Click(object sender, EventArgs e)
+        private async void sendButton_Click(object sender, EventArgs e)
         {
-            if (txtbox_job.Text == ".net")
-            {
-                MessageBox.Show("DEU BOM!");
-            }
+            FormObject form = new FormObject(
+                txtbox_user.Text,
+                txtbox_password.Text,
+                checkbox_write_credentials_in_file.Checked,
+                txtbox_job.Text
+            );
 
-            var a = new Credencials();
+            await Script.Main(form);
         }
     }
 }

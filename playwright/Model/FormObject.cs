@@ -7,12 +7,17 @@
         public bool CheckboxWriteCredentials { get; set; }
         public string TxtboxJob { get; set; }
 
-        public FormObject(dynamic formObject)
+        public FormObject(
+            string txtbox_user,
+            string txtbox_password,
+            bool checkbox_write_credentials_in_file,
+            string txtbox_job
+            )
         {
-            this.TxtboxUser = formObject.txtboxUser;
-            this.TxtboxPassword = formObject.txtboxPassword;
-            this.CheckboxWriteCredentials = formObject.checkboxWriteCredentials;
-            this.TxtboxJob = formObject.txtboxJob;
+            this.TxtboxUser = txtbox_user;
+            this.TxtboxPassword = txtbox_password;
+            this.CheckboxWriteCredentials = checkbox_write_credentials_in_file;
+            this.TxtboxJob = txtbox_job;
         }
     }
 }

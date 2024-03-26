@@ -5,7 +5,7 @@
         private string logpath;
         public LogUtilities()
         {
-            this.logpath = Program.LOGPATH;
+            this.logpath = Script.LOGPATH;
         }
         public void createLogFile()
         {

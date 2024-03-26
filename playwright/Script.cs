@@ -5,16 +5,15 @@ using Linkedin_Automation.Model;
 using Linkedin_Automation.Utilities;
 using Microsoft.Playwright;
 using playwright.Model;
-using System.Text;
 
 
-public class Script
+public static class Script
 {
     private static int JOBS = 10;   //VARIAVEL GLOBAL = N° DE VAGAS QUE SERÃO CANDIDATADAS
     internal static string LOGPATH = "../../../../playwright/Files/log.txt";  //Mudar o diretório (opcional)
     private static string? LOGTEXT;
 
-    public static async Task Main(dynamic formObject)
+    public static async Task Main(FormObject formObject = null)
     {
         // CRIAÇÃO LOG.TXT, CASO Ñ HOUVER
         StringUtilities stringUtilities = new StringUtilities();
@@ -48,10 +47,8 @@ public class Script
         Thread.Sleep(TimeSpan.FromSeconds(1));
 
         //CONVERTER DADOS DOS FORMULÁRIO PARA A CLASSE FORMOBJECT
-        FormObject form = new FormObject(formObject);
-
         // LER DADOS DOS USUARIOS
-        Credencials credencials = new Credencials();
+        Credencials credencials = new Credencials(formObject);
         User userInfo = credencials.User;
 
         // PREENCHIMENTO DAS CREEDENCIAIS
