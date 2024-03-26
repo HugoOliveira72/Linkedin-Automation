@@ -49,5 +49,11 @@
             return logText;
         }
 
+        public string cummonPattern(string message)
+        {
+
+            var a = DateTime.Now;
+            return "a";
+        }
     }
 }
