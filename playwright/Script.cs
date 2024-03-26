@@ -1,5 +1,4 @@
-﻿
-using Linkedin_Automation.Config;
+﻿using Linkedin_Automation.Config;
 using Linkedin_Automation.Credencials;
 using Linkedin_Automation.Model;
 using Linkedin_Automation.Utilities;

@@ -1,5 +1,4 @@
 ﻿using Linkedin_Automation.Model;
-using Linkedin_Automation.Utilities;
 using playwright.Model;
 using System.Text;
 
@@ -7,10 +6,9 @@ namespace Linkedin_Automation.Credencials
 {
     public class Credencials
     {
-        // Diretorio de exec 
-        // Linkedin_Automation\\bin\\Debug\\net6.0"
+        // Diretorio de execução
+        // linkedin_Automation\playwright\bin\Debug\net{version}"
         private static string USERPATH = "../../../../playwright/Files/userInfo.txt";
-        private static StringUtilities stringUtilities = new StringUtilities();
 
         public User User { get; set; }
 
@@ -20,33 +18,33 @@ namespace Linkedin_Automation.Credencials
             /// Utiliza enconding diferente para ler caracteres especiais, Windows 1252
             /// Registra o provedor de código de página
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-
             Encoding windows_1252 = Encoding.GetEncoding(1252);
 
-            //ADICIONAR DADOS DO FORMULARIO AO CREDENCIALS.TXT
+            List<string> userLines = new List<string>();
+
+            //VALIDAR CHECKBOX, PARA CRIAR ARQUIVO TXT
             if (formObject.CheckboxWriteCredentials)
             {
-                ///Criar arquivo userinfo.txt
-                //File.WriteAllText(USERPATH, "");
-
-                using (StreamWriter writer = new StreamWriter(USERPATH))
-                {
-                    writer.WriteLine(formObject.TxtboxUser);
-                    writer.WriteLine(formObject.TxtboxPassword);
-                }
-
                 //VERIFICAÇÃO EXISTENCIA CREDENCIALS.TXT
-                //if (!File.Exists(USERPATH))
-                //{
-                //    File.WriteAllText(USERPATH, "");
-                //    stringUtilities.errorPattern("\nPreencha as credenciais no arquivo 'Files/userInfo.txt'", null, true);
-                //    Console.ReadKey();
-                //}
+                if (!File.Exists(USERPATH))
+                {
+                    var result = "Criando arquivo userInfo.txt";
+                    Console.WriteLine(result);
+                    ///Cria arquivo e escreve dados do usuário ao credencials.txt
+                    using (StreamWriter writer = new StreamWriter(USERPATH))
+                    {
+                        writer.WriteLine(formObject.TxtboxUser);
+                        writer.WriteLine(formObject.TxtboxPassword);
+                    }
+                }
+                else
+                {
+                    var result = "Arquivo já existe";
+                    Console.WriteLine(result);
+                }
             }
 
-
             // LEITURA CREDENCIALS.TXT
-            List<string> userLines = new List<string>();
             using (StreamReader sr = new StreamReader(USERPATH, windows_1252))
             {
                 /// Ler arquivo linha a linha
@@ -56,9 +54,15 @@ namespace Linkedin_Automation.Credencials
                     userLines.Add(userLine);
                 }
             }
-            // ATRIBUIR EMAIL,SENHA A VARIAVEIS
-            User user = new User(userLines[0], userLines[1]);
-            this.User = user;
+
+            //VERIFICAR SE ARQUIVO ESTÁ CORRETO
+            if (userLines.Count > 0)
+            {
+                // ATRIBUIR EMAIL,SENHA A VARIAVEIS
+                User user = new User(userLines[0], userLines[1]);
+                this.User = user;
+            }
+
         }
     }
 }
