@@ -23,6 +23,10 @@ public static class Script
         if (!File.Exists(LOGPATH))
             logUtilities.createLogFile();
 
+        // LER DADOS DOS USUARIOS
+        Credencials credencials = new Credencials(formObject);
+        User userInfo = credencials.User;
+
         // CONFIGURAÇÃO DO PLAYWRIGHT
         PlaywrightConfiguration playwrightConfiguration = new PlaywrightConfiguration();
         var settings = await playwrightConfiguration.launchSettingsAsync();
@@ -46,10 +50,6 @@ public static class Script
 
         Thread.Sleep(TimeSpan.FromSeconds(1));
 
-        //CONVERTER DADOS DOS FORMULÁRIO PARA A CLASSE FORMOBJECT
-        // LER DADOS DOS USUARIOS
-        Credencials credencials = new Credencials(formObject);
-        User userInfo = credencials.User;
 
         // PREENCHIMENTO DAS CREEDENCIAIS
         await page.GetByLabel("E-mail ou telefone").ClickAsync();
