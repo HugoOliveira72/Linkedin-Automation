@@ -1,6 +1,6 @@
-﻿namespace Linkedin_Automation.Utilities
+﻿namespace forms.Utilities.Messages
 {
-    public class StringUtilities
+    public class StringPatterns
     {
 
         public void finishPattern(int appliedJobs, int savedJobs, string finishCondition = "")
@@ -26,7 +26,7 @@
             Console.WriteLine("\nPressione qualquer tela para finalizar o programa...");
         }
 
-        public string errorPattern(string errorMessage, System.Exception? errorDescription = null, bool finishMessage = false)
+        public string errorPattern(string errorMessage, Exception? errorDescription = null, bool finishMessage = false)
         {
             string linesPattern = "===============================\n\t!ERROR!\n===============================\n";
             Console.ForegroundColor = ConsoleColor.Red;

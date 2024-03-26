@@ -1,4 +1,5 @@
-﻿using Linkedin_Automation.Config;
+﻿using forms.Utilities.Messages;
+using Linkedin_Automation.Config;
 using Linkedin_Automation.Credencials;
 using Linkedin_Automation.Model;
 using Linkedin_Automation.Utilities;
@@ -15,7 +16,7 @@ public static class Script
     public static async Task Main(FormObject formObject = null)
     {
         // CRIAÇÃO LOG.TXT, CASO Ñ HOUVER
-        StringUtilities stringUtilities = new StringUtilities();
+        StringPatterns stringUtilities = new StringPatterns();
         LogUtilities logUtilities = new LogUtilities();
 
         // VERIFICAÇÃO EXISTENCIA LOG.TXT
