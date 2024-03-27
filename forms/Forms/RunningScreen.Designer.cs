@@ -32,17 +32,18 @@
             info_label = new Label();
             pause_button = new Button();
             job_applied = new Label();
-            textBox1 = new TextBox();
+            txtBox_job = new TextBox();
             number_applied_jobs = new Label();
-            textBox2 = new TextBox();
+            txtBox_applied_Jobs = new TextBox();
             label4 = new Label();
-            saved_jobs = new TextBox();
+            txtBoxsaved_jobs = new TextBox();
             title_label = new Label();
             stopApplication_button = new Button();
             SuspendLayout();
             // 
             // richtxtBox_info
             // 
+            richtxtBox_info.Enabled = false;
             richtxtBox_info.Location = new Point(46, 47);
             richtxtBox_info.Name = "richtxtBox_info";
             richtxtBox_info.Size = new Size(702, 444);
@@ -77,12 +78,13 @@
             job_applied.TabIndex = 3;
             job_applied.Text = "Vaga:";
             // 
-            // textBox1
+            // txtBox_job
             // 
-            textBox1.Location = new Point(865, 82);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(100, 23);
-            textBox1.TabIndex = 4;
+            txtBox_job.Enabled = false;
+            txtBox_job.Location = new Point(865, 82);
+            txtBox_job.Name = "txtBox_job";
+            txtBox_job.Size = new Size(100, 23);
+            txtBox_job.TabIndex = 4;
             // 
             // number_applied_jobs
             // 
@@ -93,12 +95,13 @@
             number_applied_jobs.TabIndex = 5;
             number_applied_jobs.Text = "Vagas aplicadas";
             // 
-            // textBox2
+            // txtBox_applied_Jobs
             // 
-            textBox2.Location = new Point(865, 155);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(100, 23);
-            textBox2.TabIndex = 6;
+            txtBox_applied_Jobs.Enabled = false;
+            txtBox_applied_Jobs.Location = new Point(865, 155);
+            txtBox_applied_Jobs.Name = "txtBox_applied_Jobs";
+            txtBox_applied_Jobs.Size = new Size(100, 23);
+            txtBox_applied_Jobs.TabIndex = 6;
             // 
             // label4
             // 
@@ -109,12 +112,13 @@
             label4.TabIndex = 7;
             label4.Text = "Vagas salvas";
             // 
-            // saved_jobs
+            // txtBoxsaved_jobs
             // 
-            saved_jobs.Location = new Point(865, 223);
-            saved_jobs.Name = "saved_jobs";
-            saved_jobs.Size = new Size(100, 23);
-            saved_jobs.TabIndex = 8;
+            txtBoxsaved_jobs.Enabled = false;
+            txtBoxsaved_jobs.Location = new Point(865, 223);
+            txtBoxsaved_jobs.Name = "txtBoxsaved_jobs";
+            txtBoxsaved_jobs.Size = new Size(100, 23);
+            txtBoxsaved_jobs.TabIndex = 8;
             // 
             // title_label
             // 
@@ -143,11 +147,11 @@
             ClientSize = new Size(1064, 583);
             Controls.Add(stopApplication_button);
             Controls.Add(title_label);
-            Controls.Add(saved_jobs);
+            Controls.Add(txtBoxsaved_jobs);
             Controls.Add(label4);
-            Controls.Add(textBox2);
+            Controls.Add(txtBox_applied_Jobs);
             Controls.Add(number_applied_jobs);
-            Controls.Add(textBox1);
+            Controls.Add(txtBox_job);
             Controls.Add(job_applied);
             Controls.Add(pause_button);
             Controls.Add(richtxtBox_info);
@@ -165,11 +169,11 @@
         private Label info_label;
         private Button pause_button;
         private Label job_applied;
-        private TextBox textBox1;
+        private TextBox txtBox_job;
         private Label number_applied_jobs;
-        private TextBox textBox2;
+        private TextBox txtBox_applied_Jobs;
         private Label label4;
-        private TextBox saved_jobs;
+        private TextBox txtBoxsaved_jobs;
         private Label title_label;
         private Button stopApplication_button;
     }

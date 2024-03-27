@@ -1,4 +1,5 @@
-﻿using playwright.Model;
+﻿using forms.Forms;
+using playwright.Model;
 
 namespace forms
 {
@@ -15,7 +16,6 @@ namespace forms
         }
         private async void sendButton_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Uhul");
             FormObject form = new FormObject(
                 txtbox_user.Text,
                 txtbox_password.Text,
@@ -23,10 +23,9 @@ namespace forms
                 txtbox_job.Text,
                 Int32.Parse(amount_jobs.Text)
             );
-
-            await Script.Main(form);
+            //await Script.Main(form);
+            RunningScreen runningScreen = new RunningScreen(form);
+            runningScreen.Show();
         }
-
-        
     }
 }
