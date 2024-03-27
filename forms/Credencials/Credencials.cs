@@ -1,8 +1,7 @@
-﻿using Linkedin_Automation.Model;
+﻿using forms.Utilities.Messages;
+using Linkedin_Automation.Model;
 using playwright.Model;
-using System.Runtime.InteropServices.Marshalling;
 using System.Text;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace Linkedin_Automation.Credencials
 {
@@ -10,7 +9,7 @@ namespace Linkedin_Automation.Credencials
     {
         // Diretorio de execução
         // linkedin_Automation\playwright\bin\Debug\net{version}"
-        private static string USERPATH = "../../../../Forms/Files/";
+        private static string USERPATH = "../../../../Forms/Files/userinfo.txt";
         private FormObject formAttribute;
 
         public User User { get; set; }
@@ -18,6 +17,8 @@ namespace Linkedin_Automation.Credencials
         public Credencials(FormObject formObject)
         {
             this.formAttribute = formObject;
+
+            StringPatterns stringPatterns = new StringPatterns();
 
             // LER DADOS DOS USUARIOS
             /// Utiliza enconding diferente para ler caracteres especiais, Windows 1252
@@ -27,26 +28,15 @@ namespace Linkedin_Automation.Credencials
 
             List<string> userLines = new List<string>();
 
-            //CHECKBOX MARCADA, PEGA DADOS DE USUÁRIO DO FORMULÁRIO
-            if (formObject.CheckboxWriteCredentials)
+            if (!File.Exists(USERPATH))
             {
-                ///Verificação da existencia do arquivo credencials.txt
-                if (!File.Exists(USERPATH))
-                {
-                    ///Criação de arquivo / Adiciona dados de usuário ao arquivo
-                    createCredencialsFile();
-                    appendCrencials(this.formAttribute.TxtboxUser, this.formAttribute.TxtboxPassword);
-                }
-                else
-                {
-                    ///Adiciona dados de usuário ao arquivo
-                    appendCrencials(this.formAttribute.TxtboxUser, this.formAttribute.TxtboxPassword);
-                }
+                ///Criação de arquivo / Adiciona dados de usuário ao arquivo
+                createCredencialsFile();
             }
-            //CHECKBOX DESMARCADA, PEGA DADOS DE USUÁRIO DO ARQUIVO
-            else
+
+            // LEITURA CREDENCIALS.TXT
+            try
             {
-                // LEITURA CREDENCIALS.TXT
                 using (StreamReader sr = new StreamReader(USERPATH, windows_1252))
                 {
                     /// Leitura arquivo linha a linha
@@ -56,27 +46,40 @@ namespace Linkedin_Automation.Credencials
                         userLines.Add(userLine);
                     }
                 }
-
-                //VERIFICAR SE ARQUIVO ESTÁ PREENCHIDO
-                if (userLines.Count > 0) ///Preenchido
-                {
-                    ///Atribuir email e senha a this.user
-                    User user = new User(userLines[0], userLines[1]);
-                    this.User = user;
-                }
-                else ///Não preenchido
-                {
-                    ///Exibir mensagem de erro
-                    string message = "Não foi possível encontrar as credenciais!";
-                    MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button2);
-                    throw new Exception(message);
-                }
             }
+            catch (Exception exception)
+            {
+                stringPatterns.errorPattern(exception.Message, exception);
+            }
+            
+            //VERIFICAR SE ARQUIVO ESTÁ PREENCHIDO
+            if (userLines.Count > 0) ///Preenchido
+            {
+                ///Atribuir email e senha a this.user, pegar dados do arquivo
+                User user = new User(userLines[0], userLines[1]);
+                this.User = user;
+            }
+            else ///Não preenchido
+            {
+                //CHECKBOX MARCADA, PEGA DADOS DE USUÁRIO DO FORMULÁRIO
+                if (formObject.CheckboxWriteCredentials)
+                {
+                    ///Verificação da existencia do arquivo credencials.txt
+                    appendCrencials(this.formAttribute.TxtboxUser, this.formAttribute.TxtboxPassword);
+                    return;
+                }
+
+                ///Exibir mensagem de erro
+                string message = stringPatterns.errorPattern("Não foi possível encontrar as credenciais!");
+                MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button2);
+                throw new Exception(message);
+            }
+
         }
         private void createCredencialsFile()
         {
             MessageBox.Show("Criando arquivo userInfo.txt", "Criando", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2);
-            ///Cria arquivo e escreve dados do usuário ao credencials.txt
+            ///Cria arquivo
             File.Create(USERPATH);
         }
 
