@@ -43,9 +43,9 @@
             // 
             // richtxtBox_info
             // 
-            richtxtBox_info.Enabled = false;
             richtxtBox_info.Location = new Point(46, 47);
             richtxtBox_info.Name = "richtxtBox_info";
+            richtxtBox_info.ReadOnly = true;
             richtxtBox_info.Size = new Size(702, 444);
             richtxtBox_info.TabIndex = 0;
             richtxtBox_info.Text = "";
@@ -80,9 +80,9 @@
             // 
             // txtBox_job
             // 
-            txtBox_job.Enabled = false;
             txtBox_job.Location = new Point(865, 82);
             txtBox_job.Name = "txtBox_job";
+            txtBox_job.ReadOnly = true;
             txtBox_job.Size = new Size(100, 23);
             txtBox_job.TabIndex = 4;
             // 
@@ -97,9 +97,9 @@
             // 
             // txtBox_applied_Jobs
             // 
-            txtBox_applied_Jobs.Enabled = false;
             txtBox_applied_Jobs.Location = new Point(865, 155);
             txtBox_applied_Jobs.Name = "txtBox_applied_Jobs";
+            txtBox_applied_Jobs.ReadOnly = true;
             txtBox_applied_Jobs.Size = new Size(100, 23);
             txtBox_applied_Jobs.TabIndex = 6;
             // 
@@ -114,9 +114,9 @@
             // 
             // txtBoxsaved_jobs
             // 
-            txtBoxsaved_jobs.Enabled = false;
             txtBoxsaved_jobs.Location = new Point(865, 223);
             txtBoxsaved_jobs.Name = "txtBoxsaved_jobs";
+            txtBoxsaved_jobs.ReadOnly = true;
             txtBoxsaved_jobs.Size = new Size(100, 23);
             txtBoxsaved_jobs.TabIndex = 8;
             // 
