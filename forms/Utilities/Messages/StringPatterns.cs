@@ -28,32 +28,18 @@
 
         public string errorPattern(string errorMessage, Exception? errorDescription = null, bool finishMessage = false)
         {
-            string linesPattern = "===============================\n\t!ERROR!\n===============================\n";
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine(linesPattern);
-
-            Thread.Sleep(TimeSpan.FromSeconds(0.5));
-            Console.WriteLine($"{errorMessage}: ");
-
-            Console.ResetColor(); // Resetar a cor para o padrão
-            Console.Write(errorDescription);
-
+            string logText = $"{errorMessage}: {errorDescription}";
             if (finishMessage)
             {
-                Thread.Sleep(TimeSpan.FromSeconds(0.5));
-                Console.WriteLine("\nPressione qualquer tecla para finalizar... ");
+                logText += "\nFinalizando...";
             }
-
-            string logText = linesPattern;
-            logText += $"{errorMessage}: {errorDescription}";
             return logText;
         }
 
-        public string cummonPattern(string message)
+        public string startPattern()
         {
-
-            var a = DateTime.Now;
-            return "a";
+            DateTime dateTime = DateTime.Now;
+            return $"\n=============================\t {dateTime}";
         }
     }
 }
