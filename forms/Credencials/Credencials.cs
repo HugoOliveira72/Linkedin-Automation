@@ -78,14 +78,14 @@ namespace Linkedin_Automation.Credencials
         }
         private void createCredencialsFile()
         {
-            MessageBox.Show("Criando arquivo userInfo.txt", "Criando", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2);
+            MessageBox.Show("Criado arquivo userInfo.txt", "Criando", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2);
             ///Cria arquivo
             File.Create(USERPATH);
         }
 
         private void appendCrencials(string userEmail, string password)
         {
-            MessageBox.Show("Adicionando credencials em userInfo.txt", "Escrevendo", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2);
+            MessageBox.Show("Adicionado credencials em userInfo.txt", "Escrevendo", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2);
             string[] lines = [userEmail, password];
             File.AppendAllLines(Path.Combine(USERPATH), lines);
         }
