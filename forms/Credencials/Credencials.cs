@@ -21,10 +21,8 @@ namespace Linkedin_Automation.Credencials
             StringPatterns stringPatterns = new StringPatterns();
 
             // LER DADOS DOS USUARIOS
-            /// Utiliza enconding diferente para ler caracteres especiais, Windows 1252
             /// Registra o provedor de código de página
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-            Encoding windows_1252 = Encoding.GetEncoding(1252);
 
             List<string> userLines = new List<string>();
 
@@ -37,7 +35,7 @@ namespace Linkedin_Automation.Credencials
             // LEITURA CREDENCIALS.TXT
             try
             {
-                using (StreamReader sr = new StreamReader(USERPATH, windows_1252))
+                using (StreamReader sr = new StreamReader(USERPATH, Encoding.UTF8))
                 {
                     /// Leitura arquivo linha a linha
                     string userLine;
