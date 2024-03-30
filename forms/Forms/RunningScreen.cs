@@ -1,4 +1,5 @@
-﻿using forms.Utilities.Messages;
+﻿using forms.Utilities;
+using forms.Utilities.Messages;
 using Linkedin_Automation.Config;
 using Linkedin_Automation.Credencials;
 using Linkedin_Automation.Model;
@@ -11,7 +12,8 @@ namespace forms.Forms
 {
     public partial class RunningScreen : Form
     {
-        private FormObject mainScreenForm { get; set; }
+        private FormObject mainScreenForm;
+        private FunctionsUtilities functionsUtilities;
         private int JOBS = 10;   //N° DE VAGAS QUE SERÃO CANDIDATADAS
         public static string LOGPATH = "../../../../Forms/Files/log.txt";  //Mudar o diretório (opcional)
         private string? LOGTEXT;
@@ -113,48 +115,23 @@ namespace forms.Forms
                 appendRichTextBoxText(stringUtilities.errorPattern(ExceptionMessages.IncorretLogin, null, false));
                 return;
             }
-
-            // CÓDIGO LINKEDIN (OPCIONAL)
-            /// FAZER MANUALMENTE a verificação do código
             await Task.Delay(TimeSpan.FromSeconds(2));
 
-            ///
+            // CÓDIGO LINKEDIN / VERIFICAÇÃO DE SEGURANÇA (MANUALMENTE)
             var search = await page.QuerySelectorAsync("#global-nav-typeahead");
             if (search == null)
             {
-                try
-                {
-                    ///Validação existencia:
-                    MessageBox.Show("Verificação de segurança", "Verificação de segurança", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
-                    await page.WaitForSelectorAsync("#global-nav-typeahead", new() { Timeout = 60000 }); //SearchBox
-                    MessageBox.Show("Código ativado com sucesso!", "Ativado", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2);
-                }
-                catch (Exception exception)
-                {
-                    MessageBox.Show(ExceptionMessages.SecurityError, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button2);
-                    LOGTEXT = stringUtilities.errorPattern(ExceptionMessages.SecurityError, exception, true);
-                    logUtilities.writeError(LOGTEXT);
-                    return;
-                }
+                ///Search = null, página principal não carregada
+                ///Houve verificação de segurança
+                MessageBox.Show("Verificação de segurança", "Verificação de segurança", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+                appendRichTextBoxText(await functionsUtilities.WaitForElementAndHandleException(page, "#global-nav-typeahead", "Código ativado com sucesso!", ExceptionMessages.SecurityError));
             }
             else
             {
-                try
-                {
-                    ///Validação existencia:
-                    await page.WaitForSelectorAsync("#global-nav-typeahead", new() { Timeout = 60000 }); //SearchBox
-                    appendRichTextBoxText("Página carregada!");
-                }
-                catch (Exception exception)
-                {
-                    MessageBox.Show(ExceptionMessages.PageNotLoaded, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button2);
-                    LOGTEXT = stringUtilities.errorPattern(ExceptionMessages.SecurityError, exception, true);
-                    logUtilities.writeError(LOGTEXT);
-                    return;
-                }
+                ///Página principal carregada
+                /// Não houve verificação de segurança
+                appendRichTextBoxText(await functionsUtilities.WaitForElementAndHandleException(page, "#global-nav-typeahead", "Página carregada!", ExceptionMessages.PageNotLoaded));
             }
-
-
             await Task.Delay(TimeSpan.FromSeconds(2));
 
             // PESQUISA DE VAGAS

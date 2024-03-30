@@ -26,5 +26,11 @@ namespace Linkedin_Automation.Utilities
         {
             File.AppendAllText(this.logpath, Environment.NewLine + text);
         }
+
+        public void LogError(string message, Exception exception)
+        {
+            var logText = stringPatterns.errorPattern(message, exception, true);
+            writeError(logText);
+        }
     }
 }
