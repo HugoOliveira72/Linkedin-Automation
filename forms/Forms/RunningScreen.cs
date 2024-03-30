@@ -118,10 +118,15 @@ namespace forms.Forms
             /// FAZER MANUALMENTE a verificação do código
             await Task.Delay(TimeSpan.FromSeconds(2));
 
-            MessageBox.Show("Verificação de segurança", "Verificação de segurança", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+            ///
+            var search = await page.QuerySelectorAsync("#global-nav-typeahead");
+            if (search == null)
+            {
             try
             {
-                await page.WaitForSelectorAsync(".jobs-search-box__inner", new() { State = WaitForSelectorState.Visible, Timeout = 60000 });
+                    ///Validação existencia:
+                    MessageBox.Show("Verificação de segurança", "Verificação de segurança", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+                    await page.WaitForSelectorAsync("#global-nav-typeahead", new() { Timeout = 60000 }); //SearchBox
                 MessageBox.Show("Código ativado com sucesso!", "Ativado", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2);
             }
             catch (Exception exception)
@@ -131,6 +136,24 @@ namespace forms.Forms
                 logUtilities.writeError(LOGTEXT);
                 return;
             }
+            }
+            else
+            {
+                try
+                {
+                    ///Validação existencia:
+                    await page.WaitForSelectorAsync("#global-nav-typeahead", new() { Timeout = 60000 }); //SearchBox
+                    appendRichTextBoxText("Página carregada!");
+                }
+                catch (Exception exception)
+                {
+                    MessageBox.Show(ExceptionMessages.PageNotLoaded, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button2);
+                    LOGTEXT = stringUtilities.errorPattern(ExceptionMessages.SecurityError, exception, true);
+                    logUtilities.writeError(LOGTEXT);
+                    return;
+                }
+            }
+
 
             await Task.Delay(TimeSpan.FromSeconds(2));
 
