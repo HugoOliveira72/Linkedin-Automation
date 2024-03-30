@@ -122,20 +122,20 @@ namespace forms.Forms
             var search = await page.QuerySelectorAsync("#global-nav-typeahead");
             if (search == null)
             {
-            try
-            {
+                try
+                {
                     ///Validação existencia:
                     MessageBox.Show("Verificação de segurança", "Verificação de segurança", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
                     await page.WaitForSelectorAsync("#global-nav-typeahead", new() { Timeout = 60000 }); //SearchBox
-                MessageBox.Show("Código ativado com sucesso!", "Ativado", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2);
-            }
-            catch (Exception exception)
-            {
-                MessageBox.Show(ExceptionMessages.SecurityError, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button2);
-                LOGTEXT = stringUtilities.errorPattern(ExceptionMessages.SecurityError, exception, true);
-                logUtilities.writeError(LOGTEXT);
-                return;
-            }
+                    MessageBox.Show("Código ativado com sucesso!", "Ativado", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2);
+                }
+                catch (Exception exception)
+                {
+                    MessageBox.Show(ExceptionMessages.SecurityError, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button2);
+                    LOGTEXT = stringUtilities.errorPattern(ExceptionMessages.SecurityError, exception, true);
+                    logUtilities.writeError(LOGTEXT);
+                    return;
+                }
             }
             else
             {
@@ -201,8 +201,6 @@ namespace forms.Forms
             await page.GetByLabel("Todos os filtros", new() { Exact = true }).Locator("label").Filter(new() { HasText = "Híbrido Filtrar por Híbrido" }).ClickAsync();
             await Task.Delay(TimeSpan.FromSeconds(0.8));
 
-            await page.GetByText("Desativada Alternar filtro Candidatura simplificada").ClickAsync();
-            await Task.Delay(TimeSpan.FromSeconds(0.8));
 
             await page.GetByLabel("Todos os filtros", new() { Exact = true }).PressAsync("Enter");
             await Task.Delay(TimeSpan.FromSeconds(0.8));
