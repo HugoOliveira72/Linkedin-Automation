@@ -7,5 +7,6 @@
         public const string EmptyPassword = "'Senha' deve ser informada!";
         public const string IncorretLogin = "Login Incorreto!";
         public const string SecurityError = "Erro na verificação de segurança";
+        public const string PageNotLoaded = "Não foi possivel carregar a página";
     }
 }
