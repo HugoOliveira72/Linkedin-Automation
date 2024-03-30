@@ -21,7 +21,12 @@ namespace forms
                 txtbox_password.Text,
                 checkbox_write_credentials_in_file.Checked,
                 txtbox_job.Text,
-                Int32.Parse(amount_jobs.Text)
+                Int32.Parse(amount_jobs.Text),
+                comboBox_choose_by.Text,
+                checkedListBox_experience_level.CheckedItems,
+                checkedListBox_type_job.CheckedItems,
+                checkedListBox_remote.CheckedItems
+
             );
             //await Script.Main(form);
             RunningScreen runningScreen = new RunningScreen(form);

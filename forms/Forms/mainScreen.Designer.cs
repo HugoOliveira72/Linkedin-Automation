@@ -40,17 +40,19 @@
             label1 = new Label();
             amount_jobs = new TextBox();
             amout_jobs_label = new Label();
-            annoncement_date_label = new Label();
+            label_choose_by = new Label();
             location_label = new Label();
             job_type_label = new Label();
-            comboBox_annoucement_date = new ComboBox();
+            comboBox_choose_by = new ComboBox();
             experience_level_label = new Label();
-            this.checkedListBox_experience_level = new CheckedListBox();
             checkedListBox_type_job = new CheckedListBox();
             checkedListBox_remote = new CheckedListBox();
             groupBox_login = new GroupBox();
             groupBox_job = new GroupBox();
             groupBox_filters = new GroupBox();
+            checkedListBox_experience_level = new CheckedListBox();
+            label_annoucement_date = new Label();
+            comboBox_annoucement_date = new ComboBox();
             groupBox_login.SuspendLayout();
             groupBox_job.SuspendLayout();
             groupBox_filters.SuspendLayout();
@@ -161,19 +163,19 @@
             amout_jobs_label.TabIndex = 11;
             amout_jobs_label.Text = "N° de vagas:";
             // 
-            // annoncement_date_label
+            // label_choose_by
             // 
-            annoncement_date_label.AutoSize = true;
-            annoncement_date_label.Location = new Point(17, 28);
-            annoncement_date_label.Name = "annoncement_date_label";
-            annoncement_date_label.Size = new Size(94, 15);
-            annoncement_date_label.TabIndex = 26;
-            annoncement_date_label.Text = "Data do anúncio";
+            label_choose_by.AutoSize = true;
+            label_choose_by.Location = new Point(38, 22);
+            label_choose_by.Name = "label_choose_by";
+            label_choose_by.Size = new Size(84, 15);
+            label_choose_by.TabIndex = 26;
+            label_choose_by.Text = "Classificar por:";
             // 
             // location_label
             // 
             location_label.AutoSize = true;
-            location_label.Location = new Point(13, 418);
+            location_label.Location = new Point(38, 450);
             location_label.Name = "location_label";
             location_label.Size = new Size(52, 15);
             location_label.TabIndex = 25;
@@ -182,44 +184,36 @@
             // job_type_label
             // 
             job_type_label.AutoSize = true;
-            job_type_label.Location = new Point(15, 239);
+            job_type_label.Location = new Point(38, 288);
             job_type_label.Name = "job_type_label";
             job_type_label.Size = new Size(77, 15);
             job_type_label.TabIndex = 24;
             job_type_label.Text = "Tipo de vaga:";
             // 
-            // comboBox_annoucement_date
+            // comboBox_choose_by
             // 
-            comboBox_annoucement_date.FormattingEnabled = true;
-            comboBox_annoucement_date.Items.AddRange(new object[] { "Mais recentes", "Mais relevantes" });
-            comboBox_annoucement_date.Location = new Point(17, 46);
-            comboBox_annoucement_date.Name = "comboBox_annoucement_date";
-            comboBox_annoucement_date.Size = new Size(121, 23);
-            comboBox_annoucement_date.TabIndex = 23;
+            comboBox_choose_by.AutoCompleteCustomSource.AddRange(new string[] { "A qualquer momento", "Último mês", "Última semana", "Últimas 24 horas" });
+            comboBox_choose_by.FormattingEnabled = true;
+            comboBox_choose_by.Items.AddRange(new object[] { "Mais recentes", "Mais relevantes" });
+            comboBox_choose_by.Location = new Point(38, 40);
+            comboBox_choose_by.Name = "comboBox_choose_by";
+            comboBox_choose_by.Size = new Size(121, 23);
+            comboBox_choose_by.TabIndex = 23;
             // 
             // experience_level_label
             // 
             experience_level_label.AutoSize = true;
-            experience_level_label.Location = new Point(16, 97);
+            experience_level_label.Location = new Point(38, 142);
             experience_level_label.Name = "experience_level_label";
             experience_level_label.Size = new Size(113, 15);
             experience_level_label.TabIndex = 19;
             experience_level_label.Text = "Nível de experiência";
             // 
-            // checkedListBox_experience_level
-            // 
-            this.checkedListBox_experience_level.FormattingEnabled = true;
-            this.checkedListBox_experience_level.Items.AddRange(new object[] { "Estágio", "Júnior", "Assistente", "Pleno-sênior", "Diretor" });
-            this.checkedListBox_experience_level.Location = new Point(16, 115);
-            this.checkedListBox_experience_level.Name = "checkedListBox_experience_level";
-            this.checkedListBox_experience_level.Size = new Size(155, 94);
-            this.checkedListBox_experience_level.TabIndex = 27;
-            // 
             // checkedListBox_type_job
             // 
             checkedListBox_type_job.FormattingEnabled = true;
             checkedListBox_type_job.Items.AddRange(new object[] { "Tempo integral", "Meio período", "Contrato", "Temporário", "Voluntário", "Estágio", "Outro" });
-            checkedListBox_type_job.Location = new Point(16, 257);
+            checkedListBox_type_job.Location = new Point(38, 306);
             checkedListBox_type_job.Name = "checkedListBox_type_job";
             checkedListBox_type_job.Size = new Size(120, 130);
             checkedListBox_type_job.TabIndex = 28;
@@ -228,7 +222,7 @@
             // 
             checkedListBox_remote.FormattingEnabled = true;
             checkedListBox_remote.Items.AddRange(new object[] { "Remoto", "Híbrido", "Presencial" });
-            checkedListBox_remote.Location = new Point(17, 436);
+            checkedListBox_remote.Location = new Point(38, 468);
             checkedListBox_remote.Name = "checkedListBox_remote";
             checkedListBox_remote.Size = new Size(120, 58);
             checkedListBox_remote.TabIndex = 29;
@@ -263,19 +257,47 @@
             // groupBox_filters
             // 
             groupBox_filters.Controls.Add(comboBox_annoucement_date);
-            groupBox_filters.Controls.Add(annoncement_date_label);
-            groupBox_filters.Controls.Add(this.checkedListBox_experience_level);
+            groupBox_filters.Controls.Add(label_annoucement_date);
+            groupBox_filters.Controls.Add(checkedListBox_experience_level);
+            groupBox_filters.Controls.Add(comboBox_choose_by);
+            groupBox_filters.Controls.Add(label_choose_by);
             groupBox_filters.Controls.Add(location_label);
             groupBox_filters.Controls.Add(checkedListBox_remote);
             groupBox_filters.Controls.Add(checkedListBox_type_job);
             groupBox_filters.Controls.Add(experience_level_label);
             groupBox_filters.Controls.Add(job_type_label);
-            groupBox_filters.Location = new Point(388, 95);
+            groupBox_filters.Location = new Point(384, 95);
             groupBox_filters.Name = "groupBox_filters";
-            groupBox_filters.Size = new Size(227, 527);
+            groupBox_filters.Size = new Size(240, 549);
             groupBox_filters.TabIndex = 35;
             groupBox_filters.TabStop = false;
             groupBox_filters.Text = "Filtros";
+            // 
+            // checkedListBox_experience_level
+            // 
+            checkedListBox_experience_level.FormattingEnabled = true;
+            checkedListBox_experience_level.Items.AddRange(new object[] { "Estágio", "Júnior", "Assistente", "Pleno-sênior", "Diretor", "Executivo" });
+            checkedListBox_experience_level.Location = new Point(38, 160);
+            checkedListBox_experience_level.Name = "checkedListBox_experience_level";
+            checkedListBox_experience_level.Size = new Size(120, 112);
+            checkedListBox_experience_level.TabIndex = 30;
+            // 
+            // label_annoucement_date
+            // 
+            label_annoucement_date.AutoSize = true;
+            label_annoucement_date.Location = new Point(38, 84);
+            label_annoucement_date.Name = "label_annoucement_date";
+            label_annoucement_date.Size = new Size(97, 15);
+            label_annoucement_date.TabIndex = 31;
+            label_annoucement_date.Text = "Data do anúncio:";
+            // 
+            // comboBox_annoucement_date
+            // 
+            comboBox_annoucement_date.FormattingEnabled = true;
+            comboBox_annoucement_date.Location = new Point(38, 102);
+            comboBox_annoucement_date.Name = "comboBox_annoucement_date";
+            comboBox_annoucement_date.Size = new Size(121, 23);
+            comboBox_annoucement_date.TabIndex = 32;
             // 
             // mainScreen
             // 
@@ -319,17 +341,19 @@
         private Label label1;
         private TextBox amount_jobs;
         private Label amout_jobs_label;
-        private Label annoncement_date_label;
+        private Label label_choose_by;
         private Label location_label;
         private Label job_type_label;
-        private ComboBox comboBox_annoucement_date;
+        private ComboBox comboBox_choose_by;
         private ComboBox comboBox_experience_level;
         private Label experience_level_label;
-        private CheckedListBox checkedListBox1;
         private CheckedListBox checkedListBox_type_job;
         private CheckedListBox checkedListBox_remote;
         private GroupBox groupBox_login;
         private GroupBox groupBox_job;
         private GroupBox groupBox_filters;
+        private CheckedListBox checkedListBox_experience_level;
+        private ComboBox comboBox_annoucement_date;
+        private Label label_annoucement_date;
     }
 }
