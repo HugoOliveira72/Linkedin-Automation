@@ -158,13 +158,16 @@ namespace forms.Forms
             await Task.Delay(TimeSpan.FromSeconds(2));
 
             // PESQUISA DE VAGAS
-            await page.GetByRole(AriaRole.Combobox, new() { Name = "Pesquisar cargo, competência" }).ClickAsync();
+            var searchJobDiv = await page.QuerySelectorAsync("#global-nav-typeahead");
+            await searchJobDiv.ClickAsync();
             await Task.Delay(TimeSpan.FromSeconds(0.8));
 
-            await page.GetByRole(AriaRole.Combobox, new() { Name = "Pesquisar cargo, competência" }).FillAsync(this.mainScreenForm.TxtboxJob);
+            var inputSearchJob = await searchJobDiv.QuerySelectorAsync(".search-global-typeahead__input");
+            await inputSearchJob.FillAsync(this.mainScreenForm.TxtboxJob);
+
             await Task.Delay(TimeSpan.FromSeconds(0.8));
 
-            await page.GetByRole(AriaRole.Combobox, new() { Name = "Pesquisar cargo, competência" }).PressAsync("Enter");
+            await inputSearchJob.PressAsync("Enter");
             await Task.Delay(TimeSpan.FromSeconds(0.8));
 
             // APLICAÇÃO DE FILTROS
@@ -174,6 +177,19 @@ namespace forms.Forms
                 - Canditadura simplificada: TRUE
             */
             await page.GetByLabel("Exibir todos os filtros. Ao").ClickAsync();
+            await Task.Delay(TimeSpan.FromSeconds(0.8));
+
+
+            var filterTypeSpan = await page.QuerySelectorAsync("#selected-vertical");
+            var buttonFilterType = await filterTypeSpan.QuerySelectorAsync("button");
+            await Task.Delay(TimeSpan.FromSeconds(0.8));
+            await buttonFilterType.ClickAsync();
+            await Task.Delay(TimeSpan.FromSeconds(0.8));
+
+            await page.GetByLabel("Exibir apenas resultados do tipo: Vagas").ClickAsync();
+            await Task.Delay(TimeSpan.FromSeconds(0.8));
+
+            await page.GetByText("Desativada Alternar filtro Candidatura simplificada").ClickAsync();
             await Task.Delay(TimeSpan.FromSeconds(0.8));
 
             await page.GetByLabel("Todos os filtros", new() { Exact = true }).Locator("label").Filter(new() { HasText = "Júnior Filtrar por Júnior" }).ClickAsync();
