@@ -118,20 +118,8 @@ namespace forms.Forms
             await Task.Delay(TimeSpan.FromSeconds(2));
 
             // CÓDIGO LINKEDIN / VERIFICAÇÃO DE SEGURANÇA (MANUALMENTE)
-            var search = await page.QuerySelectorAsync("#global-nav-typeahead");
-            if (search == null)
-            {
-                ///Search = null, página principal não carregada
-                ///Houve verificação de segurança
-                MessageBox.Show("Verificação de segurança", "Verificação de segurança", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
-                appendRichTextBoxText(await functionsUtilities.WaitForElementAndHandleException(page, "#global-nav-typeahead", "Código ativado com sucesso!", ExceptionMessages.SecurityError));
-            }
-            else
-            {
-                ///Página principal carregada
-                /// Não houve verificação de segurança
-                appendRichTextBoxText(await functionsUtilities.WaitForElementAndHandleException(page, "#global-nav-typeahead", "Página carregada!", ExceptionMessages.PageNotLoaded));
-            }
+            appendRichTextBoxText("Carregando...");
+            await functionsUtilities.WaitForElementAndHandleException(page, "#global-nav-typeahead", "Página carregada!", ExceptionMessages.SecurityError);
             await Task.Delay(TimeSpan.FromSeconds(2));
 
             // PESQUISA DE VAGAS
