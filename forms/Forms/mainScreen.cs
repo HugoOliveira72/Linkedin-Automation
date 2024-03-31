@@ -9,11 +9,6 @@ namespace forms
         {
             InitializeComponent();
         }
-
-        private void mainScreen_Load(object sender, EventArgs e)
-        {
-
-        }
         private async void sendButton_Click(object sender, EventArgs e)
         {
             FormObject form = new FormObject(
@@ -23,12 +18,12 @@ namespace forms
                 txtbox_job.Text,
                 Int32.Parse(amount_jobs.Text),
                 comboBox_choose_by.Text,
+                comboBox_annoucement_date.Text,
                 checkedListBox_experience_level.CheckedItems,
                 checkedListBox_type_job.CheckedItems,
                 checkedListBox_remote.CheckedItems
 
             );
-            //await Script.Main(form);
             RunningScreen runningScreen = new RunningScreen(form);
             runningScreen.Show();
         }

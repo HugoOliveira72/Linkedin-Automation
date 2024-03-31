@@ -6,14 +6,13 @@ using Linkedin_Automation.Model;
 using Linkedin_Automation.Utilities;
 using Microsoft.Playwright;
 using playwright.Model;
-using System.Windows.Forms;
 
 namespace forms.Forms
 {
     public partial class RunningScreen : Form
     {
         private FormObject mainScreenForm;
-        private FunctionsUtilities functionsUtilities;
+        private FunctionsUtilities functionsUtilities = new FunctionsUtilities();
         private int JOBS = 10;   //N° DE VAGAS QUE SERÃO CANDIDATADAS
         public static string LOGPATH = "../../../../Forms/Files/log.txt";  //Mudar o diretório (opcional)
         private string? LOGTEXT;
@@ -129,43 +128,58 @@ namespace forms.Forms
 
             var inputSearchJob = await searchJobDiv.QuerySelectorAsync(".search-global-typeahead__input");
             await inputSearchJob.FillAsync(this.mainScreenForm.TxtboxJob);
-
             await Task.Delay(TimeSpan.FromSeconds(0.8));
 
             await inputSearchJob.PressAsync("Enter");
-            await Task.Delay(TimeSpan.FromSeconds(0.8));
+            await Task.Delay(TimeSpan.FromSeconds(2));
 
             // APLICAÇÃO DE FILTROS
-            /*
-                - Nível de experiencia - JR
-                - Local: Remoto, Hibrido
-                - Canditadura simplificada: TRUE
-            */
-            await page.GetByLabel("Exibir todos os filtros. Ao").ClickAsync();
+            var navFilterArea = await page.QuerySelectorAsync("nav[aria-label='Filtros de pesquisa']");
+            var buttonJobFilter = await navFilterArea.QuerySelectorAsync("button:has-text('Vagas')");
+            await buttonJobFilter.ClickAsync();
             await Task.Delay(TimeSpan.FromSeconds(0.8));
 
+            await page.GetByLabel("Exibir todos os filtros. Ao").ClickAsync();
+            await Task.Delay(TimeSpan.FromSeconds(0.8));
 
             var filterTypeSpan = await page.QuerySelectorAsync("#selected-vertical");
             var buttonFilterType = await filterTypeSpan.QuerySelectorAsync("button");
             await Task.Delay(TimeSpan.FromSeconds(0.8));
-            await buttonFilterType.ClickAsync();
-            await Task.Delay(TimeSpan.FromSeconds(0.8));
 
-            await page.GetByLabel("Exibir apenas resultados do tipo: Vagas").ClickAsync();
+            await buttonFilterType.ClickAsync();
             await Task.Delay(TimeSpan.FromSeconds(0.8));
 
             await page.GetByText("Desativada Alternar filtro Candidatura simplificada").ClickAsync();
             await Task.Delay(TimeSpan.FromSeconds(0.8));
 
-            await page.GetByLabel("Todos os filtros", new() { Exact = true }).Locator("label").Filter(new() { HasText = "Júnior Filtrar por Júnior" }).ClickAsync();
+            ///Classificar por
+            await page.GetByLabel("Todos os filtros", new() { Exact = true }).Locator("label").Filter(new() { HasText = $"{this.mainScreenForm.ClassifyBy} Filtrar por {this.mainScreenForm.ClassifyBy}" }).ClickAsync();
             await Task.Delay(TimeSpan.FromSeconds(0.8));
 
-            await page.GetByLabel("Todos os filtros", new() { Exact = true }).Locator("label").Filter(new() { HasText = "Remoto Filtrar por Remoto" }).ClickAsync();
+            ///Data do anúncio
+            await page.GetByLabel("Todos os filtros", new() { Exact = true }).Locator("label").Filter(new() { HasText = $"{this.mainScreenForm.AnnoucementDate} Filtrar por {this.mainScreenForm.AnnoucementDate}" }).ClickAsync();
             await Task.Delay(TimeSpan.FromSeconds(0.8));
 
-            await page.GetByLabel("Todos os filtros", new() { Exact = true }).Locator("label").Filter(new() { HasText = "Híbrido Filtrar por Híbrido" }).ClickAsync();
-            await Task.Delay(TimeSpan.FromSeconds(0.8));
+            ///Nível de experiência
+            foreach (string selectedExperience in this.mainScreenForm.CheckedListBoxExperiences)
+            {
+                await page.GetByLabel("Todos os filtros", new() { Exact = true }).Locator("label").Filter(new() { HasText = $"{selectedExperience} Filtrar por {selectedExperience}" }).ClickAsync();
+                await Task.Delay(TimeSpan.FromSeconds(0.5));
+            }
 
+            ///Tipo de vaga
+            foreach (string selectedType in this.mainScreenForm.CheckedListBoxType_job)
+            {
+                await page.GetByLabel("Todos os filtros", new() { Exact = true }).Locator("label").Filter(new() { HasText = $"{selectedType} Filtrar por {selectedType}" }).ClickAsync();
+                await Task.Delay(TimeSpan.FromSeconds(0.5));
+            }
+
+            ///Remoto
+            foreach (string selectedRemote in this.mainScreenForm.CheckedListBoxRemote)
+            {
+                await page.GetByLabel("Todos os filtros", new() { Exact = true }).Locator("label").Filter(new() { HasText = $"{selectedRemote} Filtrar por {selectedRemote}" }).ClickAsync();
+                await Task.Delay(TimeSpan.FromSeconds(0.5));
+            }
 
             await page.GetByLabel("Todos os filtros", new() { Exact = true }).PressAsync("Enter");
             await Task.Delay(TimeSpan.FromSeconds(0.8));

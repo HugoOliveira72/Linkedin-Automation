@@ -50,9 +50,9 @@
             groupBox_login = new GroupBox();
             groupBox_job = new GroupBox();
             groupBox_filters = new GroupBox();
-            checkedListBox_experience_level = new CheckedListBox();
-            label_annoucement_date = new Label();
             comboBox_annoucement_date = new ComboBox();
+            label_annoucement_date = new Label();
+            checkedListBox_experience_level = new CheckedListBox();
             groupBox_login.SuspendLayout();
             groupBox_job.SuspendLayout();
             groupBox_filters.SuspendLayout();
@@ -273,14 +273,14 @@
             groupBox_filters.TabStop = false;
             groupBox_filters.Text = "Filtros";
             // 
-            // checkedListBox_experience_level
+            // comboBox_annoucement_date
             // 
-            checkedListBox_experience_level.FormattingEnabled = true;
-            checkedListBox_experience_level.Items.AddRange(new object[] { "Estágio", "Júnior", "Assistente", "Pleno-sênior", "Diretor", "Executivo" });
-            checkedListBox_experience_level.Location = new Point(38, 160);
-            checkedListBox_experience_level.Name = "checkedListBox_experience_level";
-            checkedListBox_experience_level.Size = new Size(120, 112);
-            checkedListBox_experience_level.TabIndex = 30;
+            comboBox_annoucement_date.FormattingEnabled = true;
+            comboBox_annoucement_date.Items.AddRange(new object[] { "A qualquer momento", "Último mês", "Última semana", "Últimas 24 horas" });
+            comboBox_annoucement_date.Location = new Point(38, 102);
+            comboBox_annoucement_date.Name = "comboBox_annoucement_date";
+            comboBox_annoucement_date.Size = new Size(121, 23);
+            comboBox_annoucement_date.TabIndex = 32;
             // 
             // label_annoucement_date
             // 
@@ -291,13 +291,14 @@
             label_annoucement_date.TabIndex = 31;
             label_annoucement_date.Text = "Data do anúncio:";
             // 
-            // comboBox_annoucement_date
+            // checkedListBox_experience_level
             // 
-            comboBox_annoucement_date.FormattingEnabled = true;
-            comboBox_annoucement_date.Location = new Point(38, 102);
-            comboBox_annoucement_date.Name = "comboBox_annoucement_date";
-            comboBox_annoucement_date.Size = new Size(121, 23);
-            comboBox_annoucement_date.TabIndex = 32;
+            checkedListBox_experience_level.FormattingEnabled = true;
+            checkedListBox_experience_level.Items.AddRange(new object[] { "Estágio", "Júnior", "Assistente", "Pleno-sênior", "Diretor", "Executivo" });
+            checkedListBox_experience_level.Location = new Point(38, 160);
+            checkedListBox_experience_level.Name = "checkedListBox_experience_level";
+            checkedListBox_experience_level.Size = new Size(120, 112);
+            checkedListBox_experience_level.TabIndex = 30;
             // 
             // mainScreen
             // 
@@ -314,7 +315,6 @@
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "mainScreen";
             Text = "mainScreen";
-            Load += mainScreen_Load;
             groupBox_login.ResumeLayout(false);
             groupBox_login.PerformLayout();
             groupBox_job.ResumeLayout(false);
