@@ -41,5 +41,10 @@
             DateTime dateTime = DateTime.Now;
             return $"\n=============================\t {dateTime}";
         }
+
+        public string linePattern()
+        {
+            return "\n=============================\n";
+        }
     }
 }

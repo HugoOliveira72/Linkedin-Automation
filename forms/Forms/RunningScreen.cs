@@ -47,7 +47,7 @@ namespace forms.Forms
 
         public async Task appendRichTextBoxText(string text)
         {
-            richtxtBox_info.Text += text+"\n";
+            richtxtBox_info.Text += text + "\n";
             await Task.Delay(TimeSpan.FromSeconds(0.1));
         }
 
@@ -71,6 +71,7 @@ namespace forms.Forms
             PlaywrightConfiguration playwrightConfiguration = new PlaywrightConfiguration();
             var settings = await playwrightConfiguration.launchSettingsAsync();
 
+            await appendRichTextBoxText(stringUtilities.linePattern());
             await appendRichTextBoxText("Iniciando...");
 
             await appendRichTextBoxText("Abrindo o navegador padrão...");
@@ -120,10 +121,12 @@ namespace forms.Forms
 
             // CÓDIGO LINKEDIN / VERIFICAÇÃO DE SEGURANÇA (MANUALMENTE)
             await appendRichTextBoxText("Carregando...");
-            await functionsUtilities.WaitForElementAndHandleException(page, "#global-nav-typeahead", "Página carregada!", ExceptionMessages.SecurityError);
+            var message = await functionsUtilities.WaitForElementAndHandleException(page, "#global-nav-typeahead", "Página carregada!", ExceptionMessages.SecurityError);
+            await appendRichTextBoxText(message);
             await Task.Delay(TimeSpan.FromSeconds(2));
 
             // PESQUISA DE VAGAS
+            await appendRichTextBoxText(stringUtilities.linePattern());
             await appendRichTextBoxText($"Pesquisando {this.mainScreenForm.TxtboxJob}");
             var searchJobDiv = await page.QuerySelectorAsync("#global-nav-typeahead");
             await searchJobDiv.ClickAsync();
@@ -433,7 +436,7 @@ namespace forms.Forms
                 }
                 catch (Exception e)
                 {
-                    logUtilities.LogError("Erro genérico",e);
+                    logUtilities.LogError("Erro genérico", e);
                     return;
                 }
             }
