@@ -1,10 +1,12 @@
 ﻿using forms.Forms;
+using forms.Model;
 using playwright.Model;
 
 namespace forms
 {
     public partial class mainScreen : Form
     {
+        public ScreenConfiguration screenConfiguration;
         public mainScreen()
         {
             InitializeComponent();
@@ -21,11 +23,19 @@ namespace forms
                 comboBox_annoucement_date.Text,
                 checkedListBox_experience_level.CheckedItems,
                 checkedListBox_type_job.CheckedItems,
-                checkedListBox_remote.CheckedItems
-
-            );
+                checkedListBox_remote.CheckedItems,
+                this.screenConfiguration
+            ) ;
             RunningScreen runningScreen = new RunningScreen(form);
             runningScreen.Show();
+        }
+
+        private void button_config_Click(object sender, EventArgs e)
+        {
+            ConfigScreen configScreen = new ConfigScreen();
+            configScreen.ShowDialog();
+
+            this.screenConfiguration = configScreen.screenConfiguration;
         }
     }
 }

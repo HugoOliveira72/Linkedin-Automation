@@ -1,4 +1,5 @@
-﻿using forms.Utilities;
+﻿using forms.Model;
+using forms.Utilities;
 
 namespace playwright.Model
 {
@@ -14,6 +15,7 @@ namespace playwright.Model
         public List<string> CheckedListBoxExperiences { get; set; }
         public List<string> CheckedListBoxType_job { get; set; }
         public List<string> CheckedListBoxRemote { get; set; }
+        public ScreenConfiguration ScreenConfiguration { get; set; }
         public FormObject(
             string txtbox_user,
             string txtbox_password,
@@ -24,7 +26,8 @@ namespace playwright.Model
             string annoucementDate,
             CheckedListBox.CheckedItemCollection ExperiencesCheckedItemCollection,
             CheckedListBox.CheckedItemCollection TypeJobCheckedItemCollection,
-            CheckedListBox.CheckedItemCollection RemoteCheckedItemCollection
+            CheckedListBox.CheckedItemCollection RemoteCheckedItemCollection,
+            ScreenConfiguration screenConfiguration
             )
         {
             this.TxtboxUser = txtbox_user;
@@ -37,6 +40,7 @@ namespace playwright.Model
             this.CheckedListBoxExperiences = ExperiencesCheckedItemCollection.ToList();
             this.CheckedListBoxType_job = TypeJobCheckedItemCollection.ToList();
             this.CheckedListBoxRemote = RemoteCheckedItemCollection.ToList();
+            this.ScreenConfiguration = screenConfiguration;
         }
     }
 }

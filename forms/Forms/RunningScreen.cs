@@ -78,7 +78,11 @@ namespace forms.Forms
             var page = await settings.BrowserContext!.NewPageAsync();
 
             // AJUSTAR RESOLUÇÃO DE TELA
-            await page.SetViewportSizeAsync(1920, 1080);
+            string resolution = this.mainScreenForm.ScreenConfiguration.Resolution;
+            string[] pieces = resolution.Split('x');
+            int[] numbers = Array.ConvertAll(pieces, int.Parse);
+
+            await page.SetViewportSizeAsync(numbers[0], numbers[1]);
             await Task.Delay(TimeSpan.FromSeconds(3));
 
             await appendRichTextBoxText("Direcionando para https://www.linkedin.com/");

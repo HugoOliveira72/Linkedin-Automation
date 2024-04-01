@@ -53,6 +53,7 @@
             comboBox_annoucement_date = new ComboBox();
             label_annoucement_date = new Label();
             checkedListBox_experience_level = new CheckedListBox();
+            button_config = new Button();
             groupBox_login.SuspendLayout();
             groupBox_job.SuspendLayout();
             groupBox_filters.SuspendLayout();
@@ -300,12 +301,22 @@
             checkedListBox_experience_level.Size = new Size(120, 112);
             checkedListBox_experience_level.TabIndex = 30;
             // 
+            // button_config
+            // 
+            button_config.Location = new Point(595, 42);
+            button_config.Name = "button_config";
+            button_config.Size = new Size(29, 27);
+            button_config.TabIndex = 36;
+            button_config.UseVisualStyleBackColor = true;
+            button_config.Click += button_config_Click;
+            // 
             // mainScreen
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImageLayout = ImageLayout.Center;
-            ClientSize = new Size(681, 731);
+            ClientSize = new Size(688, 731);
+            Controls.Add(button_config);
             Controls.Add(groupBox_filters);
             Controls.Add(groupBox_job);
             Controls.Add(groupBox_login);
@@ -355,5 +366,6 @@
         private CheckedListBox checkedListBox_experience_level;
         private ComboBox comboBox_annoucement_date;
         private Label label_annoucement_date;
+        private Button button_config;
     }
 }
