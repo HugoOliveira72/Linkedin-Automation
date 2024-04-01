@@ -49,7 +49,8 @@ namespace forms.Forms
 
         public void appendRichTextBoxText(string text)
         {
-            richtxtBox_info.Text += "\n" + text;
+            richtxtBox_info.Text += text+"\n";
+            await Task.Delay(TimeSpan.FromSeconds(0.1));
         }
 
         public async Task Script(CancellationToken token)
@@ -72,18 +73,16 @@ namespace forms.Forms
             PlaywrightConfiguration playwrightConfiguration = new PlaywrightConfiguration();
             var settings = await playwrightConfiguration.launchSettingsAsync();
 
-            appendRichTextBoxText("Iniciando...");
-            await Task.Delay(TimeSpan.FromSeconds(0.5));
+            await appendRichTextBoxText("Iniciando...");
 
-            appendRichTextBoxText("Abrindo o navegador padrão...");
-            await Task.Delay(TimeSpan.FromSeconds(0.5));
+            await appendRichTextBoxText("Abrindo o navegador padrão...");
             var page = await settings.BrowserContext!.NewPageAsync();
 
             // AJUSTAR RESOLUÇÃO DE TELA
             await page.SetViewportSizeAsync(1920, 1080);
             await Task.Delay(TimeSpan.FromSeconds(3));
 
-            appendRichTextBoxText("Direcionando para https://www.linkedin.com/");
+            await appendRichTextBoxText("Direcionando para https://www.linkedin.com/");
             await Task.Delay(TimeSpan.FromSeconds(0.5));
 
             await page.GotoAsync("https://www.linkedin.com/");
@@ -93,18 +92,21 @@ namespace forms.Forms
             await Task.Delay(TimeSpan.FromSeconds(1));
 
             // PREENCHIMENTO DAS CREEDENCIAIS
-            appendRichTextBoxText("Fazendo login..");
-            await Task.Delay(TimeSpan.FromSeconds(0.5));
+            await appendRichTextBoxText("Fazendo login..");
 
             await page.GetByLabel("E-mail ou telefone").ClickAsync();
 
             await page.GetByLabel("E-mail ou telefone").FillAsync(userInfo.email);
+
+            await appendRichTextBoxText("Usuario/email preenchido");
 
             await Task.Delay(TimeSpan.FromSeconds(0.8));
 
             await page.GetByLabel("Senha").ClickAsync();
 
             await page.GetByLabel("Senha").FillAsync(userInfo.password);
+
+            await appendRichTextBoxText("Senha preenchida");
 
             await Task.Delay(TimeSpan.FromSeconds(0.8));
 
@@ -113,17 +115,18 @@ namespace forms.Forms
             var errorLogin = await page.QuerySelectorAsync("div[error-for=\"password\"]");
             if (errorLogin != null)
             {
-                appendRichTextBoxText(stringUtilities.errorPattern(ExceptionMessages.IncorretLogin, null, false));
+                await appendRichTextBoxText(stringUtilities.errorPattern(ExceptionMessages.IncorretLogin, null, false));
                 return;
             }
             await Task.Delay(TimeSpan.FromSeconds(2));
 
             // CÓDIGO LINKEDIN / VERIFICAÇÃO DE SEGURANÇA (MANUALMENTE)
-            appendRichTextBoxText("Carregando...");
+            await appendRichTextBoxText("Carregando...");
             await functionsUtilities.WaitForElementAndHandleException(page, "#global-nav-typeahead", "Página carregada!", ExceptionMessages.SecurityError);
             await Task.Delay(TimeSpan.FromSeconds(2));
 
             // PESQUISA DE VAGAS
+            await appendRichTextBoxText($"Pesquisando {this.mainScreenForm.TxtboxJob}");
             var searchJobDiv = await page.QuerySelectorAsync("#global-nav-typeahead");
             await searchJobDiv.ClickAsync();
             await Task.Delay(TimeSpan.FromSeconds(0.8));
@@ -133,14 +136,17 @@ namespace forms.Forms
             await Task.Delay(TimeSpan.FromSeconds(0.8));
 
             await inputSearchJob.PressAsync("Enter");
+            await appendRichTextBoxText("Pesquisado com sucesso");
             await Task.Delay(TimeSpan.FromSeconds(2));
 
             // APLICAÇÃO DE FILTROS
+            await appendRichTextBoxText("Aplicando filtros");
             var navFilterArea = await page.QuerySelectorAsync("nav[aria-label='Filtros de pesquisa']");
             var buttonJobFilter = await navFilterArea.QuerySelectorAsync("button:has-text('Vagas')");
             await buttonJobFilter.ClickAsync();
             await Task.Delay(TimeSpan.FromSeconds(0.8));
 
+            await appendRichTextBoxText("Exibindo todos os filtros");
             await page.GetByLabel("Exibir todos os filtros. Ao").ClickAsync();
             await Task.Delay(TimeSpan.FromSeconds(0.8));
 
@@ -151,34 +157,43 @@ namespace forms.Forms
             await buttonFilterType.ClickAsync();
             await Task.Delay(TimeSpan.FromSeconds(0.8));
 
+            await appendRichTextBoxText("Selecionando candidatura simplificada..");
             await page.GetByText("Desativada Alternar filtro Candidatura simplificada").ClickAsync();
             await Task.Delay(TimeSpan.FromSeconds(0.8));
 
             ///Classificar por
+            await appendRichTextBoxText($"*FiltroClassificar por: {this.mainScreenForm.ClassifyBy};");
             await page.GetByLabel("Todos os filtros", new() { Exact = true }).Locator("label").Filter(new() { HasText = $"{this.mainScreenForm.ClassifyBy} Filtrar por {this.mainScreenForm.ClassifyBy}" }).ClickAsync();
             await Task.Delay(TimeSpan.FromSeconds(0.8));
 
             ///Data do anúncio
+            await appendRichTextBoxText($"*FiltroData do anúncio: {this.mainScreenForm.AnnoucementDate};");
             await page.GetByLabel("Todos os filtros", new() { Exact = true }).Locator("label").Filter(new() { HasText = $"{this.mainScreenForm.AnnoucementDate} Filtrar por {this.mainScreenForm.AnnoucementDate}" }).ClickAsync();
             await Task.Delay(TimeSpan.FromSeconds(0.8));
 
             ///Nível de experiência
+            await appendRichTextBoxText($"*FiltroNível de experiencia:");
             foreach (string selectedExperience in this.mainScreenForm.CheckedListBoxExperiences)
             {
+                await appendRichTextBoxText($"\t{selectedExperience}");
                 await page.GetByLabel("Todos os filtros", new() { Exact = true }).Locator("label").Filter(new() { HasText = $"{selectedExperience} Filtrar por {selectedExperience}" }).ClickAsync();
                 await Task.Delay(TimeSpan.FromSeconds(0.5));
             }
 
             ///Tipo de vaga
+            await appendRichTextBoxText($"*FiltroTipo de vaga:");
             foreach (string selectedType in this.mainScreenForm.CheckedListBoxType_job)
             {
+                await appendRichTextBoxText($"\t{selectedType}");
                 await page.GetByLabel("Todos os filtros", new() { Exact = true }).Locator("label").Filter(new() { HasText = $"{selectedType} Filtrar por {selectedType}" }).ClickAsync();
                 await Task.Delay(TimeSpan.FromSeconds(0.5));
             }
 
             ///Remoto
+            await appendRichTextBoxText($"*FiltroRemoto:");
             foreach (string selectedRemote in this.mainScreenForm.CheckedListBoxRemote)
             {
+                await appendRichTextBoxText($"\t\t{selectedRemote}");
                 await page.GetByLabel("Todos os filtros", new() { Exact = true }).Locator("label").Filter(new() { HasText = $"{selectedRemote} Filtrar por {selectedRemote}" }).ClickAsync();
                 await Task.Delay(TimeSpan.FromSeconds(0.5));
             }
@@ -201,7 +216,7 @@ namespace forms.Forms
             // LISTAR TODAS AS VAGAS
             var ulElementsJobs = await page.QuerySelectorAllAsync("li[class*='jobs-search-results__list-item']");
             int avaiableJobs = ulElementsJobs.Count();
-            appendRichTextBoxText($"Empregos disponiveis: {avaiableJobs}");
+            await appendRichTextBoxText($"Vagas encontradas: {avaiableJobs}");
             await Task.Delay(TimeSpan.FromSeconds(1));
 
             //HABILITAR O BOTÃO SAIR
@@ -238,9 +253,9 @@ namespace forms.Forms
                         jobsCounter = 1;
                     }
 
-                    appendRichTextBoxText("==================================");
-                    appendRichTextBoxText($"Página {currentPage}");
-                    appendRichTextBoxText($"Vaga nº {jobsCounter}");
+                    await appendRichTextBoxText("==================================");
+                    await appendRichTextBoxText($"Página {currentPage}");
+                    await appendRichTextBoxText($"Vaga nº {jobsCounter}");
 
                     try
                     {
@@ -249,7 +264,7 @@ namespace forms.Forms
                     }
                     catch (Exception e)
                     {
-                        Console.WriteLine("\n\n\n\n\n======================================", e);
+                        await appendRichTextBoxText($"\n\n\n\n\n======================================\n{e}");
                     }
 
                     // SELECIONAR DIV SUPERIOR (Div que contem descrição da vaga, botoes)
@@ -280,7 +295,7 @@ namespace forms.Forms
                             var jobAlreadySaved = await saveButton.QuerySelectorAsync("span:has-text('Salvos')");
                             if (jobAlreadySaved != null)
                             {
-                                appendRichTextBoxText("VAGA JÁ FOI SALVA ANTERIORMENTE");
+                                await appendRichTextBoxText("VAGA JÁ FOI SALVA ANTERIORMENTE");
                                 continue;
                             }
 
@@ -288,10 +303,10 @@ namespace forms.Forms
                             await saveButton.ClickAsync();
 
                             await Task.Delay(TimeSpan.FromSeconds(0.8));
-                            Console.WriteLine($"Salva a vaga nº{jobsCounter}");
+                            await appendRichTextBoxText($"Salva a vaga nº{jobsCounter}");
                             await Task.Delay(TimeSpan.FromSeconds(0.8));
                             Console.ForegroundColor = ConsoleColor.Blue;
-                            Console.WriteLine($"Total de {savedJobs} vagas salvas");
+                            await appendRichTextBoxText($"Total de {savedJobs} vagas salvas");
                             Console.ResetColor(); // Resetar a cor para o padrão
 
                             continue;
@@ -304,7 +319,7 @@ namespace forms.Forms
 
                         if (appliedAlready!.Contains("Candidatou-se"))
                         {
-                            appendRichTextBoxText("!Vaga já candidatada!");
+                            await appendRichTextBoxText("!Vaga já candidatada!");
                             continue;
                         }
                     }
@@ -329,9 +344,9 @@ namespace forms.Forms
 
                         /// EXIBE NA TELA INFORMAÇÕES DA CANDIDATURA
                         await Task.Delay(TimeSpan.FromSeconds(0.8));
-                        Console.WriteLine($"Inscrito na vaga nº{jobsCounter}", Color.Green);
+                        await appendRichTextBoxText($"Inscrito na vaga nº{jobsCounter}");
                         await Task.Delay(TimeSpan.FromSeconds(0.8));
-                        Console.WriteLine($"Total de {appliedJobs} vagas aplicadas", Color.Green);
+                        await appendRichTextBoxText($"Total de {appliedJobs} vagas aplicadas");
                         continue;
                     }
                     else // QUANDO BOTÃO AVANÇAR EXISTE!
@@ -387,9 +402,9 @@ namespace forms.Forms
                         appliedJobs++;
 
                         await Task.Delay(TimeSpan.FromSeconds(0.8));
-                        Console.WriteLine($"Inscrito na vaga nº{jobsCounter}");
+                        await appendRichTextBoxText($"Inscrito na vaga nº{jobsCounter}");
                         await Task.Delay(TimeSpan.FromSeconds(0.8));
-                        Console.WriteLine($"Total de {appliedJobs} vagas aplicadas");
+                        await appendRichTextBoxText($"Total de {appliedJobs} vagas aplicadas");
                         stringUtilities.finishPattern(appliedJobs, savedJobs);
                         continue;
                     }
@@ -411,11 +426,11 @@ namespace forms.Forms
 
                         await Task.Delay(TimeSpan.FromSeconds(0.8));
 
-                        appendRichTextBoxText($"Salva a vaga nº{jobsCounter}");
+                        await appendRichTextBoxText($"Salva a vaga nº{jobsCounter}");
                         await Task.Delay(TimeSpan.FromSeconds(0.8));
-                        appendRichTextBoxText($"Total de {appliedJobs} vagas aplicadas");
+                        await appendRichTextBoxText($"Total de {appliedJobs} vagas aplicadas");
 
-                        appendRichTextBoxText($"Total de {savedJobs} vagas salvas");
+                        await appendRichTextBoxText($"Total de {savedJobs} vagas salvas");
                         continue;
                     }
                 }
