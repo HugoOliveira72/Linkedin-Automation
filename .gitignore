@@ -4,7 +4,9 @@
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
 #Log File and UserFile
-forms/Files/
+forms/Files/log.txt
+forms/Files/userInfo.txt
+
 
 # User-specific files
 *.rsuser
