@@ -16,7 +16,6 @@ namespace forms.Forms
         private CancellationTokenSource cancellationToken = new CancellationTokenSource();
 
         public static string LOGPATH = "../../../../Forms/Files/log.txt";  //Mudar o diretório (opcional)
-        private string? LOGTEXT;
 
         public RunningScreen()
         {
@@ -359,8 +358,7 @@ namespace forms.Forms
                         catch (Exception e)
                         {
                             /// ERRO AO CLICAR NO BOTÃO
-                            LOGTEXT = stringUtilities.errorPattern($"Não foi possivel clicar no botão avançar!", e);
-                            logUtilities.writeError(LOGTEXT);
+                            logUtilities.LogError("Não foi possivel clicar no botão avançar!", e);
                             continue;
                         }
                     }
@@ -435,9 +433,7 @@ namespace forms.Forms
                 }
                 catch (Exception e)
                 {
-                    LOGTEXT = stringUtilities.errorPattern("Erro genérico: ", e, true);
-                    logUtilities.writeError(LOGTEXT);
-                    Console.ReadKey();
+                    logUtilities.LogError("Erro genérico",e);
                     return;
                 }
             }

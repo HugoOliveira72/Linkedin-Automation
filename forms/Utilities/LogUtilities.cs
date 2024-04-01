@@ -32,5 +32,7 @@ namespace Linkedin_Automation.Utilities
             var logText = stringPatterns.errorPattern(message, exception, true);
             writeError(logText);
         }
+
+
     }
 }
