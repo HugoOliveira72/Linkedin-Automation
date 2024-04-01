@@ -15,7 +15,6 @@ namespace forms.Forms
         private FunctionsUtilities functionsUtilities = new FunctionsUtilities();
         private CancellationTokenSource cancellationToken = new CancellationTokenSource();
 
-        private int JOBS = 10;   //N° DE VAGAS QUE SERÃO CANDIDATADAS
         public static string LOGPATH = "../../../../Forms/Files/log.txt";  //Mudar o diretório (opcional)
         private string? LOGTEXT;
 
@@ -47,7 +46,7 @@ namespace forms.Forms
             await Script(cancellationToken.Token);
         }
 
-        public void appendRichTextBoxText(string text)
+        public async Task appendRichTextBoxText(string text)
         {
             richtxtBox_info.Text += text+"\n";
             await Task.Delay(TimeSpan.FromSeconds(0.1));
@@ -222,7 +221,7 @@ namespace forms.Forms
             //HABILITAR O BOTÃO SAIR
             button_exit.Enabled = true;
 
-            while (appliedJobs != JOBS)
+            while (appliedJobs != this.mainScreenForm.AmoutOfJobs)
             {
                 try
                 {
