@@ -314,7 +314,7 @@
             Controls.Add(send_button);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "mainScreen";
-            Text = "mainScreen";
+            Text = "Linkedin automation";
             groupBox_login.ResumeLayout(false);
             groupBox_login.PerformLayout();
             groupBox_job.ResumeLayout(false);

@@ -30,7 +30,6 @@
         {
             richtxtBox_info = new RichTextBox();
             info_label = new Label();
-            pause_button = new Button();
             job_applied = new Label();
             txtBox_job = new TextBox();
             number_applied_jobs = new Label();
@@ -59,17 +58,6 @@
             info_label.TabIndex = 1;
             info_label.Text = "Info";
             // 
-            // pause_button
-            // 
-            pause_button.Enabled = false;
-            pause_button.Font = new Font("Segoe UI", 14F);
-            pause_button.Location = new Point(391, 514);
-            pause_button.Name = "pause_button";
-            pause_button.Size = new Size(97, 40);
-            pause_button.TabIndex = 2;
-            pause_button.Text = "Pausar";
-            pause_button.UseVisualStyleBackColor = true;
-            // 
             // job_applied
             // 
             job_applied.AutoSize = true;
@@ -84,7 +72,7 @@
             txtBox_job.Location = new Point(865, 82);
             txtBox_job.Name = "txtBox_job";
             txtBox_job.ReadOnly = true;
-            txtBox_job.Size = new Size(100, 23);
+            txtBox_job.Size = new Size(161, 23);
             txtBox_job.TabIndex = 4;
             // 
             // number_applied_jobs
@@ -101,7 +89,7 @@
             txtBox_applied_Jobs.Location = new Point(865, 155);
             txtBox_applied_Jobs.Name = "txtBox_applied_Jobs";
             txtBox_applied_Jobs.ReadOnly = true;
-            txtBox_applied_Jobs.Size = new Size(100, 23);
+            txtBox_applied_Jobs.Size = new Size(89, 23);
             txtBox_applied_Jobs.TabIndex = 6;
             // 
             // label4
@@ -118,7 +106,7 @@
             txtBoxsaved_jobs.Location = new Point(865, 223);
             txtBoxsaved_jobs.Name = "txtBoxsaved_jobs";
             txtBoxsaved_jobs.ReadOnly = true;
-            txtBoxsaved_jobs.Size = new Size(100, 23);
+            txtBoxsaved_jobs.Size = new Size(89, 23);
             txtBoxsaved_jobs.TabIndex = 8;
             // 
             // title_label
@@ -135,7 +123,7 @@
             // 
             button_exit.Enabled = false;
             button_exit.Font = new Font("Segoe UI", 14F);
-            button_exit.Location = new Point(535, 514);
+            button_exit.Location = new Point(440, 516);
             button_exit.Name = "button_exit";
             button_exit.Size = new Size(92, 40);
             button_exit.TabIndex = 10;
@@ -156,11 +144,10 @@
             Controls.Add(number_applied_jobs);
             Controls.Add(txtBox_job);
             Controls.Add(job_applied);
-            Controls.Add(pause_button);
             Controls.Add(richtxtBox_info);
             Controls.Add(info_label);
             Name = "RunningScreen";
-            Text = "RunningScreen";
+            Text = "Linkedin automation";
             Load += RunningScreen_Load;
             ResumeLayout(false);
             PerformLayout();
@@ -170,7 +157,6 @@
 
         private RichTextBox richtxtBox_info;
         private Label info_label;
-        private Button pause_button;
         private Label job_applied;
         private TextBox txtBox_job;
         private Label number_applied_jobs;
