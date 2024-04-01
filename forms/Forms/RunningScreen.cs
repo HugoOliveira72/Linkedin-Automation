@@ -13,6 +13,8 @@ namespace forms.Forms
     {
         private FormObject mainScreenForm;
         private FunctionsUtilities functionsUtilities = new FunctionsUtilities();
+        private CancellationTokenSource cancellationToken = new CancellationTokenSource();
+
         private int JOBS = 10;   //N° DE VAGAS QUE SERÃO CANDIDATADAS
         public static string LOGPATH = "../../../../Forms/Files/log.txt";  //Mudar o diretório (opcional)
         private string? LOGTEXT;
@@ -42,7 +44,7 @@ namespace forms.Forms
             txtBox_applied_Jobs.Text = $"0/{mainScreenForm.AmoutOfJobs}";
             txtBox_job.Text = mainScreenForm.TxtboxJob;
 
-            await Script();
+            await Script(cancellationToken.Token);
         }
 
         public void appendRichTextBoxText(string text)
@@ -50,7 +52,7 @@ namespace forms.Forms
             richtxtBox_info.Text += "\n" + text;
         }
 
-        public async Task Script()
+        public async Task Script(CancellationToken token)
         {
             // CRIAÇÃO LOG.TXT, CASO Ñ HOUVER
             StringPatterns stringUtilities = new StringPatterns();
@@ -202,10 +204,15 @@ namespace forms.Forms
             appendRichTextBoxText($"Empregos disponiveis: {avaiableJobs}");
             await Task.Delay(TimeSpan.FromSeconds(1));
 
+            //HABILITAR O BOTÃO SAIR
+            button_exit.Enabled = true;
+
             while (appliedJobs != JOBS)
             {
                 try
                 {
+                    if (token.IsCancellationRequested) break;
+
                     jobsCounter++;
 
                     if (jobsCounter > ulElementsJobs.Count())
@@ -420,6 +427,12 @@ namespace forms.Forms
                     return;
                 }
             }
+        }
+
+        private void stopApplication_button_Click(object sender, EventArgs e)
+        {
+            cancellationToken.Cancel();
+            this.Close();
         }
     }
 }

@@ -38,7 +38,7 @@
             label4 = new Label();
             txtBoxsaved_jobs = new TextBox();
             title_label = new Label();
-            stopApplication_button = new Button();
+            button_exit = new Button();
             SuspendLayout();
             // 
             // richtxtBox_info
@@ -61,6 +61,7 @@
             // 
             // pause_button
             // 
+            pause_button.Enabled = false;
             pause_button.Font = new Font("Segoe UI", 14F);
             pause_button.Location = new Point(391, 514);
             pause_button.Name = "pause_button";
@@ -130,22 +131,24 @@
             title_label.TabIndex = 9;
             title_label.Text = "LINKEDIN AUTOMATION";
             // 
-            // stopApplication_button
+            // button_exit
             // 
-            stopApplication_button.Font = new Font("Segoe UI", 14F);
-            stopApplication_button.Location = new Point(535, 514);
-            stopApplication_button.Name = "stopApplication_button";
-            stopApplication_button.Size = new Size(92, 40);
-            stopApplication_button.TabIndex = 10;
-            stopApplication_button.Text = "Sair";
-            stopApplication_button.UseVisualStyleBackColor = true;
+            button_exit.Enabled = false;
+            button_exit.Font = new Font("Segoe UI", 14F);
+            button_exit.Location = new Point(535, 514);
+            button_exit.Name = "button_exit";
+            button_exit.Size = new Size(92, 40);
+            button_exit.TabIndex = 10;
+            button_exit.Text = "Sair";
+            button_exit.UseVisualStyleBackColor = true;
+            button_exit.Click += stopApplication_button_Click;
             // 
             // RunningScreen
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1064, 583);
-            Controls.Add(stopApplication_button);
+            Controls.Add(button_exit);
             Controls.Add(title_label);
             Controls.Add(txtBoxsaved_jobs);
             Controls.Add(label4);
@@ -175,6 +178,6 @@
         private Label label4;
         private TextBox txtBoxsaved_jobs;
         private Label title_label;
-        private Button stopApplication_button;
+        private Button button_exit;
     }
 }
