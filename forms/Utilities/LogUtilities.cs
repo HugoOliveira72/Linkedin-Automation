@@ -10,7 +10,7 @@ namespace Linkedin_Automation.Utilities
 
         public LogUtilities()
         {
-            this.logpath = RunningScreen.LOGPATH;
+            this.logpath = AutomationScreen.LOGPATH;
         }
         public void createLogFile()
         {

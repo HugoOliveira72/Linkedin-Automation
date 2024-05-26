@@ -9,7 +9,7 @@ using playwright.Model;
 
 namespace forms.Forms
 {
-    public partial class RunningScreen : Form
+    public partial class AutomationScreen : Form
     {
         private FormObject mainScreenForm;
         private FunctionsUtilities functionsUtilities = new FunctionsUtilities();
@@ -17,12 +17,12 @@ namespace forms.Forms
 
         public static string LOGPATH = "../../../../Forms/Files/log.txt";  //Mudar o diretório (opcional)
 
-        public RunningScreen()
+        public AutomationScreen()
         {
             InitializeComponent();
         }
 
-        public RunningScreen(FormObject formObject)
+        public AutomationScreen(FormObject formObject)
         {
             InitializeComponent();
             this.mainScreenForm = formObject;

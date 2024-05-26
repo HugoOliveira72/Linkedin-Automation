@@ -1,6 +1,6 @@
 ﻿namespace forms
 {
-    partial class mainScreen
+    partial class HomeScreen
     {
         /// <summary>
         /// Required designer variable.
@@ -305,12 +305,12 @@
             // 
             button_config.Location = new Point(595, 42);
             button_config.Name = "button_config";
-            button_config.Size = new Size(29, 27);
+            button_config.Size = new Size(29, 25);
             button_config.TabIndex = 36;
             button_config.UseVisualStyleBackColor = true;
             button_config.Click += button_config_Click;
             // 
-            // mainScreen
+            // HomeScreen
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -324,7 +324,7 @@
             Controls.Add(title_label);
             Controls.Add(send_button);
             FormBorderStyle = FormBorderStyle.FixedSingle;
-            Name = "mainScreen";
+            Name = "HomeScreen";
             Text = "Linkedin automation";
             groupBox_login.ResumeLayout(false);
             groupBox_login.PerformLayout();

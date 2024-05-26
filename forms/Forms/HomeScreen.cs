@@ -4,10 +4,10 @@ using playwright.Model;
 
 namespace forms
 {
-    public partial class mainScreen : Form
+    public partial class HomeScreen : Form
     {
         public ScreenConfiguration screenConfiguration;
-        public mainScreen()
+        public HomeScreen()
         {
             InitializeComponent();
         }
@@ -26,7 +26,7 @@ namespace forms
                 checkedListBox_remote.CheckedItems,
                 this.screenConfiguration
             ) ;
-            RunningScreen runningScreen = new RunningScreen(form);
+            AutomationScreen runningScreen = new AutomationScreen(form);
             runningScreen.Show();
         }
 

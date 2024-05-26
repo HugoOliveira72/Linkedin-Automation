@@ -1,6 +1,6 @@
 ﻿namespace forms.Forms
 {
-    partial class RunningScreen
+    partial class AutomationScreen
     {
         /// <summary>
         /// Required designer variable.
