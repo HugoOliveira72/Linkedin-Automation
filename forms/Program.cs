@@ -1,3 +1,5 @@
+using forms.Forms;
+
 namespace forms
 {
     internal static class Program
@@ -11,7 +13,7 @@ namespace forms
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new HomeScreen());
+            Application.Run(new LoginScreen());
         }
     }
 }
