@@ -131,11 +131,11 @@
             button_exit.UseVisualStyleBackColor = true;
             button_exit.Click += stopApplication_button_Click;
             // 
-            // RunningScreen
+            // AutomationScreen
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1064, 583);
+            ClientSize = new Size(1065, 583);
             Controls.Add(button_exit);
             Controls.Add(title_label);
             Controls.Add(txtBoxsaved_jobs);
@@ -146,7 +146,7 @@
             Controls.Add(job_applied);
             Controls.Add(richtxtBox_info);
             Controls.Add(info_label);
-            Name = "RunningScreen";
+            Name = "AutomationScreen";
             Text = "Linkedin automation";
             Load += RunningScreen_Load;
             ResumeLayout(false);

@@ -76,7 +76,7 @@
             // 
             // button_apply_configs
             // 
-            button_apply_configs.Location = new Point(92, 346);
+            button_apply_configs.Location = new Point(92, 205);
             button_apply_configs.Name = "button_apply_configs";
             button_apply_configs.Size = new Size(100, 30);
             button_apply_configs.TabIndex = 4;
@@ -88,7 +88,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(285, 416);
+            ClientSize = new Size(285, 295);
             Controls.Add(button_apply_configs);
             Controls.Add(label2);
             Controls.Add(comboBox_resolution);
