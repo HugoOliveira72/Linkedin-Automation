@@ -77,8 +77,20 @@ namespace forms.Forms
             await appendRichTextBoxText("Abrindo o navegador padrão...");
             var page = await settings.BrowserContext!.NewPageAsync();
 
-            // AJUSTAR RESOLUÇÃO DE TELA
-            string resolution = this.mainScreenForm.ScreenConfiguration.Resolution;
+            //// AJUSTAR RESOLUÇÃO DE TELA DO BROWSER
+            string resolution;
+            ///Tela cheia
+            if (this.mainScreenForm.ScreenConfiguration.ScreenType == "Tela cheia")
+            {
+                ///Pegar resolução de tela
+                string screenWidth = Screen.PrimaryScreen.Bounds.Width.ToString();
+                string screenHeight = Screen.PrimaryScreen.Bounds.Height.ToString();
+
+                resolution = screenWidth + "x" + screenHeight;
+            }
+            else ///Janela
+                resolution = this.mainScreenForm.ScreenConfiguration.Resolution;
+
             string[] pieces = resolution.Split('x');
             int[] numbers = Array.ConvertAll(pieces, int.Parse);
 

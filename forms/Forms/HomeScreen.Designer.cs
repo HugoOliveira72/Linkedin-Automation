@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HomeScreen));
             job_label = new Label();
             txtbox_job = new TextBox();
             send_button = new Button();
@@ -303,10 +304,14 @@
             // 
             // button_config
             // 
-            button_config.Location = new Point(595, 42);
+            button_config.AllowDrop = true;
+            button_config.BackgroundImage = (Image)resources.GetObject("button_config.BackgroundImage");
+            button_config.BackgroundImageLayout = ImageLayout.Zoom;
+            button_config.Font = new Font("Segoe UI", 1F);
+            button_config.Location = new Point(594, 42);
             button_config.Name = "button_config";
-            button_config.Size = new Size(29, 25);
-            button_config.TabIndex = 36;
+            button_config.Size = new Size(30, 28);
+            button_config.TabIndex = 14;
             button_config.UseVisualStyleBackColor = true;
             button_config.Click += button_config_Click;
             // 

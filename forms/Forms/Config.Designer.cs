@@ -47,6 +47,7 @@
             // comboBox_resolution_type
             // 
             comboBox_resolution_type.FormattingEnabled = true;
+            comboBox_resolution_type.IntegralHeight = false;
             comboBox_resolution_type.Items.AddRange(new object[] { "Tela cheia", "Janela" });
             comboBox_resolution_type.Location = new Point(22, 53);
             comboBox_resolution_type.Name = "comboBox_resolution_type";

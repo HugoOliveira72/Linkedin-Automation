@@ -1,4 +1,6 @@
 ﻿using forms.Model;
+using playwright.Model;
+using System.Threading;
 
 namespace forms.Forms
 {
@@ -8,14 +10,18 @@ namespace forms.Forms
         public ConfigScreen()
         {
             InitializeComponent();
+
+            this.Shown += new EventHandler(ConfigScreen_Shown);
+        }
+
+        public void ConfigScreen_Shown(object sender, EventArgs e)
+        {
+            comboBox_resolution_type.SelectedIndex = 0;
         }
 
         private void comboBox_resolution_type_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (comboBox_resolution_type.Text == "Modo janela")
-            {
-                comboBox_resolution.Enabled = true;
-            }
+            comboBox_resolution.Enabled = (comboBox_resolution_type.Text == "Tela cheia") ? false : true;
         }
 
         private void button_apply_configs_Click(object sender, EventArgs e)
