@@ -83,17 +83,11 @@ namespace forms.Forms
             var page = await settings.BrowserContext!.NewPageAsync();
 
             // AJUSTAR RESOLUÇÃO DE TELA DO BROWSER
-            List<string> ResLines = new List<string>();
             string resolution;
-            ///Leitura arq res.txt
-            using (StreamReader streamReader = new StreamReader(RESPATH))
-            {
-                string line;
-                while ((line = streamReader.ReadLine()) != null)
-                {
-                    ResLines.Add(line);
-                }
-            }
+
+            ///Leitura arq resolution.txt
+            var ResLines = File.ReadLines(RESPATH).ToList();
+            
             ///Tela cheia
             if (ResLines.First() == "Tela cheia")
             {
