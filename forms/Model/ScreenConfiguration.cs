@@ -5,6 +5,10 @@
         public string? ScreenType { get; set; }
         public string? Resolution { get; set; }
 
+        public ScreenConfiguration()
+        {
+        }
+
         public ScreenConfiguration(string screenType, string resolution)
         {
             this.ScreenType = screenType;

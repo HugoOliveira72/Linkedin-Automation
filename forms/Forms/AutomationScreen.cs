@@ -6,6 +6,8 @@ using Linkedin_Automation.Model;
 using Linkedin_Automation.Utilities;
 using Microsoft.Playwright;
 using playwright.Model;
+using System.Text;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace forms.Forms
 {
@@ -15,7 +17,10 @@ namespace forms.Forms
         private FunctionsUtilities functionsUtilities = new FunctionsUtilities();
         private CancellationTokenSource cancellationToken = new CancellationTokenSource();
 
+        public StringPatterns stringPatterns = new StringPatterns();
+
         public static string LOGPATH = "../../../../Forms/Files/log.txt";  //Mudar o diretório (opcional)
+        public static string RESPATH = "../../../../Forms/Config/resolution.txt";
 
         public AutomationScreen()
         {
@@ -77,10 +82,20 @@ namespace forms.Forms
             await appendRichTextBoxText("Abrindo o navegador padrão...");
             var page = await settings.BrowserContext!.NewPageAsync();
 
-            //// AJUSTAR RESOLUÇÃO DE TELA DO BROWSER
+            // AJUSTAR RESOLUÇÃO DE TELA DO BROWSER
+            List<string> ResLines = new List<string>();
             string resolution;
+            ///Leitura arq res.txt
+            using (StreamReader streamReader = new StreamReader(RESPATH))
+            {
+                string line;
+                while ((line = streamReader.ReadLine()) != null)
+                {
+                    ResLines.Add(line);
+                }
+            }
             ///Tela cheia
-            if (this.mainScreenForm.ScreenConfiguration.ScreenType == "Tela cheia")
+            if (ResLines.First() == "Tela cheia")
             {
                 ///Pegar resolução de tela
                 string screenWidth = Screen.PrimaryScreen.Bounds.Width.ToString();
@@ -89,7 +104,7 @@ namespace forms.Forms
                 resolution = screenWidth + "x" + screenHeight;
             }
             else ///Janela
-                resolution = this.mainScreenForm.ScreenConfiguration.Resolution;
+                resolution = ResLines.Last();
 
             string[] pieces = resolution.Split('x');
             int[] numbers = Array.ConvertAll(pieces, int.Parse);
@@ -462,6 +477,20 @@ namespace forms.Forms
         {
             cancellationToken.Cancel();
             this.Close();
+        }
+
+        private async Task createResolutionFile()
+        {
+            MessageBox.Show("Criado arquivo resolution.txt", "Criando", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2);
+            ///Cria arquivo
+            File.Create(RESPATH);
+        }
+
+        private async Task appendText(string text)
+        {
+            MessageBox.Show("Adicionado tela cheia como padrãoo em resolution.txt", "Escrevendo", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2);
+            string[] lines = [text];
+            File.AppendAllLines(Path.Combine(RESPATH), lines);
         }
     }
 }

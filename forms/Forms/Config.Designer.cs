@@ -32,7 +32,7 @@
             comboBox_resolution_type = new ComboBox();
             comboBox_resolution = new ComboBox();
             label2 = new Label();
-            button_apply_configs = new Button();
+            button_save_configs = new Button();
             SuspendLayout();
             // 
             // label_screen_type
@@ -67,29 +67,28 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Enabled = false;
             label2.Location = new Point(22, 103);
             label2.Name = "label2";
             label2.Size = new Size(61, 15);
             label2.TabIndex = 3;
             label2.Text = "Resolução";
             // 
-            // button_apply_configs
+            // button_save_configs
             // 
-            button_apply_configs.Location = new Point(92, 205);
-            button_apply_configs.Name = "button_apply_configs";
-            button_apply_configs.Size = new Size(100, 30);
-            button_apply_configs.TabIndex = 4;
-            button_apply_configs.Text = "Aplicar";
-            button_apply_configs.UseVisualStyleBackColor = true;
-            button_apply_configs.Click += button_apply_configs_Click;
+            button_save_configs.Location = new Point(92, 205);
+            button_save_configs.Name = "button_save_configs";
+            button_save_configs.Size = new Size(100, 30);
+            button_save_configs.TabIndex = 4;
+            button_save_configs.Text = "Salvar";
+            button_save_configs.UseVisualStyleBackColor = true;
+            button_save_configs.Click += button_save_configs_Click;
             // 
             // ConfigScreen
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(285, 295);
-            Controls.Add(button_apply_configs);
+            Controls.Add(button_save_configs);
             Controls.Add(label2);
             Controls.Add(comboBox_resolution);
             Controls.Add(comboBox_resolution_type);
@@ -106,6 +105,6 @@
         private ComboBox comboBox_resolution_type;
         private ComboBox comboBox_resolution;
         private Label label2;
-        private Button button_apply_configs;
+        private Button button_save_configs;
     }
 }
