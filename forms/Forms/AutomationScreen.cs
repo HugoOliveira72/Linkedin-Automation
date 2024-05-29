@@ -1,7 +1,7 @@
-﻿using forms.Utilities;
+﻿using forms.Models;
+using forms.Utilities;
 using forms.Utilities.Messages;
 using Linkedin_Automation.Config;
-using Linkedin_Automation.Credencials;
 using Linkedin_Automation.Model;
 using Linkedin_Automation.Utilities;
 using Microsoft.Playwright;
@@ -69,7 +69,7 @@ namespace forms.Forms
                 logUtilities.writeStartMessage();
 
             // LER DADOS DOS USUARIOS
-            Credencials credencials = new Credencials(this.mainScreenForm);
+            UserCredencials credencials = new UserCredencials(this.mainScreenForm);
             User userInfo = credencials.User;
 
             // CONFIGURAÇÃO DO PLAYWRIGHT

@@ -3,9 +3,9 @@ using Linkedin_Automation.Model;
 using playwright.Model;
 using System.Text;
 
-namespace Linkedin_Automation.Credencials
+namespace forms.Models
 {
-    public class Credencials
+    public class UserCredencials
     {
         // Diretorio de execução
         // linkedin_Automation\playwright\bin\Debug\net{version}"
@@ -14,10 +14,10 @@ namespace Linkedin_Automation.Credencials
 
         public User User { get; set; }
 
-        public Credencials(FormObject formObject)
+        public UserCredencials(FormObject formObject)
         {
             // Armazena o objeto FormObject recebido como atributo da classe
-            this.formAttribute = formObject;
+            formAttribute = formObject;
 
             // Verifica se o arquivo de credenciais existe
             if (!File.Exists(USERPATH))
@@ -33,7 +33,7 @@ namespace Linkedin_Automation.Credencials
             if (userLines.Count > 0)
             {
                 // Se o arquivo contém dados, cria um objeto User com o email e senha lidos do arquivo
-                this.User = new User(userLines[0], userLines[1]);
+                User = new User(userLines[0], userLines[1]);
             }
             else
             {
@@ -41,7 +41,7 @@ namespace Linkedin_Automation.Credencials
                 if (formObject.CheckboxWriteCredentials)
                 {
                     // Se a checkbox está marcada, adiciona as credenciais do formulário ao arquivo
-                    appendCredentials(this.formAttribute.TxtboxUser, this.formAttribute.TxtboxPassword);
+                    appendCredentials(formAttribute.TxtboxUser, formAttribute.TxtboxPassword);
                     return;
                 }
 
