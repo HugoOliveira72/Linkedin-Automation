@@ -1,5 +1,4 @@
 ﻿using forms.Model;
-using forms.Utilities.Messages;
 
 namespace forms.Forms
 {
@@ -37,7 +36,6 @@ namespace forms.Forms
                 // Atribui o último item da lista (que é a última linha do arquivo) ao Text do comboBox_resolution
                 this.comboBox_resolution.Text = lines.LastOrDefault();
             }
-
         }
 
         private void comboBox_resolution_type_SelectedIndexChanged(object sender, EventArgs e)
