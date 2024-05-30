@@ -1,4 +1,14 @@
 TODO LIST
 
-- ARQUIVO CREDENCIALS
-- SUBSTITUIR OS MÉTODOS CREATE E APPEND POR STREAM
+- OTIMIZAÇÃO ARQUIVO CREDENCIALS \\ OK
+ -Ajuste comentários
+ -Classes
+
+- Colocar projeto na arquitetura MVP
+ -
+
+
+- Colocar banco de dados
+ - USERINFO
+ - RESOLUÇÂO
+ - LOG

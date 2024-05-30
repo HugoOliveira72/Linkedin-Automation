@@ -1,4 +1,6 @@
 using forms.Forms;
+using forms.Presenters;
+using forms.Views;
 
 namespace forms
 {
@@ -13,7 +15,11 @@ namespace forms
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new LoginScreen());
+            string sqlConnectionString = "";
+            ILoginView loginView = new LoginView();
+            //ILoginRepository loginRepository
+            new LoginPresenter(loginView);
+            Application.Run((Form)loginView);
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace forms.Forms
 {
-    partial class LoginScreen
+    partial class LoginView
     {
         /// <summary>
         /// Required designer variable.
@@ -29,19 +29,19 @@
         private void InitializeComponent()
         {
             groupBox_login = new GroupBox();
+            loginButton = new Button();
             txtbox_user = new TextBox();
             txtbox_password = new TextBox();
             user_label = new Label();
             checkbox_write_credentials_in_file = new CheckBox();
             password_label = new Label();
-            logiButton = new Button();
             label1 = new Label();
             groupBox_login.SuspendLayout();
             SuspendLayout();
             // 
             // groupBox_login
             // 
-            groupBox_login.Controls.Add(logiButton);
+            groupBox_login.Controls.Add(loginButton);
             groupBox_login.Controls.Add(txtbox_user);
             groupBox_login.Controls.Add(txtbox_password);
             groupBox_login.Controls.Add(user_label);
@@ -53,7 +53,15 @@
             groupBox_login.TabIndex = 34;
             groupBox_login.TabStop = false;
             groupBox_login.Text = "Login Linkedin";
-            groupBox_login.Enter += groupBox_login_Enter;
+            // 
+            // loginButton
+            // 
+            loginButton.Location = new Point(75, 204);
+            loginButton.Name = "loginButton";
+            loginButton.Size = new Size(85, 29);
+            loginButton.TabIndex = 10;
+            loginButton.Text = "Log in";
+            loginButton.UseVisualStyleBackColor = true;
             // 
             // txtbox_user
             // 
@@ -98,16 +106,6 @@
             password_label.TabIndex = 9;
             password_label.Text = "Senha:";
             // 
-            // logiButton
-            // 
-            logiButton.Location = new Point(85, 211);
-            logiButton.Name = "logiButton";
-            logiButton.Size = new Size(85, 29);
-            logiButton.TabIndex = 10;
-            logiButton.Text = "Log in";
-            logiButton.UseVisualStyleBackColor = true;
-            logiButton.Click += logiButton_Click;
-            // 
             // label1
             // 
             label1.AutoSize = true;
@@ -136,7 +134,7 @@
         #endregion
 
         private GroupBox groupBox_login;
-        private Button logiButton;
+        private Button loginButton;
         private TextBox txtbox_user;
         private TextBox txtbox_password;
         private Label user_label;
