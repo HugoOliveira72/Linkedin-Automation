@@ -22,7 +22,7 @@ namespace Linkedin_Automation.Utilities
             File.AppendAllText(this.logpath, Environment.NewLine + stringPatterns.startPattern());
         }
 
-        public void writeError(string text)
+        private void writeError(string text)
         {
             File.AppendAllText(this.logpath, Environment.NewLine + text);
         }

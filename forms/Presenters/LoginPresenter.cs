@@ -1,8 +1,10 @@
 ﻿using forms.Models;
 using forms.Views.Interfaces;
 using Linkedin_Automation.Model;
+using Linkedin_Automation.Utilities;
 using MessagePack;
 using Newtonsoft.Json;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace forms.Presenters
 {
@@ -12,6 +14,9 @@ namespace forms.Presenters
         private ILoginView _loginView;
         private ILoginRepository _loginRepository;
         private string filePath = "../../../Files/user.msgpack";
+
+        //Attr
+        LogUtilities logUtilities = new LogUtilities();
 
         public LoginPresenter(ILoginView loginView, ILoginRepository loginRepository)
         {
@@ -57,11 +62,11 @@ namespace forms.Presenters
             }
             catch (FileNotFoundException fileException)
             {
-                Console.WriteLine("Arquivo não encontrado.", fileException);
+                logUtilities.LogError("Arquivo não encontrado.", fileException);
             }
             catch (JsonException jsonException)
             {
-                Console.WriteLine("Erro ao desserializar JSON.", jsonException);
+                logUtilities.LogError("Erro ao desserializar JSON.", jsonException);
             }
         }
 
