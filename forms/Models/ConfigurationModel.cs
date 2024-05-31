@@ -1,15 +1,15 @@
 ﻿namespace forms.Model
 {
-    public class ScreenConfiguration
+    public class ConfigurationModel
     {
         public string? ScreenType { get; set; }
         public string? Resolution { get; set; }
 
-        public ScreenConfiguration()
+        public ConfigurationModel()
         {
         }
 
-        public ScreenConfiguration(string screenType, string resolution)
+        public ConfigurationModel(string screenType, string resolution)
         {
             this.ScreenType = screenType;
             this.Resolution = resolution;

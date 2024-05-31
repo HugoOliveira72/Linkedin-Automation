@@ -1,10 +1,10 @@
 ﻿using forms.Models;
+using forms.Repositories;
 using forms.Views.Interfaces;
 using Linkedin_Automation.Model;
 using Linkedin_Automation.Utilities;
 using MessagePack;
 using Newtonsoft.Json;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace forms.Presenters
 {
@@ -20,7 +20,7 @@ namespace forms.Presenters
 
         public LoginPresenter(ILoginView loginView, ILoginRepository loginRepository)
         {
-            _loginRepository = loginRepository;
+            _loginRepository = (ILoginRepository?)loginRepository;
             _loginView = loginView;
             _loginView.UserFormLoaded += OnUserFormLoaded;
             _loginView.LoginEvent += LoginEvent;
@@ -33,31 +33,30 @@ namespace forms.Presenters
                 if (!File.Exists(filePath))
                 {
                     // Cria o arquivo se não existir
-                    User newUser = new User(_loginView.Email, _loginView.Password);
+                    UserModel newUser = new UserModel(_loginView.Email, _loginView.Password);
                     _loginRepository.create(filePath);
-                    _loginRepository.edit(filePath, newUser);
+                    _loginRepository.update(filePath, newUser);
                 }
                 else
                 {
                     //Carrega usuário do arquivo
-                    User loadedUser = LoadUser();
+                    UserModel loadedUser = _loginRepository.LoadConvertedObject<UserModel>(filePath);
 
                     if (_loginView.Email != null && _loginView.Password != null)
                     {
                         // Atualiza o usuário com novos dados
-                        var updatedUser = new User(_loginView.Email, _loginView.Password);
-                        _loginRepository.edit(filePath, updatedUser);
+                        var updatedUser = new UserModel(_loginView.Email, _loginView.Password);
+                        _loginRepository.update(filePath, updatedUser);
                     }
                     else
                     {
                         // Mantém o usuário existente
-                        _loginRepository.edit(filePath, loadedUser);
+                        _loginRepository.update(filePath, loadedUser);
                     }
 
                     // Envia dados para a tela principal
                     HomeScreen homeScreen = new HomeScreen(loadedUser.email, loadedUser.password);
                     homeScreen.Show();
-
                 }
             }
             catch (FileNotFoundException fileException)
@@ -72,8 +71,8 @@ namespace forms.Presenters
 
         private void OnUserFormLoaded(object sender, EventArgs e)
         {
-            User user = LoadUser();
-           
+            UserModel user = _loginRepository.LoadConvertedObject<UserModel>(filePath);
+
             if (user.email != "" || user.password != "")
             {
                 _loginView.Email = user.email;
@@ -81,13 +80,13 @@ namespace forms.Presenters
             }
         }
 
-        private User LoadUser()
+        private UserModel LoadUser()
         {
             byte[] fileBytes = _loginRepository.read(filePath);
 
             // Desserializa os bytes em um objeto User
             var loadedUserJson = MessagePackSerializer.Deserialize<dynamic>(fileBytes);
-            return JsonConvert.DeserializeObject<User>(loadedUserJson);
+            return JsonConvert.DeserializeObject<UserModel>(loadedUserJson);
         }
     }
 

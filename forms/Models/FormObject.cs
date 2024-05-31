@@ -15,7 +15,7 @@ namespace playwright.Model
         public List<string> CheckedListBoxExperiences { get; set; }
         public List<string> CheckedListBoxType_job { get; set; }
         public List<string> CheckedListBoxRemote { get; set; }
-        public ScreenConfiguration ScreenConfiguration { get; set; }
+        public ConfigurationModel ScreenConfiguration { get; set; }
         public FormObject(
             string txtbox_user,
             string txtbox_password,
@@ -27,7 +27,7 @@ namespace playwright.Model
             CheckedListBox.CheckedItemCollection ExperiencesCheckedItemCollection,
             CheckedListBox.CheckedItemCollection TypeJobCheckedItemCollection,
             CheckedListBox.CheckedItemCollection RemoteCheckedItemCollection,
-            ScreenConfiguration screenConfiguration
+            ConfigurationModel screenConfiguration
             )
         {
             this.TxtboxUser = txtbox_user;

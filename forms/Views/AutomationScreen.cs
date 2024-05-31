@@ -70,7 +70,7 @@ namespace forms.Forms
 
             // LER DADOS DOS USUARIOS
             UserCredencials credencials = new UserCredencials(this.mainScreenForm);
-            User userInfo = credencials.User;
+            UserModel userInfo = credencials.User;
 
             // CONFIGURAÇÃO DO PLAYWRIGHT
             PlaywrightConfiguration playwrightConfiguration = new PlaywrightConfiguration();

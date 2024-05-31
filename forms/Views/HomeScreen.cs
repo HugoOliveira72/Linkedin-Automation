@@ -1,12 +1,17 @@
 ﻿using forms.Forms;
 using forms.Model;
+using forms.Models;
+using forms.Presenters;
+using forms.Repositories;
+using forms.Views.Interfaces;
 using playwright.Model;
 
 namespace forms
 {
     public partial class HomeScreen : Form
     {
-        public ScreenConfiguration screenConfiguration;
+
+        public ConfigurationModel screenConfiguration;
         private string userName;
         private string password;
 
@@ -37,10 +42,9 @@ namespace forms
 
         private void button_config_Click(object sender, EventArgs e)
         {
-            ConfigScreen configScreen = new ConfigScreen();
-            configScreen.ShowDialog();
-
-            this.screenConfiguration = configScreen.screenConfiguration;
+            IConfigView view = new ConfigView();
+            IConfigRepository configRepository = new ConfigRepository();
+            new ConfigPresenter(view, configRepository);
         }
     }
 }

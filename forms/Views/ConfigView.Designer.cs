@@ -1,6 +1,6 @@
 ﻿namespace forms.Forms
 {
-    partial class ConfigScreen
+    partial class ConfigView
     {
         /// <summary>
         /// Required designer variable.
@@ -81,7 +81,6 @@
             button_save_configs.TabIndex = 4;
             button_save_configs.Text = "Salvar";
             button_save_configs.UseVisualStyleBackColor = true;
-            button_save_configs.Click += button_save_configs_Click;
             // 
             // ConfigScreen
             // 

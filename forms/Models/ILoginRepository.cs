@@ -2,11 +2,7 @@
 
 namespace forms.Models
 {
-    public interface ILoginRepository
+    public interface ILoginRepository : IBaseRepository
     {
-        void create(string filepath);
-        void delete();
-        void edit(string filepath, User user);
-        byte[] read(string filepath);
     }
 }

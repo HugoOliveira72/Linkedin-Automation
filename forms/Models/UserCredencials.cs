@@ -12,7 +12,7 @@ namespace forms.Models
         private static string USERPATH = "../../../../Forms/Files/userinfo.txt";
         private FormObject formAttribute;
 
-        public User User { get; set; }
+        public UserModel User { get; set; }
 
         public UserCredencials(FormObject formObject)
         {
@@ -33,7 +33,7 @@ namespace forms.Models
             if (userLines.Count > 0)
             {
                 // Se o arquivo contém dados, cria um objeto User com o email e senha lidos do arquivo
-                User = new User(userLines[0], userLines[1]);
+                User = new UserModel(userLines[0], userLines[1]);
             }
             else
             {
