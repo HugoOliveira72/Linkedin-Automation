@@ -5,10 +5,23 @@ TODO LIST
  -Classes
 
 - Colocar projeto na arquitetura MVP
- -
 
+LOGIN
 
-- Colocar banco de dados
- - USERINFO
- - RESOLUÇÂO
- - LOG
+LoginRepository
+LoginPresenter
+LoginView
+
+TAREFA ATENÇÃO
+LoginRepository
+ -- 
+1º Validação lógica
+
+Quando usuário não insere dado nenhum da tela view
+  E não tem dado nenhum no arquivo
+
+MOSTRAR AVISO FALANDO QUE NÃO ACHOU NADA
+
+--
+
+2º Validação estética

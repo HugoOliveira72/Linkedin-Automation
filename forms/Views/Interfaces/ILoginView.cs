@@ -1,4 +1,4 @@
-﻿namespace forms.Views
+﻿namespace forms.Views.Interfaces
 {
     public interface ILoginView
     {

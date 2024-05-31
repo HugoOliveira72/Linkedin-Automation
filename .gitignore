@@ -6,6 +6,7 @@
 #Log File and UserFile
 forms/Files/log.txt
 forms/Files/userInfo.txt
+forms/Files/user.msgpack
 
 #ResolutionFile
 forms/Config/resolution.txt

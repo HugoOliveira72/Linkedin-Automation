@@ -1,14 +1,13 @@
 using forms.Forms;
+using forms.Models;
 using forms.Presenters;
-using forms.Views;
+using forms.Repositories;
+using forms.Views.Interfaces;
 
 namespace forms
 {
     internal static class Program
     {
-        /// <summary>
-        ///  The main entry point for the application.
-        /// </summary>
         [STAThread]
         static void Main()
         {
@@ -17,8 +16,8 @@ namespace forms
             ApplicationConfiguration.Initialize();
             string sqlConnectionString = "";
             ILoginView loginView = new LoginView();
-            //ILoginRepository loginRepository
-            new LoginPresenter(loginView);
+            ILoginRepository loginRepository = new LoginRepository();
+            new LoginPresenter(loginView, loginRepository);
             Application.Run((Form)loginView);
         }
     }

@@ -1,5 +1,4 @@
-﻿using forms.Views;
-using forms.Models;
+﻿using forms.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using forms.Views.Interfaces;
 
 namespace forms.Forms
 {
