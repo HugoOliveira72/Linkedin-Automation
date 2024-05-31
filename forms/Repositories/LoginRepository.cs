@@ -1,4 +1,4 @@
-﻿using forms.Models;
+﻿using forms.Models.Interfaces;
 
 namespace forms.Repositories
 {

@@ -1,4 +1,4 @@
-﻿using forms.Models;
+﻿using forms.Models.Interfaces;
 using forms.Repositories;
 using forms.Views.Interfaces;
 using Linkedin_Automation.Model;

@@ -1,9 +1,10 @@
 ﻿using forms.Model;
 using NPOI.SS.Formula.Functions;
 
-namespace forms.Models
+namespace forms.Models.Interfaces
 {
-    public interface IBaseRepository {
+    public interface IBaseRepository
+    {
 
         public void create(string filepath);
         public byte[] read(string filepath);

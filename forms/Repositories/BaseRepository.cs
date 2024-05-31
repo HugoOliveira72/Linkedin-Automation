@@ -1,5 +1,5 @@
 ﻿using forms.Model;
-using forms.Models;
+using forms.Models.Interfaces;
 using Linkedin_Automation.Model;
 using MessagePack;
 using Newtonsoft.Json;

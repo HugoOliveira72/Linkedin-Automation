@@ -1,4 +1,4 @@
-﻿namespace forms.Models
+﻿namespace forms.Models.Interfaces
 {
     public interface IConfigRepository : IBaseRepository
     {

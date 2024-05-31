@@ -1,6 +1,6 @@
 ﻿using Linkedin_Automation.Model;
 
-namespace forms.Models
+namespace forms.Models.Interfaces
 {
     public interface ILoginRepository : IBaseRepository
     {

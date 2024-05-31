@@ -1,5 +1,5 @@
 ﻿using forms.Model;
-using forms.Models;
+using forms.Models.Interfaces;
 using forms.Views.Interfaces;
 
 namespace forms.Presenters
