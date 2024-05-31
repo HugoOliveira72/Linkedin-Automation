@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using forms.Views.Interfaces;
+using Linkedin_Automation.Model;
 
 namespace forms.Forms
 {
@@ -17,15 +18,15 @@ namespace forms.Forms
         public LoginView()
         {
             InitializeComponent();
+            this.Load += OnFormLoaded;
             AssociateAndRaiseViewEvents();
-            //this.Close();
         }
 
         //Properties
         public string? Email
         {
             get { return txtbox_user.Text; }
-            set { txtbox_user.Text = value;}
+            set { txtbox_user.Text = value; }
         }
         public string? Password
         {
@@ -35,16 +36,17 @@ namespace forms.Forms
 
         //Events
         public event EventHandler LoginEvent;
+        public event EventHandler UserFormLoaded;
 
+        //Methods
         private void AssociateAndRaiseViewEvents()
         {
             loginButton.Click += delegate { LoginEvent?.Invoke(this, EventArgs.Empty); };
         }
 
-        //private void logiButton_Click(object sender, EventArgs e)
-        //{
-        //    HomeScreen homeScreen = new HomeScreen(txtbox_user.Text, txtbox_password.Text);
-        //    homeScreen.Show();
-        //}
+        private void OnFormLoaded(object sender, EventArgs e)
+        {
+            UserFormLoaded?.Invoke(this, EventArgs.Empty);
+        }
     }
 }

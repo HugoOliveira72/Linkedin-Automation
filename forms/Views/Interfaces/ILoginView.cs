@@ -1,4 +1,6 @@
-﻿namespace forms.Views.Interfaces
+﻿using Linkedin_Automation.Model;
+
+namespace forms.Views.Interfaces
 {
     public interface ILoginView
     {
@@ -8,6 +10,6 @@
 
         //Events /acitions
         event EventHandler LoginEvent;
-
+        event EventHandler UserFormLoaded;
     }
 }

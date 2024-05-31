@@ -2,6 +2,7 @@
 using forms.Views.Interfaces;
 using Linkedin_Automation.Model;
 using MessagePack;
+using Newtonsoft.Json;
 
 namespace forms.Presenters
 {
@@ -14,41 +15,75 @@ namespace forms.Presenters
 
         public LoginPresenter(ILoginView loginView, ILoginRepository loginRepository)
         {
-            _loginView = loginView;
             _loginRepository = loginRepository;
+            _loginView = loginView;
+            _loginView.UserFormLoaded += OnUserFormLoaded;
             _loginView.LoginEvent += LoginEvent;
         }
 
         private void LoginEvent(object sender, EventArgs e)
         {
-            System.IO.Path.GetDirectoryName(Application.ExecutablePath);
-            // Cria o arquivo se não existir
-            if (!File.Exists(filePath))
+            try
             {
-                _loginRepository.create(filePath);
-            }
-            else //Arquivo já existente
-            {
-                // Lê o conteúdo do arquivo
-                byte[] fileBytes = _loginRepository.read(filePath);
-
-                //Arquivo vazio
-                if (fileBytes.Length == 0)
+                if (!File.Exists(filePath))
                 {
-                    // preenche com dados da classe User
-                    User user = new User(_loginView.Email, _loginView.Password);
-                    _loginRepository.edit(filePath, user);
+                    // Cria o arquivo se não existir
+                    User newUser = new User(_loginView.Email, _loginView.Password);
+                    _loginRepository.create(filePath);
+                    _loginRepository.edit(filePath, newUser);
                 }
-                else //Arquivo cheio
+                else
                 {
-                    // Desserializa os bytes em um objeto User
-                    var loadedUser = MessagePackSerializer.Deserialize<User>(fileBytes);
+                    //Carrega usuário do arquivo
+                    User loadedUser = LoadUser();
 
-                    //Envia dados para a tela principal
+                    if (_loginView.Email != null && _loginView.Password != null)
+                    {
+                        // Atualiza o usuário com novos dados
+                        var updatedUser = new User(_loginView.Email, _loginView.Password);
+                        _loginRepository.edit(filePath, updatedUser);
+                    }
+                    else
+                    {
+                        // Mantém o usuário existente
+                        _loginRepository.edit(filePath, loadedUser);
+                    }
+
+                    // Envia dados para a tela principal
                     HomeScreen homeScreen = new HomeScreen(loadedUser.email, loadedUser.password);
                     homeScreen.Show();
+
                 }
             }
+            catch (FileNotFoundException fileException)
+            {
+                Console.WriteLine("Arquivo não encontrado.", fileException);
+            }
+            catch (JsonException jsonException)
+            {
+                Console.WriteLine("Erro ao desserializar JSON.", jsonException);
+            }
+        }
+
+        private void OnUserFormLoaded(object sender, EventArgs e)
+        {
+            User user = LoadUser();
+           
+            if (user.email != "" || user.password != "")
+            {
+                _loginView.Email = user.email;
+                _loginView.Password = user.password;
+            }
+        }
+
+        private User LoadUser()
+        {
+            byte[] fileBytes = _loginRepository.read(filePath);
+
+            // Desserializa os bytes em um objeto User
+            var loadedUserJson = MessagePackSerializer.Deserialize<dynamic>(fileBytes);
+            return JsonConvert.DeserializeObject<User>(loadedUserJson);
         }
     }
+
 }

@@ -21,7 +21,7 @@ namespace forms.Repositories
 
         public void create(string filepath)
         {
-            System.IO.Path.GetDirectoryName(Application.ExecutablePath);
+            //System.IO.Path.GetDirectoryName(Application.ExecutablePath); ///TESTE
             File.Create(filepath).Dispose();
         }
 
