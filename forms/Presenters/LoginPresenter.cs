@@ -1,4 +1,5 @@
-﻿using forms.Models.Interfaces;
+﻿using forms.Forms;
+using forms.Models.Interfaces;
 using forms.Repositories;
 using forms.Views.Interfaces;
 using Linkedin_Automation.Model;
@@ -39,24 +40,15 @@ namespace forms.Presenters
                 }
                 else
                 {
-                    //Carrega usuário do arquivo
-                    UserModel loadedUser = _loginRepository.LoadConvertedObject<UserModel>(filePath);
-
                     if (_loginView.Email != null && _loginView.Password != null)
                     {
                         // Atualiza o usuário com novos dados
                         var updatedUser = new UserModel(_loginView.Email, _loginView.Password);
                         _loginRepository.update(filePath, updatedUser);
                     }
-                    else
-                    {
-                        // Mantém o usuário existente
-                        _loginRepository.update(filePath, loadedUser);
-                    }
 
-                    // Envia dados para a tela principal
-                    HomeScreen homeScreen = new HomeScreen(loadedUser.email, loadedUser.password);
-                    homeScreen.Show();
+                    //Carrega usuário do arquivo
+                    UserModel loadedUser = _loginRepository.LoadConvertedObject<UserModel>(filePath);
                 }
             }
             catch (FileNotFoundException fileException)

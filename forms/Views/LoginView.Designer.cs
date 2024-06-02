@@ -33,7 +33,7 @@
             txtbox_user = new TextBox();
             txtbox_password = new TextBox();
             user_label = new Label();
-            checkbox_write_credentials_in_file = new CheckBox();
+            checkbox_rememberMe = new CheckBox();
             password_label = new Label();
             label1 = new Label();
             groupBox_login.SuspendLayout();
@@ -45,7 +45,7 @@
             groupBox_login.Controls.Add(txtbox_user);
             groupBox_login.Controls.Add(txtbox_password);
             groupBox_login.Controls.Add(user_label);
-            groupBox_login.Controls.Add(checkbox_write_credentials_in_file);
+            groupBox_login.Controls.Add(checkbox_rememberMe);
             groupBox_login.Controls.Add(password_label);
             groupBox_login.Location = new Point(27, 61);
             groupBox_login.Name = "groupBox_login";
@@ -62,6 +62,7 @@
             loginButton.TabIndex = 10;
             loginButton.Text = "Log in";
             loginButton.UseVisualStyleBackColor = true;
+            loginButton.Click += loginButton_Click;
             // 
             // txtbox_user
             // 
@@ -87,15 +88,15 @@
             user_label.TabIndex = 5;
             user_label.Text = "Email ou usuário:";
             // 
-            // checkbox_write_credentials_in_file
+            // checkbox_rememberMe
             // 
-            checkbox_write_credentials_in_file.AutoSize = true;
-            checkbox_write_credentials_in_file.Location = new Point(17, 144);
-            checkbox_write_credentials_in_file.Name = "checkbox_write_credentials_in_file";
-            checkbox_write_credentials_in_file.Size = new Size(114, 19);
-            checkbox_write_credentials_in_file.TabIndex = 8;
-            checkbox_write_credentials_in_file.Text = "Lembrar de mim";
-            checkbox_write_credentials_in_file.UseVisualStyleBackColor = true;
+            checkbox_rememberMe.AutoSize = true;
+            checkbox_rememberMe.Location = new Point(17, 144);
+            checkbox_rememberMe.Name = "checkbox_rememberMe";
+            checkbox_rememberMe.Size = new Size(114, 19);
+            checkbox_rememberMe.TabIndex = 8;
+            checkbox_rememberMe.Text = "Lembrar de mim";
+            checkbox_rememberMe.UseVisualStyleBackColor = true;
             // 
             // password_label
             // 
@@ -116,14 +117,14 @@
             label1.TabIndex = 35;
             label1.Text = "Linkedin Automation";
             // 
-            // LoginScreen
+            // LoginView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(327, 438);
             Controls.Add(label1);
             Controls.Add(groupBox_login);
-            Name = "LoginScreen";
+            Name = "LoginView";
             Text = "LoginScreen";
             groupBox_login.ResumeLayout(false);
             groupBox_login.PerformLayout();
@@ -138,7 +139,7 @@
         private TextBox txtbox_user;
         private TextBox txtbox_password;
         private Label user_label;
-        private CheckBox checkbox_write_credentials_in_file;
+        private CheckBox checkbox_rememberMe;
         private Label password_label;
         private Label label1;
     }

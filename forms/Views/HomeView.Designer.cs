@@ -1,6 +1,6 @@
 ﻿namespace forms
 {
-    partial class HomeScreen
+    partial class HomeView
     {
         /// <summary>
         /// Required designer variable.
@@ -28,16 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HomeScreen));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HomeView));
             job_label = new Label();
             txtbox_job = new TextBox();
             send_button = new Button();
-            txtbox_user = new TextBox();
-            txtbox_password = new TextBox();
-            user_label = new Label();
             title_label = new Label();
-            checkbox_write_credentials_in_file = new CheckBox();
-            password_label = new Label();
             label1 = new Label();
             amount_jobs = new TextBox();
             amout_jobs_label = new Label();
@@ -48,14 +43,12 @@
             experience_level_label = new Label();
             checkedListBox_type_job = new CheckedListBox();
             checkedListBox_remote = new CheckedListBox();
-            groupBox_login = new GroupBox();
             groupBox_job = new GroupBox();
             groupBox_filters = new GroupBox();
             comboBox_annoucement_date = new ComboBox();
             label_annoucement_date = new Label();
             checkedListBox_experience_level = new CheckedListBox();
             button_config = new Button();
-            groupBox_login.SuspendLayout();
             groupBox_job.SuspendLayout();
             groupBox_filters.SuspendLayout();
             SuspendLayout();
@@ -85,31 +78,6 @@
             send_button.TabIndex = 2;
             send_button.Text = "Aplicar";
             send_button.UseVisualStyleBackColor = true;
-            send_button.Click += sendButton_Click;
-            // 
-            // txtbox_user
-            // 
-            txtbox_user.Location = new Point(17, 61);
-            txtbox_user.Name = "txtbox_user";
-            txtbox_user.Size = new Size(200, 23);
-            txtbox_user.TabIndex = 3;
-            // 
-            // txtbox_password
-            // 
-            txtbox_password.Location = new Point(17, 115);
-            txtbox_password.Name = "txtbox_password";
-            txtbox_password.PasswordChar = '*';
-            txtbox_password.Size = new Size(200, 23);
-            txtbox_password.TabIndex = 4;
-            // 
-            // user_label
-            // 
-            user_label.AutoSize = true;
-            user_label.Location = new Point(17, 43);
-            user_label.Name = "user_label";
-            user_label.Size = new Size(98, 15);
-            user_label.TabIndex = 5;
-            user_label.Text = "Email ou usuário:";
             // 
             // title_label
             // 
@@ -122,25 +90,6 @@
             title_label.Size = new Size(217, 25);
             title_label.TabIndex = 7;
             title_label.Text = "LINKEDIN AUTOMATION";
-            // 
-            // checkbox_write_credentials_in_file
-            // 
-            checkbox_write_credentials_in_file.AutoSize = true;
-            checkbox_write_credentials_in_file.Location = new Point(17, 144);
-            checkbox_write_credentials_in_file.Name = "checkbox_write_credentials_in_file";
-            checkbox_write_credentials_in_file.Size = new Size(114, 19);
-            checkbox_write_credentials_in_file.TabIndex = 8;
-            checkbox_write_credentials_in_file.Text = "Lembrar de mim";
-            checkbox_write_credentials_in_file.UseVisualStyleBackColor = true;
-            // 
-            // password_label
-            // 
-            password_label.AutoSize = true;
-            password_label.Location = new Point(17, 97);
-            password_label.Name = "password_label";
-            password_label.Size = new Size(42, 15);
-            password_label.TabIndex = 9;
-            password_label.Text = "Senha:";
             // 
             // label1
             // 
@@ -229,27 +178,13 @@
             checkedListBox_remote.Size = new Size(120, 58);
             checkedListBox_remote.TabIndex = 29;
             // 
-            // groupBox_login
-            // 
-            groupBox_login.Controls.Add(txtbox_user);
-            groupBox_login.Controls.Add(txtbox_password);
-            groupBox_login.Controls.Add(user_label);
-            groupBox_login.Controls.Add(checkbox_write_credentials_in_file);
-            groupBox_login.Controls.Add(password_label);
-            groupBox_login.Location = new Point(39, 95);
-            groupBox_login.Name = "groupBox_login";
-            groupBox_login.Size = new Size(263, 199);
-            groupBox_login.TabIndex = 33;
-            groupBox_login.TabStop = false;
-            groupBox_login.Text = "Login";
-            // 
             // groupBox_job
             // 
             groupBox_job.Controls.Add(txtbox_job);
             groupBox_job.Controls.Add(amout_jobs_label);
             groupBox_job.Controls.Add(amount_jobs);
             groupBox_job.Controls.Add(job_label);
-            groupBox_job.Location = new Point(39, 329);
+            groupBox_job.Location = new Point(40, 95);
             groupBox_job.Name = "groupBox_job";
             groupBox_job.Size = new Size(280, 164);
             groupBox_job.TabIndex = 34;
@@ -315,7 +250,7 @@
             button_config.UseVisualStyleBackColor = true;
             button_config.Click += button_config_Click;
             // 
-            // HomeScreen
+            // HomeView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -324,15 +259,12 @@
             Controls.Add(button_config);
             Controls.Add(groupBox_filters);
             Controls.Add(groupBox_job);
-            Controls.Add(groupBox_login);
             Controls.Add(label1);
             Controls.Add(title_label);
             Controls.Add(send_button);
             FormBorderStyle = FormBorderStyle.FixedSingle;
-            Name = "HomeScreen";
+            Name = "HomeView";
             Text = "Linkedin automation";
-            groupBox_login.ResumeLayout(false);
-            groupBox_login.PerformLayout();
             groupBox_job.ResumeLayout(false);
             groupBox_job.PerformLayout();
             groupBox_filters.ResumeLayout(false);
@@ -347,13 +279,8 @@
         private TextBox txtbox_job;
         private Button send;
         private Button send_button;
-        private TextBox txtbox_user;
-        private TextBox txtbox_password;
-        private Label user_label;
         private Label password_Label;
         private Label title_label;
-        private CheckBox checkbox_write_credentials_in_file;
-        private Label password_label;
         private Label label1;
         private TextBox amount_jobs;
         private Label amout_jobs_label;
@@ -365,7 +292,6 @@
         private Label experience_level_label;
         private CheckedListBox checkedListBox_type_job;
         private CheckedListBox checkedListBox_remote;
-        private GroupBox groupBox_login;
         private GroupBox groupBox_job;
         private GroupBox groupBox_filters;
         private CheckedListBox checkedListBox_experience_level;

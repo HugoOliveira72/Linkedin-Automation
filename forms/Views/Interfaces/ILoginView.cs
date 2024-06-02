@@ -7,6 +7,7 @@ namespace forms.Views.Interfaces
         //Properties - Fields
         public string? Email { get; set; }
         public string? Password { get; set; }
+        public bool IsRememberMeMarked { get; set; }
 
         //Events /acitions
         event EventHandler LoginEvent;

@@ -15,10 +15,10 @@ namespace forms
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
             string sqlConnectionString = "";
-            ILoginView loginView = new LoginView();
+            LoginView view = new LoginView();
             ILoginRepository loginRepository = new LoginRepository();
-            new LoginPresenter(loginView, loginRepository);
-            Application.Run((Form)loginView);
+            new LoginPresenter(view, loginRepository);
+            Application.Run(view);
         }
     }
 }

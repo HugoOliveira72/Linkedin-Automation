@@ -1,27 +1,10 @@
-﻿using forms.Models;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using forms.Presenters;
 using forms.Views.Interfaces;
-using Linkedin_Automation.Model;
 
 namespace forms.Forms
 {
     public partial class LoginView : Form, ILoginView
     {
-        public LoginView()
-        {
-            InitializeComponent();
-            this.Load += OnFormLoaded;
-            AssociateAndRaiseViewEvents();
-        }
-
         //Properties
         public string? Email
         {
@@ -34,19 +17,35 @@ namespace forms.Forms
             set { txtbox_password.Text = value; }
         }
 
+        public bool IsRememberMeMarked
+        {
+            get { return checkbox_rememberMe.Checked; }
+            set { checkbox_rememberMe.Checked = value; }
+        }
+
         //Events
         public event EventHandler LoginEvent;
         public event EventHandler UserFormLoaded;
 
-        //Methods
-        private void AssociateAndRaiseViewEvents()
+        //Constructor
+        public LoginView()
         {
-            loginButton.Click += delegate { LoginEvent?.Invoke(this, EventArgs.Empty); };
+            InitializeComponent();
+            this.Load += OnFormLoaded;
         }
 
+        //Methods
         private void OnFormLoaded(object sender, EventArgs e)
         {
             UserFormLoaded?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void loginButton_Click(object sender, EventArgs e)
+        {
+            LoginEvent?.Invoke(this, EventArgs.Empty);
+            HomeView view = new HomeView(this.Email, this.Password, this.IsRememberMeMarked);
+            new HomePresenter(view);
+            view.ShowDialog();
         }
     }
 }
