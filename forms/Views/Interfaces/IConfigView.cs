@@ -6,7 +6,7 @@
         public string? Resolution { get; set; }
 
         //Events /acitions
-        event EventHandler SaveConfigEvent;
         event EventHandler ConfigFormLoaded;
+        event EventHandler SaveConfigEvent;
     }
 }

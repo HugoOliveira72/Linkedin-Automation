@@ -20,7 +20,7 @@ namespace forms.Presenters
 
         }
 
-        private void SaveConfigEvent(Object sender, EventArgs e)
+        private void SaveConfigEvent(object sender, EventArgs e)
         {
             // Cria uma nova configuração de tela com os valores selecionados nos ComboBoxes
             ConfigurationModel configModel = new ConfigurationModel(_configView.ResolutionType, _configView.Resolution);
@@ -32,9 +32,8 @@ namespace forms.Presenters
             MessageBox.Show("CONFIGURAÇÕES APLICADAS COM SUCESSO!", "SUCESSO");
         }
 
-        private void OnConfigFormLoaded(Object sender, EventArgs e)
+        private void OnConfigFormLoaded(object sender, EventArgs e)
         {
-
             // Verifica se o arquivo resolution existe
             if (!File.Exists(filePath)) // Quando o arquivo Resolution não existe
             {

@@ -5,6 +5,7 @@ namespace forms.Forms
 {
     public partial class ConfigView : Form, IConfigView
     {
+
         //Fields
         public string? ResolutionType
         {
@@ -19,9 +20,10 @@ namespace forms.Forms
         }
 
         //Events
-        public event EventHandler SaveConfigEvent;
         public event EventHandler ConfigFormLoaded;
+        public event EventHandler SaveConfigEvent;
 
+        //Constructor
         public ConfigView()
         {
             InitializeComponent();
@@ -39,14 +41,12 @@ namespace forms.Forms
             //Quando formulário carregado
             //Define no field primeiro item selecionado
             comboBox_resolution_type.SelectedIndex = 0;
-
-            ConfigFormLoaded.Invoke(this, new EventArgs());
+            ConfigFormLoaded?.Invoke(this, EventArgs.Empty);
         }
 
         private void AssociateAndRaiseViewEvents()
         {
-            button_save_configs.Click += delegate { SaveConfigEvent.Invoke(this, EventArgs.Empty); };
-            this.Close();
+            button_save_configs.Click += delegate { SaveConfigEvent?.Invoke(this, EventArgs.Empty); };
         }
     }
 }
