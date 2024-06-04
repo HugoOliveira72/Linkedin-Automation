@@ -14,6 +14,6 @@ namespace forms.Views.Interfaces
 
         //Events /actions
         event EventHandler ShowConfigView;
-        event EventHandler ShowRunningView;
+        event EventHandler ShowAutomationView;
     }
 }

@@ -1,4 +1,5 @@
 ﻿using forms.Presenters;
+using forms.Services;
 using forms.Views.Interfaces;
 
 namespace forms.Forms
@@ -43,8 +44,9 @@ namespace forms.Forms
         private void loginButton_Click(object sender, EventArgs e)
         {
             LoginEvent?.Invoke(this, EventArgs.Empty);
-            HomeView view = new HomeView(this.Email, this.Password, this.IsRememberMeMarked);
-            new HomePresenter(view);
+            IDataService<dynamic> dataService = new DataService<dynamic>();
+            HomeView view = new HomeView();
+            new HomePresenter(view, dataService);
             view.ShowDialog();
         }
     }
