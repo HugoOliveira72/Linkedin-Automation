@@ -1,12 +1,11 @@
-﻿using Linkedin_Automation.Utilities;
+﻿using forms.Repositories;
 using Microsoft.Playwright;
 
 namespace forms.Utilities
 {
-    public class FunctionsUtilities
+    public class PlaywrightUtilities
     {
-        private LogUtilities logUtilities;
-
+        LogRepository logRepository = new();
         public async Task<string> WaitForElementAndHandleException(IPage page, string selector, string successMessage, string errorMessage)
         {
             try
@@ -17,7 +16,7 @@ namespace forms.Utilities
             catch (Exception exception)
             {
                 MessageBox.Show(errorMessage, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button2);
-                logUtilities.LogError(errorMessage, exception);
+                logRepository.WriteALogError(errorMessage, exception);
                 throw new Exception();
             }
         }
