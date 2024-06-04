@@ -1,6 +1,6 @@
 ﻿namespace forms.Utilities.Messages
 {
-    public class StringPatterns
+    public class OutputStringPatterns
     {
 
         public void finishPattern(int appliedJobs, int savedJobs, string finishCondition = "")
