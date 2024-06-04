@@ -17,7 +17,8 @@ namespace forms
             string sqlConnectionString = "";
             LoginView view = new LoginView();
             ILoginRepository loginRepository = new LoginRepository();
-            new LoginPresenter(view, loginRepository);
+            ILogRepository logRepository = new LogRepository();
+            new LoginPresenter(view, loginRepository, logRepository);
             Application.Run(view);
         }
     }

@@ -1,112 +1,73 @@
-﻿using forms.Models;
+﻿using forms.Models.Interfaces;
+using forms.Repositories;
+using forms.Services;
 using forms.Utilities;
 using forms.Utilities.Messages;
+using forms.Views.Interfaces;
 using Linkedin_Automation.Config;
 using Linkedin_Automation.Model;
-using Linkedin_Automation.Utilities;
 using Microsoft.Playwright;
-using playwright.Model;
-using System.Text;
-using static System.Net.Mime.MediaTypeNames;
 
-namespace forms.Forms
+namespace forms.Presenters
 {
-    public partial class AutomationScreen : Form
+    public class AutomationPresenter
     {
-        private FormObject mainScreenForm;
-        private FunctionsUtilities functionsUtilities = new FunctionsUtilities();
-        private CancellationTokenSource cancellationToken = new CancellationTokenSource();
+        private IAutomationView _automationView;
+        private IDataService<dynamic> _dataService;
+        private ILogService _logService;
+        private ILoginRepository _loginRepository;
+        private ILogRepository _logRepository;
+        private OutputStringPatterns stringPatterns = new();
+        private PlaywrightUtilities playwrightUtilities = new();
 
-        public StringPatterns stringPatterns = new StringPatterns();
-
-        public static string LOGPATH = "../../../../Forms/Files/log.txt";  //Mudar o diretório (opcional)
-        public static string RESPATH = "../../../../Forms/Config/resolution.txt";
-
-        public AutomationScreen()
+        public AutomationPresenter(
+            IAutomationView automationView, 
+            IDataService<dynamic> dataService, 
+            ILogService logService, 
+            ILoginRepository loginRepository, 
+            ILogRepository logRepository)
         {
-            InitializeComponent();
+            _automationView = automationView;
+            _dataService = dataService;
+            _logService = logService;
+            _automationView.StartAutomation += StartAutomation;
+            _loginRepository = loginRepository;
+            _logRepository = logRepository;
+            //_automationView
         }
 
-        public AutomationScreen(FormObject formObject)
+        private async void StartAutomation(object sender, EventArgs e)
         {
-            InitializeComponent();
-            this.mainScreenForm = formObject;
-
-            this.Shown += new EventHandler(RunningScreen_Shown);
-        }
-
-        public async void RunningScreen_Load(object sender, EventArgs e)
-        {
-        }
-
-        public async void RunningScreen_Shown(object sender, EventArgs e)
-        {
-            MessageBox.Show("Tela carregada", "Aviso", MessageBoxButtons.OK);
-
-            txtBoxsaved_jobs.Text = "0";
-            txtBox_applied_Jobs.Text = $"0/{mainScreenForm.AmoutOfJobs}";
-            txtBox_job.Text = mainScreenForm.TxtboxJob;
-
+            CancellationTokenSource cancellationToken = new();
             await Script(cancellationToken.Token);
         }
 
-        public async Task appendRichTextBoxText(string text)
+        //Automation Method
+        private async Task Script(CancellationToken token)
         {
-            richtxtBox_info.Text += text + "\n";
-            await Task.Delay(TimeSpan.FromSeconds(0.1));
-        }
-
-        public async Task Script(CancellationToken token)
-        {
-            // CRIAÇÃO LOG.TXT, CASO Ñ HOUVER
-            StringPatterns stringUtilities = new StringPatterns();
-            LogUtilities logUtilities = new LogUtilities();
+            // GET DADOS DA TELA HOME
+            dynamic Homedata = _dataService.GetData();
 
             // VERIFICAÇÃO EXISTENCIA LOG.TXT
-            if (!File.Exists(LOGPATH))
-                logUtilities.createLogFile();
-            else
-                logUtilities.writeStartMessage();
+            _logService.LogFileExistingVerification();
 
-            // LER DADOS DOS USUARIOS
-            UserCredencials credencials = new UserCredencials(this.mainScreenForm);
-            UserModel userInfo = credencials.User;
+            // LER DADOS DE USUARIO
+            UserModel userInfo = _loginRepository.ConvertMsgpackFileToObject();
 
             // CONFIGURAÇÃO DO PLAYWRIGHT
-            PlaywrightConfiguration playwrightConfiguration = new PlaywrightConfiguration();
+            IConfigRepository configRepository = new ConfigRepository();
+            PlaywrightConfiguration playwrightConfiguration = new PlaywrightConfiguration(configRepository);
             var settings = await playwrightConfiguration.launchSettingsAsync();
 
-            await appendRichTextBoxText(stringUtilities.linePattern());
-            await appendRichTextBoxText("Iniciando...");
+            //INICIO
+            _automationView.RichtxtBox += (stringPatterns.linePattern());
+            _automationView.RichtxtBox +=("Iniciando...\n");
 
-            await appendRichTextBoxText("Abrindo o navegador padrão...");
+            _automationView.RichtxtBox +=("Abrindo o navegador padrão...\n");
             var page = await settings.BrowserContext!.NewPageAsync();
 
-            // AJUSTAR RESOLUÇÃO DE TELA DO BROWSER
-            string resolution;
-
-            ///Leitura arq resolution.txt
-            var ResLines = File.ReadLines(RESPATH).ToList();
-            
-            ///Tela cheia
-            if (ResLines.First() == "Tela cheia")
-            {
-                ///Pegar resolução de tela
-                string screenWidth = Screen.PrimaryScreen.Bounds.Width.ToString();
-                string screenHeight = Screen.PrimaryScreen.Bounds.Height.ToString();
-
-                resolution = screenWidth + "x" + screenHeight;
-            }
-            else ///Janela
-                resolution = ResLines.Last();
-
-            string[] pieces = resolution.Split('x');
-            int[] numbers = Array.ConvertAll(pieces, int.Parse);
-
-            await page.SetViewportSizeAsync(numbers[0], numbers[1]);
-            await Task.Delay(TimeSpan.FromSeconds(3));
-
-            await appendRichTextBoxText("Direcionando para https://www.linkedin.com/");
+            // DIRECIONANDO
+            _automationView.RichtxtBox +=("Direcionando para https://www.linkedin.com/\n");
             await Task.Delay(TimeSpan.FromSeconds(0.5));
 
             await page.GotoAsync("https://www.linkedin.com/");
@@ -116,13 +77,13 @@ namespace forms.Forms
             await Task.Delay(TimeSpan.FromSeconds(1));
 
             // PREENCHIMENTO DAS CREEDENCIAIS
-            await appendRichTextBoxText("Fazendo login..");
+            _automationView.RichtxtBox +=("Fazendo login..\n");
 
             await page.GetByLabel("E-mail ou telefone").ClickAsync();
 
             await page.GetByLabel("E-mail ou telefone").FillAsync(userInfo.email);
 
-            await appendRichTextBoxText("Usuario/email preenchido");
+            _automationView.RichtxtBox +=("Usuario/email preenchido\n");
 
             await Task.Delay(TimeSpan.FromSeconds(0.8));
 
@@ -130,7 +91,7 @@ namespace forms.Forms
 
             await page.GetByLabel("Senha").FillAsync(userInfo.password);
 
-            await appendRichTextBoxText("Senha preenchida");
+            _automationView.RichtxtBox +=("Senha preenchida\n");
 
             await Task.Delay(TimeSpan.FromSeconds(0.8));
 
@@ -139,40 +100,40 @@ namespace forms.Forms
             var errorLogin = await page.QuerySelectorAsync("div[error-for=\"password\"]");
             if (errorLogin != null)
             {
-                await appendRichTextBoxText(stringUtilities.errorPattern(ExceptionMessages.IncorretLogin, null, false));
+                _automationView.RichtxtBox +=(stringPatterns.errorPattern(ExceptionMessages.IncorretLogin, null, false));
                 return;
             }
             await Task.Delay(TimeSpan.FromSeconds(2));
 
             // CÓDIGO LINKEDIN / VERIFICAÇÃO DE SEGURANÇA (MANUALMENTE)
-            await appendRichTextBoxText("Carregando...");
-            var message = await functionsUtilities.WaitForElementAndHandleException(page, "#global-nav-typeahead", "Página carregada!", ExceptionMessages.SecurityError);
-            await appendRichTextBoxText(message);
+            _automationView.RichtxtBox +=("Carregando...\n");
+            var message = await playwrightUtilities.WaitForElementAndHandleException(page, "#global-nav-typeahead", "Página carregada!", ExceptionMessages.SecurityError);
+            _automationView.RichtxtBox +=(message);
             await Task.Delay(TimeSpan.FromSeconds(2));
 
             // PESQUISA DE VAGAS
-            await appendRichTextBoxText(stringUtilities.linePattern());
-            await appendRichTextBoxText($"Pesquisando {this.mainScreenForm.TxtboxJob}");
+            _automationView.RichtxtBox +=(stringPatterns.linePattern());
+            _automationView.RichtxtBox +=($"Pesquisando {Homedata.TxtboxJob}");
             var searchJobDiv = await page.QuerySelectorAsync("#global-nav-typeahead");
             await searchJobDiv.ClickAsync();
             await Task.Delay(TimeSpan.FromSeconds(0.8));
 
             var inputSearchJob = await searchJobDiv.QuerySelectorAsync(".search-global-typeahead__input");
-            await inputSearchJob.FillAsync(this.mainScreenForm.TxtboxJob);
+            await inputSearchJob.FillAsync(Homedata.TxtboxJob);
             await Task.Delay(TimeSpan.FromSeconds(0.8));
 
             await inputSearchJob.PressAsync("Enter");
-            await appendRichTextBoxText("Pesquisado com sucesso");
+            _automationView.RichtxtBox +=("Pesquisado com sucesso\n");
             await Task.Delay(TimeSpan.FromSeconds(2));
 
             // APLICAÇÃO DE FILTROS
-            await appendRichTextBoxText("Aplicando filtros");
+            _automationView.RichtxtBox +=("Aplicando filtros\n");
             var navFilterArea = await page.QuerySelectorAsync("nav[aria-label='Filtros de pesquisa']");
             var buttonJobFilter = await navFilterArea.QuerySelectorAsync("button:has-text('Vagas')");
             await buttonJobFilter.ClickAsync();
             await Task.Delay(TimeSpan.FromSeconds(0.8));
 
-            await appendRichTextBoxText("Exibindo todos os filtros");
+            _automationView.RichtxtBox +=("Exibindo todos os filtros\n");
             await page.GetByLabel("Exibir todos os filtros. Ao").ClickAsync();
             await Task.Delay(TimeSpan.FromSeconds(0.8));
 
@@ -183,43 +144,43 @@ namespace forms.Forms
             await buttonFilterType.ClickAsync();
             await Task.Delay(TimeSpan.FromSeconds(0.8));
 
-            await appendRichTextBoxText("Selecionando candidatura simplificada..");
+            _automationView.RichtxtBox +=("Selecionando candidatura simplificada..\n");
             await page.GetByText("Desativada Alternar filtro Candidatura simplificada").ClickAsync();
             await Task.Delay(TimeSpan.FromSeconds(0.8));
 
             ///Classificar por
-            await appendRichTextBoxText($"*FiltroClassificar por: {this.mainScreenForm.ClassifyBy};");
-            await page.GetByLabel("Todos os filtros", new() { Exact = true }).Locator("label").Filter(new() { HasText = $"{this.mainScreenForm.ClassifyBy} Filtrar por {this.mainScreenForm.ClassifyBy}" }).ClickAsync();
+            _automationView.RichtxtBox +=($"*FiltroClassificar por: {Homedata.ClassifyBy};");
+            await page.GetByLabel("Todos os filtros", new() { Exact = true }).Locator("label").Filter(new() { HasText = $"{Homedata.ClassifyBy} Filtrar por {Homedata.ClassifyBy}" }).ClickAsync();
             await Task.Delay(TimeSpan.FromSeconds(0.8));
 
             ///Data do anúncio
-            await appendRichTextBoxText($"*FiltroData do anúncio: {this.mainScreenForm.AnnoucementDate};");
-            await page.GetByLabel("Todos os filtros", new() { Exact = true }).Locator("label").Filter(new() { HasText = $"{this.mainScreenForm.AnnoucementDate} Filtrar por {this.mainScreenForm.AnnoucementDate}" }).ClickAsync();
+            _automationView.RichtxtBox +=($"*FiltroData do anúncio: {Homedata.AnnoucementDate};");
+            await page.GetByLabel("Todos os filtros", new() { Exact = true }).Locator("label").Filter(new() { HasText = $"{Homedata.AnnoucementDate} Filtrar por {Homedata.AnnoucementDate}" }).ClickAsync();
             await Task.Delay(TimeSpan.FromSeconds(0.8));
 
             ///Nível de experiência
-            await appendRichTextBoxText($"*FiltroNível de experiencia:");
-            foreach (string selectedExperience in this.mainScreenForm.CheckedListBoxExperiences)
+            _automationView.RichtxtBox +=($"*FiltroNível de experiencia:");
+            foreach (string selectedExperience in Homedata.CheckedListBoxExperiences)
             {
-                await appendRichTextBoxText($"\t{selectedExperience}");
+                _automationView.RichtxtBox +=($"\t{selectedExperience}");
                 await page.GetByLabel("Todos os filtros", new() { Exact = true }).Locator("label").Filter(new() { HasText = $"{selectedExperience} Filtrar por {selectedExperience}" }).ClickAsync();
                 await Task.Delay(TimeSpan.FromSeconds(0.5));
             }
 
             ///Tipo de vaga
-            await appendRichTextBoxText($"*FiltroTipo de vaga:");
-            foreach (string selectedType in this.mainScreenForm.CheckedListBoxType_job)
+            _automationView.RichtxtBox +=($"*FiltroTipo de vaga:");
+            foreach (string selectedType in Homedata.CheckedListBoxType_job)
             {
-                await appendRichTextBoxText($"\t{selectedType}");
+                _automationView.RichtxtBox +=($"\t{selectedType}");
                 await page.GetByLabel("Todos os filtros", new() { Exact = true }).Locator("label").Filter(new() { HasText = $"{selectedType} Filtrar por {selectedType}" }).ClickAsync();
                 await Task.Delay(TimeSpan.FromSeconds(0.5));
             }
 
             ///Remoto
-            await appendRichTextBoxText($"*FiltroRemoto:");
-            foreach (string selectedRemote in this.mainScreenForm.CheckedListBoxRemote)
+            _automationView.RichtxtBox +=($"*FiltroRemoto:");
+            foreach (string selectedRemote in Homedata.CheckedListBoxRemote)
             {
-                await appendRichTextBoxText($"\t\t{selectedRemote}");
+                _automationView.RichtxtBox +=($"\t\t{selectedRemote}");
                 await page.GetByLabel("Todos os filtros", new() { Exact = true }).Locator("label").Filter(new() { HasText = $"{selectedRemote} Filtrar por {selectedRemote}" }).ClickAsync();
                 await Task.Delay(TimeSpan.FromSeconds(0.5));
             }
@@ -242,13 +203,13 @@ namespace forms.Forms
             // LISTAR TODAS AS VAGAS
             var ulElementsJobs = await page.QuerySelectorAllAsync("li[class*='jobs-search-results__list-item']");
             int avaiableJobs = ulElementsJobs.Count();
-            await appendRichTextBoxText($"Vagas encontradas: {avaiableJobs}");
+            _automationView.RichtxtBox +=($"Vagas encontradas: {avaiableJobs}");
             await Task.Delay(TimeSpan.FromSeconds(1));
 
             //HABILITAR O BOTÃO SAIR
-            button_exit.Enabled = true;
+            //button_exit.Enabled = true;
 
-            while (appliedJobs != this.mainScreenForm.AmoutOfJobs)
+            while (appliedJobs != Homedata.AmoutOfJobs)
             {
                 try
                 {
@@ -268,7 +229,7 @@ namespace forms.Forms
                         else ///FALSE,  Erro, pagina não existente    
                         {
                             MessageBox.Show("Limite de páginas excedido, não há mais vagas para se candidatar", "Limite excedido", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
-                            stringUtilities.finishPattern(appliedJobs, savedJobs);
+                            stringPatterns.finishPattern(appliedJobs, savedJobs);
                             return;
                         }
                         currentPage++;
@@ -279,9 +240,9 @@ namespace forms.Forms
                         jobsCounter = 1;
                     }
 
-                    await appendRichTextBoxText("==================================");
-                    await appendRichTextBoxText($"Página {currentPage}");
-                    await appendRichTextBoxText($"Vaga nº {jobsCounter}");
+                    _automationView.RichtxtBox +=("==================================\n");
+                    _automationView.RichtxtBox +=($"Página {currentPage}");
+                    _automationView.RichtxtBox +=($"Vaga nº {jobsCounter}");
 
                     try
                     {
@@ -290,7 +251,7 @@ namespace forms.Forms
                     }
                     catch (Exception e)
                     {
-                        await appendRichTextBoxText($"\n\n\n\n\n======================================\n{e}");
+                        _automationView.RichtxtBox +=($"\n\n\n\n\n======================================\n{e}");
                     }
 
                     // SELECIONAR DIV SUPERIOR (Div que contem descrição da vaga, botoes)
@@ -321,7 +282,7 @@ namespace forms.Forms
                             var jobAlreadySaved = await saveButton.QuerySelectorAsync("span:has-text('Salvos')");
                             if (jobAlreadySaved != null)
                             {
-                                await appendRichTextBoxText("VAGA JÁ FOI SALVA ANTERIORMENTE");
+                                _automationView.RichtxtBox +=("VAGA JÁ FOI SALVA ANTERIORMENTE\n");
                                 continue;
                             }
 
@@ -329,10 +290,10 @@ namespace forms.Forms
                             await saveButton.ClickAsync();
 
                             await Task.Delay(TimeSpan.FromSeconds(0.8));
-                            await appendRichTextBoxText($"Salva a vaga nº{jobsCounter}");
+                            _automationView.RichtxtBox +=($"Salva a vaga nº{jobsCounter}");
                             await Task.Delay(TimeSpan.FromSeconds(0.8));
                             Console.ForegroundColor = ConsoleColor.Blue;
-                            await appendRichTextBoxText($"Total de {savedJobs} vagas salvas");
+                            _automationView.RichtxtBox +=($"Total de {savedJobs} vagas salvas");
                             Console.ResetColor(); // Resetar a cor para o padrão
 
                             continue;
@@ -345,7 +306,7 @@ namespace forms.Forms
 
                         if (appliedAlready!.Contains("Candidatou-se"))
                         {
-                            await appendRichTextBoxText("!Vaga já candidatada!");
+                            _automationView.RichtxtBox +=("!Vaga já candidatada!\n");
                             continue;
                         }
                     }
@@ -370,9 +331,9 @@ namespace forms.Forms
 
                         /// EXIBE NA TELA INFORMAÇÕES DA CANDIDATURA
                         await Task.Delay(TimeSpan.FromSeconds(0.8));
-                        await appendRichTextBoxText($"Inscrito na vaga nº{jobsCounter}");
+                        _automationView.RichtxtBox +=($"Inscrito na vaga nº{jobsCounter}");
                         await Task.Delay(TimeSpan.FromSeconds(0.8));
-                        await appendRichTextBoxText($"Total de {appliedJobs} vagas aplicadas");
+                        _automationView.RichtxtBox +=($"Total de {appliedJobs} vagas aplicadas");
                         continue;
                     }
                     else // QUANDO BOTÃO AVANÇAR EXISTE!
@@ -386,7 +347,7 @@ namespace forms.Forms
                         catch (Exception e)
                         {
                             /// ERRO AO CLICAR NO BOTÃO
-                            logUtilities.LogError("Não foi possivel clicar no botão avançar!", e);
+                            _logRepository.WriteALogError("Não foi possivel clicar no botão avançar!", e);
                             continue;
                         }
                     }
@@ -427,10 +388,10 @@ namespace forms.Forms
                         appliedJobs++;
 
                         await Task.Delay(TimeSpan.FromSeconds(0.8));
-                        await appendRichTextBoxText($"Inscrito na vaga nº{jobsCounter}");
+                        _automationView.RichtxtBox +=($"Inscrito na vaga nº{jobsCounter}");
                         await Task.Delay(TimeSpan.FromSeconds(0.8));
-                        await appendRichTextBoxText($"Total de {appliedJobs} vagas aplicadas");
-                        stringUtilities.finishPattern(appliedJobs, savedJobs);
+                        _automationView.RichtxtBox +=($"Total de {appliedJobs} vagas aplicadas");
+                        stringPatterns.finishPattern(appliedJobs, savedJobs);
                         continue;
                     }
                     else if (additionalQuestions != null) // QUANDO HÁ PERGUNTAS
@@ -451,40 +412,21 @@ namespace forms.Forms
 
                         await Task.Delay(TimeSpan.FromSeconds(0.8));
 
-                        await appendRichTextBoxText($"Salva a vaga nº{jobsCounter}");
+                        _automationView.RichtxtBox +=($"Salva a vaga nº{jobsCounter}");
                         await Task.Delay(TimeSpan.FromSeconds(0.8));
-                        await appendRichTextBoxText($"Total de {appliedJobs} vagas aplicadas");
+                        _automationView.RichtxtBox +=($"Total de {appliedJobs} vagas aplicadas");
 
-                        await appendRichTextBoxText($"Total de {savedJobs} vagas salvas");
+                        _automationView.RichtxtBox +=($"Total de {savedJobs} vagas salvas");
                         continue;
                     }
                 }
                 catch (Exception e)
                 {
-                    logUtilities.LogError("Erro genérico", e);
+                    _logRepository.WriteALogError("Erro genérico", e);
                     return;
                 }
             }
         }
 
-        private void stopApplication_button_Click(object sender, EventArgs e)
-        {
-            cancellationToken.Cancel();
-            this.Close();
-        }
-
-        private async Task createResolutionFile()
-        {
-            MessageBox.Show("Criado arquivo resolution.txt", "Criando", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2);
-            ///Cria arquivo
-            File.Create(RESPATH);
-        }
-
-        private async Task appendText(string text)
-        {
-            MessageBox.Show("Adicionado tela cheia como padrãoo em resolution.txt", "Escrevendo", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2);
-            string[] lines = [text];
-            File.AppendAllLines(Path.Combine(RESPATH), lines);
-        }
     }
 }
