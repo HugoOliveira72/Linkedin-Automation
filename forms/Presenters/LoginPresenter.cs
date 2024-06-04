@@ -1,9 +1,6 @@
-﻿using forms.Forms;
-using forms.Models.Interfaces;
-using forms.Repositories;
+﻿using forms.Models.Interfaces;
 using forms.Views.Interfaces;
 using Linkedin_Automation.Model;
-using Linkedin_Automation.Utilities;
 using MessagePack;
 using Newtonsoft.Json;
 
@@ -14,12 +11,12 @@ namespace forms.Presenters
         //Fields
         private ILoginView _loginView;
         private ILoginRepository _loginRepository;
+        ILogRepository _logRepository;
         private string filePath = "../../../Files/user.msgpack";
 
         //Attr
-        LogUtilities logUtilities = new LogUtilities();
 
-        public LoginPresenter(ILoginView loginView, ILoginRepository loginRepository)
+        public LoginPresenter(ILoginView loginView, ILoginRepository loginRepository, ILogRepository logRepository)
         {
             _loginRepository = (ILoginRepository?)loginRepository;
             _loginView = loginView;
@@ -35,8 +32,8 @@ namespace forms.Presenters
                 {
                     // Cria o arquivo se não existir
                     UserModel newUser = new UserModel(_loginView.Email, _loginView.Password);
-                    _loginRepository.create(filePath);
-                    _loginRepository.update(filePath, newUser);
+                    _loginRepository.CreateMessagePackFile(filePath);
+                    _loginRepository.UpdateMessagePackFile(filePath, newUser);
                 }
                 else
                 {
@@ -44,26 +41,26 @@ namespace forms.Presenters
                     {
                         // Atualiza o usuário com novos dados
                         var updatedUser = new UserModel(_loginView.Email, _loginView.Password);
-                        _loginRepository.update(filePath, updatedUser);
+                        _loginRepository.UpdateMessagePackFile(filePath, updatedUser);
                     }
 
                     //Carrega usuário do arquivo
-                    UserModel loadedUser = _loginRepository.LoadConvertedObject<UserModel>(filePath);
+                    UserModel loadedUser = _loginRepository.ConvertMsgpackFileToObject();
                 }
             }
             catch (FileNotFoundException fileException)
             {
-                logUtilities.LogError("Arquivo não encontrado.", fileException);
+                _logRepository.WriteALogError("Arquivo não encontrado.", fileException);
             }
             catch (JsonException jsonException)
             {
-                logUtilities.LogError("Erro ao desserializar JSON.", jsonException);
+                _logRepository.WriteALogError("Erro ao desserializar JSON.", jsonException);
             }
         }
 
         private void OnUserFormLoaded(object sender, EventArgs e)
         {
-            UserModel user = _loginRepository.LoadConvertedObject<UserModel>(filePath);
+            UserModel user = _loginRepository.ConvertMsgpackFileToObject<UserModel>(filePath);
 
             if (user.email != "" || user.password != "")
             {
@@ -74,7 +71,7 @@ namespace forms.Presenters
 
         private UserModel LoadUser()
         {
-            byte[] fileBytes = _loginRepository.read(filePath);
+            byte[] fileBytes = _loginRepository.ReadMessagePackFile(filePath);
 
             // Desserializa os bytes em um objeto User
             var loadedUserJson = MessagePackSerializer.Deserialize<dynamic>(fileBytes);

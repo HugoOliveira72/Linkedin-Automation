@@ -1,20 +1,24 @@
 ﻿using forms.Forms;
 using forms.Models.Interfaces;
 using forms.Repositories;
+using forms.Services;
 using forms.Views.Interfaces;
+using playwright.Model;
 
 namespace forms.Presenters
 {
     public class HomePresenter
     {
         private IHomeView _homeView;
+        IDataService<dynamic> _dataService;
         //private IHomeRepository _homeRepository;
 
-        public HomePresenter (IHomeView homeView)
+        public HomePresenter(IHomeView homeView, IDataService<dynamic> dataService)
         {
             _homeView = homeView;
+            _dataService = dataService;
             _homeView.ShowConfigView += ShowConfigurationView;
-            _homeView.ShowRunningView += ShowRunningView;
+            _homeView.ShowAutomationView += ShowAutomationView;
         }
 
         private void ShowConfigurationView(object sender, EventArgs e)
@@ -25,9 +29,31 @@ namespace forms.Presenters
             configView.Show();
         }
 
-        private void ShowRunningView(object sender, EventArgs e)
+        private void ShowAutomationView(object sender, EventArgs e)
         {
+            _dataService.SetData(SetObject());
+            ILogRepository logRepository = new LogRepository();
+            ILogService logService = new LogService(logRepository);
+            ILoginRepository loginRepository = new LoginRepository();
 
+            AutomationView automationView = new AutomationView(_dataService);
+            new AutomationPresenter(automationView, _dataService, logService, loginRepository, logRepository);
+            automationView.Show();
+        }
+
+        private HomeModel SetObject()
+        {
+            HomeModel data = new HomeModel
+            (
+                _homeView.Job,
+                Int32.Parse(_homeView.amountJobs),
+                _homeView.ComboBoxClassifyBy,
+                _homeView.comboBoxAnnoucementDate,
+                _homeView.checkedListBoxExperienceLevel,
+                _homeView.checkedListBoxTypeJob,
+                _homeView.checkedListBoxRemote
+            );
+            return data;
         }
     }
 }
