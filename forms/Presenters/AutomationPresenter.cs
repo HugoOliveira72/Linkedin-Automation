@@ -7,6 +7,7 @@ using forms.Views.Interfaces;
 using Linkedin_Automation.Config;
 using Linkedin_Automation.Model;
 using Microsoft.Playwright;
+using playwright.Model;
 
 namespace forms.Presenters
 {
@@ -19,12 +20,12 @@ namespace forms.Presenters
         private ILogRepository _logRepository;
         private OutputStringPatterns stringPatterns = new();
         private PlaywrightUtilities playwrightUtilities = new();
-
+        //private static ExceptionMessages exceptionMessages;
         public AutomationPresenter(
-            IAutomationView automationView, 
-            IDataService<dynamic> dataService, 
-            ILogService logService, 
-            ILoginRepository loginRepository, 
+            IAutomationView automationView,
+            IDataService<dynamic> dataService,
+            ILogService logService,
+            ILoginRepository loginRepository,
             ILogRepository logRepository)
         {
             _automationView = automationView;
@@ -45,8 +46,8 @@ namespace forms.Presenters
         //Automation Method
         private async Task Script(CancellationToken token)
         {
-            // GET DADOS DA TELA HOME
-            dynamic Homedata = _dataService.GetData();
+            // OBTEM DADOS DA TELA HOME
+            HomeModel Homedata = _dataService.GetData();
 
             // VERIFICAÇÃO EXISTENCIA LOG.TXT
             _logService.LogFileExistingVerification();
@@ -61,13 +62,12 @@ namespace forms.Presenters
 
             //INICIO
             _automationView.RichtxtBox += (stringPatterns.linePattern());
-            _automationView.RichtxtBox +=("Iniciando...\n");
-
-            _automationView.RichtxtBox +=("Abrindo o navegador padrão...\n");
-            var page = await settings.BrowserContext!.NewPageAsync();
+            _automationView.RichtxtBox += ("Iniciando...\n");
+            _automationView.RichtxtBox += ("Abrindo o navegador padrão...\n");
+            IPage page = await settings.BrowserContext!.NewPageAsync();
 
             // DIRECIONANDO
-            _automationView.RichtxtBox +=("Direcionando para https://www.linkedin.com/\n");
+            _automationView.RichtxtBox += ("Direcionando para https://www.linkedin.com/\n");
             await Task.Delay(TimeSpan.FromSeconds(0.5));
 
             await page.GotoAsync("https://www.linkedin.com/");
@@ -77,22 +77,16 @@ namespace forms.Presenters
             await Task.Delay(TimeSpan.FromSeconds(1));
 
             // PREENCHIMENTO DAS CREEDENCIAIS
-            _automationView.RichtxtBox +=("Fazendo login..\n");
+            _automationView.RichtxtBox += ("Fazendo login..\n");
 
             await page.GetByLabel("E-mail ou telefone").ClickAsync();
-
             await page.GetByLabel("E-mail ou telefone").FillAsync(userInfo.email);
-
-            _automationView.RichtxtBox +=("Usuario/email preenchido\n");
-
+            _automationView.RichtxtBox += ("Usuario/email preenchido\n");
             await Task.Delay(TimeSpan.FromSeconds(0.8));
 
             await page.GetByLabel("Senha").ClickAsync();
-
             await page.GetByLabel("Senha").FillAsync(userInfo.password);
-
-            _automationView.RichtxtBox +=("Senha preenchida\n");
-
+            _automationView.RichtxtBox += ("Senha preenchida\n");
             await Task.Delay(TimeSpan.FromSeconds(0.8));
 
             await page.GetByLabel("Entrar", new() { Exact = true }).ClickAsync();
@@ -100,20 +94,20 @@ namespace forms.Presenters
             var errorLogin = await page.QuerySelectorAsync("div[error-for=\"password\"]");
             if (errorLogin != null)
             {
-                _automationView.RichtxtBox +=(stringPatterns.errorPattern(ExceptionMessages.IncorretLogin, null, false));
+                _automationView.RichtxtBox += (stringPatterns.errorPattern(ExceptionMessages.IncorretLogin, null, false));
                 return;
             }
             await Task.Delay(TimeSpan.FromSeconds(2));
 
             // CÓDIGO LINKEDIN / VERIFICAÇÃO DE SEGURANÇA (MANUALMENTE)
-            _automationView.RichtxtBox +=("Carregando...\n");
+            _automationView.RichtxtBox += ("Carregando...\n");
             var message = await playwrightUtilities.WaitForElementAndHandleException(page, "#global-nav-typeahead", "Página carregada!", ExceptionMessages.SecurityError);
-            _automationView.RichtxtBox +=(message);
+            _automationView.RichtxtBox += (message);
             await Task.Delay(TimeSpan.FromSeconds(2));
 
             // PESQUISA DE VAGAS
-            _automationView.RichtxtBox +=(stringPatterns.linePattern());
-            _automationView.RichtxtBox +=($"Pesquisando {Homedata.TxtboxJob}");
+            _automationView.RichtxtBox += (stringPatterns.linePattern());
+            _automationView.RichtxtBox += ($"Pesquisando {Homedata.TxtboxJob}");
             var searchJobDiv = await page.QuerySelectorAsync("#global-nav-typeahead");
             await searchJobDiv.ClickAsync();
             await Task.Delay(TimeSpan.FromSeconds(0.8));
@@ -123,17 +117,17 @@ namespace forms.Presenters
             await Task.Delay(TimeSpan.FromSeconds(0.8));
 
             await inputSearchJob.PressAsync("Enter");
-            _automationView.RichtxtBox +=("Pesquisado com sucesso\n");
+            _automationView.RichtxtBox += ("Pesquisado com sucesso\n");
             await Task.Delay(TimeSpan.FromSeconds(2));
 
             // APLICAÇÃO DE FILTROS
-            _automationView.RichtxtBox +=("Aplicando filtros\n");
+            _automationView.RichtxtBox += ("Aplicando filtros\n");
             var navFilterArea = await page.QuerySelectorAsync("nav[aria-label='Filtros de pesquisa']");
             var buttonJobFilter = await navFilterArea.QuerySelectorAsync("button:has-text('Vagas')");
             await buttonJobFilter.ClickAsync();
             await Task.Delay(TimeSpan.FromSeconds(0.8));
 
-            _automationView.RichtxtBox +=("Exibindo todos os filtros\n");
+            _automationView.RichtxtBox += ("Exibindo todos os filtros\n");
             await page.GetByLabel("Exibir todos os filtros. Ao").ClickAsync();
             await Task.Delay(TimeSpan.FromSeconds(0.8));
 
@@ -144,46 +138,28 @@ namespace forms.Presenters
             await buttonFilterType.ClickAsync();
             await Task.Delay(TimeSpan.FromSeconds(0.8));
 
-            _automationView.RichtxtBox +=("Selecionando candidatura simplificada..\n");
+            _automationView.RichtxtBox += ("Selecionando candidatura simplificada..\n");
             await page.GetByText("Desativada Alternar filtro Candidatura simplificada").ClickAsync();
             await Task.Delay(TimeSpan.FromSeconds(0.8));
 
             ///Classificar por
-            _automationView.RichtxtBox +=($"*FiltroClassificar por: {Homedata.ClassifyBy};");
+            _automationView.RichtxtBox += ($"*FiltroClassificar por: {Homedata.ClassifyBy};");
             await page.GetByLabel("Todos os filtros", new() { Exact = true }).Locator("label").Filter(new() { HasText = $"{Homedata.ClassifyBy} Filtrar por {Homedata.ClassifyBy}" }).ClickAsync();
             await Task.Delay(TimeSpan.FromSeconds(0.8));
 
             ///Data do anúncio
-            _automationView.RichtxtBox +=($"*FiltroData do anúncio: {Homedata.AnnoucementDate};");
+            _automationView.RichtxtBox += ($"*FiltroData do anúncio: {Homedata.AnnoucementDate};");
             await page.GetByLabel("Todos os filtros", new() { Exact = true }).Locator("label").Filter(new() { HasText = $"{Homedata.AnnoucementDate} Filtrar por {Homedata.AnnoucementDate}" }).ClickAsync();
             await Task.Delay(TimeSpan.FromSeconds(0.8));
 
             ///Nível de experiência
-            _automationView.RichtxtBox +=($"*FiltroNível de experiencia:");
-            foreach (string selectedExperience in Homedata.CheckedListBoxExperiences)
-            {
-                _automationView.RichtxtBox +=($"\t{selectedExperience}");
-                await page.GetByLabel("Todos os filtros", new() { Exact = true }).Locator("label").Filter(new() { HasText = $"{selectedExperience} Filtrar por {selectedExperience}" }).ClickAsync();
-                await Task.Delay(TimeSpan.FromSeconds(0.5));
-            }
+            _ = ApplyFilter("Nível de experiencia", Homedata.CheckedListBoxExperiences, page);
 
             ///Tipo de vaga
-            _automationView.RichtxtBox +=($"*FiltroTipo de vaga:");
-            foreach (string selectedType in Homedata.CheckedListBoxType_job)
-            {
-                _automationView.RichtxtBox +=($"\t{selectedType}");
-                await page.GetByLabel("Todos os filtros", new() { Exact = true }).Locator("label").Filter(new() { HasText = $"{selectedType} Filtrar por {selectedType}" }).ClickAsync();
-                await Task.Delay(TimeSpan.FromSeconds(0.5));
-            }
+            _ = ApplyFilter("Tipo de vaga", Homedata.CheckedListBoxType_job, page);
 
             ///Remoto
-            _automationView.RichtxtBox +=($"*FiltroRemoto:");
-            foreach (string selectedRemote in Homedata.CheckedListBoxRemote)
-            {
-                _automationView.RichtxtBox +=($"\t\t{selectedRemote}");
-                await page.GetByLabel("Todos os filtros", new() { Exact = true }).Locator("label").Filter(new() { HasText = $"{selectedRemote} Filtrar por {selectedRemote}" }).ClickAsync();
-                await Task.Delay(TimeSpan.FromSeconds(0.5));
-            }
+            _ = ApplyFilter("Remoto", Homedata.CheckedListBoxRemote, page);
 
             await page.GetByLabel("Todos os filtros", new() { Exact = true }).PressAsync("Enter");
             await Task.Delay(TimeSpan.FromSeconds(0.8));
@@ -203,12 +179,11 @@ namespace forms.Presenters
             // LISTAR TODAS AS VAGAS
             var ulElementsJobs = await page.QuerySelectorAllAsync("li[class*='jobs-search-results__list-item']");
             int avaiableJobs = ulElementsJobs.Count();
-            _automationView.RichtxtBox +=($"Vagas encontradas: {avaiableJobs}");
+            _automationView.RichtxtBox += ($"Vagas encontradas: {avaiableJobs}");
             await Task.Delay(TimeSpan.FromSeconds(1));
 
             //HABILITAR O BOTÃO SAIR
             //button_exit.Enabled = true;
-
             while (appliedJobs != Homedata.AmoutOfJobs)
             {
                 try
@@ -240,9 +215,9 @@ namespace forms.Presenters
                         jobsCounter = 1;
                     }
 
-                    _automationView.RichtxtBox +=("==================================\n");
-                    _automationView.RichtxtBox +=($"Página {currentPage}");
-                    _automationView.RichtxtBox +=($"Vaga nº {jobsCounter}");
+                    _automationView.RichtxtBox += ("==================================\n");
+                    _automationView.RichtxtBox += ($"Página {currentPage}");
+                    _automationView.RichtxtBox += ($"Vaga nº {jobsCounter}");
 
                     try
                     {
@@ -251,12 +226,13 @@ namespace forms.Presenters
                     }
                     catch (Exception e)
                     {
-                        _automationView.RichtxtBox +=($"\n\n\n\n\n======================================\n{e}");
+                        _automationView.RichtxtBox += ($"\n\n\n\n\n======================================\n{e}");
                     }
 
                     // SELECIONAR DIV SUPERIOR (Div que contem descrição da vaga, botoes)
                     await Task.Delay(TimeSpan.FromSeconds(1));
                     var supDivElement = await page.QuerySelectorAsync("div[class*='jobs-unified-top-card']");
+                    await Task.Delay(TimeSpan.FromSeconds(0.3));
 
                     // ============= ETAPA DE CANDIDATURA =============
                     // BOTÃO CANDIDATURA SIMPLIFICADA
@@ -282,7 +258,7 @@ namespace forms.Presenters
                             var jobAlreadySaved = await saveButton.QuerySelectorAsync("span:has-text('Salvos')");
                             if (jobAlreadySaved != null)
                             {
-                                _automationView.RichtxtBox +=("VAGA JÁ FOI SALVA ANTERIORMENTE\n");
+                                _automationView.RichtxtBox += ("VAGA JÁ FOI SALVA ANTERIORMENTE\n");
                                 continue;
                             }
 
@@ -290,10 +266,10 @@ namespace forms.Presenters
                             await saveButton.ClickAsync();
 
                             await Task.Delay(TimeSpan.FromSeconds(0.8));
-                            _automationView.RichtxtBox +=($"Salva a vaga nº{jobsCounter}");
+                            _automationView.RichtxtBox += ($"Salva a vaga nº{jobsCounter}");
                             await Task.Delay(TimeSpan.FromSeconds(0.8));
                             Console.ForegroundColor = ConsoleColor.Blue;
-                            _automationView.RichtxtBox +=($"Total de {savedJobs} vagas salvas");
+                            _automationView.RichtxtBox += ($"Total de {savedJobs} vagas salvas");
                             Console.ResetColor(); // Resetar a cor para o padrão
 
                             continue;
@@ -306,7 +282,7 @@ namespace forms.Presenters
 
                         if (appliedAlready!.Contains("Candidatou-se"))
                         {
-                            _automationView.RichtxtBox +=("!Vaga já candidatada!\n");
+                            _automationView.RichtxtBox += ("!Vaga já candidatada!\n");
                             continue;
                         }
                     }
@@ -331,9 +307,9 @@ namespace forms.Presenters
 
                         /// EXIBE NA TELA INFORMAÇÕES DA CANDIDATURA
                         await Task.Delay(TimeSpan.FromSeconds(0.8));
-                        _automationView.RichtxtBox +=($"Inscrito na vaga nº{jobsCounter}");
+                        _automationView.RichtxtBox += ($"Inscrito na vaga nº{jobsCounter}");
                         await Task.Delay(TimeSpan.FromSeconds(0.8));
-                        _automationView.RichtxtBox +=($"Total de {appliedJobs} vagas aplicadas");
+                        _automationView.RichtxtBox += ($"Total de {appliedJobs} vagas aplicadas");
                         continue;
                     }
                     else // QUANDO BOTÃO AVANÇAR EXISTE!
@@ -388,9 +364,9 @@ namespace forms.Presenters
                         appliedJobs++;
 
                         await Task.Delay(TimeSpan.FromSeconds(0.8));
-                        _automationView.RichtxtBox +=($"Inscrito na vaga nº{jobsCounter}");
+                        _automationView.RichtxtBox += ($"Inscrito na vaga nº{jobsCounter}");
                         await Task.Delay(TimeSpan.FromSeconds(0.8));
-                        _automationView.RichtxtBox +=($"Total de {appliedJobs} vagas aplicadas");
+                        _automationView.RichtxtBox += ($"Total de {appliedJobs} vagas aplicadas");
                         stringPatterns.finishPattern(appliedJobs, savedJobs);
                         continue;
                     }
@@ -412,11 +388,11 @@ namespace forms.Presenters
 
                         await Task.Delay(TimeSpan.FromSeconds(0.8));
 
-                        _automationView.RichtxtBox +=($"Salva a vaga nº{jobsCounter}");
+                        _automationView.RichtxtBox += ($"Salva a vaga nº{jobsCounter}");
                         await Task.Delay(TimeSpan.FromSeconds(0.8));
-                        _automationView.RichtxtBox +=($"Total de {appliedJobs} vagas aplicadas");
+                        _automationView.RichtxtBox += ($"Total de {appliedJobs} vagas aplicadas");
 
-                        _automationView.RichtxtBox +=($"Total de {savedJobs} vagas salvas");
+                        _automationView.RichtxtBox += ($"Total de {savedJobs} vagas salvas");
                         continue;
                     }
                 }
@@ -428,5 +404,22 @@ namespace forms.Presenters
             }
         }
 
+        private async Task ApplyFilter(string filterName, List<string> CheckedListBoxItems, IPage page)
+        {
+            _automationView.RichtxtBox += ($"*Filtro: {filterName}\n");
+            foreach (string selectedItem in CheckedListBoxItems)
+            {
+                _automationView.RichtxtBox += ($"\t{selectedItem}");
+                try
+                {
+                    await page.GetByLabel("Todos os filtros", new() { Exact = true }).Locator("label").Filter(new() { HasText = $"{selectedExperience} Filtrar por {selectedExperience}" }).ClickAsync();
+                }
+                catch (Exception e)
+                {
+                    _logRepository.WriteALogError(ExceptionMessages.CouldNotFoundElement, e);
+                }
+                await Task.Delay(TimeSpan.FromSeconds(0.5));
+            }
+        }
     }
 }
