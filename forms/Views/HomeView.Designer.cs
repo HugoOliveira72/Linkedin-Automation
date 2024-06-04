@@ -31,7 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HomeView));
             job_label = new Label();
             txtbox_job = new TextBox();
-            send_button = new Button();
+            applyButton = new Button();
             title_label = new Label();
             label1 = new Label();
             amount_jobs = new TextBox();
@@ -69,15 +69,16 @@
             txtbox_job.Size = new Size(200, 23);
             txtbox_job.TabIndex = 1;
             // 
-            // send_button
+            // applyButton
             // 
-            send_button.Font = new Font("Segoe UI", 12F);
-            send_button.Location = new Point(297, 675);
-            send_button.Name = "send_button";
-            send_button.Size = new Size(102, 44);
-            send_button.TabIndex = 2;
-            send_button.Text = "Aplicar";
-            send_button.UseVisualStyleBackColor = true;
+            applyButton.Font = new Font("Segoe UI", 12F);
+            applyButton.Location = new Point(297, 675);
+            applyButton.Name = "applyButton";
+            applyButton.Size = new Size(102, 44);
+            applyButton.TabIndex = 2;
+            applyButton.Text = "Aplicar";
+            applyButton.UseVisualStyleBackColor = true;
+            applyButton.Click += ApplyButton_Click;
             // 
             // title_label
             // 
@@ -261,7 +262,7 @@
             Controls.Add(groupBox_job);
             Controls.Add(label1);
             Controls.Add(title_label);
-            Controls.Add(send_button);
+            Controls.Add(applyButton);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "HomeView";
             Text = "Linkedin automation";
@@ -278,7 +279,7 @@
         private Label job_label;
         private TextBox txtbox_job;
         private Button send;
-        private Button send_button;
+        private Button applyButton;
         private Label password_Label;
         private Label title_label;
         private Label label1;

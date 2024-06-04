@@ -1,11 +1,5 @@
-﻿using forms.Forms;
-using forms.Model;
-using forms.Models.Interfaces;
-using forms.Presenters;
-using forms.Repositories;
+﻿using forms.Model;
 using forms.Views.Interfaces;
-using playwright.Model;
-using System.Runtime.CompilerServices;
 using static System.Windows.Forms.CheckedListBox;
 
 namespace forms
@@ -13,12 +7,9 @@ namespace forms
     public partial class HomeView : Form, IHomeView
     {
         public ConfigurationModel screenConfiguration;
-        private string userName;
-        private string password;
-        private bool rememberMe;
 
         public event EventHandler ShowConfigView;
-        public event EventHandler ShowRunningView;
+        public event EventHandler ShowAutomationView;
 
         //Fields
         public string Job
@@ -54,32 +45,20 @@ namespace forms
             get { return checkedListBox_remote.CheckedItems; }
         }
 
-        //public HomeView()
-        //{
-        //    InitializeComponent();
-        //    AssociateAndRaiseViewEvents();
-        //}
-
         //Constructor
-        public HomeView(string txtUserName, string txtPassword, bool rememberMe)
+        public HomeView()
         {
-            this.userName = txtUserName;
-            this.password = txtPassword;
-            this.rememberMe = rememberMe;
             InitializeComponent();
-            //AssociateAndRaiseViewEvents();
         }
-
-        //private void AssociateAndRaiseViewEvents()
-        //{
-        //    button_config.Click += delegate { ShowConfigView?.Invoke(this, EventArgs.Empty); };
-        //    send_button.Click += delegate { ShowRunningView?.Invoke(this, EventArgs.Empty); };
-        //}
-
 
         private void button_config_Click(object sender, EventArgs e)
         {
             ShowConfigView?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void ApplyButton_Click(object sender, EventArgs e)
+        {
+            ShowAutomationView?.Invoke(this, EventArgs.Empty);
         }
     }
 }
