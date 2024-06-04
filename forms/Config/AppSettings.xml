@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<config>
+	<connectionString>Data Source=server;Initial Catalog=MyDatabase;User ID=myUser;Password=myPassword;</connectionString>
+	<logDirectoryPath>../../../Files/log.txt</logDirectoryPath>
+	<userDirectoryPath>../../../Files/user.msgpack</userDirectoryPath>
+	<resolutionDirectoryPath>../../../Config/resolution.msgpack</resolutionDirectoryPath>
+</config>
