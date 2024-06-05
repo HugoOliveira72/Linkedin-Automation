@@ -143,23 +143,15 @@ namespace forms.Presenters
             await Task.Delay(TimeSpan.FromSeconds(0.8));
 
             ///Classificar por
-            _automationView.RichtxtBox += ($"*FiltroClassificar por: {Homedata.ClassifyBy};");
-            await page.GetByLabel("Todos os filtros", new() { Exact = true }).Locator("label").Filter(new() { HasText = $"{Homedata.ClassifyBy} Filtrar por {Homedata.ClassifyBy}" }).ClickAsync();
-            await Task.Delay(TimeSpan.FromSeconds(0.8));
-
+            await ApplyFilter("Classificar por", Homedata.ClassifyBy, page);
             ///Data do anúncio
-            _automationView.RichtxtBox += ($"*FiltroData do anúncio: {Homedata.AnnoucementDate};");
-            await page.GetByLabel("Todos os filtros", new() { Exact = true }).Locator("label").Filter(new() { HasText = $"{Homedata.AnnoucementDate} Filtrar por {Homedata.AnnoucementDate}" }).ClickAsync();
-            await Task.Delay(TimeSpan.FromSeconds(0.8));
-
+            await ApplyFilter("Data do anúncio", Homedata.AnnoucementDate, page);
             ///Nível de experiência
-            _ = ApplyFilter("Nível de experiencia", Homedata.CheckedListBoxExperiences, page);
-
+            await ApplyFilter("Nível de experiencia", Homedata.CheckedListBoxExperiences, page);
             ///Tipo de vaga
-            _ = ApplyFilter("Tipo de vaga", Homedata.CheckedListBoxType_job, page);
-
+            await ApplyFilter("Tipo de vaga", Homedata.CheckedListBoxType_job, page);
             ///Remoto
-            _ = ApplyFilter("Remoto", Homedata.CheckedListBoxRemote, page);
+            await ApplyFilter("Remoto", Homedata.CheckedListBoxRemote, page);
 
             await page.GetByLabel("Todos os filtros", new() { Exact = true }).PressAsync("Enter");
             await Task.Delay(TimeSpan.FromSeconds(0.8));
@@ -404,15 +396,22 @@ namespace forms.Presenters
             }
         }
 
-        private async Task ApplyFilter(string filterName, List<string> CheckedListBoxItems, IPage page)
+        private async Task ApplyFilter(string filterName, string field, IPage page)
+        {
+            _automationView.RichtxtBox += ($"*FiltroData do anúncio: {filterName};");
+            await page.GetByLabel("Todos os filtros", new() { Exact = true }).Locator("label").Filter(new() { HasText = $"{field} Filtrar por {field}" }).ClickAsync();
+            await Task.Delay(TimeSpan.FromSeconds(0.8));
+        }
+
+        private async Task ApplyFilter(string filterName, List<string> checkedListBoxItems, IPage page)
         {
             _automationView.RichtxtBox += ($"*Filtro: {filterName}\n");
-            foreach (string selectedItem in CheckedListBoxItems)
+            foreach (string selectedItem in checkedListBoxItems)
             {
                 _automationView.RichtxtBox += ($"\t{selectedItem}");
                 try
                 {
-                    await page.GetByLabel("Todos os filtros", new() { Exact = true }).Locator("label").Filter(new() { HasText = $"{selectedExperience} Filtrar por {selectedExperience}" }).ClickAsync();
+                    await page.GetByLabel("Todos os filtros", new() { Exact = true }).Locator("label").Filter(new() { HasText = $"{checkedListBoxItems} Filtrar por {checkedListBoxItems}" }).ClickAsync();
                 }
                 catch (Exception e)
                 {
