@@ -6,7 +6,7 @@ namespace forms.Utilities
     public class PlaywrightUtilities
     {
         LogRepository logRepository = new();
-        public async Task<string> WaitForElementAndHandleException(IPage page, string selector, string successMessage, string errorMessage)
+        public async Task<string> WaitForElementAndHandleExceptionAsync(IPage page, string selector, string successMessage, string errorMessage)
         {
             try
             {

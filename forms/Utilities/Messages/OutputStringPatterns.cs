@@ -3,27 +3,17 @@
     public class OutputStringPatterns
     {
 
-        public void finishPattern(int appliedJobs, int savedJobs, string finishCondition = "")
+        public string finishPattern(int appliedJobs, int savedJobs, string finishCondition = "")
         {
-            Console.WriteLine(!string.IsNullOrEmpty(finishCondition) ? finishCondition : "");
+            string resultText = !string.IsNullOrEmpty(finishCondition) ? finishCondition : "";
 
-            Console.ForegroundColor = ConsoleColor.DarkCyan;
-            Console.WriteLine("===============================");
-
-            Console.ForegroundColor = ConsoleColor.DarkCyan;
-            Console.WriteLine($"RESULTADOS\n- VAGAS APLICADAS: ");
-
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write(appliedJobs);
-
-            Console.ForegroundColor = ConsoleColor.DarkCyan;
-            Console.WriteLine("\n- VAGAS SALVAS: ");
-
-            Console.ForegroundColor = ConsoleColor.Blue;
-            Console.Write(savedJobs);
-
-            Console.ResetColor(); // Resetar a cor para o padrão
-            Console.WriteLine("\nPressione qualquer tela para finalizar o programa...");
+            resultText += linePattern();
+            resultText += "RESULTADOS\n- VAGAS APLICADAS: ";
+            resultText += appliedJobs;
+            resultText += "\n- VAGAS SALVAS: ";
+            resultText += savedJobs;
+            resultText += "\nPressione qualquer tela para finalizar o programa...";
+            return resultText;
         }
 
         public string errorPattern(string errorMessage, Exception? errorDescription = null, bool finishMessage = false)

@@ -1,12 +1,11 @@
-﻿using forms.Model;
-using forms.Utilities;
+﻿using forms.Utilities;
 
 namespace playwright.Model
 {
     public class HomeModel
     {
         public string TxtboxJob { get; set; }
-        public int AmoutOfJobs { get; set; }
+        public int AmountOfJobs { get; set; }
         public string? ClassifyBy { get; set; }
         public string? AnnoucementDate { get; set; }
         public List<string> CheckedListBoxExperiences { get; set; }
@@ -23,7 +22,7 @@ namespace playwright.Model
             )
         {
             this.TxtboxJob = txtbox_job;
-            this.AmoutOfJobs = amount_jobs;
+            this.AmountOfJobs = amount_jobs;
             this.ClassifyBy = classifyBy;
             this.AnnoucementDate = annoucementDate;
             this.CheckedListBoxExperiences = ExperiencesCheckedItemCollection.ToList();

@@ -52,9 +52,6 @@ namespace forms.Presenters
             // VERIFICAÇÃO EXISTENCIA LOG.TXT
             _logService.LogFileExistingVerification();
 
-            // LER DADOS DE USUARIO
-            UserModel userInfo = _loginRepository.ConvertMsgpackFileToObject();
-
             // CONFIGURAÇÃO DO PLAYWRIGHT
             IConfigRepository configRepository = new ConfigRepository();
             PlaywrightConfiguration playwrightConfiguration = new PlaywrightConfiguration(configRepository);
@@ -76,7 +73,11 @@ namespace forms.Presenters
             await page.GetByLabel("Principal").GetByRole(AriaRole.Link, new() { Name = "Entrar" }).ClickAsync();
             await Task.Delay(TimeSpan.FromSeconds(1));
 
+            #region Fill Credencials
             // PREENCHIMENTO DAS CREEDENCIAIS
+            /// LER DADOS DE USUARIO
+            UserModel userInfo = _loginRepository.ConvertMsgpackFileToObject();
+
             _automationView.RichtxtBox += ("Fazendo login..\n");
 
             await page.GetByLabel("E-mail ou telefone").ClickAsync();
@@ -98,29 +99,35 @@ namespace forms.Presenters
                 return;
             }
             await Task.Delay(TimeSpan.FromSeconds(2));
+            #endregion
 
+            #region Securityhandle
             // CÓDIGO LINKEDIN / VERIFICAÇÃO DE SEGURANÇA (MANUALMENTE)
             _automationView.RichtxtBox += ("Carregando...\n");
-            var message = await playwrightUtilities.WaitForElementAndHandleException(page, "#global-nav-typeahead", "Página carregada!", ExceptionMessages.SecurityError);
+            var message = await playwrightUtilities.WaitForElementAndHandleExceptionAsync(page, "#global-nav-typeahead", "Página carregada!", ExceptionMessages.SecurityError);
             _automationView.RichtxtBox += (message);
             await Task.Delay(TimeSpan.FromSeconds(2));
+            #endregion
 
+            #region Search Job
             // PESQUISA DE VAGAS
             _automationView.RichtxtBox += (stringPatterns.linePattern());
             _automationView.RichtxtBox += ($"Pesquisando {Homedata.TxtboxJob}");
-            var searchJobDiv = await page.QuerySelectorAsync("#global-nav-typeahead");
+            IElementHandle? searchJobDiv = await page.QuerySelectorAsync("#global-nav-typeahead");
             await searchJobDiv.ClickAsync();
             await Task.Delay(TimeSpan.FromSeconds(0.8));
 
-            var inputSearchJob = await searchJobDiv.QuerySelectorAsync(".search-global-typeahead__input");
+            IElementHandle? inputSearchJob = await searchJobDiv.QuerySelectorAsync(".search-global-typeahead__input");
             await inputSearchJob.FillAsync(Homedata.TxtboxJob);
             await Task.Delay(TimeSpan.FromSeconds(0.8));
 
             await inputSearchJob.PressAsync("Enter");
             _automationView.RichtxtBox += ("Pesquisado com sucesso\n");
             await Task.Delay(TimeSpan.FromSeconds(2));
+            #endregion
 
-            // APLICAÇÃO DE FILTROS
+            #region Applying filters
+            //Filter apply
             _automationView.RichtxtBox += ("Aplicando filtros\n");
             var navFilterArea = await page.QuerySelectorAsync("nav[aria-label='Filtros de pesquisa']");
             var buttonJobFilter = await navFilterArea.QuerySelectorAsync("button:has-text('Vagas')");
@@ -158,14 +165,16 @@ namespace forms.Presenters
 
             await page.GetByLabel("Aplicar filtros atuais para").ClickAsync();
             await Task.Delay(TimeSpan.FromSeconds(3));
+            #endregion
 
+            #region GetAllJobs Elements
             /*
              MANUAL DE VAGAS
                 - avaiableJobs, Vagas disponiveis podem ser candidadatas
                 - appliedJobs, Vagas candidatadas
                 - savedJobs, Vagas que contem perguntas, são salvas para preenchimento manual posterior
-
              */
+
             int currentPage = 1, jobsCounter = 0, appliedJobs = 0, savedJobs = 0;
 
             // LISTAR TODAS AS VAGAS
@@ -174,38 +183,32 @@ namespace forms.Presenters
             _automationView.RichtxtBox += ($"Vagas encontradas: {avaiableJobs}");
             await Task.Delay(TimeSpan.FromSeconds(1));
 
+            #endregion
+
             //HABILITAR O BOTÃO SAIR
             //button_exit.Enabled = true;
-            while (appliedJobs != Homedata.AmoutOfJobs)
+            while (appliedJobs != Homedata.AmountOfJobs)
             {
                 try
                 {
                     if (token.IsCancellationRequested) break;
 
                     jobsCounter++;
-
-                    if (jobsCounter > ulElementsJobs.Count())
+                    #region NextPageSection
+                    bool hasNextPage = await GoToNextPage(page, currentPage, appliedJobs, savedJobs);
+                    if (!hasNextPage)
                     {
-                        // CLICA PAGINAS EM ORDEM CRESCENTE
-                        var nextPageButton = await page.QuerySelectorAsync($"button[aria-label='Página {currentPage + 1}']");
-                        await Task.Delay(TimeSpan.FromSeconds(1));
-
-                        // VERIFICA EXISTENCIA DA PROXIMA PÁGINA
-                        if (nextPageButton != null) /// TRUE, Clica proxima pagina
-                            await nextPageButton.ClickAsync();
-                        else ///FALSE,  Erro, pagina não existente    
-                        {
-                            MessageBox.Show("Limite de páginas excedido, não há mais vagas para se candidatar", "Limite excedido", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
-                            stringPatterns.finishPattern(appliedJobs, savedJobs);
-                            return;
-                        }
+                        // Fechar aplicação
+                        return;
+                    }
+                    else
+                    {
+                        //Recarregar elementos
                         currentPage++;
-
-                        // RECARREGA LISTA DE VAGAS (pagina nova)
-                        await Task.Delay(TimeSpan.FromSeconds(1));
                         ulElementsJobs = await page.QuerySelectorAllAsync("li[class*='jobs-search-results__list-item']");
                         jobsCounter = 1;
                     }
+                    #endregion
 
                     _automationView.RichtxtBox += ("==================================\n");
                     _automationView.RichtxtBox += ($"Página {currentPage}");
@@ -213,6 +216,7 @@ namespace forms.Presenters
 
                     try
                     {
+                        //Clicar na vaga
                         int indexJob = jobsCounter - 1;
                         await ulElementsJobs[indexJob].ClickAsync();
                     }
@@ -221,64 +225,20 @@ namespace forms.Presenters
                         _automationView.RichtxtBox += ($"\n\n\n\n\n======================================\n{e}");
                     }
 
+                    #region Handle subscribe
                     // SELECIONAR DIV SUPERIOR (Div que contem descrição da vaga, botoes)
                     await Task.Delay(TimeSpan.FromSeconds(1));
                     var supDivElement = await page.QuerySelectorAsync("div[class*='jobs-unified-top-card']");
                     await Task.Delay(TimeSpan.FromSeconds(0.3));
 
-                    // ============= ETAPA DE CANDIDATURA =============
                     // BOTÃO CANDIDATURA SIMPLIFICADA
                     var buttonHandle = await supDivElement!.QuerySelectorAsync("button:has-text('Candidatura simplificada')");
                     await Task.Delay(TimeSpan.FromSeconds(1));
 
-                    // CLICAR NO BOTÃO (Candidatar-se a vaga)
-                    if (buttonHandle != null)
-                    {
-                        await buttonHandle!.ClickAsync();
-                    }
-                    else
-                    {
-                        // VERIFICAR SE VAGA ESTÁ INCOMPLETA (Continue)
-                        var continueButton = await supDivElement.QuerySelectorAsync("button[aria-label*='Continuar candidatura']");
-                        if (continueButton != null)
-                        {
-                            // SALVAR VAGA
-                            await Task.Delay(TimeSpan.FromSeconds(0.8));
-                            var saveButton = await supDivElement.QuerySelectorAsync("button[class*='jobs-save-button']");
+                    await HandleButtonOrContinue(page, buttonHandle, supDivElement, jobsCounter, savedJobs);
+                    #endregion
 
-                            await Task.Delay(TimeSpan.FromSeconds(0.8));
-                            var jobAlreadySaved = await saveButton.QuerySelectorAsync("span:has-text('Salvos')");
-                            if (jobAlreadySaved != null)
-                            {
-                                _automationView.RichtxtBox += ("VAGA JÁ FOI SALVA ANTERIORMENTE\n");
-                                continue;
-                            }
-
-                            await Task.Delay(TimeSpan.FromSeconds(0.8));
-                            await saveButton.ClickAsync();
-
-                            await Task.Delay(TimeSpan.FromSeconds(0.8));
-                            _automationView.RichtxtBox += ($"Salva a vaga nº{jobsCounter}");
-                            await Task.Delay(TimeSpan.FromSeconds(0.8));
-                            Console.ForegroundColor = ConsoleColor.Blue;
-                            _automationView.RichtxtBox += ($"Total de {savedJobs} vagas salvas");
-                            Console.ResetColor(); // Resetar a cor para o padrão
-
-                            continue;
-                        }
-
-                        // VERIFICAR SE VAGA JA FOI INSCRITA
-                        var feedbackMessage = await supDivElement.QuerySelectorAsync("span[class='artdeco-inline-feedback__message']");
-
-                        string appliedAlready = await feedbackMessage.TextContentAsync();
-
-                        if (appliedAlready!.Contains("Candidatou-se"))
-                        {
-                            _automationView.RichtxtBox += ("!Vaga já candidatada!\n");
-                            continue;
-                        }
-                    }
-
+                    #region Advance button
                     // BOTÃO AVANÇAR
                     await Task.Delay(TimeSpan.FromSeconds(1));
                     var advanceButton = await page.QuerySelectorAsync("button[aria-label='Avançar para próxima etapa']");
@@ -298,10 +258,7 @@ namespace forms.Presenters
                         appliedJobs++;
 
                         /// EXIBE NA TELA INFORMAÇÕES DA CANDIDATURA
-                        await Task.Delay(TimeSpan.FromSeconds(0.8));
-                        _automationView.RichtxtBox += ($"Inscrito na vaga nº{jobsCounter}");
-                        await Task.Delay(TimeSpan.FromSeconds(0.8));
-                        _automationView.RichtxtBox += ($"Total de {appliedJobs} vagas aplicadas");
+                        await ShowAppliedJobsMessage(jobsCounter, appliedJobs);
                         continue;
                     }
                     else // QUANDO BOTÃO AVANÇAR EXISTE!
@@ -319,7 +276,9 @@ namespace forms.Presenters
                             continue;
                         }
                     }
+                    #endregion
 
+                    #region Review button
                     //BOTÃO REVISAR
                     await Task.Delay(TimeSpan.FromSeconds(1));
                     var reviewButton = await page.QuerySelectorAsync("span:has-text('Revisar')");
@@ -337,7 +296,9 @@ namespace forms.Presenters
                             await advanceButton.ClickAsync();
                         }
                     }
+                    #endregion
 
+                    #region Addicional Questions
                     //PERGUNTAS ADICIONAIS
                     await Task.Delay(TimeSpan.FromSeconds(1));
                     var additionalQuestions = await page.QuerySelectorAsync("h3");
@@ -355,10 +316,7 @@ namespace forms.Presenters
 
                         appliedJobs++;
 
-                        await Task.Delay(TimeSpan.FromSeconds(0.8));
-                        _automationView.RichtxtBox += ($"Inscrito na vaga nº{jobsCounter}");
-                        await Task.Delay(TimeSpan.FromSeconds(0.8));
-                        _automationView.RichtxtBox += ($"Total de {appliedJobs} vagas aplicadas");
+                        await ShowAppliedJobsMessage(jobsCounter, appliedJobs);
                         stringPatterns.finishPattern(appliedJobs, savedJobs);
                         continue;
                     }
@@ -387,6 +345,7 @@ namespace forms.Presenters
                         _automationView.RichtxtBox += ($"Total de {savedJobs} vagas salvas");
                         continue;
                     }
+                    #endregion
                 }
                 catch (Exception e)
                 {
@@ -395,7 +354,70 @@ namespace forms.Presenters
                 }
             }
         }
+        //Handle Subscribe
+        private async Task HandleButtonOrContinue(IPage page, IElementHandle? buttonHandle, IElementHandle supDivElement, int jobsCounter, int savedJobs)
+        {
+            if (buttonHandle != null)
+            {
+                await buttonHandle.ClickAsync();
+            }
+            else
+            {
+                await HandleContinueOrSave(page, supDivElement, jobsCounter, savedJobs);
+            }
+        }
 
+        private async Task HandleContinueOrSave(IPage page, IElementHandle supDivElement, int jobsCounter, int savedJobs)
+        {
+            var continueButton = await supDivElement.QuerySelectorAsync("button[aria-label*='Continuar candidatura']");
+            if (continueButton != null)
+            {
+                await SaveJob(page, jobsCounter, savedJobs);
+            }
+            else
+            {
+                await CheckAppliedStatus(page, supDivElement);
+            }
+        }
+
+        private async Task SaveJob(IPage page, int jobsCounter, int savedJobs)
+        {
+            // Logic for saving the job
+            // ...
+            _automationView.RichtxtBox += ($"Salva a vaga nº{jobsCounter}");
+            await Task.Delay(TimeSpan.FromSeconds(0.8));
+            _automationView.RichtxtBox += ($"Total de {savedJobs} vagas salvas");
+        }
+
+        private async Task CheckAppliedStatus(IPage page, IElementHandle supDivElement)
+        {
+            var feedbackMessage = await supDivElement.QuerySelectorAsync("span[class='artdeco-inline-feedback__message']");
+            string appliedAlready = await feedbackMessage.TextContentAsync();
+
+            if (appliedAlready!.Contains("Candidatou-se"))
+            {
+                _automationView.RichtxtBox += ("!Vaga já candidatada!\n");
+            }
+        }
+
+        //Nextpage
+        private async Task<bool> GoToNextPage(IPage page, int currentPage, int appliedJobs, int savedJobs)
+        {
+            var nextPageButton = await page.QuerySelectorAsync($"button[aria-label='Página {currentPage + 1}']");
+            if (nextPageButton != null)
+            {
+                await nextPageButton.ClickAsync();
+                return true;
+            }
+            else
+            {
+                MessageBox.Show("Limite de páginas excedido, não há mais vagas para se candidatar", "Limite excedido", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+                _automationView.RichtxtBox += stringPatterns.finishPattern(appliedJobs, savedJobs);
+                return false;
+            }
+        }
+
+        //Filters
         private async Task ApplyFilter(string filterName, string field, IPage page)
         {
             _automationView.RichtxtBox += ($"*FiltroData do anúncio: {filterName};");
@@ -419,6 +441,15 @@ namespace forms.Presenters
                 }
                 await Task.Delay(TimeSpan.FromSeconds(0.5));
             }
+        }
+
+        //UI
+        private async Task ShowAppliedJobsMessage(int jobsCounter, int appliedJobs)
+        {
+            await Task.Delay(TimeSpan.FromSeconds(0.8));
+            _automationView.RichtxtBox += ($"Inscrito na vaga nº{jobsCounter}");
+            await Task.Delay(TimeSpan.FromSeconds(0.8));
+            _automationView.RichtxtBox += ($"Total de {appliedJobs} vagas aplicadas");
         }
     }
 }
