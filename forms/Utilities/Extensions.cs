@@ -2,6 +2,9 @@
 {
     public static class Extensions
     {
-        public static List<string> ToList(this CheckedListBox.CheckedItemCollection collection) => collection.Cast<object>().Select(item => item.ToString()).ToList();
+        public static List<string> ToList(this CheckedListBox.CheckedItemCollection collection)
+        {
+            return collection.Cast<object>().Select(item => item.ToString()).ToList();
+        } 
     }
 }

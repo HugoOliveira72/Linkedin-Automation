@@ -20,5 +20,13 @@ namespace forms.Utilities
                 throw new Exception();
             }
         }
+
+        public async Task QuerySelectorAndClickAsync(IPage page, string querySelector, double msPauseTime = 0)
+        {
+            await Task.Delay(TimeSpan.FromSeconds(msPauseTime));
+            var closeButton = await page.QuerySelectorAsync(querySelector);
+            await Task.Delay(TimeSpan.FromSeconds(msPauseTime));
+            await closeButton!.ClickAsync();
+        }
     }
 }

@@ -3,7 +3,7 @@
     public class OutputStringPatterns
     {
 
-        public string finishPattern(int appliedJobs, int savedJobs, string finishCondition = "")
+        public string ShowFinalResult(int appliedJobs, int savedJobs, string finishCondition = "")
         {
             string resultText = !string.IsNullOrEmpty(finishCondition) ? finishCondition : "";
 
