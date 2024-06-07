@@ -241,3 +241,41 @@ Finalizando...
 =============================	 04/06/2024 15:19:27
 
 =============================	 04/06/2024 15:20:14
+
+=============================	 07/06/2024 10:18:33
+Não foi possivel encontrar o elemento: System.TimeoutException: Timeout 30000ms exceeded.
+Call log:
+  - waiting for GetByLabel("Todos os filtros", new() { Exact = true }).Locator("label").Filter(new() { HasText = "System.Collections.Generic.List`1[System.String] Filtrar por System.Collections.Generic.List`1[System.String]" })
+   at Microsoft.Playwright.Transport.Connection.InnerSendMessageToServerAsync[T](ChannelOwner object, String method, Dictionary`2 dictionary, Boolean keepNulls) in /_/src/Playwright/Transport/Connection.cs:line 206
+   at Microsoft.Playwright.Transport.Connection.WrapApiCallAsync[T](Func`1 action, Boolean isInternal) in /_/src/Playwright/Transport/Connection.cs:line 526
+   at forms.Presenters.AutomationPresenter.ApplyFilter(String filterName, List`1 checkedListBoxItems, IPage page)
+Finalizando...
+
+=============================	 07/06/2024 10:23:50
+
+=============================	 07/06/2024 10:27:54
+
+=============================	 07/06/2024 10:32:15
+
+=============================	 07/06/2024 10:41:55
+Não foi possivel encontrar o elemento: System.TimeoutException: Timeout 30000ms exceeded.
+Call log:
+  - waiting for GetByLabel("Todos os filtros", new() { Exact = true }).Locator("label").Filter(new() { HasText = "Temporário Filtrar por Temporário" })
+   at Microsoft.Playwright.Transport.Connection.InnerSendMessageToServerAsync[T](ChannelOwner object, String method, Dictionary`2 dictionary, Boolean keepNulls) in /_/src/Playwright/Transport/Connection.cs:line 206
+   at Microsoft.Playwright.Transport.Connection.WrapApiCallAsync[T](Func`1 action, Boolean isInternal) in /_/src/Playwright/Transport/Connection.cs:line 526
+   at forms.Presenters.AutomationPresenter.ApplyFilter(String filterName, List`1 checkedListBoxItems, IPage page) in C:\Users\Hugo\Documents\Repositorios-programação\linkedin-automation\forms\Presenters\AutomationPresenter.cs:line 466
+Finalizando...
+
+=============================	 07/06/2024 13:57:41
+
+=============================	 07/06/2024 14:00:04
+
+=============================	 07/06/2024 14:08:34
+
+=============================	 07/06/2024 14:09:31
+
+=============================	 07/06/2024 14:13:37
+
+=============================	 07/06/2024 14:15:04
+Login Incorreto!: : System.Exception: Erro de login
+Finalizando...

@@ -1,4 +1,5 @@
 ﻿using forms.Models.Interfaces;
+using forms.Models.PageObjects;
 using forms.Repositories;
 using forms.Services;
 using forms.Utilities;
@@ -73,32 +74,20 @@ namespace forms.Presenters
             await page.GetByLabel("Principal").GetByRole(AriaRole.Link, new() { Name = "Entrar" }).ClickAsync();
             await Task.Delay(TimeSpan.FromSeconds(1));
 
-            //CRIAR MÉTODOS
             #region Fill Credencials
-            // PREENCHIMENTO DAS CREEDENCIAIS
             /// LER DADOS DE USUARIO
             UserModel userInfo = _loginRepository.ConvertMsgpackFileToObject();
 
+            /// PREENCHIMENTO DAS CREEDENCIAIS
             _automationView.RichtxtBox += ("Fazendo login..\n");
 
-            await page.GetByLabel("E-mail ou telefone").ClickAsync();
-            await page.GetByLabel("E-mail ou telefone").FillAsync(userInfo.email);
-            _automationView.RichtxtBox += ("Usuario/email preenchido\n");
-            await Task.Delay(TimeSpan.FromSeconds(0.8));
+            ///Login page
+            var loginPage = await LoginPage.BuildAsync(page);
+            await loginPage.LoginAsync(userInfo.email, userInfo.password);
 
-            await page.GetByLabel("Senha").ClickAsync();
-            await page.GetByLabel("Senha").FillAsync(userInfo.password);
-            _automationView.RichtxtBox += ("Senha preenchida\n");
-            await Task.Delay(TimeSpan.FromSeconds(0.8));
+            //if (await loginPage.HandleErrorLoginAsync())
+            //    return;
 
-            await page.GetByLabel("Entrar", new() { Exact = true }).ClickAsync();
-
-            var errorLogin = await page.QuerySelectorAsync("div[error-for=\"password\"]");
-            if (errorLogin != null)
-            {
-                _automationView.RichtxtBox += (stringPatterns.errorPattern(ExceptionMessages.IncorretLogin, null, false));
-                return;
-            }
             await Task.Delay(TimeSpan.FromSeconds(2));
             #endregion
 
@@ -485,6 +474,11 @@ namespace forms.Presenters
             _automationView.RichtxtBox += ($"Inscrito na vaga nº{jobsCounter}");
             await Task.Delay(TimeSpan.FromSeconds(0.8));
             _automationView.RichtxtBox += ($"Total de {appliedJobs} vagas aplicadas");
+        }
+
+        private async Task AppendRichTextBoxAsync()
+        {
+
         }
     }
 }
