@@ -12,7 +12,6 @@
             resultText += appliedJobs;
             resultText += "\n- VAGAS SALVAS: ";
             resultText += savedJobs;
-            resultText += "\nPressione qualquer tela para finalizar o programa...";
             return resultText;
         }
 

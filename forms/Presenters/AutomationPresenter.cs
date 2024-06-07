@@ -59,13 +59,13 @@ namespace forms.Presenters
             var settings = await playwrightConfiguration.launchSettingsAsync();
 
             //INICIO
-            _automationView.RichtxtBox += (stringPatterns.linePattern());
-            _automationView.RichtxtBox += ("Iniciando...\n");
-            _automationView.RichtxtBox += ("Abrindo o navegador padrão...\n");
+            await AddMessageToRichTextbox(stringPatterns.linePattern());
+            await AddMessageToRichTextbox("Iniciando...\n");
+            await AddMessageToRichTextbox("Abrindo o navegador padrão...\n");
             IPage page = await settings.BrowserContext!.NewPageAsync();
 
             // DIRECIONANDO
-            _automationView.RichtxtBox += ("Direcionando para https://www.linkedin.com/\n");
+            await AddMessageToRichTextbox("Direcionando para https://www.linkedin.com/\n");
             await Task.Delay(TimeSpan.FromSeconds(0.5));
 
             await page.GotoAsync("https://www.linkedin.com/");
@@ -74,12 +74,12 @@ namespace forms.Presenters
             await page.GetByLabel("Principal").GetByRole(AriaRole.Link, new() { Name = "Entrar" }).ClickAsync();
             await Task.Delay(TimeSpan.FromSeconds(1));
 
-            #region Fill Credencials
+            #region LoginPage
             /// LER DADOS DE USUARIO
             UserModel userInfo = _loginRepository.ConvertMsgpackFileToObject();
 
             /// PREENCHIMENTO DAS CREEDENCIAIS
-            _automationView.RichtxtBox += ("Fazendo login..\n");
+            await AddMessageToRichTextbox("Fazendo login..\n");
 
             ///Login page
             var loginPage = await LoginPage.BuildAsync(page);
@@ -88,23 +88,24 @@ namespace forms.Presenters
             //if (await loginPage.HandleErrorLoginAsync())
             //    return;
 
+            await AddMessageToRichTextbox("Login bem sucedido\n");
             await Task.Delay(TimeSpan.FromSeconds(2));
             #endregion
 
             //CRIAR MÉTODOS
             #region Securityhandle
             // CÓDIGO LINKEDIN / VERIFICAÇÃO DE SEGURANÇA (MANUALMENTE)
-            _automationView.RichtxtBox += ("Carregando...\n");
+            await AddMessageToRichTextbox("Carregando...\n");
             var message = await playwrightUtilities.WaitForElementAndHandleExceptionAsync(page, "#global-nav-typeahead", "Página carregada!", ExceptionMessages.SecurityError);
-            _automationView.RichtxtBox += (message);
+            await AddMessageToRichTextbox(message);
             await Task.Delay(TimeSpan.FromSeconds(2));
             #endregion
 
             //CRIAR MÉTODOS
             #region Search Job
             // PESQUISA DE VAGAS
-            _automationView.RichtxtBox += (stringPatterns.linePattern());
-            _automationView.RichtxtBox += ($"Pesquisando {Homedata.TxtboxJob}\n");
+            await AddMessageToRichTextbox(stringPatterns.linePattern());
+            await AddMessageToRichTextbox($"Pesquisando {Homedata.TxtboxJob}\n");
             IElementHandle? searchJobDiv = await page.QuerySelectorAsync("#global-nav-typeahead");
             await searchJobDiv.ClickAsync();
             await Task.Delay(TimeSpan.FromSeconds(0.8));
@@ -114,20 +115,20 @@ namespace forms.Presenters
             await Task.Delay(TimeSpan.FromSeconds(0.8));
 
             await inputSearchJob.PressAsync("Enter");
-            _automationView.RichtxtBox += ("Pesquisado com sucesso\n");
+            await AddMessageToRichTextbox("Pesquisado com sucesso\n");
             await Task.Delay(TimeSpan.FromSeconds(2));
             #endregion
 
             //CRIAR MÉTODOS
             #region Applying filters
             //Filter apply
-            _automationView.RichtxtBox += ("Aplicando filtros\n");
+            await AddMessageToRichTextbox("Aplicando filtros\n");
             var navFilterArea = await page.WaitForSelectorAsync("nav[aria-label='Filtros de pesquisa']");
             var buttonJobFilter = await navFilterArea.QuerySelectorAsync("button:has-text('Vagas')");
             await buttonJobFilter.ClickAsync();
             await Task.Delay(TimeSpan.FromSeconds(0.8));
 
-            _automationView.RichtxtBox += ("Exibindo todos os filtros\n");
+            await AddMessageToRichTextbox("Exibindo todos os filtros\n");
             await page.GetByLabel("Exibir todos os filtros. Ao").ClickAsync();
             await Task.Delay(TimeSpan.FromSeconds(0.8));
 
@@ -138,7 +139,7 @@ namespace forms.Presenters
             await buttonFilterType.ClickAsync();
             await Task.Delay(TimeSpan.FromSeconds(0.8));
 
-            _automationView.RichtxtBox += ("Selecionando candidatura simplificada..\n");
+            await AddMessageToRichTextbox("Selecionando candidatura simplificada..\n");
             await page.GetByText("Desativada Alternar filtro Candidatura simplificada").ClickAsync();
             await Task.Delay(TimeSpan.FromSeconds(0.8));
 
@@ -174,7 +175,7 @@ namespace forms.Presenters
             // LISTAR TODAS AS VAGAS
             var ulElementsJobs = await page.QuerySelectorAllAsync("li[class*='jobs-search-results__list-item']");
             int avaiableJobs = ulElementsJobs.Count();
-            _automationView.RichtxtBox += ($"Vagas encontradas: {avaiableJobs}");
+            await AddMessageToRichTextbox($"Vagas encontradas: {avaiableJobs}");
             await Task.Delay(TimeSpan.FromSeconds(1));
 
             #endregion
@@ -209,9 +210,9 @@ namespace forms.Presenters
 
                     #endregion
 
-                    _automationView.RichtxtBox += ("==================================\n");
-                    _automationView.RichtxtBox += ($"Página {currentPage}");
-                    _automationView.RichtxtBox += ($"Vaga nº {jobsCounter}");
+                    await AddMessageToRichTextbox("==================================\n");
+                    await AddMessageToRichTextbox($"Página {currentPage}");
+                    await AddMessageToRichTextbox($"Vaga nº {jobsCounter}");
 
                     try
                     {
@@ -221,7 +222,7 @@ namespace forms.Presenters
                     }
                     catch (Exception e)
                     {
-                        _automationView.RichtxtBox += ($"\n\n\n\n\n======================================\n{e}");
+                        await AddMessageToRichTextbox($"\n\n\n\n\n======================================\n{e}");
                     }
 
                     //OK
@@ -250,7 +251,7 @@ namespace forms.Presenters
                             var jobAlreadySaved = await saveButton.QuerySelectorAsync("span:has-text('Salvos')");
                             if (jobAlreadySaved != null)
                             {
-                                _automationView.RichtxtBox += "VAGA JÁ FOI SALVA!";
+                                await AddMessageToRichTextbox("VAGA JÁ FOI SALVA!");
                                 continue;
                             }
                             await Task.Delay(TimeSpan.FromSeconds(0.8));
@@ -265,7 +266,7 @@ namespace forms.Presenters
 
                         if (appliedAlready!.Contains("Candidatou-se"))
                         {
-                            _automationView.RichtxtBox += "!Vaga já candidatada!";
+                            await AddMessageToRichTextbox("!Vaga já candidatada!");
                             continue;
                         }
                     }
@@ -348,7 +349,7 @@ namespace forms.Presenters
                         appliedJobs++;
 
                         await ShowAppliedJobsMessage(jobsCounter, appliedJobs);
-                        _automationView.RichtxtBox += stringPatterns.ShowFinalResult(appliedJobs, savedJobs);
+                        await AddMessageToRichTextbox(stringPatterns.ShowFinalResult(appliedJobs, savedJobs));
                         continue;
                     }
                     else if (additionalQuestions != null) // QUANDO HÁ PERGUNTAS
@@ -361,12 +362,12 @@ namespace forms.Presenters
                         savedJobs++;
 
                         await Task.Delay(TimeSpan.FromSeconds(0.8));
-                        _automationView.RichtxtBox += stringPatterns.ShowFinalResult(appliedJobs, savedJobs);
-                        _automationView.RichtxtBox += ($"Salva a vaga nº{jobsCounter}");
+                        await AddMessageToRichTextbox(stringPatterns.ShowFinalResult(appliedJobs, savedJobs));
+                        await AddMessageToRichTextbox($"Salva a vaga nº{jobsCounter}");
                         await Task.Delay(TimeSpan.FromSeconds(0.8));
-                        _automationView.RichtxtBox += ($"Total de {appliedJobs} vagas aplicadas");
+                        await AddMessageToRichTextbox($"Total de {appliedJobs} vagas aplicadas");
 
-                        _automationView.RichtxtBox += ($"Total de {savedJobs} vagas salvas");
+                        await AddMessageToRichTextbox($"Total de {savedJobs} vagas salvas");
                         continue;
                     }
                     #endregion
@@ -408,9 +409,9 @@ namespace forms.Presenters
         {
             // Logic for saving the job
             // ...
-            _automationView.RichtxtBox += ($"Salva a vaga nº{jobsCounter}\n");
+            await AddMessageToRichTextbox($"Salva a vaga nº{jobsCounter}\n");
             await Task.Delay(TimeSpan.FromSeconds(0.8));
-            _automationView.RichtxtBox += ($"Total de {savedJobs} vagas salvas\n");
+            await AddMessageToRichTextbox($"Total de {savedJobs} vagas salvas\n");
         }
 
         private async Task CheckAppliedStatus(IPage page, IElementHandle supDivElement)
@@ -420,7 +421,7 @@ namespace forms.Presenters
 
             if (appliedAlready!.Contains("Candidatou-se"))
             {
-                _automationView.RichtxtBox += ("!Vaga já candidatada!\n");
+                await AddMessageToRichTextbox("!Vaga já candidatada!\n");
             }
         }
 
@@ -436,7 +437,7 @@ namespace forms.Presenters
             else
             {
                 MessageBox.Show("Limite de páginas excedido, não há mais vagas para se candidatar", "Limite excedido", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
-                _automationView.RichtxtBox += stringPatterns.ShowFinalResult(appliedJobs, savedJobs);
+                await AddMessageToRichTextbox(stringPatterns.ShowFinalResult(appliedJobs, savedJobs));
                 return false;
             }
         }
@@ -444,17 +445,17 @@ namespace forms.Presenters
         //Filters
         private async Task ApplyFilter(string filterName, string field, IPage page)
         {
-            _automationView.RichtxtBox += ($"*FiltroData do anúncio: {filterName};");
+            await AddMessageToRichTextbox($"*FiltroData do anúncio: {filterName};");
             await page.GetByLabel("Todos os filtros", new() { Exact = true }).Locator("label").Filter(new() { HasText = $"{field} Filtrar por {field}" }).ClickAsync();
             await Task.Delay(TimeSpan.FromSeconds(0.8));
         }
 
         private async Task ApplyFilter(string filterName, List<string> checkedListBoxItems, IPage page)
         {
-            _automationView.RichtxtBox += ($"*Filtro: {filterName}\n");
+            await AddMessageToRichTextbox($"*Filtro: {filterName}\n");
             foreach (string selectedItem in checkedListBoxItems)
             {
-                _automationView.RichtxtBox += ($"\t{selectedItem}");
+                await AddMessageToRichTextbox($"\t{selectedItem}");
                 try
                 {
                     await page.GetByLabel("Todos os filtros", new() { Exact = true }).Locator("label").Filter(new() { HasText = $"{selectedItem} Filtrar por {selectedItem}" }).ClickAsync();
@@ -470,15 +471,14 @@ namespace forms.Presenters
         //UI
         private async Task ShowAppliedJobsMessage(int jobsCounter, int appliedJobs)
         {
-            await Task.Delay(TimeSpan.FromSeconds(0.8));
-            _automationView.RichtxtBox += ($"Inscrito na vaga nº{jobsCounter}");
-            await Task.Delay(TimeSpan.FromSeconds(0.8));
-            _automationView.RichtxtBox += ($"Total de {appliedJobs} vagas aplicadas");
+            await AddMessageToRichTextbox($"Inscrito na vaga nº{jobsCounter}");
+            await AddMessageToRichTextbox($"Total de {appliedJobs} vagas aplicadas");
         }
 
-        private async Task AppendRichTextBoxAsync()
+        private async Task AddMessageToRichTextbox(string message)
         {
-
+            _automationView.RichtxtBox += $"{message}\n";
+            await Task.Delay(TimeSpan.FromSeconds(0.1));
         }
     }
 }
