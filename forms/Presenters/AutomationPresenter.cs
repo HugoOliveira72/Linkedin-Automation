@@ -115,7 +115,7 @@ namespace forms.Presenters
             #region Search Job
             // PESQUISA DE VAGAS
             _automationView.RichtxtBox += (stringPatterns.linePattern());
-            _automationView.RichtxtBox += ($"Pesquisando {Homedata.TxtboxJob}");
+            _automationView.RichtxtBox += ($"Pesquisando {Homedata.TxtboxJob}\n");
             IElementHandle? searchJobDiv = await page.QuerySelectorAsync("#global-nav-typeahead");
             await searchJobDiv.ClickAsync();
             await Task.Delay(TimeSpan.FromSeconds(0.8));
@@ -133,7 +133,7 @@ namespace forms.Presenters
             #region Applying filters
             //Filter apply
             _automationView.RichtxtBox += ("Aplicando filtros\n");
-            var navFilterArea = await page.QuerySelectorAsync("nav[aria-label='Filtros de pesquisa']");
+            var navFilterArea = await page.WaitForSelectorAsync("nav[aria-label='Filtros de pesquisa']");
             var buttonJobFilter = await navFilterArea.QuerySelectorAsync("button:has-text('Vagas')");
             await buttonJobFilter.ClickAsync();
             await Task.Delay(TimeSpan.FromSeconds(0.8));
@@ -200,19 +200,24 @@ namespace forms.Presenters
 
                     jobsCounter++;
                     #region NextPageSection
-                    bool hasNextPage = await GoToNextPage(page, currentPage, appliedJobs, savedJobs);
-                    if (!hasNextPage)
+
+                    if (jobsCounter > ulElementsJobs.Count())
                     {
-                        // Fechar aplicação
-                        return;
+                        bool hasNextPage = await GoToNextPage(page, currentPage, appliedJobs, savedJobs);
+                        if (!hasNextPage)
+                        {
+                            // Fechar aplicação
+                            return;
+                        }
+                        else
+                        {
+                            //Recarregar elementos
+                            currentPage++;
+                            ulElementsJobs = await page.QuerySelectorAllAsync("li[class*='jobs-search-results__list-item']");
+                            jobsCounter = 1;
+                        }
                     }
-                    else
-                    {
-                        //Recarregar elementos
-                        currentPage++;
-                        ulElementsJobs = await page.QuerySelectorAllAsync("li[class*='jobs-search-results__list-item']");
-                        jobsCounter = 1;
-                    }
+
                     #endregion
 
                     _automationView.RichtxtBox += ("==================================\n");
@@ -279,9 +284,6 @@ namespace forms.Presenters
                     {
                         await buttonHandle!.ClickAsync();
                     }
-
-
-                    await HandleButtonOrContinue(page, buttonHandle, supDivElement, jobsCounter, savedJobs);
                     #endregion 
 
                     //CRIAR MÉTODOS
@@ -417,9 +419,9 @@ namespace forms.Presenters
         {
             // Logic for saving the job
             // ...
-            _automationView.RichtxtBox += ($"Salva a vaga nº{jobsCounter}");
+            _automationView.RichtxtBox += ($"Salva a vaga nº{jobsCounter}\n");
             await Task.Delay(TimeSpan.FromSeconds(0.8));
-            _automationView.RichtxtBox += ($"Total de {savedJobs} vagas salvas");
+            _automationView.RichtxtBox += ($"Total de {savedJobs} vagas salvas\n");
         }
 
         private async Task CheckAppliedStatus(IPage page, IElementHandle supDivElement)
@@ -466,7 +468,7 @@ namespace forms.Presenters
                 _automationView.RichtxtBox += ($"\t{selectedItem}");
                 try
                 {
-                    await page.GetByLabel("Todos os filtros", new() { Exact = true }).Locator("label").Filter(new() { HasText = $"{checkedListBoxItems} Filtrar por {checkedListBoxItems}" }).ClickAsync();
+                    await page.GetByLabel("Todos os filtros", new() { Exact = true }).Locator("label").Filter(new() { HasText = $"{selectedItem} Filtrar por {selectedItem}" }).ClickAsync();
                 }
                 catch (Exception e)
                 {

@@ -47,7 +47,7 @@ namespace forms.Forms
 
             HomeModel HomeData = _dataService.GetData();
             txtBox_saved_jobs.Text = "0";
-            txtBox_applied_Jobs.Text = $"0/{HomeData.AmoutOfJobs}";
+            txtBox_applied_Jobs.Text = $"0/{HomeData.AmountOfJobs}";
             //txtBox_applied_Jobs.Text = $"0/0";
             txtBox_job.Text = HomeData.TxtboxJob;
 
