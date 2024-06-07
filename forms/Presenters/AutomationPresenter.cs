@@ -82,7 +82,7 @@ namespace forms.Presenters
             await AddMessageToRichTextbox("Fazendo login..\n");
 
             ///Login page
-            var loginPage = await LoginPage.BuildAsync(page);
+            LoginPage loginPage = await LoginPage.BuildAsync(page);
             await loginPage.LoginAsync(userInfo.email, userInfo.password);
 
             //if (await loginPage.HandleErrorLoginAsync())
@@ -92,7 +92,6 @@ namespace forms.Presenters
             await Task.Delay(TimeSpan.FromSeconds(2));
             #endregion
 
-            //CRIAR MÉTODOS
             #region Securityhandle
             // CÓDIGO LINKEDIN / VERIFICAÇÃO DE SEGURANÇA (MANUALMENTE)
             await AddMessageToRichTextbox("Carregando...\n");
@@ -101,20 +100,14 @@ namespace forms.Presenters
             await Task.Delay(TimeSpan.FromSeconds(2));
             #endregion
 
-            //CRIAR MÉTODOS
-            #region Search Job
+            #region JobPage
             // PESQUISA DE VAGAS
             await AddMessageToRichTextbox(stringPatterns.linePattern());
             await AddMessageToRichTextbox($"Pesquisando {Homedata.TxtboxJob}\n");
-            IElementHandle? searchJobDiv = await page.QuerySelectorAsync("#global-nav-typeahead");
-            await searchJobDiv.ClickAsync();
-            await Task.Delay(TimeSpan.FromSeconds(0.8));
 
-            IElementHandle? inputSearchJob = await searchJobDiv.QuerySelectorAsync(".search-global-typeahead__input");
-            await inputSearchJob.FillAsync(Homedata.TxtboxJob);
-            await Task.Delay(TimeSpan.FromSeconds(0.8));
+            JobPage jobPage = await JobPage.BuildAsync(page);
+            await jobPage.SearchJobAsync(Homedata.TxtboxJob);
 
-            await inputSearchJob.PressAsync("Enter");
             await AddMessageToRichTextbox("Pesquisado com sucesso\n");
             await Task.Delay(TimeSpan.FromSeconds(2));
             #endregion
