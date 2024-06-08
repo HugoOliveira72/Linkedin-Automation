@@ -101,7 +101,7 @@ namespace forms.Presenters
             await Task.Delay(TimeSpan.FromSeconds(2));
             #endregion
 
-            #region JobPage
+            #region JobPage Search Section
             // PESQUISA DE VAGAS
             await AddMessageToRichTextbox(stringPatterns.linePattern());
             await AddMessageToRichTextbox($"Pesquisando {Homedata.TxtboxJob}\n");
@@ -140,26 +140,23 @@ namespace forms.Presenters
             await Task.Delay(TimeSpan.FromSeconds(3));
             #endregion
 
-            //CRIAR MÉTODOS
             #region GetAllJobs Elements
             /*
-             MANUAL DE VAGAS
                 - avaiableJobs, Vagas disponiveis podem ser candidadatas
                 - appliedJobs, Vagas candidatadas
                 - savedJobs, Vagas que contem perguntas, são salvas para preenchimento manual posterior
-             */
-
+            */
             int currentPage = 1, jobsCounter = 0, appliedJobs = 0, savedJobs = 0;
 
-            // LISTAR TODAS AS VAGAS
-            var ulElementsJobs = await page.QuerySelectorAllAsync("li[class*='jobs-search-results__list-item']");
-            int avaiableJobs = ulElementsJobs.Count();
+            // Instancia jobListSection
+            JobListSection jobListSection = await JobListSection.BuildAsync(page, currentPage);
+            int avaiableJobs = jobListSection.getAvailableJob();
             await AddMessageToRichTextbox($"Vagas encontradas: {avaiableJobs}");
             await Task.Delay(TimeSpan.FromSeconds(1));
 
             #endregion
 
-            //HABILITAR O BOTÃO SAIR
+            //HABILITAR O BOTÃO SAIR 
             //button_exit.Enabled = true;
             while (appliedJobs != Homedata.AmountOfJobs)
             {
@@ -168,41 +165,45 @@ namespace forms.Presenters
                     if (token.IsCancellationRequested) break;
 
                     jobsCounter++;
-                    #region NextPageSection
 
-                    if (jobsCounter > ulElementsJobs.Count())
+                    #region NextPageValidation
+                    if (jobsCounter > avaiableJobs)
                     {
-                        bool hasNextPage = await GoToNextPage(page, currentPage, appliedJobs, savedJobs);
+                        bool hasNextPage = await jobListSection.GoToNextPage(currentPage, appliedJobs, savedJobs);
+                        // Fechar aplicação
                         if (!hasNextPage)
                         {
-                            // Fechar aplicação
                             return;
                         }
+                        //Recarregar elementos
                         else
                         {
-                            //Recarregar elementos
+                            await jobListSection.ReloadUlElements();
+                            avaiableJobs = jobListSection.getAvailableJob();
                             currentPage++;
-                            ulElementsJobs = await page.QuerySelectorAllAsync("li[class*='jobs-search-results__list-item']");
                             jobsCounter = 1;
+                            await AddMessageToRichTextbox(stringPatterns.ShowFinalResult(appliedJobs, savedJobs));
+                            await AddMessageToRichTextbox($"Vagas encontradas: {avaiableJobs}");
                         }
                     }
-
                     #endregion
 
-                    await AddMessageToRichTextbox("==================================\n");
+                    await AddMessageToRichTextbox(stringPatterns.linePattern());
                     await AddMessageToRichTextbox($"Página {currentPage}");
                     await AddMessageToRichTextbox($"Vaga nº {jobsCounter}");
 
+                    #region SelectJob
+                    //Selecionar vaga
                     try
                     {
-                        //Clicar na vaga
-                        int indexJob = jobsCounter - 1;
-                        await ulElementsJobs[indexJob].ClickAsync();
+                        await jobListSection.ClickOnJob(jobsCounter);
                     }
                     catch (Exception e)
                     {
-                        await AddMessageToRichTextbox($"\n\n\n\n\n======================================\n{e}");
+                        await AddMessageToRichTextbox($"\n\n{stringPatterns.linePattern}{e}");
+                        _logRepository.WriteALogError("Erro ao selecionar vaga", e);
                     }
+                    #endregion
 
                     //OK
                     #region Handle subscribe button
