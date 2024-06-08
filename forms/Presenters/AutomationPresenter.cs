@@ -205,54 +205,36 @@ namespace forms.Presenters
                     }
                     #endregion
 
-                    //OK
                     #region Handle subscribe button
-                    // SELECIONAR DIV SUPERIOR (Div que contem descrição da vaga, botoes)
-                    await Task.Delay(TimeSpan.FromSeconds(1));
-                    var supDivElement = await page.QuerySelectorAsync("div[class*='jobs-unified-top-card']");
-                    await Task.Delay(TimeSpan.FromSeconds(0.3));
-
-                    // BOTÃO CANDIDATURA SIMPLIFICADA
-                    var buttonHandle = await supDivElement!.QuerySelectorAsync("button:has-text('Candidatura simplificada')");
-                    await Task.Delay(TimeSpan.FromSeconds(1));
-
-                    // CLICAR NO BOTÃO (Candidatar-se a vaga)
-                    if (buttonHandle == null)
+                    JobDetailsSection jobDetailsSection = await JobDetailsSection.BuildAsync(page);
+                    // BOTÃO (Candidatar-se a vaga)
+                    if (jobDetailsSection._subscribeButton == null)
                     {
                         // VERIFICAR SE VAGA ESTÁ INCOMPLETA (Continue)
-                        IElementHandle continueButton = await supDivElement.QuerySelectorAsync("button[aria-label*='Continuar candidatura']");
-                        if (continueButton != null)
+                        if (jobDetailsSection._continueButton != null)
                         {
                             // SALVAR VAGA
-                            await Task.Delay(TimeSpan.FromSeconds(0.8));
-                            var saveButton = await supDivElement.QuerySelectorAsync("button[class*='jobs-save-button']");
-
-                            await Task.Delay(TimeSpan.FromSeconds(0.8));
-                            var jobAlreadySaved = await saveButton.QuerySelectorAsync("span:has-text('Salvos')");
-                            if (jobAlreadySaved != null)
+                            if (jobDetailsSection._jobAlreadySaved != null)
                             {
                                 await AddMessageToRichTextbox("VAGA JÁ FOI SALVA!");
-                                continue;
                             }
-                            await Task.Delay(TimeSpan.FromSeconds(0.8));
-                            await saveButton.ClickAsync();
-                            await ShowAppliedJobsMessage(jobsCounter, savedJobs);
-                            continue;
+                            else
+                            {
+                                await jobDetailsSection._saveButton!.ClickAsync();
+                                await ShowAppliedJobsMessage(jobsCounter, savedJobs);
+                            }
                         }
-
-                        // VERIFICAR SE VAGA JA FOI INSCRITA
-                        var feedbackMessage = await supDivElement.QuerySelectorAsync("span[class='artdeco-inline-feedback__message']");
-                        string appliedAlready = await feedbackMessage.TextContentAsync();
-
-                        if (appliedAlready!.Contains("Candidatou-se"))
+                        else if (await jobDetailsSection.CheckSubscribedStatus())
                         {
+                            // VERIFICAR SE VAGA JA FOI INSCRITA
                             await AddMessageToRichTextbox("!Vaga já candidatada!");
-                            continue;
                         }
+                        continue;
                     }
                     else
                     {
-                        await buttonHandle!.ClickAsync();
+                        // SE INSCREVE NA VAGA
+                        await jobDetailsSection._subscribeButton!.ClickAsync();
                     }
                     #endregion 
 
