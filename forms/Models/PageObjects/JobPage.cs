@@ -38,13 +38,5 @@ namespace forms.Models.PageObjects
             await Task.Delay(TimeSpan.FromSeconds(securityTime));
             await _inputSearchJob.PressAsync("Enter");
         }
-
-        #region JobsSearchResultsList
-
-        #endregion
-
-        #region JobsSearchJobDetails
-
-        #endregion
     }
 }

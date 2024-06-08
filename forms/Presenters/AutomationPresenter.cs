@@ -1,5 +1,6 @@
 ﻿using forms.Models.Interfaces;
 using forms.Models.PageObjects;
+using forms.Models.PageObjects.Sections;
 using forms.Repositories;
 using forms.Services;
 using forms.Utilities;
@@ -112,45 +113,30 @@ namespace forms.Presenters
             await Task.Delay(TimeSpan.FromSeconds(2));
             #endregion
 
-            //CRIAR MÉTODOS
-            #region Applying filters
-            //Filter apply
+            #region FilterSection
+            FilterSection jobSearchPage = await FilterSection.BuildAsync(page);
+
             await AddMessageToRichTextbox("Aplicando filtros\n");
-            var navFilterArea = await page.WaitForSelectorAsync("nav[aria-label='Filtros de pesquisa']");
-            var buttonJobFilter = await navFilterArea.QuerySelectorAsync("button:has-text('Vagas')");
-            await buttonJobFilter.ClickAsync();
-            await Task.Delay(TimeSpan.FromSeconds(0.8));
-
-            await AddMessageToRichTextbox("Exibindo todos os filtros\n");
-            await page.GetByLabel("Exibir todos os filtros. Ao").ClickAsync();
-            await Task.Delay(TimeSpan.FromSeconds(0.8));
-
-            var filterTypeSpan = await page.QuerySelectorAsync("#selected-vertical");
-            var buttonFilterType = await filterTypeSpan.QuerySelectorAsync("button");
-            await Task.Delay(TimeSpan.FromSeconds(0.8));
-
-            await buttonFilterType.ClickAsync();
-            await Task.Delay(TimeSpan.FromSeconds(0.8));
-
-            await AddMessageToRichTextbox("Selecionando candidatura simplificada..\n");
-            await page.GetByText("Desativada Alternar filtro Candidatura simplificada").ClickAsync();
-            await Task.Delay(TimeSpan.FromSeconds(0.8));
+            await jobSearchPage.GoToFilterSection(0.8);
 
             ///Classificar por
-            await ApplyFilter("Classificar por", Homedata.ClassifyBy, page);
+            await AddMessageToRichTextbox("Classificar por");
+            await jobSearchPage.SelectFilter(Homedata.ClassifyBy);
             ///Data do anúncio
-            await ApplyFilter("Data do anúncio", Homedata.AnnoucementDate, page);
+            await AddMessageToRichTextbox("Data do anúncio");
+            await jobSearchPage.SelectFilter(Homedata.AnnoucementDate);
             ///Nível de experiência
-            await ApplyFilter("Nível de experiencia", Homedata.CheckedListBoxExperiences, page);
+            await AddMessageToRichTextbox("Nível de experiencia");
+            await jobSearchPage.SelectFilter(Homedata.CheckedListBoxExperiences);
             ///Tipo de vaga
-            await ApplyFilter("Tipo de vaga", Homedata.CheckedListBoxType_job, page);
+            await AddMessageToRichTextbox("Tipo de vaga");
+            await jobSearchPage.SelectFilter(Homedata.CheckedListBoxType_job);
             ///Remoto
-            await ApplyFilter("Remoto", Homedata.CheckedListBoxRemote, page);
+            await AddMessageToRichTextbox("Remoto");
+            await jobSearchPage.SelectFilter(Homedata.CheckedListBoxRemote);
 
-            await page.GetByLabel("Todos os filtros", new() { Exact = true }).PressAsync("Enter");
-            await Task.Delay(TimeSpan.FromSeconds(0.8));
-
-            await page.GetByLabel("Aplicar filtros atuais para").ClickAsync();
+            ///Apply All filters
+            await jobSearchPage.ApplyFilter();
             await Task.Delay(TimeSpan.FromSeconds(3));
             #endregion
 
@@ -434,33 +420,6 @@ namespace forms.Presenters
                 return false;
             }
         }
-
-        //Filters
-        private async Task ApplyFilter(string filterName, string field, IPage page)
-        {
-            await AddMessageToRichTextbox($"*FiltroData do anúncio: {filterName};");
-            await page.GetByLabel("Todos os filtros", new() { Exact = true }).Locator("label").Filter(new() { HasText = $"{field} Filtrar por {field}" }).ClickAsync();
-            await Task.Delay(TimeSpan.FromSeconds(0.8));
-        }
-
-        private async Task ApplyFilter(string filterName, List<string> checkedListBoxItems, IPage page)
-        {
-            await AddMessageToRichTextbox($"*Filtro: {filterName}\n");
-            foreach (string selectedItem in checkedListBoxItems)
-            {
-                await AddMessageToRichTextbox($"\t{selectedItem}");
-                try
-                {
-                    await page.GetByLabel("Todos os filtros", new() { Exact = true }).Locator("label").Filter(new() { HasText = $"{selectedItem} Filtrar por {selectedItem}" }).ClickAsync();
-                }
-                catch (Exception e)
-                {
-                    _logRepository.WriteALogError(ExceptionMessages.CouldNotFoundElement, e);
-                }
-                await Task.Delay(TimeSpan.FromSeconds(0.5));
-            }
-        }
-
         //UI
         private async Task ShowAppliedJobsMessage(int jobsCounter, int appliedJobs)
         {
