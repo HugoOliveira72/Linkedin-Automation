@@ -3,10 +3,9 @@
     public class OutputStringPatterns
     {
 
-        public string ShowFinalResult(int appliedJobs, int savedJobs, string finishCondition = "")
+        public string ShowFinalResult(int appliedJobs, int savedJobs)
         {
-            string resultText = !string.IsNullOrEmpty(finishCondition) ? finishCondition : "";
-
+            string resultText = "";
             resultText += linePattern();
             resultText += "RESULTADOS\n- VAGAS APLICADAS: ";
             resultText += appliedJobs;

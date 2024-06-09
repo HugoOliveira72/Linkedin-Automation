@@ -16,6 +16,7 @@ namespace forms.Models.PageObjects.Sections
         public IElementHandle? _sendJobApplicationButton;
         public IElementHandle? _closeButton;
         public IElementHandle? _reviewButton;
+        public IElementHandle? _additionalQuestions;
 
         public JobDetailsSection(IPage page) : base(page)
         {
@@ -53,6 +54,8 @@ namespace forms.Models.PageObjects.Sections
             _closeButton = await _page.QuerySelectorAsync("button[aria-label='Fechar']");
             await Task.Delay(TimeSpan.FromSeconds(securityTime));
             _reviewButton = await _page.QuerySelectorAsync("span:has-text('Revisar')");
+            await Task.Delay(TimeSpan.FromSeconds(securityTime));
+            _additionalQuestions = await _page.QuerySelectorAsync("h3");
         }
 
         public async Task<bool> CheckSubscribedStatus()
@@ -60,9 +63,21 @@ namespace forms.Models.PageObjects.Sections
             return _appliedAlready!.Contains("Candidatou-se");
         }
 
+        public async Task<bool> CheckAddicionalQuestions()
+        {
+            return _additionalQuestions!.ToString()!.Contains("Revise sua candidatura");
+        }
+
         public async Task SendJobApplicationAndClosePage(double securityTime = 0.5)
         {
             await _sendJobApplicationButton.ClickAsync();
+            await Task.Delay(TimeSpan.FromSeconds(securityTime));
+            await _closeButton.ClickAsync();
+        }
+
+        public async Task SaveJobClosePage(double securityTime = 0.5)
+        {
+            await _saveButton.ClickAsync();
             await Task.Delay(TimeSpan.FromSeconds(securityTime));
             await _closeButton.ClickAsync();
         }

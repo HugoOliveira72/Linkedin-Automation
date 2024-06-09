@@ -193,7 +193,6 @@ namespace forms.Presenters
                     await AddMessageToRichTextbox($"Vaga nº {jobsCounter}");
 
                     #region SelectJob
-                    //Selecionar vaga
                     try
                     {
                         await jobListSection.ClickOnJob(jobsCounter);
@@ -267,7 +266,6 @@ namespace forms.Presenters
                     }
                     #endregion
 
-                    //CRIAR MÉTODOS
                     #region Review button
                     await Task.Delay(TimeSpan.FromSeconds(1));
 
@@ -287,40 +285,26 @@ namespace forms.Presenters
                     }
                     #endregion
 
-                    //CRIAR MÉTODOS
                     #region Addicional Questions
-                    //PERGUNTAS ADICIONAIS
                     await Task.Delay(TimeSpan.FromSeconds(0.8));
-                    var additionalQuestions = await page.QuerySelectorAsync("h3");
-                    if (additionalQuestions!.ToString()!.Contains("Revise sua candidatura")) // QUANDO Ñ HÁ PERGUNTAS
+                    if (await jobDetailsSection.CheckAddicionalQuestions()) // QUANDO NÃO HÁ PERGUNTAS
                     {
                         // ENVIAR CANDIDATURA, SEM PERGUNTAS
-                        await playwrightUtilities.QuerySelectorAndClickAsync(page, "button:has-text('Enviar candidatura')");
+                        await jobDetailsSection.SendJobApplicationAndClosePage();
 
-                        // FECHAR
-                        await playwrightUtilities.QuerySelectorAndClickAsync(page, "button[aria-label='Fechar']");
                         appliedJobs++;
-
                         await ShowAppliedJobsMessage(jobsCounter, appliedJobs);
                         await AddMessageToRichTextbox(stringPatterns.ShowFinalResult(appliedJobs, savedJobs));
                         continue;
                     }
-                    else if (additionalQuestions != null) // QUANDO HÁ PERGUNTAS
+                    else if (jobDetailsSection._additionalQuestions != null) // QUANDO HÁ PERGUNTAS
                     {
-                        // FECHAR
-                        await playwrightUtilities.QuerySelectorAndClickAsync(page, "button[aria-label='Fechar']", 0.8);
-
-                        // SALVAR
-                        await playwrightUtilities.QuerySelectorAndClickAsync(page, "span:has-text('Salvar')", 0.8);
+                        await jobDetailsSection.SaveJobClosePage();
                         savedJobs++;
-
                         await Task.Delay(TimeSpan.FromSeconds(0.8));
-                        await AddMessageToRichTextbox(stringPatterns.ShowFinalResult(appliedJobs, savedJobs));
                         await AddMessageToRichTextbox($"Salva a vaga nº{jobsCounter}");
                         await Task.Delay(TimeSpan.FromSeconds(0.8));
-                        await AddMessageToRichTextbox($"Total de {appliedJobs} vagas aplicadas");
-
-                        await AddMessageToRichTextbox($"Total de {savedJobs} vagas salvas");
+                        await AddMessageToRichTextbox(stringPatterns.ShowFinalResult(appliedJobs, savedJobs));
                         continue;
                     }
                     #endregion
