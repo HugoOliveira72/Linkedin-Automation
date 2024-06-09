@@ -332,68 +332,6 @@ namespace forms.Presenters
                 }
             }
         }
-        //Handle Subscribe
-        private async Task HandleButtonOrContinue(IPage page, IElementHandle? buttonHandle, IElementHandle supDivElement, int jobsCounter, int savedJobs)
-        {
-            if (buttonHandle != null)
-            {
-                await buttonHandle.ClickAsync();
-            }
-            else
-            {
-                await HandleContinueOrSave(page, supDivElement, jobsCounter, savedJobs);
-            }
-        }
-
-        private async Task HandleContinueOrSave(IPage page, IElementHandle supDivElement, int jobsCounter, int savedJobs)
-        {
-            var continueButton = await supDivElement.QuerySelectorAsync("button[aria-label*='Continuar candidatura']");
-            if (continueButton != null)
-            {
-                await SaveJob(page, jobsCounter, savedJobs);
-            }
-            else
-            {
-                await CheckAppliedStatus(page, supDivElement);
-            }
-        }
-
-        private async Task SaveJob(IPage page, int jobsCounter, int savedJobs)
-        {
-            // Logic for saving the job
-            // ...
-            await AddMessageToRichTextbox($"Salva a vaga nº{jobsCounter}\n");
-            await Task.Delay(TimeSpan.FromSeconds(0.8));
-            await AddMessageToRichTextbox($"Total de {savedJobs} vagas salvas\n");
-        }
-
-        private async Task CheckAppliedStatus(IPage page, IElementHandle supDivElement)
-        {
-            var feedbackMessage = await supDivElement.QuerySelectorAsync("span[class='artdeco-inline-feedback__message']");
-            string appliedAlready = await feedbackMessage.TextContentAsync();
-
-            if (appliedAlready!.Contains("Candidatou-se"))
-            {
-                await AddMessageToRichTextbox("!Vaga já candidatada!\n");
-            }
-        }
-
-        //Nextpage
-        private async Task<bool> GoToNextPage(IPage page, int currentPage, int appliedJobs, int savedJobs)
-        {
-            var nextPageButton = await page.QuerySelectorAsync($"button[aria-label='Página {currentPage + 1}']");
-            if (nextPageButton != null)
-            {
-                await nextPageButton.ClickAsync();
-                return true;
-            }
-            else
-            {
-                MessageBox.Show("Limite de páginas excedido, não há mais vagas para se candidatar", "Limite excedido", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
-                await AddMessageToRichTextbox(stringPatterns.ShowFinalResult(appliedJobs, savedJobs));
-                return false;
-            }
-        }
         //UI
         private async Task ShowAppliedJobsMessage(int jobsCounter, int appliedJobs)
         {
