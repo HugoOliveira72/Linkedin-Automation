@@ -21,11 +21,11 @@ namespace forms.Utilities
             }
         }
 
-        public async Task QuerySelectorAndClickAsync(IPage page, string querySelector, double msPauseTime = 0)
+        public async Task QuerySelectorAndClickAsync(IPage page, string querySelector, double securityTimePause = 0.5)
         {
-            await Task.Delay(TimeSpan.FromSeconds(msPauseTime));
+            await Task.Delay(TimeSpan.FromSeconds(securityTimePause));
             var closeButton = await page.QuerySelectorAsync(querySelector);
-            await Task.Delay(TimeSpan.FromSeconds(msPauseTime));
+            await Task.Delay(TimeSpan.FromSeconds(securityTimePause));
             await closeButton!.ClickAsync();
         }
     }

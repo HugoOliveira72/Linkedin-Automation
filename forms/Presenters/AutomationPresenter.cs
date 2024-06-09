@@ -238,33 +238,25 @@ namespace forms.Presenters
                     }
                     #endregion 
 
-                    //CRIAR MÉTODOS
                     #region Advance button
                     // BOTÃO AVANÇAR
                     await Task.Delay(TimeSpan.FromSeconds(1));
-                    var advanceButton = await page.QuerySelectorAsync("button[aria-label='Avançar para próxima etapa']");
-                    if (advanceButton == null)// QUANDO BOTÃO AVANÇAR Ñ EXISTE
+                    if (jobDetailsSection._advanceButton == null)// QUANDO BOTÃO AVANÇAR Ñ EXISTE
                     {
                         /// CLICA BOTÃO ENVIAR CANDIDATURA
-                        await Task.Delay(TimeSpan.FromSeconds(1));
-                        await playwrightUtilities.QuerySelectorAndClickAsync(page, "button:has-text('Enviar candidatura')");
-
-                        /// CLICA BOTÃO FECHAR
-                        await Task.Delay(TimeSpan.FromSeconds(2));
-                        await playwrightUtilities.QuerySelectorAndClickAsync(page, "button[aria-label='Fechar']");
-                        appliedJobs++;
+                        await jobDetailsSection.SendJobApplicationAndClosePage();
 
                         /// EXIBE NA TELA INFORMAÇÕES DA CANDIDATURA
+                        appliedJobs++;
                         await ShowAppliedJobsMessage(jobsCounter, appliedJobs);
                         continue;
                     }
                     else // QUANDO BOTÃO AVANÇAR EXISTE!
                     {
-                        await Task.Delay(TimeSpan.FromSeconds(1));
                         try
                         {
                             /// CLICA NO BOTÃO AVANÇAR
-                            await advanceButton!.ClickAsync();
+                            await jobDetailsSection._advanceButton!.ClickAsync();
                         }
                         catch (Exception e)
                         {

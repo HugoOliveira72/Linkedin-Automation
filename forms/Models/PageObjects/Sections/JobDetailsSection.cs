@@ -10,8 +10,12 @@ namespace forms.Models.PageObjects.Sections
         public IElementHandle? _continueButton;
         public IElementHandle? _saveButton;
         public IElementHandle? _feedbackMessage;
-        public string _appliedAlready;
-        public IElementHandle _jobAlreadySaved;
+        public string? _appliedAlready;
+        public IElementHandle? _jobAlreadySaved;
+        public IElementHandle? _advanceButton;
+        public IElementHandle? _sendJobApplicationButton;
+        public IElementHandle? _closeButton;
+
 
         public JobDetailsSection(IPage page) : base(page)
         {
@@ -38,14 +42,27 @@ namespace forms.Models.PageObjects.Sections
             await Task.Delay(TimeSpan.FromSeconds(securityTime));
             _feedbackMessage = await _supDivElement.QuerySelectorAsync("span[class='artdeco-inline-feedback__message']");
             await Task.Delay(TimeSpan.FromSeconds(securityTime));
-            _appliedAlready = await _feedbackMessage.TextContentAsync();
+            _appliedAlready = await _feedbackMessage!.TextContentAsync();
             await Task.Delay(TimeSpan.FromSeconds(securityTime));
-            _jobAlreadySaved = await _saveButton.QuerySelectorAsync("span:has-text('Salvos')");
+            _jobAlreadySaved = await _saveButton!.QuerySelectorAsync("span:has-text('Salvos')");
+            await Task.Delay(TimeSpan.FromSeconds(securityTime));
+            _advanceButton = await _page.QuerySelectorAsync("button[aria-label='Avançar para próxima etapa']");
+            await Task.Delay(TimeSpan.FromSeconds(securityTime));
+            _sendJobApplicationButton = await _page.QuerySelectorAsync("button:has-text('Enviar candidatura')");
+            await Task.Delay(TimeSpan.FromSeconds(securityTime));
+            _closeButton = await _page.QuerySelectorAsync("button[aria-label='Fechar']");
         }
 
         public async Task<bool> CheckSubscribedStatus()
         {
             return _appliedAlready!.Contains("Candidatou-se");
+        }
+
+        public async Task SendJobApplicationAndClosePage(double securityTime = 0.5)
+        {
+            await _sendJobApplicationButton.ClickAsync();
+            await Task.Delay(TimeSpan.FromSeconds(securityTime));
+            await _closeButton.ClickAsync();
         }
     }
 
