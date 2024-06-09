@@ -269,21 +269,20 @@ namespace forms.Presenters
 
                     //CRIAR MÉTODOS
                     #region Review button
-                    //BOTÃO REVISAR
                     await Task.Delay(TimeSpan.FromSeconds(1));
-                    var reviewButton = await page.QuerySelectorAsync("span:has-text('Revisar')");
-                    if (reviewButton == null) // QUANDO BOTÃO REVISAR Ñ EXISTE
-                        await advanceButton.ClickAsync(); /// Haverá o botão avançar
+
+                    if (jobDetailsSection._reviewButton == null) // QUANDO BOTÃO REVISAR Ñ EXISTE
+                        await jobDetailsSection._advanceButton.ClickAsync(); /// Haverá o botão avançar
                     else// QUANDO BOTÃO REVISAR EXISTE
                     {
                         try
                         {
-                            await reviewButton!.ClickAsync();
+                            await jobDetailsSection._reviewButton!.ClickAsync();
                         }
                         catch (Exception e)
                         {
                             await Task.Delay(TimeSpan.FromSeconds(1));
-                            await advanceButton.ClickAsync();
+                            _logRepository.WriteALogError("Erro ao clicar no botão avançar", e);
                         }
                     }
                     #endregion

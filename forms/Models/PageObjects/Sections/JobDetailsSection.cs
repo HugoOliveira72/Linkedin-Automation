@@ -15,7 +15,7 @@ namespace forms.Models.PageObjects.Sections
         public IElementHandle? _advanceButton;
         public IElementHandle? _sendJobApplicationButton;
         public IElementHandle? _closeButton;
-
+        public IElementHandle? _reviewButton;
 
         public JobDetailsSection(IPage page) : base(page)
         {
@@ -51,6 +51,8 @@ namespace forms.Models.PageObjects.Sections
             _sendJobApplicationButton = await _page.QuerySelectorAsync("button:has-text('Enviar candidatura')");
             await Task.Delay(TimeSpan.FromSeconds(securityTime));
             _closeButton = await _page.QuerySelectorAsync("button[aria-label='Fechar']");
+            await Task.Delay(TimeSpan.FromSeconds(securityTime));
+            _reviewButton = await _page.QuerySelectorAsync("span:has-text('Revisar')");
         }
 
         public async Task<bool> CheckSubscribedStatus()
