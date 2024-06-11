@@ -106,6 +106,9 @@ namespace forms.Presenters
             await AddMessageToRichTextbox(stringPatterns.linePattern());
             await AddMessageToRichTextbox($"Pesquisando {Homedata.TxtboxJob}\n");
 
+            FeedPage feedPage = await FeedPage.BuildAsync(page);
+            await feedPage._jobSpan!.ClickAsync();
+
             JobPage jobPage = await JobPage.BuildAsync(page);
             await jobPage.SearchJobAsync(Homedata.TxtboxJob);
 
@@ -237,6 +240,9 @@ namespace forms.Presenters
                     }
                     #endregion 
 
+                    //VERIFICAR ESSAS PARTES, 
+                    //POIS AS PAGINAS SÃO GERADAS DEPOIS
+                    //OBSERVAÇÃO: TALVEZ CRIAR UMA CLASSE PARA CADA PÁGINA
                     #region Advance button
                     // BOTÃO AVANÇAR
                     await Task.Delay(TimeSpan.FromSeconds(1));
@@ -306,6 +312,9 @@ namespace forms.Presenters
                         await Task.Delay(TimeSpan.FromSeconds(0.8));
                         await AddMessageToRichTextbox(stringPatterns.ShowFinalResult(appliedJobs, savedJobs));
                         continue;
+                    }else if (jobDetailsSection._advanceButton != null)
+                    {
+                        await jobDetailsSection._advanceButton.ClickAsync();
                     }
                     #endregion
                 }

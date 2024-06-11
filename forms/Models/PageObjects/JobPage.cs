@@ -1,12 +1,13 @@
-﻿using Microsoft.Playwright;
+﻿using forms.Utilities;
+using Microsoft.Playwright;
 
 namespace forms.Models.PageObjects
 {
     public class JobPage
     {
-        IPage _page;
-        IElementHandle? _searchJobDiv;
-        IElementHandle? _inputSearchJob;
+        public IPage _page;
+        private ILocator? _inputSearchJob;
+        private PlaywrightUtilities playwrightUtilities = new();
 
         public JobPage(IPage page)
         {
@@ -22,21 +23,28 @@ namespace forms.Models.PageObjects
 
         private async Task InicializateAsync(double securityTime)
         {
+            await VerifyInicialElement();
             await Task.Delay(TimeSpan.FromSeconds(securityTime));
-            _searchJobDiv = await _page.QuerySelectorAsync("#global-nav-typeahead");
-            await Task.Delay(TimeSpan.FromSeconds(securityTime));
-            _inputSearchJob = await _searchJobDiv.QuerySelectorAsync(".search-global-typeahead__input");
-            await Task.Delay(TimeSpan.FromSeconds(securityTime));
+            _inputSearchJob = _page.GetByRole(AriaRole.Combobox, new() { Name = "Pesquisar cargo, competência" });
         }
 
         public async Task SearchJobAsync(string job, double securityTime = 0.5)
         {
             await Task.Delay(TimeSpan.FromSeconds(securityTime));
-            await _searchJobDiv.ClickAsync();
+            await _inputSearchJob.ClickAsync();
             await Task.Delay(TimeSpan.FromSeconds(securityTime));
             await _inputSearchJob.FillAsync(job);
             await Task.Delay(TimeSpan.FromSeconds(securityTime));
             await _inputSearchJob.PressAsync("Enter");
+        }
+
+        private async Task VerifyInicialElement()
+        {
+            await playwrightUtilities.WaitForElementAndHandleExceptionAsync(
+                _page, "input[title*='Pesquisar cargo, competência ou empresa']",
+                "Elemento encontrado",
+                "Erro ao encontrar elemento"
+            );
         }
     }
 }

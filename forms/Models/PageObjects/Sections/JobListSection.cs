@@ -1,20 +1,15 @@
 ﻿using Microsoft.Playwright;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace forms.Models.PageObjects.Sections
 {
-    public class JobListSection : JobPage
+    public class JobListSection
     {
         //Properties
         private IPage _page;
         private IReadOnlyList<IElementHandle?> _ulElementsJobs;
         private IElementHandle? _nextPageButton;
 
-        public JobListSection(IPage page) : base(page)
+        public JobListSection(IPage page)
         {
             _page = page;
         }
