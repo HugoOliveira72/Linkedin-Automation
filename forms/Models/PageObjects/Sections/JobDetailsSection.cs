@@ -2,7 +2,7 @@
 
 namespace forms.Models.PageObjects.Sections
 {
-    public class JobDetailsSection : JobPage
+    public class JobDetailsSection
     {
         private IPage _page;
         public IElementHandle? _supDivElement;
@@ -18,7 +18,7 @@ namespace forms.Models.PageObjects.Sections
         public IElementHandle? _reviewButton;
         public IElementHandle? _additionalQuestions;
 
-        public JobDetailsSection(IPage page) : base(page)
+        public JobDetailsSection(IPage page)
         {
             _page = page;
         }
@@ -65,7 +65,7 @@ namespace forms.Models.PageObjects.Sections
 
         public async Task<bool> CheckAddicionalQuestions()
         {
-            return _additionalQuestions!.ToString()!.Contains("Revise sua candidatura");
+            return new[] { "Revise sua candidatura", "Addicional", "Perguntas adicionais" }.Any(obj => _additionalQuestions!.ToString()!.Contains(obj));
         }
 
         public async Task SendJobApplicationAndClosePage(double securityTime = 0.5)
@@ -77,9 +77,9 @@ namespace forms.Models.PageObjects.Sections
 
         public async Task SaveJobClosePage(double securityTime = 0.5)
         {
-            await _saveButton.ClickAsync();
-            await Task.Delay(TimeSpan.FromSeconds(securityTime));
             await _closeButton.ClickAsync();
+            await Task.Delay(TimeSpan.FromSeconds(securityTime));
+            await _saveButton.ClickAsync();
         }
     }
 

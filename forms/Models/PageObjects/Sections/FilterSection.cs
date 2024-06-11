@@ -4,7 +4,7 @@ using Microsoft.Playwright;
 
 namespace forms.Models.PageObjects.Sections
 {
-    public class FilterSection : JobPage
+    public class FilterSection
     {
         private IPage _page;
         private IElementHandle? navFilterArea;
@@ -17,7 +17,7 @@ namespace forms.Models.PageObjects.Sections
         private ILocator applyFilterButton;
         private LogRepository _logRepository = new();
 
-        public FilterSection(IPage page) : base(page)
+        public FilterSection(IPage page)
         {
             _page = page;
         }
@@ -38,15 +38,17 @@ namespace forms.Models.PageObjects.Sections
             await Task.Delay(TimeSpan.FromSeconds(securityTime));
             showAllFiltersButton = _page.GetByLabel("Exibir todos os filtros. Ao");
             await Task.Delay(TimeSpan.FromSeconds(securityTime));
-            filterTypeSpan = await _page.QuerySelectorAsync("#selected-vertical");
-            await Task.Delay(TimeSpan.FromSeconds(securityTime));
-            buttonFilterType = await filterTypeSpan.QuerySelectorAsync("button");
-            await Task.Delay(TimeSpan.FromSeconds(securityTime));
-            buttonFilterEasyApply = _page.GetByText("Desativada Alternar filtro Candidatura simplificada");
-            await Task.Delay(TimeSpan.FromSeconds(securityTime));
-            allFilterButton = _page.GetByLabel("Todos os filtros", new() { Exact = true });
-            await Task.Delay(TimeSpan.FromSeconds(securityTime));
-            applyFilterButton = _page.GetByLabel("Aplicar filtros atuais para");
+
+            //
+            //filterTypeSpan = await _page.QuerySelectorAsync("#selected-vertical");
+            //await Task.Delay(TimeSpan.FromSeconds(securityTime));
+            //buttonFilterType = await filterTypeSpan.QuerySelectorAsync("button");
+            //await Task.Delay(TimeSpan.FromSeconds(securityTime));
+            //buttonFilterEasyApply = _page.GetByText("Desativada Alternar filtro Candidatura simplificada");
+            //await Task.Delay(TimeSpan.FromSeconds(securityTime));
+            //allFilterButton = _page.GetByLabel("Todos os filtros", new() { Exact = true });
+            //await Task.Delay(TimeSpan.FromSeconds(securityTime));
+            //applyFilterButton = _page.GetByLabel("Aplicar filtros atuais para");
         }
 
         public async Task GoToFilterSection(double securityTime = 0.5)
