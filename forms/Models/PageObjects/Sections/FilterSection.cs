@@ -1,4 +1,5 @@
 ﻿using forms.Repositories;
+using forms.Utilities;
 using forms.Utilities.Messages;
 using Microsoft.Playwright;
 
@@ -7,15 +8,11 @@ namespace forms.Models.PageObjects.Sections
     public class FilterSection
     {
         private IPage _page;
-        private IElementHandle? navFilterArea;
-        private IElementHandle? buttonJobFilter;
         private ILocator showAllFiltersButton;
-        private IElementHandle? filterTypeSpan;
-        private IElementHandle? buttonFilterType;
         private ILocator buttonFilterEasyApply;
-        private ILocator allFilterButton;
         private ILocator applyFilterButton;
         private LogRepository _logRepository = new();
+        private PlaywrightUtilities playwrightUtilities = new();
 
         public FilterSection(IPage page)
         {
@@ -32,33 +29,23 @@ namespace forms.Models.PageObjects.Sections
         private async Task InicializateAsync(double securityTime)
         {
             await Task.Delay(TimeSpan.FromSeconds(securityTime));
-            navFilterArea = await _page.WaitForSelectorAsync("nav[aria-label='Filtros de pesquisa']");
-            await Task.Delay(TimeSpan.FromSeconds(securityTime));
-            buttonJobFilter = await navFilterArea.QuerySelectorAsync("button:has-text('Vagas')");
-            await Task.Delay(TimeSpan.FromSeconds(securityTime));
             showAllFiltersButton = _page.GetByLabel("Exibir todos os filtros. Ao");
-            await Task.Delay(TimeSpan.FromSeconds(securityTime));
+        }
 
-            //
-            //filterTypeSpan = await _page.QuerySelectorAsync("#selected-vertical");
-            //await Task.Delay(TimeSpan.FromSeconds(securityTime));
-            //buttonFilterType = await filterTypeSpan.QuerySelectorAsync("button");
-            //await Task.Delay(TimeSpan.FromSeconds(securityTime));
-            //buttonFilterEasyApply = _page.GetByText("Desativada Alternar filtro Candidatura simplificada");
-            //await Task.Delay(TimeSpan.FromSeconds(securityTime));
-            //allFilterButton = _page.GetByLabel("Todos os filtros", new() { Exact = true });
-            //await Task.Delay(TimeSpan.FromSeconds(securityTime));
-            //applyFilterButton = _page.GetByLabel("Aplicar filtros atuais para");
+        private async Task LoadFilterElements(double securityTime = 0.5)
+        {
+            await playwrightUtilities.WaitForElementAndHandleExceptionAsync(_page, "#selected-vertical", "Div de filtros carregada", "Erro ao carregar div de filtros");
+            await Task.Delay(TimeSpan.FromSeconds(securityTime));
+            buttonFilterEasyApply = _page.GetByText("Desativada Alternar filtro Candidatura simplificada");
+            await Task.Delay(TimeSpan.FromSeconds(securityTime));
+            applyFilterButton = _page.GetByLabel("Aplicar filtros atuais para");
         }
 
         public async Task GoToFilterSection(double securityTime = 0.5)
         {
             await Task.Delay(TimeSpan.FromSeconds(securityTime));
-            await buttonJobFilter.ClickAsync();
-            await Task.Delay(TimeSpan.FromSeconds(securityTime));
             await showAllFiltersButton.ClickAsync();
-            await Task.Delay(TimeSpan.FromSeconds(securityTime));
-            await buttonFilterType.ClickAsync();
+            await LoadFilterElements();
             await Task.Delay(TimeSpan.FromSeconds(securityTime));
             await buttonFilterEasyApply.ClickAsync();
         }
@@ -75,6 +62,7 @@ namespace forms.Models.PageObjects.Sections
             {
                 try
                 {
+                    await playwrightUtilities.WaitForElementAndHandleExceptionAsync(_page, $"span:has-text:('Filtrar por {selectedItem})'","Filtro encontrado","Não foi possível encontrar o filtro", 2000);
                     await _page.GetByLabel("Todos os filtros", new() { Exact = true }).Locator("label").Filter(new() { HasText = $"{selectedItem} Filtrar por {selectedItem}" }).ClickAsync();
                 }
                 catch (Exception e)
@@ -87,8 +75,6 @@ namespace forms.Models.PageObjects.Sections
 
         public async Task ApplyFilter(double securityTime = 0.5)
         {
-            await Task.Delay(TimeSpan.FromSeconds(securityTime));
-            await allFilterButton.PressAsync("Enter");
             await Task.Delay(TimeSpan.FromSeconds(securityTime));
             await applyFilterButton.ClickAsync();
         }
