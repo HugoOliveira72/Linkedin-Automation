@@ -21,7 +21,13 @@ namespace forms.Repositories
 
         public void WriteALogError(string message, Exception exception)
         {
-            string? logText = outputStringPatterns.errorPattern(message, exception, true);
+            string? logText = outputStringPatterns.errorPattern(message, exception);
+            UpdateTextFile(GetFilePath(), logText);
+        }
+
+        public void WriteALogError(Exception exception)
+        {
+            string? logText = outputStringPatterns.errorPattern(exception);
             UpdateTextFile(GetFilePath(), logText);
         }
 
