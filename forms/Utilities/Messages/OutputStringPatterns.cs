@@ -19,6 +19,11 @@
             return $"{errorMessage}: {errorDescription}";
         }
 
+        public string errorPattern(Exception? errorDescription = null)
+        {
+            return $"Error: {errorDescription}";
+        }
+
         public string startPattern()
         {
             DateTime dateTime = DateTime.Now;

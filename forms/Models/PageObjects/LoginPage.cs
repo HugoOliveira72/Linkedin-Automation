@@ -55,7 +55,7 @@ namespace forms.Models.PageObjects
         {
             if (_errorLoginDiv != null)
             {
-                _logRepository.WriteALogError(_outputStringPatterns.errorPattern(ExceptionMessages.IncorretLogin, null, false), new Exception("Erro de login"));
+                _logRepository.WriteALogError(_outputStringPatterns.errorPattern(ExceptionMessages.IncorretLogin, null), new Exception("Erro de login"));
                 return true;
             }
             return false;
