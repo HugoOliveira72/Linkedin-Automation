@@ -14,14 +14,9 @@
             return resultText;
         }
 
-        public string errorPattern(string errorMessage, Exception? errorDescription = null, bool finishMessage = false)
+        public string errorPattern(string errorMessage, Exception? errorDescription = null)
         {
-            string logText = $"{errorMessage}: {errorDescription}";
-            if (finishMessage)
-            {
-                logText += "\nFinalizando...";
-            }
-            return logText;
+            return $"{errorMessage}: {errorDescription}";
         }
 
         public string startPattern()

@@ -1,4 +1,5 @@
 ﻿using forms.Repositories;
+using forms.Utilities.Messages;
 using Microsoft.Playwright;
 
 namespace forms.Utilities
@@ -6,18 +7,20 @@ namespace forms.Utilities
     public class PlaywrightUtilities
     {
         LogRepository logRepository = new();
-        public async Task<string> WaitForElementAndHandleExceptionAsync(IPage page, string selector, string successMessage, string errorMessage)
+        OutputStringPatterns outputString = new();
+
+        public async Task<string> WaitForElementAndHandleExceptionAsync(IPage page, string selector, string successMessage = "", string errorMessage = "", int timeout = 60000)
         {
             try
             {
-                await page.WaitForSelectorAsync(selector, new() { Timeout = 60000 });
+                await page.WaitForSelectorAsync(selector, new() { Timeout = timeout });
                 return successMessage;
             }
             catch (Exception exception)
             {
                 MessageBox.Show(errorMessage, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button2);
                 logRepository.WriteALogError(errorMessage, exception);
-                throw new Exception();
+                return outputString.errorPattern(errorMessage, exception);
             }
         }
 
