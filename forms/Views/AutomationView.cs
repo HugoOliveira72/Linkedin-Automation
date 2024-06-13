@@ -1,6 +1,6 @@
-﻿using forms.Services;
+﻿using forms.Models.Filters;
+using forms.Services;
 using forms.Views.Interfaces;
-using playwright.Model;
 
 namespace forms.Forms
 {
@@ -45,7 +45,7 @@ namespace forms.Forms
         {
             MessageBox.Show("Tela carregada", "Aviso", MessageBoxButtons.OK);
 
-            HomeModel HomeData = _dataService.GetData();
+            FilterFieldsModel HomeData = _dataService.GetData();
             txtBox_saved_jobs.Text = "0";
             txtBox_applied_Jobs.Text = $"0/{HomeData.AmountOfJobs}";
             //txtBox_applied_Jobs.Text = $"0/0";

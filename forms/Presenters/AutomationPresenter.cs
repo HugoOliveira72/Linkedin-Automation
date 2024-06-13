@@ -1,4 +1,5 @@
-﻿using forms.Models.Interfaces;
+﻿using forms.Models.Filters;
+using forms.Models.Interfaces;
 using forms.Models.PageObjects;
 using forms.Models.PageObjects.Sections;
 using forms.Repositories;
@@ -9,7 +10,6 @@ using forms.Views.Interfaces;
 using Linkedin_Automation.Config;
 using Linkedin_Automation.Model;
 using Microsoft.Playwright;
-using playwright.Model;
 
 namespace forms.Presenters
 {
@@ -49,7 +49,7 @@ namespace forms.Presenters
         private async Task Script(CancellationToken token)
         {
             // OBTEM DADOS DA TELA HOME
-            HomeModel Homedata = _dataService.GetData();
+            FilterFieldsModel Homedata = _dataService.GetData();
 
             // VERIFICAÇÃO EXISTENCIA LOG.TXT
             _logService.LogFileExistingVerification();
@@ -123,20 +123,20 @@ namespace forms.Presenters
             await jobSearchPage.GoToFilterSection(0.8);
 
             ///Classificar por
-            await AddMessageToRichTextbox("Classificar por");
+            await AddMessageToRichTextbox(FilterLabelsModel.ClassifyByLabel);
             await jobSearchPage.SelectFilter(Homedata.ClassifyBy);
             ///Data do anúncio
-            await AddMessageToRichTextbox("Data do anúncio");
+            await AddMessageToRichTextbox(FilterLabelsModel.AnnouncimentDateLabel);
             await jobSearchPage.SelectFilter(Homedata.AnnoucementDate);
             ///Nível de experiência
-            await AddMessageToRichTextbox("Nível de experiencia");
-            await jobSearchPage.SelectFilter(Homedata.CheckedListBoxExperiences);
+            await AddMessageToRichTextbox(FilterLabelsModel.ExperienceLevelLabel);
+            await jobSearchPage.SelectFilter(FilterLabelsModel.ExperienceLevelLabel, Homedata.CheckedListBoxExperiences);
             ///Tipo de vaga
-            await AddMessageToRichTextbox("Tipo de vaga");
-            await jobSearchPage.SelectFilter(Homedata.CheckedListBoxType_job);
+            await AddMessageToRichTextbox(FilterLabelsModel.JobTypeLabel);
+            await jobSearchPage.SelectFilter(FilterLabelsModel.JobTypeLabel, Homedata.CheckedListBoxType_job);
             ///Remoto
-            await AddMessageToRichTextbox("Remoto");
-            await jobSearchPage.SelectFilter(Homedata.CheckedListBoxRemote);
+            await AddMessageToRichTextbox(FilterLabelsModel.RemoteTypeLabel);
+            await jobSearchPage.SelectFilter(FilterLabelsModel.RemoteTypeLabel, Homedata.CheckedListBoxRemote);
 
             ///Apply All filters
             await jobSearchPage.ApplyFilter();
@@ -312,7 +312,8 @@ namespace forms.Presenters
                         await Task.Delay(TimeSpan.FromSeconds(0.8));
                         await AddMessageToRichTextbox(stringPatterns.ShowFinalResult(appliedJobs, savedJobs));
                         continue;
-                    }else if (jobDetailsSection._advanceButton != null)
+                    }
+                    else if (jobDetailsSection._advanceButton != null)
                     {
                         await jobDetailsSection._advanceButton.ClickAsync();
                     }

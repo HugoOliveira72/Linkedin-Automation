@@ -25,3 +25,20 @@ MOSTRAR AVISO FALANDO QUE NÃO ACHOU NADA
 --
 
 2º Validação estética
+
+
+========================
+
+EM FILTROS
+
+ - SELECT FILTER
+ - NÃO SELECIONAR FILTRO QUANDO USUÁRIO NÃO DEFINIU UM 
+
+ - SELECT FILTER
+ - TIPO DE VAGA E REMOTO ESTÃO LENTOS
+ - VERIFICAR O MOTIVO
+========================
+
+
+
+

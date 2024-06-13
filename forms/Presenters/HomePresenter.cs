@@ -1,9 +1,9 @@
 ﻿using forms.Forms;
+using forms.Models.Filters;
 using forms.Models.Interfaces;
 using forms.Repositories;
 using forms.Services;
 using forms.Views.Interfaces;
-using playwright.Model;
 
 namespace forms.Presenters
 {
@@ -41,9 +41,9 @@ namespace forms.Presenters
             automationView.Show();
         }
 
-        private HomeModel SetObject()
+        private FilterFieldsModel SetObject()
         {
-            HomeModel data = new HomeModel
+            FilterFieldsModel data = new FilterFieldsModel
             (
                 _homeView.Job,
                 Int32.Parse(_homeView.amountJobs),

@@ -315,3 +315,335 @@ Finalizando...
 =============================	 11/06/2024 18:32:03
 
 =============================	 11/06/2024 18:35:19
+
+=============================	 11/06/2024 19:03:56
+
+=============================	 11/06/2024 19:08:46
+
+=============================	 11/06/2024 19:14:24
+
+=============================	 11/06/2024 19:36:42
+
+=============================	 11/06/2024 19:41:57
+Não foi possivel encontrar o elemento: Microsoft.Playwright.PlaywrightException: Error: strict mode violation: GetByLabel("Todos os filtros", new() { Exact = true }).Locator("label").Filter(new() { HasText = "Estágio Filtrar por Estágio" }) resolved to 2 elements:
+    1) <label for="advanced-filter-experience-1" class="search…>…</label> aka Locator("label").Filter(new() { HasText = "Estágio Filtrar por Estágio" }).First
+    2) <label for="advanced-filter-jobType-I" class="search-re…>…</label> aka Locator("label").Filter(new() { HasText = "Estágio Filtrar por Estágio" }).Nth(1)
+
+Call log:
+  - waiting for GetByLabel("Todos os filtros", new() { Exact = true }).Locator("label").Filter(new() { HasText = "Estágio Filtrar por Estágio" })
+   at Microsoft.Playwright.Transport.Connection.InnerSendMessageToServerAsync[T](ChannelOwner object, String method, Dictionary`2 dictionary, Boolean keepNulls) in /_/src/Playwright/Transport/Connection.cs:line 206
+   at Microsoft.Playwright.Transport.Connection.WrapApiCallAsync[T](Func`1 action, Boolean isInternal) in /_/src/Playwright/Transport/Connection.cs:line 526
+   at forms.Models.PageObjects.Sections.FilterSection.SelectFilter(List`1 checkedListBoxItems, Double securityTime) in C:\Users\Hugo\Documents\Repositorios-programação\linkedin-automation\forms\Models\PageObjects\Sections\FilterSection.cs:line 66
+Finalizando...
+Não foi possivel encontrar o elemento: System.TimeoutException: Timeout 30000ms exceeded.
+Call log:
+  - waiting for GetByLabel("Todos os filtros", new() { Exact = true }).Locator("label").Filter(new() { HasText = "Voluntário Filtrar por Voluntário" })
+   at Microsoft.Playwright.Transport.Connection.InnerSendMessageToServerAsync[T](ChannelOwner object, String method, Dictionary`2 dictionary, Boolean keepNulls) in /_/src/Playwright/Transport/Connection.cs:line 206
+   at Microsoft.Playwright.Transport.Connection.WrapApiCallAsync[T](Func`1 action, Boolean isInternal) in /_/src/Playwright/Transport/Connection.cs:line 526
+   at forms.Models.PageObjects.Sections.FilterSection.SelectFilter(List`1 checkedListBoxItems, Double securityTime) in C:\Users\Hugo\Documents\Repositorios-programação\linkedin-automation\forms\Models\PageObjects\Sections\FilterSection.cs:line 66
+Finalizando...
+Não foi possivel encontrar o elemento: Microsoft.Playwright.PlaywrightException: Error: strict mode violation: GetByLabel("Todos os filtros", new() { Exact = true }).Locator("label").Filter(new() { HasText = "Estágio Filtrar por Estágio" }) resolved to 2 elements:
+    1) <label for="advanced-filter-experience-1" class="search…>…</label> aka Locator("label").Filter(new() { HasText = "Estágio Filtrar por Estágio" }).First
+    2) <label for="advanced-filter-jobType-I" class="search-re…>…</label> aka Locator("label").Filter(new() { HasText = "Estágio Filtrar por Estágio" }).Nth(1)
+
+Call log:
+  - waiting for GetByLabel("Todos os filtros", new() { Exact = true }).Locator("label").Filter(new() { HasText = "Estágio Filtrar por Estágio" })
+   at Microsoft.Playwright.Transport.Connection.InnerSendMessageToServerAsync[T](ChannelOwner object, String method, Dictionary`2 dictionary, Boolean keepNulls) in /_/src/Playwright/Transport/Connection.cs:line 206
+   at Microsoft.Playwright.Transport.Connection.WrapApiCallAsync[T](Func`1 action, Boolean isInternal) in /_/src/Playwright/Transport/Connection.cs:line 526
+   at forms.Models.PageObjects.Sections.FilterSection.SelectFilter(List`1 checkedListBoxItems, Double securityTime) in C:\Users\Hugo\Documents\Repositorios-programação\linkedin-automation\forms\Models\PageObjects\Sections\FilterSection.cs:line 66
+Finalizando...
+
+=============================	 11/06/2024 19:46:25
+Não foi possivel encontrar o elemento: Microsoft.Playwright.PlaywrightException: Error: strict mode violation: GetByLabel("Todos os filtros", new() { Exact = true }).Locator("label").Filter(new() { HasText = "Estágio Filtrar por Estágio" }) resolved to 2 elements:
+    1) <label for="advanced-filter-experience-1" class="search…>…</label> aka Locator("label").Filter(new() { HasText = "Estágio Filtrar por Estágio" }).First
+    2) <label for="advanced-filter-jobType-I" class="search-re…>…</label> aka GetByRole(AriaRole.Group, new() { Name = "Filtro Tipo de vaga" }).Locator("label").Nth(3)
+
+Call log:
+  - waiting for GetByLabel("Todos os filtros", new() { Exact = true }).Locator("label").Filter(new() { HasText = "Estágio Filtrar por Estágio" })
+   at Microsoft.Playwright.Transport.Connection.InnerSendMessageToServerAsync[T](ChannelOwner object, String method, Dictionary`2 dictionary, Boolean keepNulls) in /_/src/Playwright/Transport/Connection.cs:line 206
+   at Microsoft.Playwright.Transport.Connection.WrapApiCallAsync[T](Func`1 action, Boolean isInternal) in /_/src/Playwright/Transport/Connection.cs:line 526
+   at forms.Models.PageObjects.Sections.FilterSection.SelectFilter(List`1 checkedListBoxItems, Double securityTime) in C:\Users\Hugo\Documents\Repositorios-programação\linkedin-automation\forms\Models\PageObjects\Sections\FilterSection.cs:line 66
+Finalizando...
+Não foi possivel encontrar o elemento: System.TimeoutException: Timeout 30000ms exceeded.
+Call log:
+  - waiting for GetByLabel("Todos os filtros", new() { Exact = true }).Locator("label").Filter(new() { HasText = "Temporário Filtrar por Temporário" })
+   at Microsoft.Playwright.Transport.Connection.InnerSendMessageToServerAsync[T](ChannelOwner object, String method, Dictionary`2 dictionary, Boolean keepNulls) in /_/src/Playwright/Transport/Connection.cs:line 206
+   at Microsoft.Playwright.Transport.Connection.WrapApiCallAsync[T](Func`1 action, Boolean isInternal) in /_/src/Playwright/Transport/Connection.cs:line 526
+   at forms.Models.PageObjects.Sections.FilterSection.SelectFilter(List`1 checkedListBoxItems, Double securityTime) in C:\Users\Hugo\Documents\Repositorios-programação\linkedin-automation\forms\Models\PageObjects\Sections\FilterSection.cs:line 66
+Finalizando...
+Não foi possivel encontrar o elemento: System.TimeoutException: Timeout 30000ms exceeded.
+Call log:
+  - waiting for GetByLabel("Todos os filtros", new() { Exact = true }).Locator("label").Filter(new() { HasText = "Voluntário Filtrar por Voluntário" })
+   at Microsoft.Playwright.Transport.Connection.InnerSendMessageToServerAsync[T](ChannelOwner object, String method, Dictionary`2 dictionary, Boolean keepNulls) in /_/src/Playwright/Transport/Connection.cs:line 206
+   at Microsoft.Playwright.Transport.Connection.WrapApiCallAsync[T](Func`1 action, Boolean isInternal) in /_/src/Playwright/Transport/Connection.cs:line 526
+   at forms.Models.PageObjects.Sections.FilterSection.SelectFilter(List`1 checkedListBoxItems, Double securityTime) in C:\Users\Hugo\Documents\Repositorios-programação\linkedin-automation\forms\Models\PageObjects\Sections\FilterSection.cs:line 66
+Finalizando...
+Não foi possivel encontrar o elemento: Microsoft.Playwright.PlaywrightException: Error: strict mode violation: GetByLabel("Todos os filtros", new() { Exact = true }).Locator("label").Filter(new() { HasText = "Estágio Filtrar por Estágio" }) resolved to 2 elements:
+    1) <label for="advanced-filter-experience-1" class="search…>…</label> aka Locator("label").Filter(new() { HasText = "Estágio Filtrar por Estágio" }).First
+    2) <label for="advanced-filter-jobType-I" class="search-re…>…</label> aka GetByRole(AriaRole.Group, new() { Name = "Filtro Tipo de vaga" }).Locator("label").Nth(3)
+
+Call log:
+  - waiting for GetByLabel("Todos os filtros", new() { Exact = true }).Locator("label").Filter(new() { HasText = "Estágio Filtrar por Estágio" })
+   at Microsoft.Playwright.Transport.Connection.InnerSendMessageToServerAsync[T](ChannelOwner object, String method, Dictionary`2 dictionary, Boolean keepNulls) in /_/src/Playwright/Transport/Connection.cs:line 206
+   at Microsoft.Playwright.Transport.Connection.WrapApiCallAsync[T](Func`1 action, Boolean isInternal) in /_/src/Playwright/Transport/Connection.cs:line 526
+   at forms.Models.PageObjects.Sections.FilterSection.SelectFilter(List`1 checkedListBoxItems, Double securityTime) in C:\Users\Hugo\Documents\Repositorios-programação\linkedin-automation\forms\Models\PageObjects\Sections\FilterSection.cs:line 66
+Finalizando...
+
+=============================	 11/06/2024 19:51:09
+Não foi possivel encontrar o elemento: Microsoft.Playwright.PlaywrightException: Error: strict mode violation: GetByLabel("Todos os filtros", new() { Exact = true }).Locator("label").Filter(new() { HasText = "Estágio Filtrar por Estágio" }) resolved to 2 elements:
+    1) <label for="advanced-filter-experience-1" class="search…>…</label> aka Locator("label").Filter(new() { HasText = "Estágio Filtrar por Estágio" }).First
+    2) <label for="advanced-filter-jobType-I" class="search-re…>…</label> aka GetByRole(AriaRole.Group, new() { Name = "Filtro Tipo de vaga" }).Locator("label").Nth(3)
+
+Call log:
+  - waiting for GetByLabel("Todos os filtros", new() { Exact = true }).Locator("label").Filter(new() { HasText = "Estágio Filtrar por Estágio" })
+   at Microsoft.Playwright.Transport.Connection.InnerSendMessageToServerAsync[T](ChannelOwner object, String method, Dictionary`2 dictionary, Boolean keepNulls) in /_/src/Playwright/Transport/Connection.cs:line 206
+   at Microsoft.Playwright.Transport.Connection.WrapApiCallAsync[T](Func`1 action, Boolean isInternal) in /_/src/Playwright/Transport/Connection.cs:line 526
+   at forms.Models.PageObjects.Sections.FilterSection.SelectFilter(List`1 checkedListBoxItems, Double securityTime) in C:\Users\Hugo\Documents\Repositorios-programação\linkedin-automation\forms\Models\PageObjects\Sections\FilterSection.cs:line 65
+Finalizando...
+Não foi possivel encontrar o elemento: System.TimeoutException: Timeout 30000ms exceeded.
+Call log:
+  - waiting for GetByLabel("Todos os filtros", new() { Exact = true }).Locator("label").Filter(new() { HasText = "Temporário Filtrar por Temporário" })
+   at Microsoft.Playwright.Transport.Connection.InnerSendMessageToServerAsync[T](ChannelOwner object, String method, Dictionary`2 dictionary, Boolean keepNulls) in /_/src/Playwright/Transport/Connection.cs:line 206
+   at Microsoft.Playwright.Transport.Connection.WrapApiCallAsync[T](Func`1 action, Boolean isInternal) in /_/src/Playwright/Transport/Connection.cs:line 526
+   at forms.Models.PageObjects.Sections.FilterSection.SelectFilter(List`1 checkedListBoxItems, Double securityTime) in C:\Users\Hugo\Documents\Repositorios-programação\linkedin-automation\forms\Models\PageObjects\Sections\FilterSection.cs:line 65
+Finalizando...
+Não foi possivel encontrar o elemento: System.TimeoutException: Timeout 30000ms exceeded.
+Call log:
+  - waiting for GetByLabel("Todos os filtros", new() { Exact = true }).Locator("label").Filter(new() { HasText = "Voluntário Filtrar por Voluntário" })
+   at Microsoft.Playwright.Transport.Connection.InnerSendMessageToServerAsync[T](ChannelOwner object, String method, Dictionary`2 dictionary, Boolean keepNulls) in /_/src/Playwright/Transport/Connection.cs:line 206
+   at Microsoft.Playwright.Transport.Connection.WrapApiCallAsync[T](Func`1 action, Boolean isInternal) in /_/src/Playwright/Transport/Connection.cs:line 526
+   at forms.Models.PageObjects.Sections.FilterSection.SelectFilter(List`1 checkedListBoxItems, Double securityTime) in C:\Users\Hugo\Documents\Repositorios-programação\linkedin-automation\forms\Models\PageObjects\Sections\FilterSection.cs:line 65
+Finalizando...
+Não foi possivel encontrar o elemento: Microsoft.Playwright.PlaywrightException: Error: strict mode violation: GetByLabel("Todos os filtros", new() { Exact = true }).Locator("label").Filter(new() { HasText = "Estágio Filtrar por Estágio" }) resolved to 2 elements:
+    1) <label for="advanced-filter-experience-1" class="search…>…</label> aka Locator("label").Filter(new() { HasText = "Estágio Filtrar por Estágio" }).First
+    2) <label for="advanced-filter-jobType-I" class="search-re…>…</label> aka GetByRole(AriaRole.Group, new() { Name = "Filtro Tipo de vaga" }).Locator("label").Nth(3)
+
+Call log:
+  - waiting for GetByLabel("Todos os filtros", new() { Exact = true }).Locator("label").Filter(new() { HasText = "Estágio Filtrar por Estágio" })
+   at Microsoft.Playwright.Transport.Connection.InnerSendMessageToServerAsync[T](ChannelOwner object, String method, Dictionary`2 dictionary, Boolean keepNulls) in /_/src/Playwright/Transport/Connection.cs:line 206
+   at Microsoft.Playwright.Transport.Connection.WrapApiCallAsync[T](Func`1 action, Boolean isInternal) in /_/src/Playwright/Transport/Connection.cs:line 526
+   at forms.Models.PageObjects.Sections.FilterSection.SelectFilter(List`1 checkedListBoxItems, Double securityTime) in C:\Users\Hugo\Documents\Repositorios-programação\linkedin-automation\forms\Models\PageObjects\Sections\FilterSection.cs:line 65
+Finalizando...
+
+=============================	 11/06/2024 20:12:10
+Não foi possível encontrar o filtro: Microsoft.Playwright.PlaywrightException: Unexpected token "(" while parsing selector "span:has-text:('Filtrar por Estágio)'"
+Call log:
+  - waiting for span:has-text:('Filtrar por Estágio)' to be visible
+   at Microsoft.Playwright.Transport.Connection.InnerSendMessageToServerAsync[T](ChannelOwner object, String method, Dictionary`2 dictionary, Boolean keepNulls) in /_/src/Playwright/Transport/Connection.cs:line 206
+   at Microsoft.Playwright.Transport.Connection.WrapApiCallAsync[T](Func`1 action, Boolean isInternal) in /_/src/Playwright/Transport/Connection.cs:line 526
+   at Microsoft.Playwright.Core.Frame.WaitForSelectorAsync(String selector, FrameWaitForSelectorOptions options) in /_/src/Playwright/Core/Frame.cs:line 665
+   at forms.Utilities.PlaywrightUtilities.WaitForElementAndHandleExceptionAsync(IPage page, String selector, String successMessage, String errorMessage, Int32 timeout) in C:\Users\Hugo\Documents\Repositorios-programação\linkedin-automation\forms\Utilities\PlaywrightUtilities.cs:line 13
+Finalizando...
+Não foi possivel encontrar o elemento: System.Exception: Exception of type 'System.Exception' was thrown.
+   at forms.Utilities.PlaywrightUtilities.WaitForElementAndHandleExceptionAsync(IPage page, String selector, String successMessage, String errorMessage, Int32 timeout) in C:\Users\Hugo\Documents\Repositorios-programação\linkedin-automation\forms\Utilities\PlaywrightUtilities.cs:line 20
+   at forms.Models.PageObjects.Sections.FilterSection.SelectFilter(List`1 checkedListBoxItems, Double securityTime) in C:\Users\Hugo\Documents\Repositorios-programação\linkedin-automation\forms\Models\PageObjects\Sections\FilterSection.cs:line 65
+Finalizando...
+
+=============================	 13/06/2024 10:23:19
+Não foi possível encontrar o filtro: Microsoft.Playwright.PlaywrightException: Unexpected token "(" while parsing selector "span:has-text:('Filtrar por Estágio)'"
+Call log:
+  - waiting for span:has-text:('Filtrar por Estágio)' to be visible
+   at Microsoft.Playwright.Transport.Connection.InnerSendMessageToServerAsync[T](ChannelOwner object, String method, Dictionary`2 dictionary, Boolean keepNulls) in /_/src/Playwright/Transport/Connection.cs:line 206
+   at Microsoft.Playwright.Transport.Connection.WrapApiCallAsync[T](Func`1 action, Boolean isInternal) in /_/src/Playwright/Transport/Connection.cs:line 526
+   at Microsoft.Playwright.Core.Frame.WaitForSelectorAsync(String selector, FrameWaitForSelectorOptions options) in /_/src/Playwright/Core/Frame.cs:line 665
+   at forms.Utilities.PlaywrightUtilities.WaitForElementAndHandleExceptionAsync(IPage page, String selector, String successMessage, String errorMessage, Int32 timeout, Boolean showMessageBox) in C:\Users\Hugo\Documents\Repositorios-programação\linkedin-automation\forms\Utilities\PlaywrightUtilities.cs:line 16
+Não foi possível encontrar o filtro: Microsoft.Playwright.PlaywrightException: Unexpected token "(" while parsing selector "span:has-text:('Filtrar por Júnior)'"
+Call log:
+  - waiting for span:has-text:('Filtrar por Júnior)' to be visible
+   at Microsoft.Playwright.Transport.Connection.InnerSendMessageToServerAsync[T](ChannelOwner object, String method, Dictionary`2 dictionary, Boolean keepNulls) in /_/src/Playwright/Transport/Connection.cs:line 206
+   at Microsoft.Playwright.Transport.Connection.WrapApiCallAsync[T](Func`1 action, Boolean isInternal) in /_/src/Playwright/Transport/Connection.cs:line 526
+   at Microsoft.Playwright.Core.Frame.WaitForSelectorAsync(String selector, FrameWaitForSelectorOptions options) in /_/src/Playwright/Core/Frame.cs:line 665
+   at forms.Utilities.PlaywrightUtilities.WaitForElementAndHandleExceptionAsync(IPage page, String selector, String successMessage, String errorMessage, Int32 timeout, Boolean showMessageBox) in C:\Users\Hugo\Documents\Repositorios-programação\linkedin-automation\forms\Utilities\PlaywrightUtilities.cs:line 16
+Não foi possível encontrar o filtro: Microsoft.Playwright.PlaywrightException: Unexpected token "(" while parsing selector "span:has-text:('Filtrar por Assistente)'"
+Call log:
+  - waiting for span:has-text:('Filtrar por Assistente)' to be visible
+   at Microsoft.Playwright.Transport.Connection.InnerSendMessageToServerAsync[T](ChannelOwner object, String method, Dictionary`2 dictionary, Boolean keepNulls) in /_/src/Playwright/Transport/Connection.cs:line 206
+   at Microsoft.Playwright.Transport.Connection.WrapApiCallAsync[T](Func`1 action, Boolean isInternal) in /_/src/Playwright/Transport/Connection.cs:line 526
+   at Microsoft.Playwright.Core.Frame.WaitForSelectorAsync(String selector, FrameWaitForSelectorOptions options) in /_/src/Playwright/Core/Frame.cs:line 665
+   at forms.Utilities.PlaywrightUtilities.WaitForElementAndHandleExceptionAsync(IPage page, String selector, String successMessage, String errorMessage, Int32 timeout, Boolean showMessageBox) in C:\Users\Hugo\Documents\Repositorios-programação\linkedin-automation\forms\Utilities\PlaywrightUtilities.cs:line 16
+Não foi possível encontrar o filtro: Microsoft.Playwright.PlaywrightException: Unexpected token "(" while parsing selector "span:has-text:('Filtrar por Pleno-sênior)'"
+Call log:
+  - waiting for span:has-text:('Filtrar por Pleno-sênior)' to be visible
+   at Microsoft.Playwright.Transport.Connection.InnerSendMessageToServerAsync[T](ChannelOwner object, String method, Dictionary`2 dictionary, Boolean keepNulls) in /_/src/Playwright/Transport/Connection.cs:line 206
+   at Microsoft.Playwright.Transport.Connection.WrapApiCallAsync[T](Func`1 action, Boolean isInternal) in /_/src/Playwright/Transport/Connection.cs:line 526
+   at Microsoft.Playwright.Core.Frame.WaitForSelectorAsync(String selector, FrameWaitForSelectorOptions options) in /_/src/Playwright/Core/Frame.cs:line 665
+   at forms.Utilities.PlaywrightUtilities.WaitForElementAndHandleExceptionAsync(IPage page, String selector, String successMessage, String errorMessage, Int32 timeout, Boolean showMessageBox) in C:\Users\Hugo\Documents\Repositorios-programação\linkedin-automation\forms\Utilities\PlaywrightUtilities.cs:line 16
+Não foi possível encontrar o filtro: Microsoft.Playwright.PlaywrightException: Unexpected token "(" while parsing selector "span:has-text:('Filtrar por Tempo integral)'"
+Call log:
+  - waiting for span:has-text:('Filtrar por Tempo integral)' to be visible
+   at Microsoft.Playwright.Transport.Connection.InnerSendMessageToServerAsync[T](ChannelOwner object, String method, Dictionary`2 dictionary, Boolean keepNulls) in /_/src/Playwright/Transport/Connection.cs:line 206
+   at Microsoft.Playwright.Transport.Connection.WrapApiCallAsync[T](Func`1 action, Boolean isInternal) in /_/src/Playwright/Transport/Connection.cs:line 526
+   at Microsoft.Playwright.Core.Frame.WaitForSelectorAsync(String selector, FrameWaitForSelectorOptions options) in /_/src/Playwright/Core/Frame.cs:line 665
+   at forms.Utilities.PlaywrightUtilities.WaitForElementAndHandleExceptionAsync(IPage page, String selector, String successMessage, String errorMessage, Int32 timeout, Boolean showMessageBox) in C:\Users\Hugo\Documents\Repositorios-programação\linkedin-automation\forms\Utilities\PlaywrightUtilities.cs:line 16
+Não foi possível encontrar o filtro: Microsoft.Playwright.PlaywrightException: Unexpected token "(" while parsing selector "span:has-text:('Filtrar por Meio período)'"
+Call log:
+  - waiting for span:has-text:('Filtrar por Meio período)' to be visible
+   at Microsoft.Playwright.Transport.Connection.InnerSendMessageToServerAsync[T](ChannelOwner object, String method, Dictionary`2 dictionary, Boolean keepNulls) in /_/src/Playwright/Transport/Connection.cs:line 206
+   at Microsoft.Playwright.Transport.Connection.WrapApiCallAsync[T](Func`1 action, Boolean isInternal) in /_/src/Playwright/Transport/Connection.cs:line 526
+   at Microsoft.Playwright.Core.Frame.WaitForSelectorAsync(String selector, FrameWaitForSelectorOptions options) in /_/src/Playwright/Core/Frame.cs:line 665
+   at forms.Utilities.PlaywrightUtilities.WaitForElementAndHandleExceptionAsync(IPage page, String selector, String successMessage, String errorMessage, Int32 timeout, Boolean showMessageBox) in C:\Users\Hugo\Documents\Repositorios-programação\linkedin-automation\forms\Utilities\PlaywrightUtilities.cs:line 16
+Não foi possível encontrar o filtro: Microsoft.Playwright.PlaywrightException: Unexpected token "(" while parsing selector "span:has-text:('Filtrar por Contrato)'"
+Call log:
+  - waiting for span:has-text:('Filtrar por Contrato)' to be visible
+   at Microsoft.Playwright.Transport.Connection.InnerSendMessageToServerAsync[T](ChannelOwner object, String method, Dictionary`2 dictionary, Boolean keepNulls) in /_/src/Playwright/Transport/Connection.cs:line 206
+   at Microsoft.Playwright.Transport.Connection.WrapApiCallAsync[T](Func`1 action, Boolean isInternal) in /_/src/Playwright/Transport/Connection.cs:line 526
+   at Microsoft.Playwright.Core.Frame.WaitForSelectorAsync(String selector, FrameWaitForSelectorOptions options) in /_/src/Playwright/Core/Frame.cs:line 665
+   at forms.Utilities.PlaywrightUtilities.WaitForElementAndHandleExceptionAsync(IPage page, String selector, String successMessage, String errorMessage, Int32 timeout, Boolean showMessageBox) in C:\Users\Hugo\Documents\Repositorios-programação\linkedin-automation\forms\Utilities\PlaywrightUtilities.cs:line 16
+Não foi possível encontrar o filtro: Microsoft.Playwright.PlaywrightException: Unexpected token "(" while parsing selector "span:has-text:('Filtrar por Temporário)'"
+Call log:
+  - waiting for span:has-text:('Filtrar por Temporário)' to be visible
+   at Microsoft.Playwright.Transport.Connection.InnerSendMessageToServerAsync[T](ChannelOwner object, String method, Dictionary`2 dictionary, Boolean keepNulls) in /_/src/Playwright/Transport/Connection.cs:line 206
+   at Microsoft.Playwright.Transport.Connection.WrapApiCallAsync[T](Func`1 action, Boolean isInternal) in /_/src/Playwright/Transport/Connection.cs:line 526
+   at Microsoft.Playwright.Core.Frame.WaitForSelectorAsync(String selector, FrameWaitForSelectorOptions options) in /_/src/Playwright/Core/Frame.cs:line 665
+   at forms.Utilities.PlaywrightUtilities.WaitForElementAndHandleExceptionAsync(IPage page, String selector, String successMessage, String errorMessage, Int32 timeout, Boolean showMessageBox) in C:\Users\Hugo\Documents\Repositorios-programação\linkedin-automation\forms\Utilities\PlaywrightUtilities.cs:line 16
+
+=============================	 13/06/2024 12:53:40
+Não foi possível encontrar o filtro: Microsoft.Playwright.PlaywrightException: Unexpected token "(" while parsing selector "span:has-text:('Filtrar por Estágio)'"
+Call log:
+  - waiting for span:has-text:('Filtrar por Estágio)' to be visible
+   at Microsoft.Playwright.Transport.Connection.InnerSendMessageToServerAsync[T](ChannelOwner object, String method, Dictionary`2 dictionary, Boolean keepNulls) in /_/src/Playwright/Transport/Connection.cs:line 206
+   at Microsoft.Playwright.Transport.Connection.WrapApiCallAsync[T](Func`1 action, Boolean isInternal) in /_/src/Playwright/Transport/Connection.cs:line 526
+   at Microsoft.Playwright.Core.Frame.WaitForSelectorAsync(String selector, FrameWaitForSelectorOptions options) in /_/src/Playwright/Core/Frame.cs:line 665
+   at forms.Utilities.PlaywrightUtilities.WaitForElementAndHandleExceptionAsync(IPage page, String selector, String successMessage, String errorMessage, Int32 timeout, Boolean showMessageBox) in C:\Users\Hugo\Documents\Repositorios-programação\linkedin-automation\forms\Utilities\PlaywrightUtilities.cs:line 16
+Não foi possível encontrar o filtro: Microsoft.Playwright.PlaywrightException: Unexpected token "(" while parsing selector "span:has-text:('Filtrar por Júnior)'"
+Call log:
+  - waiting for span:has-text:('Filtrar por Júnior)' to be visible
+   at Microsoft.Playwright.Transport.Connection.InnerSendMessageToServerAsync[T](ChannelOwner object, String method, Dictionary`2 dictionary, Boolean keepNulls) in /_/src/Playwright/Transport/Connection.cs:line 206
+   at Microsoft.Playwright.Transport.Connection.WrapApiCallAsync[T](Func`1 action, Boolean isInternal) in /_/src/Playwright/Transport/Connection.cs:line 526
+   at Microsoft.Playwright.Core.Frame.WaitForSelectorAsync(String selector, FrameWaitForSelectorOptions options) in /_/src/Playwright/Core/Frame.cs:line 665
+   at forms.Utilities.PlaywrightUtilities.WaitForElementAndHandleExceptionAsync(IPage page, String selector, String successMessage, String errorMessage, Int32 timeout, Boolean showMessageBox) in C:\Users\Hugo\Documents\Repositorios-programação\linkedin-automation\forms\Utilities\PlaywrightUtilities.cs:line 16
+Não foi possível encontrar o filtro: Microsoft.Playwright.PlaywrightException: Unexpected token "(" while parsing selector "span:has-text:('Filtrar por Assistente)'"
+Call log:
+  - waiting for span:has-text:('Filtrar por Assistente)' to be visible
+   at Microsoft.Playwright.Transport.Connection.InnerSendMessageToServerAsync[T](ChannelOwner object, String method, Dictionary`2 dictionary, Boolean keepNulls) in /_/src/Playwright/Transport/Connection.cs:line 206
+   at Microsoft.Playwright.Transport.Connection.WrapApiCallAsync[T](Func`1 action, Boolean isInternal) in /_/src/Playwright/Transport/Connection.cs:line 526
+   at Microsoft.Playwright.Core.Frame.WaitForSelectorAsync(String selector, FrameWaitForSelectorOptions options) in /_/src/Playwright/Core/Frame.cs:line 665
+   at forms.Utilities.PlaywrightUtilities.WaitForElementAndHandleExceptionAsync(IPage page, String selector, String successMessage, String errorMessage, Int32 timeout, Boolean showMessageBox) in C:\Users\Hugo\Documents\Repositorios-programação\linkedin-automation\forms\Utilities\PlaywrightUtilities.cs:line 16
+Não foi possível encontrar o filtro: Microsoft.Playwright.PlaywrightException: Unexpected token "(" while parsing selector "span:has-text:('Filtrar por Pleno-sênior)'"
+Call log:
+  - waiting for span:has-text:('Filtrar por Pleno-sênior)' to be visible
+   at Microsoft.Playwright.Transport.Connection.InnerSendMessageToServerAsync[T](ChannelOwner object, String method, Dictionary`2 dictionary, Boolean keepNulls) in /_/src/Playwright/Transport/Connection.cs:line 206
+   at Microsoft.Playwright.Transport.Connection.WrapApiCallAsync[T](Func`1 action, Boolean isInternal) in /_/src/Playwright/Transport/Connection.cs:line 526
+   at Microsoft.Playwright.Core.Frame.WaitForSelectorAsync(String selector, FrameWaitForSelectorOptions options) in /_/src/Playwright/Core/Frame.cs:line 665
+   at forms.Utilities.PlaywrightUtilities.WaitForElementAndHandleExceptionAsync(IPage page, String selector, String successMessage, String errorMessage, Int32 timeout, Boolean showMessageBox) in C:\Users\Hugo\Documents\Repositorios-programação\linkedin-automation\forms\Utilities\PlaywrightUtilities.cs:line 16
+Não foi possível encontrar o filtro: Microsoft.Playwright.PlaywrightException: Unexpected token "(" while parsing selector "span:has-text:('Filtrar por Tempo integral)'"
+Call log:
+  - waiting for span:has-text:('Filtrar por Tempo integral)' to be visible
+   at Microsoft.Playwright.Transport.Connection.InnerSendMessageToServerAsync[T](ChannelOwner object, String method, Dictionary`2 dictionary, Boolean keepNulls) in /_/src/Playwright/Transport/Connection.cs:line 206
+   at Microsoft.Playwright.Transport.Connection.WrapApiCallAsync[T](Func`1 action, Boolean isInternal) in /_/src/Playwright/Transport/Connection.cs:line 526
+   at Microsoft.Playwright.Core.Frame.WaitForSelectorAsync(String selector, FrameWaitForSelectorOptions options) in /_/src/Playwright/Core/Frame.cs:line 665
+   at forms.Utilities.PlaywrightUtilities.WaitForElementAndHandleExceptionAsync(IPage page, String selector, String successMessage, String errorMessage, Int32 timeout, Boolean showMessageBox) in C:\Users\Hugo\Documents\Repositorios-programação\linkedin-automation\forms\Utilities\PlaywrightUtilities.cs:line 16
+Não foi possível encontrar o filtro: Microsoft.Playwright.PlaywrightException: Unexpected token "(" while parsing selector "span:has-text:('Filtrar por Meio período)'"
+Call log:
+  - waiting for span:has-text:('Filtrar por Meio período)' to be visible
+   at Microsoft.Playwright.Transport.Connection.InnerSendMessageToServerAsync[T](ChannelOwner object, String method, Dictionary`2 dictionary, Boolean keepNulls) in /_/src/Playwright/Transport/Connection.cs:line 206
+   at Microsoft.Playwright.Transport.Connection.WrapApiCallAsync[T](Func`1 action, Boolean isInternal) in /_/src/Playwright/Transport/Connection.cs:line 526
+   at Microsoft.Playwright.Core.Frame.WaitForSelectorAsync(String selector, FrameWaitForSelectorOptions options) in /_/src/Playwright/Core/Frame.cs:line 665
+   at forms.Utilities.PlaywrightUtilities.WaitForElementAndHandleExceptionAsync(IPage page, String selector, String successMessage, String errorMessage, Int32 timeout, Boolean showMessageBox) in C:\Users\Hugo\Documents\Repositorios-programação\linkedin-automation\forms\Utilities\PlaywrightUtilities.cs:line 16
+Não foi possível encontrar o filtro: Microsoft.Playwright.PlaywrightException: Unexpected token "(" while parsing selector "span:has-text:('Filtrar por Contrato)'"
+Call log:
+  - waiting for span:has-text:('Filtrar por Contrato)' to be visible
+   at Microsoft.Playwright.Transport.Connection.InnerSendMessageToServerAsync[T](ChannelOwner object, String method, Dictionary`2 dictionary, Boolean keepNulls) in /_/src/Playwright/Transport/Connection.cs:line 206
+   at Microsoft.Playwright.Transport.Connection.WrapApiCallAsync[T](Func`1 action, Boolean isInternal) in /_/src/Playwright/Transport/Connection.cs:line 526
+   at Microsoft.Playwright.Core.Frame.WaitForSelectorAsync(String selector, FrameWaitForSelectorOptions options) in /_/src/Playwright/Core/Frame.cs:line 665
+   at forms.Utilities.PlaywrightUtilities.WaitForElementAndHandleExceptionAsync(IPage page, String selector, String successMessage, String errorMessage, Int32 timeout, Boolean showMessageBox) in C:\Users\Hugo\Documents\Repositorios-programação\linkedin-automation\forms\Utilities\PlaywrightUtilities.cs:line 16
+Não foi possível encontrar o filtro: Microsoft.Playwright.PlaywrightException: Unexpected token "(" while parsing selector "span:has-text:('Filtrar por Temporário)'"
+Call log:
+  - waiting for span:has-text:('Filtrar por Temporário)' to be visible
+   at Microsoft.Playwright.Transport.Connection.InnerSendMessageToServerAsync[T](ChannelOwner object, String method, Dictionary`2 dictionary, Boolean keepNulls) in /_/src/Playwright/Transport/Connection.cs:line 206
+   at Microsoft.Playwright.Transport.Connection.WrapApiCallAsync[T](Func`1 action, Boolean isInternal) in /_/src/Playwright/Transport/Connection.cs:line 526
+   at Microsoft.Playwright.Core.Frame.WaitForSelectorAsync(String selector, FrameWaitForSelectorOptions options) in /_/src/Playwright/Core/Frame.cs:line 665
+   at forms.Utilities.PlaywrightUtilities.WaitForElementAndHandleExceptionAsync(IPage page, String selector, String successMessage, String errorMessage, Int32 timeout, Boolean showMessageBox) in C:\Users\Hugo\Documents\Repositorios-programação\linkedin-automation\forms\Utilities\PlaywrightUtilities.cs:line 16
+Não foi possível encontrar o filtro: Microsoft.Playwright.PlaywrightException: Unexpected token "(" while parsing selector "span:has-text:('Filtrar por Voluntário)'"
+Call log:
+  - waiting for span:has-text:('Filtrar por Voluntário)' to be visible
+   at Microsoft.Playwright.Transport.Connection.InnerSendMessageToServerAsync[T](ChannelOwner object, String method, Dictionary`2 dictionary, Boolean keepNulls) in /_/src/Playwright/Transport/Connection.cs:line 206
+   at Microsoft.Playwright.Transport.Connection.WrapApiCallAsync[T](Func`1 action, Boolean isInternal) in /_/src/Playwright/Transport/Connection.cs:line 526
+   at Microsoft.Playwright.Core.Frame.WaitForSelectorAsync(String selector, FrameWaitForSelectorOptions options) in /_/src/Playwright/Core/Frame.cs:line 665
+   at forms.Utilities.PlaywrightUtilities.WaitForElementAndHandleExceptionAsync(IPage page, String selector, String successMessage, String errorMessage, Int32 timeout, Boolean showMessageBox) in C:\Users\Hugo\Documents\Repositorios-programação\linkedin-automation\forms\Utilities\PlaywrightUtilities.cs:line 16
+Não foi possivel encontrar o elemento: System.TimeoutException: Timeout 30000ms exceeded.
+Call log:
+  - waiting for GetByLabel("Todos os filtros", new() { Exact = true }).Locator("label").Filter(new() { HasText = "Voluntário Filtrar por Voluntário" })
+   at Microsoft.Playwright.Transport.Connection.InnerSendMessageToServerAsync[T](ChannelOwner object, String method, Dictionary`2 dictionary, Boolean keepNulls) in /_/src/Playwright/Transport/Connection.cs:line 206
+   at Microsoft.Playwright.Transport.Connection.WrapApiCallAsync[T](Func`1 action, Boolean isInternal) in /_/src/Playwright/Transport/Connection.cs:line 526
+   at forms.Models.PageObjects.Sections.FilterSection.SelectFilter(String labelName, List`1 checkedListBoxItems, Double securityTime) in C:\Users\Hugo\Documents\Repositorios-programação\linkedin-automation\forms\Models\PageObjects\Sections\FilterSection.cs:line 67
+Não foi possível encontrar o filtro: Microsoft.Playwright.PlaywrightException: Unexpected token "(" while parsing selector "span:has-text:('Filtrar por Estágio)'"
+Call log:
+  - waiting for span:has-text:('Filtrar por Estágio)' to be visible
+   at Microsoft.Playwright.Transport.Connection.InnerSendMessageToServerAsync[T](ChannelOwner object, String method, Dictionary`2 dictionary, Boolean keepNulls) in /_/src/Playwright/Transport/Connection.cs:line 206
+   at Microsoft.Playwright.Transport.Connection.WrapApiCallAsync[T](Func`1 action, Boolean isInternal) in /_/src/Playwright/Transport/Connection.cs:line 526
+   at Microsoft.Playwright.Core.Frame.WaitForSelectorAsync(String selector, FrameWaitForSelectorOptions options) in /_/src/Playwright/Core/Frame.cs:line 665
+   at forms.Utilities.PlaywrightUtilities.WaitForElementAndHandleExceptionAsync(IPage page, String selector, String successMessage, String errorMessage, Int32 timeout, Boolean showMessageBox) in C:\Users\Hugo\Documents\Repositorios-programação\linkedin-automation\forms\Utilities\PlaywrightUtilities.cs:line 16
+
+=============================	 13/06/2024 13:11:31
+Error: Microsoft.Playwright.PlaywrightException: Unexpected token "(" while parsing selector "span:has-text:('Filtrar por Estágio)'"
+Call log:
+  - waiting for span:has-text:('Filtrar por Estágio)' to be visible
+   at Microsoft.Playwright.Transport.Connection.InnerSendMessageToServerAsync[T](ChannelOwner object, String method, Dictionary`2 dictionary, Boolean keepNulls) in /_/src/Playwright/Transport/Connection.cs:line 206
+   at Microsoft.Playwright.Transport.Connection.WrapApiCallAsync[T](Func`1 action, Boolean isInternal) in /_/src/Playwright/Transport/Connection.cs:line 526
+   at Microsoft.Playwright.Core.Frame.WaitForSelectorAsync(String selector, FrameWaitForSelectorOptions options) in /_/src/Playwright/Core/Frame.cs:line 665
+   at forms.Utilities.PlaywrightUtilities.WaitForElementAndHandleExceptionAsync(IPage page, String selector, Int32 timeout) in C:\Users\Hugo\Documents\Repositorios-programação\linkedin-automation\forms\Utilities\PlaywrightUtilities.cs:line 32
+Error: Microsoft.Playwright.PlaywrightException: Unexpected token "(" while parsing selector "span:has-text:('Filtrar por Júnior)'"
+Call log:
+  - waiting for span:has-text:('Filtrar por Júnior)' to be visible
+   at Microsoft.Playwright.Transport.Connection.InnerSendMessageToServerAsync[T](ChannelOwner object, String method, Dictionary`2 dictionary, Boolean keepNulls) in /_/src/Playwright/Transport/Connection.cs:line 206
+   at Microsoft.Playwright.Transport.Connection.WrapApiCallAsync[T](Func`1 action, Boolean isInternal) in /_/src/Playwright/Transport/Connection.cs:line 526
+   at Microsoft.Playwright.Core.Frame.WaitForSelectorAsync(String selector, FrameWaitForSelectorOptions options) in /_/src/Playwright/Core/Frame.cs:line 665
+   at forms.Utilities.PlaywrightUtilities.WaitForElementAndHandleExceptionAsync(IPage page, String selector, Int32 timeout) in C:\Users\Hugo\Documents\Repositorios-programação\linkedin-automation\forms\Utilities\PlaywrightUtilities.cs:line 32
+Error: Microsoft.Playwright.PlaywrightException: Unexpected token "(" while parsing selector "span:has-text:('Filtrar por Assistente)'"
+Call log:
+  - waiting for span:has-text:('Filtrar por Assistente)' to be visible
+   at Microsoft.Playwright.Transport.Connection.InnerSendMessageToServerAsync[T](ChannelOwner object, String method, Dictionary`2 dictionary, Boolean keepNulls) in /_/src/Playwright/Transport/Connection.cs:line 206
+   at Microsoft.Playwright.Transport.Connection.WrapApiCallAsync[T](Func`1 action, Boolean isInternal) in /_/src/Playwright/Transport/Connection.cs:line 526
+   at Microsoft.Playwright.Core.Frame.WaitForSelectorAsync(String selector, FrameWaitForSelectorOptions options) in /_/src/Playwright/Core/Frame.cs:line 665
+   at forms.Utilities.PlaywrightUtilities.WaitForElementAndHandleExceptionAsync(IPage page, String selector, Int32 timeout) in C:\Users\Hugo\Documents\Repositorios-programação\linkedin-automation\forms\Utilities\PlaywrightUtilities.cs:line 32
+Error: Microsoft.Playwright.PlaywrightException: Unexpected token "(" while parsing selector "span:has-text:('Filtrar por Pleno-sênior)'"
+Call log:
+  - waiting for span:has-text:('Filtrar por Pleno-sênior)' to be visible
+   at Microsoft.Playwright.Transport.Connection.InnerSendMessageToServerAsync[T](ChannelOwner object, String method, Dictionary`2 dictionary, Boolean keepNulls) in /_/src/Playwright/Transport/Connection.cs:line 206
+   at Microsoft.Playwright.Transport.Connection.WrapApiCallAsync[T](Func`1 action, Boolean isInternal) in /_/src/Playwright/Transport/Connection.cs:line 526
+   at Microsoft.Playwright.Core.Frame.WaitForSelectorAsync(String selector, FrameWaitForSelectorOptions options) in /_/src/Playwright/Core/Frame.cs:line 665
+   at forms.Utilities.PlaywrightUtilities.WaitForElementAndHandleExceptionAsync(IPage page, String selector, Int32 timeout) in C:\Users\Hugo\Documents\Repositorios-programação\linkedin-automation\forms\Utilities\PlaywrightUtilities.cs:line 32
+Error: Microsoft.Playwright.PlaywrightException: Unexpected token "(" while parsing selector "span:has-text:('Filtrar por Tempo integral)'"
+Call log:
+  - waiting for span:has-text:('Filtrar por Tempo integral)' to be visible
+   at Microsoft.Playwright.Transport.Connection.InnerSendMessageToServerAsync[T](ChannelOwner object, String method, Dictionary`2 dictionary, Boolean keepNulls) in /_/src/Playwright/Transport/Connection.cs:line 206
+   at Microsoft.Playwright.Transport.Connection.WrapApiCallAsync[T](Func`1 action, Boolean isInternal) in /_/src/Playwright/Transport/Connection.cs:line 526
+   at Microsoft.Playwright.Core.Frame.WaitForSelectorAsync(String selector, FrameWaitForSelectorOptions options) in /_/src/Playwright/Core/Frame.cs:line 665
+   at forms.Utilities.PlaywrightUtilities.WaitForElementAndHandleExceptionAsync(IPage page, String selector, Int32 timeout) in C:\Users\Hugo\Documents\Repositorios-programação\linkedin-automation\forms\Utilities\PlaywrightUtilities.cs:line 32
+
+=============================	 13/06/2024 13:43:14
+Error: Microsoft.Playwright.PlaywrightException: Unexpected token "(" while parsing selector "span:has-text:('Filtrar por Estágio)'"
+Call log:
+  - waiting for span:has-text:('Filtrar por Estágio)' to be visible
+   at Microsoft.Playwright.Transport.Connection.InnerSendMessageToServerAsync[T](ChannelOwner object, String method, Dictionary`2 dictionary, Boolean keepNulls) in /_/src/Playwright/Transport/Connection.cs:line 206
+   at Microsoft.Playwright.Transport.Connection.WrapApiCallAsync[T](Func`1 action, Boolean isInternal) in /_/src/Playwright/Transport/Connection.cs:line 526
+   at Microsoft.Playwright.Core.Frame.WaitForSelectorAsync(String selector, FrameWaitForSelectorOptions options) in /_/src/Playwright/Core/Frame.cs:line 665
+   at forms.Utilities.PlaywrightUtilities.WaitForElementAndHandleExceptionAsync(IPage page, String selector, Int32 timeout) in C:\Users\Hugo\Documents\Repositorios-programação\linkedin-automation\forms\Utilities\PlaywrightUtilities.cs:line 32
+
+=============================	 13/06/2024 13:45:45
+Error: Microsoft.Playwright.PlaywrightException: Unexpected token "(" while parsing selector "span:has-text:('Filtrar por Estágio)'"
+Call log:
+  - waiting for span:has-text:('Filtrar por Estágio)' to be visible
+   at Microsoft.Playwright.Transport.Connection.InnerSendMessageToServerAsync[T](ChannelOwner object, String method, Dictionary`2 dictionary, Boolean keepNulls) in /_/src/Playwright/Transport/Connection.cs:line 206
+   at Microsoft.Playwright.Transport.Connection.WrapApiCallAsync[T](Func`1 action, Boolean isInternal) in /_/src/Playwright/Transport/Connection.cs:line 526
+   at Microsoft.Playwright.Core.Frame.WaitForSelectorAsync(String selector, FrameWaitForSelectorOptions options) in /_/src/Playwright/Core/Frame.cs:line 665
+   at forms.Utilities.PlaywrightUtilities.WaitForElementAndHandleExceptionAsync(IPage page, String selector, Int32 timeout) in C:\Users\Hugo\Documents\Repositorios-programação\linkedin-automation\forms\Utilities\PlaywrightUtilities.cs:line 32
+
+=============================	 13/06/2024 13:57:36
+
+=============================	 13/06/2024 14:15:33
+
+=============================	 13/06/2024 14:26:34
+
+=============================	 13/06/2024 14:30:18
+
+=============================	 13/06/2024 14:32:18
+
+=============================	 13/06/2024 14:40:13
+Não foi possivel encontrar o elemento: System.TimeoutException: Timeout 3000ms exceeded.
+Call log:
+  - waiting for GetByLabel("Todos os filtros", new() { Exact = true }).Locator("label").Filter(new() { HasText = "Voluntário Filtrar por Voluntário" })
+   at Microsoft.Playwright.Transport.Connection.InnerSendMessageToServerAsync[T](ChannelOwner object, String method, Dictionary`2 dictionary, Boolean keepNulls) in /_/src/Playwright/Transport/Connection.cs:line 206
+   at Microsoft.Playwright.Transport.Connection.WrapApiCallAsync[T](Func`1 action, Boolean isInternal) in /_/src/Playwright/Transport/Connection.cs:line 526
+   at forms.Models.PageObjects.Sections.FilterSection.SelectFilter(String labelName, List`1 checkedListBoxItems, Double securityTime) in C:\Users\Hugo\Documents\Repositorios-programação\linkedin-automation\forms\Models\PageObjects\Sections\FilterSection.cs:line 69

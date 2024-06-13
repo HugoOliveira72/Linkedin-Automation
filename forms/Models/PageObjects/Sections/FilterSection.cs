@@ -1,4 +1,5 @@
-﻿using forms.Repositories;
+﻿using forms.Models.Filters;
+using forms.Repositories;
 using forms.Utilities;
 using forms.Utilities.Messages;
 using Microsoft.Playwright;
@@ -56,17 +57,32 @@ namespace forms.Models.PageObjects.Sections
             await Task.Delay(TimeSpan.FromSeconds(securityTime));
         }
 
-        public async Task SelectFilter(List<string> checkedListBoxItems, double securityTime = 0.5)
+        public async Task SelectFilter(string labelName, List<string> checkedListBoxItems, double securityTime = 0.5)
         {
             foreach (string selectedItem in checkedListBoxItems)
             {
                 try
                 {
-                    await playwrightUtilities.WaitForElementAndHandleExceptionAsync(_page, $"span:has-text:('Filtrar por {selectedItem})'","Filtro encontrado","Não foi possível encontrar o filtro", 2000);
-                    await _page.GetByLabel("Todos os filtros", new() { Exact = true }).Locator("label").Filter(new() { HasText = $"{selectedItem} Filtrar por {selectedItem}" }).ClickAsync();
+                    await Task.Delay(TimeSpan.FromSeconds(securityTime));
+                    var element = _page.GetByLabel("Todos os filtros", new() { Exact = true }).Locator("label").Filter(new() { HasText = $"{selectedItem} Filtrar por {selectedItem}" });
+                    await Task.Delay(TimeSpan.FromSeconds(securityTime));
+                    await element.ClickAsync(new() { Timeout = 3000});
                 }
                 catch (Exception e)
                 {
+                    if (selectedItem.Contains("Estágio"))
+                    {
+                        if (labelName == FilterLabelsModel.ExperienceLevelLabel)
+                        {
+                            await _page.GetByLabel("Todos os filtros", new() { Exact = true }).Locator("label").Filter(new() { HasText = $"{selectedItem} Filtrar por {selectedItem}" }).First.ClickAsync();
+                            continue;
+                        }
+                        else if (labelName == FilterLabelsModel.JobTypeLabel)
+                        {
+                            await _page.GetByLabel("Todos os filtros", new() { Exact = true }).Locator("label").Filter(new() { HasText = $"{selectedItem} Filtrar por {selectedItem}" }).Last.ClickAsync();
+                            continue;
+                        }
+                    }
                     _logRepository.WriteALogError(ExceptionMessages.CouldNotFoundElement, e);
                 }
                 await Task.Delay(TimeSpan.FromSeconds(securityTime));
