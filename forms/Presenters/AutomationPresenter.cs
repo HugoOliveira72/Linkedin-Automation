@@ -22,7 +22,6 @@ namespace forms.Presenters
         private ILogRepository _logRepository;
         private OutputStringPatterns stringPatterns = new();
         private PlaywrightUtilities playwrightUtilities = new();
-        //private static ExceptionMessages exceptionMessages;
         public AutomationPresenter(
             IAutomationView automationView,
             IDataService<dynamic> dataService,
@@ -36,7 +35,6 @@ namespace forms.Presenters
             _automationView.StartAutomation += StartAutomation;
             _loginRepository = loginRepository;
             _logRepository = logRepository;
-            //_automationView
         }
 
         private async void StartAutomation(object sender, EventArgs e)
@@ -143,6 +141,7 @@ namespace forms.Presenters
             await Task.Delay(TimeSpan.FromSeconds(3));
             #endregion
 
+            //JOB LIST SECTION
             #region GetAllJobs Elements
             /*
                 - avaiableJobs, Vagas disponiveis podem ser candidadatas
@@ -169,6 +168,7 @@ namespace forms.Presenters
 
                     jobsCounter++;
 
+                    //JOB LIST SECTION
                     #region NextPageValidation
                     if (jobsCounter > avaiableJobs)
                     {
@@ -207,6 +207,7 @@ namespace forms.Presenters
                     }
                     #endregion
 
+                    //DETAIL SECTION
                     #region Handle subscribe button
                     JobDetailsSection jobDetailsSection = await JobDetailsSection.BuildAsync(page);
                     // BOTÃO (Candidatar-se a vaga)
@@ -241,16 +242,14 @@ namespace forms.Presenters
                     }
                     #endregion 
 
-                    //VERIFICAR ESSAS PARTES, 
-                    //POIS AS PAGINAS SÃO GERADAS DEPOIS
-                    //OBSERVAÇÃO: TALVEZ CRIAR UMA CLASSE PARA CADA PÁGINA
+                    //POPUP WINDOW SECTION
                     #region Advance button
-                    // BOTÃO AVANÇAR
                     await Task.Delay(TimeSpan.FromSeconds(1));
-                    if (jobDetailsSection._advanceButton == null)// QUANDO BOTÃO AVANÇAR Ñ EXISTE
+                    PopupWindowSection popupWindowSection = await PopupWindowSection.BuildAsync(page);
+                    if (popupWindowSection._advanceButton == null)// QUANDO BOTÃO AVANÇAR Ñ EXISTE
                     {
                         /// CLICA BOTÃO ENVIAR CANDIDATURA
-                        await jobDetailsSection.SendJobApplicationAndClosePage();
+                        await popupWindowSection.SendJobApplicationAndClosePage();
 
                         /// EXIBE NA TELA INFORMAÇÕES DA CANDIDATURA
                         appliedJobs++;
@@ -262,7 +261,7 @@ namespace forms.Presenters
                         try
                         {
                             /// CLICA NO BOTÃO AVANÇAR
-                            await jobDetailsSection._advanceButton!.ClickAsync();
+                            await popupWindowSection._advanceButton!.ClickAsync();
                         }
                         catch (Exception e)
                         {
@@ -275,14 +274,15 @@ namespace forms.Presenters
 
                     #region Review button
                     await Task.Delay(TimeSpan.FromSeconds(1));
-
-                    if (jobDetailsSection._reviewButton == null) // QUANDO BOTÃO REVISAR Ñ EXISTE
-                        await jobDetailsSection._advanceButton.ClickAsync(); /// Haverá o botão avançar
+                    popupWindowSection._reviewButton = await popupWindowSection.LoadElementAsync("span:has-text('Revisar')");
+                    popupWindowSection._advanceButton = await popupWindowSection.LoadElementAsync("button[aria-label='Avançar para próxima etapa']");
+                    if (popupWindowSection._reviewButton == null) // QUANDO BOTÃO REVISAR Ñ EXISTE
+                        await popupWindowSection._advanceButton.ClickAsync(); /// Haverá o botão avançar
                     else// QUANDO BOTÃO REVISAR EXISTE
                     {
                         try
                         {
-                            await jobDetailsSection._reviewButton!.ClickAsync();
+                            await popupWindowSection._reviewButton!.ClickAsync();
                         }
                         catch (Exception e)
                         {
@@ -294,19 +294,21 @@ namespace forms.Presenters
 
                     #region Addicional Questions
                     await Task.Delay(TimeSpan.FromSeconds(0.8));
-                    if (await jobDetailsSection.CheckAddicionalQuestions()) // QUANDO NÃO HÁ PERGUNTAS
+                    popupWindowSection._additionalQuestions = await popupWindowSection.LoadElementAsync("h3");
+                    popupWindowSection._advanceButton = await popupWindowSection.LoadElementAsync("button[aria-label='Avançar para próxima etapa']");
+                    if (!await popupWindowSection.CheckAddicionalQuestions()) // QUANDO NÃO HÁ PERGUNTAS
                     {
                         // ENVIAR CANDIDATURA, SEM PERGUNTAS
-                        await jobDetailsSection.SendJobApplicationAndClosePage();
+                        await popupWindowSection.SendJobApplicationAndClosePage();
 
                         appliedJobs++;
                         await ShowAppliedJobsMessage(jobsCounter, appliedJobs);
                         await AddMessageToRichTextbox(stringPatterns.ShowFinalResult(appliedJobs, savedJobs));
                         continue;
                     }
-                    else if (jobDetailsSection._additionalQuestions != null) // QUANDO HÁ PERGUNTAS
+                    else if (popupWindowSection._additionalQuestions != null) // QUANDO HÁ PERGUNTAS
                     {
-                        await jobDetailsSection.SaveJobClosePage();
+                        await popupWindowSection.SaveJobClosePage();
                         savedJobs++;
                         await Task.Delay(TimeSpan.FromSeconds(0.8));
                         await AddMessageToRichTextbox($"Salva a vaga nº{jobsCounter}");
@@ -314,9 +316,9 @@ namespace forms.Presenters
                         await AddMessageToRichTextbox(stringPatterns.ShowFinalResult(appliedJobs, savedJobs));
                         continue;
                     }
-                    else if (jobDetailsSection._advanceButton != null)
+                    else if (popupWindowSection._advanceButton != null)
                     {
-                        await jobDetailsSection._advanceButton.ClickAsync();
+                        await popupWindowSection._advanceButton.ClickAsync();
                     }
                     #endregion
                 }
