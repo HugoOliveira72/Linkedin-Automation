@@ -223,7 +223,8 @@ namespace forms.Presenters
                             else
                             {
                                 await jobDetailsSection._saveButton!.ClickAsync();
-                                await ShowAppliedJobsMessage(jobsCounter, savedJobs);
+                                savedJobs++;
+                                await ShowSavedJobsMessage(jobsCounter, savedJobs);
                             }
                         }
                         else if (await jobDetailsSection.CheckSubscribedStatus())
@@ -331,6 +332,12 @@ namespace forms.Presenters
         {
             await AddMessageToRichTextbox($"Inscrito na vaga nº{jobsCounter}");
             await AddMessageToRichTextbox($"Total de {appliedJobs} vagas aplicadas");
+        }
+
+        private async Task ShowSavedJobsMessage(int jobsCounter, int savedJobs)
+        {
+            await AddMessageToRichTextbox($"Vaga nº{jobsCounter} Salva");
+            await AddMessageToRichTextbox($"Total de {savedJobs} vagas salvas");
         }
 
         private async Task AddMessageToRichTextbox(string message)

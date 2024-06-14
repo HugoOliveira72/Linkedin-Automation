@@ -48,7 +48,6 @@ namespace forms.Forms
             FilterFieldsModel HomeData = _dataService.GetData();
             txtBox_saved_jobs.Text = "0";
             txtBox_applied_Jobs.Text = $"0/{HomeData.AmountOfJobs}";
-            //txtBox_applied_Jobs.Text = $"0/0";
             txtBox_job.Text = HomeData.TxtboxJob;
 
             StartAutomation?.Invoke(this,EventArgs.Empty);
@@ -59,6 +58,5 @@ namespace forms.Forms
             cancellationToken.Cancel();
             this.Close();
         }
-
     }
 }
