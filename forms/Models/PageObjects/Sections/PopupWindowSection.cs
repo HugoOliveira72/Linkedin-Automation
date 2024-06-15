@@ -1,6 +1,4 @@
-﻿using forms.Repositories;
-using forms.Utilities;
-using Microsoft.Playwright;
+﻿using Microsoft.Playwright;
 
 namespace forms.Models.PageObjects.Sections
 {
@@ -57,9 +55,10 @@ namespace forms.Models.PageObjects.Sections
             await Task.Delay(TimeSpan.FromSeconds(securityTime));
             _closeButton = await _page.QuerySelectorAsync("button[aria-label='Fechar']");
             await Task.Delay(TimeSpan.FromSeconds(securityTime));
-            _saveButton = await _page.QuerySelectorAsync("button[class*='jobs-save-button']");
             //Click Elements
             await _closeButton.ClickAsync();
+            await Task.Delay(TimeSpan.FromSeconds(securityTime));
+            _saveButton = await _page.QuerySelectorAsync("button[data-control-name='save_application_btn']");
             await Task.Delay(TimeSpan.FromSeconds(securityTime));
             await _saveButton.ClickAsync();
         }

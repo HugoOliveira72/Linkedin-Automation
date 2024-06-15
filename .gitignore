@@ -11,6 +11,9 @@ forms/Files/user.msgpack
 #ResolutionFile
 forms/Config/resolution.txt
 
+#Todo List
+todoLIST.txt
+
 
 # User-specific files
 *.rsuser
