@@ -159,7 +159,7 @@ namespace forms.Presenters
             #endregion
 
             //HABILITAR O BOTÃO SAIR 
-            //button_exit.Enabled = true;
+            _automationView.ButtonEnabled = true;
             while (appliedJobs != Homedata.AmountOfJobs)
             {
                 try

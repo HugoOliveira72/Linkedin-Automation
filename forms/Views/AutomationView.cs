@@ -30,6 +30,13 @@ namespace forms.Forms
             get { return richtxtBox.Text; }
             set { richtxtBox.Text = value; }
         }
+
+        public bool ButtonEnabled 
+        {
+            get { return button_exit.Enabled; }
+            set { button_exit.Enabled = value; }
+        }
+
         //Events
         public event EventHandler StartAutomation;
         public event EventHandler LogFileEvent;
@@ -58,5 +65,6 @@ namespace forms.Forms
             cancellationToken.Cancel();
             this.Close();
         }
+
     }
 }

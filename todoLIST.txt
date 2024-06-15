@@ -39,6 +39,5 @@ EM FILTROS - RESOLVIDO
  - VERIFICAR O MOTIVO
 ========================
 
-
-
-
+-Habilitar o botão sair em AutomationView
+-Não deixar usuário mecher na tela anterior
