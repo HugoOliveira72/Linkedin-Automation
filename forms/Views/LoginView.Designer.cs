@@ -94,6 +94,7 @@
             // 
             passwordTxtBox.Location = new Point(445, 224);
             passwordTxtBox.Name = "passwordTxtBox";
+            passwordTxtBox.PasswordChar = '●';
             passwordTxtBox.Size = new Size(263, 29);
             passwordTxtBox.StateCommon.Border.Color1 = Color.FromArgb(224, 224, 224, 224);
             passwordTxtBox.StateCommon.Border.Color2 = Color.FromArgb(224, 224, 224, 224);
@@ -105,6 +106,7 @@
             passwordTxtBox.StateCommon.Content.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             passwordTxtBox.StateCommon.Content.Padding = new Padding(10, -1, 10, -1);
             passwordTxtBox.TabIndex = 41;
+            passwordTxtBox.UseSystemPasswordChar = true;
             // 
             // userTxtBox
             // 
@@ -139,6 +141,7 @@
             kryptonLoginButton.StateCommon.Content.ShortText.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             kryptonLoginButton.TabIndex = 47;
             kryptonLoginButton.Values.Text = "LOGIN";
+            kryptonLoginButton.Click += kryptonLoginButton_Click;
             // 
             // labelUser
             // 
