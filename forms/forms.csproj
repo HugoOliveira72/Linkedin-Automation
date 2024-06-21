@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <PackageReference Include="Analytics" Version="3.8.1" />
+    <PackageReference Include="Krypton.Toolkit" Version="80.24.3.64" />
     <PackageReference Include="MessagePack" Version="2.5.140" />
     <PackageReference Include="Microsoft.Playwright" Version="1.42.0" />
     <PackageReference Include="NPOI" Version="2.7.0" />

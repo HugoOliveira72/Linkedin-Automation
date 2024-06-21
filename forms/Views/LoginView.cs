@@ -9,13 +9,13 @@ namespace forms.Forms
         //Properties
         public string? Email
         {
-            get { return txtbox_user.Text; }
-            set { txtbox_user.Text = value; }
+            get { return userTxtBox.Text; }
+            set { userTxtBox.Text = value; }
         }
         public string? Password
         {
-            get { return txtbox_password.Text; }
-            set { txtbox_password.Text = value; }
+            get { return passwordTxtBox.Text; }
+            set { passwordTxtBox.Text = value; }
         }
 
         public bool IsRememberMeMarked
@@ -48,6 +48,11 @@ namespace forms.Forms
             HomeView view = new HomeView();
             new HomePresenter(view, dataService);
             view.ShowDialog();
+        }
+
+        private void LoginView_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
