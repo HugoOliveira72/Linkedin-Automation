@@ -17,8 +17,8 @@ namespace forms.Presenters
         {
             _homeView = homeView;
             _dataService = dataService;
-            _homeView.ShowConfigView += ShowConfigurationView;
-            _homeView.ShowAutomationView += ShowAutomationView;
+            //_homeView.ShowConfigView += ShowConfigurationView;
+            //_homeView.ShowAutomationView += ShowAutomationView;
         }
 
         private void ShowConfigurationView(object sender, EventArgs e)
@@ -31,7 +31,7 @@ namespace forms.Presenters
 
         private void ShowAutomationView(object sender, EventArgs e)
         {
-            _dataService.SetData(SetObject());
+            //_dataService.SetData(SetObject());
             ILogRepository logRepository = new LogRepository();
             ILogService logService = new LogService(logRepository);
             ILoginRepository loginRepository = new LoginRepository();
@@ -41,19 +41,19 @@ namespace forms.Presenters
             automationView.Show();
         }
 
-        private FilterFieldsModel SetObject()
-        {
-            FilterFieldsModel data = new FilterFieldsModel
-            (
-                _homeView.Job,
-                Int32.Parse(_homeView.amountJobs),
-                _homeView.ComboBoxClassifyBy,
-                _homeView.comboBoxAnnoucementDate,
-                _homeView.checkedListBoxExperienceLevel,
-                _homeView.checkedListBoxTypeJob,
-                _homeView.checkedListBoxRemote
-            );
-            return data;
-        }
+        //private FilterFieldsModel SetObject()
+        //{
+        //    FilterFieldsModel data = new FilterFieldsModel
+        //    (
+        //        _homeView.Job,
+        //        Int32.Parse(_homeView.amountJobs),
+        //        _homeView.ComboBoxClassifyBy,
+        //        _homeView.comboBoxAnnoucementDate,
+        //        _homeView.checkedListBoxExperienceLevel,
+        //        _homeView.checkedListBoxTypeJob,
+        //        _homeView.checkedListBoxRemote
+        //    );
+        //    return data;
+        //}
     }
 }
