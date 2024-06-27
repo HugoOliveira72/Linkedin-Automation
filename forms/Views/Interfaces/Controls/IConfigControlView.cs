@@ -1,6 +1,6 @@
-﻿namespace forms.Views.Interfaces
+﻿namespace forms.Views.Interfaces.Control
 {
-    public interface IConfigView
+    public interface IConfigControlView
     {
         public string? ResolutionType { get; set; }
         public string? Resolution { get; set; }

@@ -272,6 +272,7 @@
             stopButton.TextAlign = ContentAlignment.TopCenter;
             stopButton.TextImageRelation = TextImageRelation.ImageAboveText;
             stopButton.UseVisualStyleBackColor = false;
+            stopButton.Click += stopButton_Click;
             // 
             // pictureBoxPlay
             // 

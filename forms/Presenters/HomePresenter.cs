@@ -16,17 +16,15 @@ namespace forms.Presenters
         public HomePresenter(IHomeView homeView, IDataService<dynamic> dataService)
         {
             _homeView = homeView;
+            _homeView.StoreFilters += StoreFilters;
             _dataService = dataService;
             //_homeView.ShowConfigView += ShowConfigurationView;
             //_homeView.ShowAutomationView += ShowAutomationView;
         }
 
-        private void ShowConfigurationView(object sender, EventArgs e)
+        private void StoreFilters(object? sender, EventArgs e)
         {
-            ConfigView configView = new ConfigView();
-            IConfigRepository configRepository = new ConfigRepository();
-            new ConfigPresenter(configView, configRepository);
-            configView.Show();
+            FilterFieldsModel HomeData = _dataService.GetData();
         }
 
         private void ShowAutomationView(object sender, EventArgs e)
@@ -40,20 +38,6 @@ namespace forms.Presenters
             new AutomationPresenter(automationView, _dataService, logService, loginRepository, logRepository);
             automationView.Show();
         }
-
-        //private FilterFieldsModel SetObject()
-        //{
-        //    FilterFieldsModel data = new FilterFieldsModel
-        //    (
-        //        _homeView.Job,
-        //        Int32.Parse(_homeView.amountJobs),
-        //        _homeView.ComboBoxClassifyBy,
-        //        _homeView.comboBoxAnnoucementDate,
-        //        _homeView.checkedListBoxExperienceLevel,
-        //        _homeView.checkedListBoxTypeJob,
-        //        _homeView.checkedListBoxRemote
-        //    );
-        //    return data;
-        //}
+        
     }
 }

@@ -1,16 +1,16 @@
 ﻿using forms.Model;
 using forms.Models.Interfaces;
-using forms.Views.Interfaces;
+using forms.Views.Interfaces.Control;
 
 namespace forms.Presenters
 {
     public class ConfigPresenter
     {
-        private IConfigView _configView;
+        private IConfigControlView _configView;
         private IConfigRepository _configRepository;
         private string? filePath = "../../../Config/resolution.msgpack";
 
-        public ConfigPresenter(IConfigView configView, IConfigRepository configRepository)
+        public ConfigPresenter(IConfigControlView configView, IConfigRepository configRepository)
         {
             _configView = configView;
             _configRepository = configRepository;
@@ -27,9 +27,6 @@ namespace forms.Presenters
 
             // Abre o arquivo especificado para gravação
             _configRepository.UpdateMessagePackFile(filePath, configModel);
-
-            // Exibe uma caixa de mensagem informando que as configurações foram aplicadas com sucesso
-            MessageBox.Show("CONFIGURAÇÕES APLICADAS COM SUCESSO!", "SUCESSO");
         }
 
         private void OnConfigFormLoaded(object sender, EventArgs e)

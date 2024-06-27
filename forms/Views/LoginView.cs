@@ -41,16 +41,11 @@ namespace forms.Forms
             UserFormLoaded?.Invoke(this, EventArgs.Empty);
         }
 
-        private void LoginView_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void kryptonLoginButton_Click(object sender, EventArgs e)
         {
             LoginEvent?.Invoke(this, EventArgs.Empty);
             IDataService<dynamic> dataService = new DataService<dynamic>();
-            HomeView view = new HomeView();
+            HomeView view = new HomeView(dataService);
             new HomePresenter(view, dataService);
             view.ShowDialog();
         }

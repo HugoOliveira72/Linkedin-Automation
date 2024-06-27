@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace forms.Views
+namespace forms.Views.UserControls
 {
-    public partial class FilterControl : UserControl
+    public partial class MainControlView : UserControl
     {
-        public FilterControl()
+        public MainControlView()
         {
             InitializeComponent();
         }

@@ -203,7 +203,6 @@
             Controls.Add(leftPanel);
             Name = "LoginView";
             Text = "LoginScreen";
-            Load += LoginView_Load;
             leftPanel.ResumeLayout(false);
             leftPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();

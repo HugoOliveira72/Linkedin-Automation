@@ -1,6 +1,6 @@
 ﻿namespace forms.Views.UserControls
 {
-    partial class MainControl
+    partial class MainControlView
     {
         /// <summary> 
         /// Variável de designer necessária.

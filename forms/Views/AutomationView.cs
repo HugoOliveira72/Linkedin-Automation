@@ -4,7 +4,7 @@ using forms.Views.Interfaces;
 
 namespace forms.Forms
 {
-    public partial class AutomationView : Form, IAutomationView
+    public partial class AutomationView : Form, IHomeView
     {
         private CancellationTokenSource cancellationToken = new CancellationTokenSource();
         private IDataService<dynamic> _dataService;
@@ -40,6 +40,8 @@ namespace forms.Forms
         //Events
         public event EventHandler StartAutomation;
         public event EventHandler LogFileEvent;
+        public event EventHandler StopAutomation;
+        public event EventHandler StoreFilters;
 
         public AutomationView(IDataService<dynamic> dataService)
         {

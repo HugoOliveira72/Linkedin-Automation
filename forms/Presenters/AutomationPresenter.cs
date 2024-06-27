@@ -1,4 +1,5 @@
-﻿using forms.Models.Filters;
+﻿using forms.Forms;
+using forms.Models.Filters;
 using forms.Models.Interfaces;
 using forms.Models.PageObjects;
 using forms.Models.PageObjects.Sections;
@@ -15,7 +16,7 @@ namespace forms.Presenters
 {
     public class AutomationPresenter
     {
-        private IAutomationView _automationView;
+        private IHomeView _automationView;
         private IDataService<dynamic> _dataService;
         private ILogService _logService;
         private ILoginRepository _loginRepository;
@@ -23,7 +24,7 @@ namespace forms.Presenters
         private OutputStringPatterns stringPatterns = new();
         private PlaywrightUtilities playwrightUtilities = new();
         public AutomationPresenter(
-            IAutomationView automationView,
+            IHomeView automationView,
             IDataService<dynamic> dataService,
             ILogService logService,
             ILoginRepository loginRepository,
@@ -36,6 +37,40 @@ namespace forms.Presenters
             _loginRepository = loginRepository;
             _logRepository = logRepository;
         }
+
+
+        #region REFERENCES HOME VIEW
+
+        //private IHomeView _homeView;
+        //IDataService<dynamic> _dataService;
+
+        private void ShowAutomationView(object sender, EventArgs e)
+        {
+            //_dataService.SetData(SetObject());
+            ILogRepository logRepository = new LogRepository();
+            ILogService logService = new LogService(logRepository);
+            ILoginRepository loginRepository = new LoginRepository();
+
+            AutomationView automationView = new AutomationView(_dataService);
+            new AutomationPresenter(automationView, _dataService, logService, loginRepository, logRepository);
+            automationView.Show();
+        }
+
+        //private FilterFieldsModel SetObject()
+        //{
+        //    FilterFieldsModel data = new FilterFieldsModel
+        //    (
+        //        _homeView.Job,
+        //        Int32.Parse(_homeView.amountJobs),
+        //        _homeView.ComboBoxClassifyBy,
+        //        _homeView.comboBoxAnnoucementDate,
+        //        _homeView.checkedListBoxExperienceLevel,
+        //        _homeView.checkedListBoxTypeJob,
+        //        _homeView.checkedListBoxRemote
+        //    );
+        //    return data;
+        //}
+        #endregion
 
         private async void StartAutomation(object sender, EventArgs e)
         {
@@ -159,7 +194,6 @@ namespace forms.Presenters
             #endregion
 
             //HABILITAR O BOTÃO SAIR 
-            _automationView.ButtonEnabled = true;
             while (appliedJobs != Homedata.AmountOfJobs)
             {
                 try
@@ -329,6 +363,7 @@ namespace forms.Presenters
                 }
             }
         }
+
         //UI
         private async Task ShowAppliedJobsMessage(int jobsCounter, int appliedJobs)
         {

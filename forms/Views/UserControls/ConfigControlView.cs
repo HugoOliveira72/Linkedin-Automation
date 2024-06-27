@@ -1,12 +1,17 @@
-﻿using forms.Model;
-using forms.Views.Interfaces;
+﻿using forms.Views.Interfaces.Control;
 
-namespace forms.Forms
+namespace forms.Views.UserControls
 {
-    public partial class ConfigView : Form, IConfigView
+    public partial class ConfigControlView : UserControl, IConfigControlView
     {
-
-        //Fields
+        public ConfigControlView()
+        {
+            InitializeComponent();
+            this.Load += OnFormLoaded;
+            AssociateAndRaiseViewEvents();
+        }
+        
+        //Properties
         public string? ResolutionType
         {
             get { return comboBox_resolution_type.Text; }
@@ -23,17 +28,16 @@ namespace forms.Forms
         public event EventHandler ConfigFormLoaded;
         public event EventHandler SaveConfigEvent;
 
-        //Constructor
-        public ConfigView()
-        {
-            InitializeComponent();
-            this.Load += OnFormLoaded;
-            AssociateAndRaiseViewEvents();
-        }
-
+        //Methods
         private void comboBox_resolution_type_SelectedIndexChanged(object sender, EventArgs e)
         {
             comboBox_resolution.Enabled = (comboBox_resolution_type.Text == "Tela cheia") ? false : true;
+            AssociateAndRaiseViewEvents();
+        }
+
+        private void comboBox_resolution_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            AssociateAndRaiseViewEvents();
         }
 
         private void OnFormLoaded(object sender, EventArgs e)
@@ -46,7 +50,7 @@ namespace forms.Forms
 
         private void AssociateAndRaiseViewEvents()
         {
-            button_save_configs.Click += delegate { SaveConfigEvent?.Invoke(this, EventArgs.Empty); };
+            SaveConfigEvent?.Invoke(this, EventArgs.Empty);
         }
     }
 }

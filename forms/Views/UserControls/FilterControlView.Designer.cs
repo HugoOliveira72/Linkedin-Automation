@@ -1,6 +1,6 @@
 ﻿namespace forms.Views
 {
-    partial class FilterControl
+    partial class FilterControlView
     {
         /// <summary> 
         /// Variável de designer necessária.
@@ -92,6 +92,7 @@
             checkedListBox_remote.StateTracking.Item.Border.Color2 = Color.FromArgb(200, 221, 238);
             checkedListBox_remote.StateTracking.Item.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
             checkedListBox_remote.TabIndex = 43;
+            checkedListBox_remote.MouseLeave += CheckedListBox_remote_MouseLeave;
             // 
             // label_annoucement_date
             // 
@@ -125,6 +126,7 @@
             checkedListBox_type_job.StateTracking.Item.Border.Color2 = Color.FromArgb(200, 221, 238);
             checkedListBox_type_job.StateTracking.Item.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
             checkedListBox_type_job.TabIndex = 42;
+            checkedListBox_type_job.MouseLeave += CheckedListBox_type_job_MouseLeave;
             // 
             // label_choose_by
             // 
@@ -165,6 +167,7 @@
             comboBox_annoucement_date.StateTracking.Item.Border.Color2 = Color.FromArgb(200, 221, 238);
             comboBox_annoucement_date.StateTracking.Item.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
             comboBox_annoucement_date.TabIndex = 40;
+            comboBox_annoucement_date.SelectedIndexChanged += ComboBox_annoucement_date_SelectedIndexChanged;
             // 
             // checkedListBox_experience_level
             // 
@@ -189,6 +192,7 @@
             checkedListBox_experience_level.StateTracking.Item.Border.Color2 = Color.FromArgb(200, 221, 238);
             checkedListBox_experience_level.StateTracking.Item.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
             checkedListBox_experience_level.TabIndex = 41;
+            checkedListBox_experience_level.MouseLeave += CheckedListBox_experience_level_MouseLeave;
             // 
             // location_label
             // 
@@ -238,6 +242,7 @@
             comboBox_choose_by.StateTracking.Item.Border.Color2 = Color.FromArgb(200, 221, 238);
             comboBox_choose_by.StateTracking.Item.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
             comboBox_choose_by.TabIndex = 39;
+            comboBox_choose_by.SelectedIndexChanged += ComboBox_choose_by_SelectedIndexChanged;
             // 
             // job_type_label
             // 
@@ -285,6 +290,7 @@
             txtbox_job.Name = "txtbox_job";
             txtbox_job.Size = new Size(200, 23);
             txtbox_job.TabIndex = 12;
+            txtbox_job.TrackMouseLeave += Txtbox_job_TrackMouseLeave;
             // 
             // amount_jobs
             // 
@@ -292,6 +298,7 @@
             amount_jobs.Name = "amount_jobs";
             amount_jobs.Size = new Size(44, 23);
             amount_jobs.TabIndex = 38;
+            amount_jobs.MouseLeave += Amount_jobs_MouseLeave;
             // 
             // FilterControl
             // 

@@ -1,6 +1,6 @@
 ﻿namespace forms.Views.UserControls
 {
-    partial class ConfigControl
+    partial class ConfigControlView
     {
         /// <summary> 
         /// Variável de designer necessária.
@@ -85,7 +85,9 @@
             comboBox_resolution.StateTracking.Item.Border.Color1 = Color.FromArgb(200, 221, 238);
             comboBox_resolution.StateTracking.Item.Border.Color2 = Color.FromArgb(200, 221, 238);
             comboBox_resolution.StateTracking.Item.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            comboBox_resolution.SelectedIndexChanged += comboBox_resolution_SelectedIndexChanged;
             comboBox_resolution.TabIndex = 10;
+
             // 
             // comboBox_resolution_type
             // 
@@ -116,6 +118,7 @@
             comboBox_resolution_type.StateTracking.Item.Border.Color1 = Color.FromArgb(200, 221, 238);
             comboBox_resolution_type.StateTracking.Item.Border.Color2 = Color.FromArgb(200, 221, 238);
             comboBox_resolution_type.StateTracking.Item.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            comboBox_resolution_type.SelectedIndexChanged += comboBox_resolution_type_SelectedIndexChanged;
             comboBox_resolution_type.TabIndex = 11;
             // 
             // groupBoxConfig
@@ -129,7 +132,7 @@
             groupBoxConfig.Size = new Size(379, 80);
             groupBoxConfig.TabIndex = 15;
             groupBoxConfig.TabStop = false;
-            groupBoxConfig.Text = "Configurações";
+            groupBoxConfig.Text = "Resolução do navegador";
             // 
             // ConfigControl
             // 
