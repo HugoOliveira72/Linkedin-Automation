@@ -1,26 +1,17 @@
-﻿using forms.Views.Interfaces.Control;
+﻿using forms.Views.Interfaces;
+using forms.Views.Interfaces.Control;
 using static Krypton.Toolkit.KryptonCheckedListBox;
 
 namespace forms.Views
 {
     public partial class FilterControlView : UserControl, IFilterControlView
     {
-        public FilterControlView()
-        {
-            InitializeComponent();
-        }
+
+        public ErrorProvider errorProvider = new ErrorProvider();
+        private IHomeView _homeView;
 
         //Fields
-        public string Job
-        {
-            get { return txtbox_job.Text; }
-            set { txtbox_job.Text = value; }
-        }
-        public string amountJobs
-        {
-            get { return amount_jobs.Text; }
-            set { amount_jobs.Text = value; }
-        }
+
         public string ComboBoxClassifyBy
         {
             get { return comboBox_choose_by.Text; }
@@ -44,20 +35,17 @@ namespace forms.Views
             get { return checkedListBox_remote.CheckedItems; }
         }
 
+        //Constructor
+        public FilterControlView(IHomeView homeView)
+        {
+            _homeView = homeView;
+            InitializeComponent();
+        }
+
         //Events
         public event EventHandler HandleFilter;
 
-
-        private void Txtbox_job_TrackMouseLeave(object sender, EventArgs e)
-        {
-            handleAndRaiseEvents();
-        }
-
-        private void Amount_jobs_MouseLeave(object sender, EventArgs e)
-        {
-            handleAndRaiseEvents();
-        }
-
+        /// Validating fields 
         private void ComboBox_choose_by_SelectedIndexChanged(object sender, EventArgs eventArgs)
         {
             handleAndRaiseEvents();
@@ -87,5 +75,6 @@ namespace forms.Views
         {
             HandleFilter?.Invoke(this, EventArgs.Empty);
         }
+      
     }
 }

@@ -39,15 +39,9 @@
             experience_level_label = new Label();
             comboBox_choose_by = new Krypton.Toolkit.KryptonComboBox();
             job_type_label = new Label();
-            groupBox_job = new GroupBox();
-            amout_jobs_label = new Label();
-            job_label = new Label();
-            txtbox_job = new Krypton.Toolkit.KryptonTextBox();
-            amount_jobs = new Krypton.Toolkit.KryptonTextBox();
             groupBox_filters.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)comboBox_annoucement_date).BeginInit();
             ((System.ComponentModel.ISupportInitialize)comboBox_choose_by).BeginInit();
-            groupBox_job.SuspendLayout();
             SuspendLayout();
             // 
             // groupBox_filters
@@ -62,9 +56,9 @@
             groupBox_filters.Controls.Add(experience_level_label);
             groupBox_filters.Controls.Add(comboBox_choose_by);
             groupBox_filters.Controls.Add(job_type_label);
-            groupBox_filters.Location = new Point(254, 0);
+            groupBox_filters.Location = new Point(3, 3);
             groupBox_filters.Name = "groupBox_filters";
-            groupBox_filters.Size = new Size(790, 151);
+            groupBox_filters.Size = new Size(761, 151);
             groupBox_filters.TabIndex = 37;
             groupBox_filters.TabStop = false;
             groupBox_filters.Text = "Filtros";
@@ -253,67 +247,17 @@
             job_type_label.TabIndex = 24;
             job_type_label.Text = "Tipo de vaga:";
             // 
-            // groupBox_job
-            // 
-            groupBox_job.Controls.Add(amout_jobs_label);
-            groupBox_job.Controls.Add(job_label);
-            groupBox_job.Controls.Add(txtbox_job);
-            groupBox_job.Controls.Add(amount_jobs);
-            groupBox_job.Location = new Point(3, 0);
-            groupBox_job.Name = "groupBox_job";
-            groupBox_job.Size = new Size(245, 151);
-            groupBox_job.TabIndex = 36;
-            groupBox_job.TabStop = false;
-            groupBox_job.Text = "Vaga";
-            // 
-            // amout_jobs_label
-            // 
-            amout_jobs_label.AutoSize = true;
-            amout_jobs_label.Location = new Point(24, 74);
-            amout_jobs_label.Name = "amout_jobs_label";
-            amout_jobs_label.Size = new Size(73, 15);
-            amout_jobs_label.TabIndex = 11;
-            amout_jobs_label.Text = "N° de vagas:";
-            // 
-            // job_label
-            // 
-            job_label.AutoSize = true;
-            job_label.Location = new Point(24, 22);
-            job_label.Name = "job_label";
-            job_label.Size = new Size(131, 15);
-            job_label.TabIndex = 0;
-            job_label.Text = "Cargo ou competência:";
-            // 
-            // txtbox_job
-            // 
-            txtbox_job.Location = new Point(24, 40);
-            txtbox_job.Name = "txtbox_job";
-            txtbox_job.Size = new Size(200, 23);
-            txtbox_job.TabIndex = 12;
-            txtbox_job.TrackMouseLeave += Txtbox_job_TrackMouseLeave;
-            // 
-            // amount_jobs
-            // 
-            amount_jobs.Location = new Point(24, 92);
-            amount_jobs.Name = "amount_jobs";
-            amount_jobs.Size = new Size(44, 23);
-            amount_jobs.TabIndex = 38;
-            amount_jobs.MouseLeave += Amount_jobs_MouseLeave;
-            // 
-            // FilterControl
+            // FilterControlView
             // 
             AutoScaleMode = AutoScaleMode.None;
             Controls.Add(groupBox_filters);
-            Controls.Add(groupBox_job);
             Margin = new Padding(0);
-            Name = "FilterControl";
+            Name = "FilterControlView";
             Size = new Size(1087, 532);
             groupBox_filters.ResumeLayout(false);
             groupBox_filters.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)comboBox_annoucement_date).EndInit();
             ((System.ComponentModel.ISupportInitialize)comboBox_choose_by).EndInit();
-            groupBox_job.ResumeLayout(false);
-            groupBox_job.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -325,11 +269,6 @@
         private Label location_label;
         private Label experience_level_label;
         private Label job_type_label;
-        private GroupBox groupBox_job;
-        private Label amout_jobs_label;
-        private Label job_label;
-        private Krypton.Toolkit.KryptonTextBox txtbox_job;
-        private Krypton.Toolkit.KryptonTextBox amount_jobs;
         private Krypton.Toolkit.KryptonComboBox comboBox_choose_by;
         private Krypton.Toolkit.KryptonComboBox comboBox_annoucement_date;
         private Krypton.Toolkit.KryptonCheckedListBox checkedListBox_experience_level;

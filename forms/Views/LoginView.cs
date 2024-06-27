@@ -1,4 +1,6 @@
-﻿using forms.Presenters;
+﻿using forms.Models.Interfaces;
+using forms.Presenters;
+using forms.Repositories;
 using forms.Services;
 using forms.Views.Interfaces;
 
@@ -44,9 +46,13 @@ namespace forms.Forms
         private void kryptonLoginButton_Click(object sender, EventArgs e)
         {
             LoginEvent?.Invoke(this, EventArgs.Empty);
+
             IDataService<dynamic> dataService = new DataService<dynamic>();
+            ILogRepository logRepository = new LogRepository();
+            ILogService logService = new LogService(logRepository);
+            ILoginRepository loginRepository = new LoginRepository();
             HomeView view = new HomeView(dataService);
-            new HomePresenter(view, dataService);
+            new HomePresenter(view, dataService, logService, loginRepository, logRepository);
             view.ShowDialog();
         }
     }

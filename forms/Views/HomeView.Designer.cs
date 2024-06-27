@@ -48,12 +48,17 @@
             startButton = new Button();
             txtBox_applied_Jobs = new Krypton.Toolkit.KryptonTextBox();
             txtBox_saved_jobs = new Krypton.Toolkit.KryptonTextBox();
-            txtBox_job = new Krypton.Toolkit.KryptonTextBox();
             richtxtBox = new Krypton.Toolkit.KryptonRichTextBox();
+            groupBox_job = new GroupBox();
+            amout_jobs_label = new Label();
+            job_label = new Label();
+            txtBox_job = new Krypton.Toolkit.KryptonTextBox();
+            amount_jobs = new Krypton.Toolkit.KryptonTextBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxStop).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxPlay).BeginInit();
+            groupBox_job.SuspendLayout();
             SuspendLayout();
             // 
             // label1
@@ -65,9 +70,9 @@
             // 
             // panelContainer
             // 
-            panelContainer.Location = new Point(221, 79);
+            panelContainer.Location = new Point(473, 79);
             panelContainer.Name = "panelContainer";
-            panelContainer.Size = new Size(1052, 150);
+            panelContainer.Size = new Size(800, 150);
             panelContainer.TabIndex = 36;
             // 
             // kryptonButtonHome
@@ -329,14 +334,6 @@
             txtBox_saved_jobs.Size = new Size(89, 23);
             txtBox_saved_jobs.TabIndex = 68;
             // 
-            // txtBox_job
-            // 
-            txtBox_job.Enabled = false;
-            txtBox_job.Location = new Point(1005, 264);
-            txtBox_job.Name = "txtBox_job";
-            txtBox_job.Size = new Size(200, 23);
-            txtBox_job.TabIndex = 69;
-            // 
             // richtxtBox
             // 
             richtxtBox.Location = new Point(12, 264);
@@ -345,14 +342,61 @@
             richtxtBox.TabIndex = 70;
             richtxtBox.Text = "";
             // 
+            // groupBox_job
+            // 
+            groupBox_job.Controls.Add(amout_jobs_label);
+            groupBox_job.Controls.Add(job_label);
+            groupBox_job.Controls.Add(txtBox_job);
+            groupBox_job.Controls.Add(amount_jobs);
+            groupBox_job.Location = new Point(222, 78);
+            groupBox_job.Name = "groupBox_job";
+            groupBox_job.Size = new Size(245, 151);
+            groupBox_job.TabIndex = 71;
+            groupBox_job.TabStop = false;
+            groupBox_job.Text = "Vaga";
+            // 
+            // amout_jobs_label
+            // 
+            amout_jobs_label.AutoSize = true;
+            amout_jobs_label.Location = new Point(24, 74);
+            amout_jobs_label.Name = "amout_jobs_label";
+            amout_jobs_label.Size = new Size(73, 15);
+            amout_jobs_label.TabIndex = 11;
+            amout_jobs_label.Text = "N° de vagas:";
+            // 
+            // job_label
+            // 
+            job_label.AutoSize = true;
+            job_label.Location = new Point(24, 22);
+            job_label.Name = "job_label";
+            job_label.Size = new Size(131, 15);
+            job_label.TabIndex = 0;
+            job_label.Text = "Cargo ou competência:";
+            // 
+            // txt_Boxjob
+            // 
+            txtBox_job.Location = new Point(24, 40);
+            txtBox_job.Name = "txtBox_job";
+            txtBox_job.Size = new Size(200, 23);
+            txtBox_job.TabIndex = 12;
+            txtBox_job.Validating += TxtBox_job_Validating;
+            // 
+            // amount_jobs
+            // 
+            amount_jobs.Location = new Point(24, 92);
+            amount_jobs.Name = "amount_jobs";
+            amount_jobs.Size = new Size(44, 23);
+            amount_jobs.TabIndex = 38;
+            amount_jobs.Validating += Amount_jobs_Validating;
+            // 
             // HomeView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImageLayout = ImageLayout.Center;
             ClientSize = new Size(1274, 767);
+            Controls.Add(groupBox_job);
             Controls.Add(richtxtBox);
-            Controls.Add(txtBox_job);
             Controls.Add(txtBox_saved_jobs);
             Controls.Add(txtBox_applied_Jobs);
             Controls.Add(pictureBoxPlay);
@@ -375,6 +419,8 @@
             panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBoxStop).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxPlay).EndInit();
+            groupBox_job.ResumeLayout(false);
+            groupBox_job.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -404,7 +450,11 @@
         private Krypton.Toolkit.KryptonButton kryptonLoginButton;
         private Krypton.Toolkit.KryptonTextBox txtBox_applied_Jobs;
         private Krypton.Toolkit.KryptonTextBox txtBox_saved_jobs;
-        private Krypton.Toolkit.KryptonTextBox txtBox_job;
         private Krypton.Toolkit.KryptonRichTextBox richtxtBox;
+        private GroupBox groupBox_job;
+        private Label amout_jobs_label;
+        private Label job_label;
+        private Krypton.Toolkit.KryptonTextBox txtBox_job;
+        private Krypton.Toolkit.KryptonTextBox amount_jobs;
     }
 }

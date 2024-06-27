@@ -24,8 +24,6 @@ namespace forms.Presenters.Controls
         {
             FilterFieldsModel data = new FilterFieldsModel
             (
-                _filterControlView.Job,
-                Int32.Parse(_filterControlView.amountJobs),
                 _filterControlView.ComboBoxClassifyBy,
                 _filterControlView.comboBoxAnnoucementDate,
                 _filterControlView.checkedListBoxExperienceLevel,
