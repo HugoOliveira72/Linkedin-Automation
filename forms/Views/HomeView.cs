@@ -9,17 +9,18 @@ using forms.Views;
 using forms.Views.Interfaces;
 using forms.Views.Interfaces.Control;
 using forms.Views.UserControls;
+using Krypton.Toolkit;
 
 namespace forms
 {
     public partial class HomeView : Form, IHomeView
     {
-        //Attr
         public ConfigurationModel screenConfiguration;
         public IDataService<dynamic> _dataService;
         private IFilterControlView filterControlView;
         private ErrorProvider errorProvider = new ErrorProvider();
 
+        //Attributes
         public string Job
         {
             get { return txtBox_job.Text; }
@@ -65,8 +66,8 @@ namespace forms
             InitializeComponent();
         }
 
-
         #region Tabs
+
         private void kryptonButtonHome_Click(object sender, EventArgs e)
         {
             MainControlView mainView = new MainControlView();
@@ -94,46 +95,38 @@ namespace forms
         }
         #endregion
 
-        private void TxtBox_job_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        #region Validations
+
+        private void TxtBox_job_Validating(object sender, System.ComponentModel.CancelEventArgs eventArgs)
         {
-            if (String.IsNullOrEmpty(txtBox_job.Text))
+            ValidateTextBox(txtBox_job, "Por favor, insira o cargo/vaga", eventArgs);
+        }
+
+        private void Amount_jobs_Validating(object sender, System.ComponentModel.CancelEventArgs eventArgs)
+        {
+            ValidateTextBox(amount_jobs, "Por favor, insira a quantidade de vagas", eventArgs);
+        }
+
+        private void ValidateTextBox(KryptonTextBox textBox, string message, System.ComponentModel.CancelEventArgs cancelEventArgs)
+        {
+            if (String.IsNullOrEmpty(textBox.Text))
             {
-                e.Cancel = true;
-                txtBox_job.Focus();
-                errorProvider.SetError(txtBox_job, "Por favor, insira o cargo/vaga");
+                cancelEventArgs.Cancel = true;
+                textBox.Focus();
+                errorProvider.SetError(textBox, message);
             }
             else
             {
-                e.Cancel = false;
-                errorProvider.SetError(txtBox_job, null);
+                cancelEventArgs.Cancel = false;
+                errorProvider.SetError(textBox, null);
             }
         }
 
-        private void Amount_jobs_Validating(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            if (String.IsNullOrEmpty(amount_jobs.Text))
-            {
-                e.Cancel = true;
-                amount_jobs.Focus();
-                errorProvider.SetError(amount_jobs, "Por favor, insira a quantidade de vagas");
-            }
-            else
-            {
-                e.Cancel = false;
-                errorProvider.SetError(amount_jobs, null);
-            }
-        }
+        #endregion
 
         private void startButton_Click(object sender, EventArgs e)
         {
-            if (ValidateChildren(ValidationConstraints.Enabled))
-            {
-                MessageBox.Show(amount_jobs.Text, "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            if (ValidateChildren(ValidationConstraints.Enabled))
-            {
-                MessageBox.Show(txtBox_job.Text, "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
+            StartAutomation?.Invoke(this, EventArgs.Empty);
         }
 
         private void stopButton_Click(object sender, EventArgs e)
