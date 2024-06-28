@@ -1,12 +1,11 @@
-﻿using forms.Forms;
-using forms.Models.Filters;
+﻿using forms.Models.Filters;
 using forms.Models.Interfaces;
-using forms.Models.PageObjects.Sections;
 using forms.Models.PageObjects;
+using forms.Models.PageObjects.Sections;
 using forms.Repositories;
 using forms.Services;
-using forms.Utilities.Messages;
 using forms.Utilities;
+using forms.Utilities.Messages;
 using forms.Views.Interfaces;
 using Linkedin_Automation.Config;
 using Linkedin_Automation.Model;
@@ -39,24 +38,6 @@ namespace forms.Presenters
             _logRepository = logRepository;
         }
 
-        #region REFERENCES HOME VIEW
-
-        //private FilterFieldsModel SetObject()
-        //{
-        //    FilterFieldsModel data = new FilterFieldsModel
-        //    (
-        //        _homeView.Job,
-        //        Int32.Parse(_homeView.amountJobs),
-        //        _homeView.ComboBoxClassifyBy,
-        //        _homeView.comboBoxAnnoucementDate,
-        //        _homeView.checkedListBoxExperienceLevel,
-        //        _homeView.checkedListBoxTypeJob,
-        //        _homeView.checkedListBoxRemote
-        //    );
-        //    return data;
-        //}
-        #endregion
-
         private async void StartAutomation(object sender, EventArgs e)
         {
             CancellationTokenSource cancellationToken = new();
@@ -66,8 +47,8 @@ namespace forms.Presenters
         //Automation Method
         private async Task Script(CancellationToken token)
         {
-            // OBTEM DADOS DA TELA HOME
-            FilterFieldsModel Homedata = _dataService.GetData();
+            // OBTEM DADOS DOS FILTROS
+            FilterFieldsModel filterData = _dataService.GetData();
 
             // VERIFICAÇÃO EXISTENCIA LOG.TXT
             _logService.LogFileExistingVerification();
@@ -135,29 +116,37 @@ namespace forms.Presenters
             #endregion
 
             #region FilterSection
-            FilterSection jobSearchPage = await FilterSection.BuildAsync(page);
+            if (filterData != null)
+            {
+                FilterSection jobSearchPage = await FilterSection.BuildAsync(page);
 
-            await AddMessageToRichTextbox("Aplicando filtros\n");
-            await jobSearchPage.GoToFilterSection(0.8);
+                await AddMessageToRichTextbox("Aplicando filtros\n");
+                await jobSearchPage.GoToFilterSection(0.8);
 
-            ///Classificar por
-            await AddMessageToRichTextbox(FilterLabelsModel.ClassifyByLabel);
-            await jobSearchPage.SelectFilter(Homedata.ClassifyBy);
-            ///Data do anúncio
-            await AddMessageToRichTextbox(FilterLabelsModel.AnnouncimentDateLabel);
-            await jobSearchPage.SelectFilter(Homedata.AnnoucementDate);
-            ///Nível de experiência
-            await AddMessageToRichTextbox(FilterLabelsModel.ExperienceLevelLabel);
-            await jobSearchPage.SelectFilter(FilterLabelsModel.ExperienceLevelLabel, Homedata.CheckedListBoxExperiences);
-            ///Tipo de vaga
-            await AddMessageToRichTextbox(FilterLabelsModel.JobTypeLabel);
-            await jobSearchPage.SelectFilter(FilterLabelsModel.JobTypeLabel, Homedata.CheckedListBoxType_job);
-            ///Remoto
-            await AddMessageToRichTextbox(FilterLabelsModel.RemoteTypeLabel);
-            await jobSearchPage.SelectFilter(FilterLabelsModel.RemoteTypeLabel, Homedata.CheckedListBoxRemote);
+                ///Classificar por
+                await AddMessageToRichTextbox(FilterLabelsModel.ClassifyByLabel);
+                await jobSearchPage.SelectFilter(filterData.ClassifyBy);
+                ///Data do anúncio
+                await AddMessageToRichTextbox(FilterLabelsModel.AnnouncimentDateLabel);
+                await jobSearchPage.SelectFilter(filterData.AnnoucementDate);
+                ///Nível de experiência
+                await AddMessageToRichTextbox(FilterLabelsModel.ExperienceLevelLabel);
+                await jobSearchPage.SelectFilter(FilterLabelsModel.ExperienceLevelLabel, filterData.CheckedListBoxExperiences);
+                ///Tipo de vaga
+                await AddMessageToRichTextbox(FilterLabelsModel.JobTypeLabel);
+                await jobSearchPage.SelectFilter(FilterLabelsModel.JobTypeLabel, filterData.CheckedListBoxType_job);
+                ///Remoto
+                await AddMessageToRichTextbox(FilterLabelsModel.RemoteTypeLabel);
+                await jobSearchPage.SelectFilter(FilterLabelsModel.RemoteTypeLabel, filterData.CheckedListBoxRemote);
 
-            ///Apply All filters
-            await jobSearchPage.ApplyFilter();
+                ///Apply All filters
+                await jobSearchPage.ApplyFilter();
+
+            }
+            else
+            {
+                await AddMessageToRichTextbox("Não há filtros para serem aplicados!\n");
+            }
             await Task.Delay(TimeSpan.FromSeconds(3));
             #endregion
 
@@ -180,7 +169,7 @@ namespace forms.Presenters
 
             //HABILITAR O BOTÃO SAIR
             //var a = (Int32)_homeView.AmountJobs;
-            while (appliedJobs != 0)
+            while (appliedJobs != Int32.Parse(_homeView.AmountJobs))
             {
                 try
                 {
