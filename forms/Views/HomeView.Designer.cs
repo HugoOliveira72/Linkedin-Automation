@@ -265,6 +265,7 @@
             // 
             stopButton.BackColor = Color.Transparent;
             stopButton.BackgroundImageLayout = ImageLayout.Stretch;
+            stopButton.Enabled = false;
             stopButton.FlatStyle = FlatStyle.Flat;
             stopButton.Font = new Font("Segoe UI", 12F);
             stopButton.Location = new Point(121, 100);
@@ -373,7 +374,7 @@
             job_label.TabIndex = 0;
             job_label.Text = "Cargo ou competência:";
             // 
-            // txt_Boxjob
+            // txtBox_job
             // 
             txtBox_job.Location = new Point(24, 40);
             txtBox_job.Name = "txtBox_job";

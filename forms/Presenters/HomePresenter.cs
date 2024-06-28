@@ -168,7 +168,9 @@ namespace forms.Presenters
             #endregion
 
             //HABILITAR O BOTÃO SAIR
-            //var a = (Int32)_homeView.AmountJobs;
+            _homeView.ButtonEnabled = true;
+
+            //APLICAÇÃO DE VAGAS
             while (appliedJobs != Int32.Parse(_homeView.AmountJobs))
             {
                 try

@@ -10,15 +10,17 @@ using forms.Views.Interfaces;
 using forms.Views.Interfaces.Control;
 using forms.Views.UserControls;
 using Krypton.Toolkit;
+using System.Threading;
 
 namespace forms
 {
     public partial class HomeView : Form, IHomeView
     {
-        public ConfigurationModel screenConfiguration;
-        public IDataService<dynamic> _dataService;
+        private ConfigurationModel screenConfiguration;
+        private IDataService<dynamic> _dataService;
         private IFilterControlView filterControlView;
         private ErrorProvider errorProvider = new ErrorProvider();
+        private CancellationTokenSource cancellationToken = new CancellationTokenSource();
 
         //Attributes
         public string Job
@@ -51,6 +53,12 @@ namespace forms
         {
             get { return richtxtBox.Text; }
             set { richtxtBox.Text = value; }
+        }
+
+        public bool ButtonEnabled
+        {
+            get { return stopButton.Enabled; }
+            set { stopButton.Enabled = value; }
         }
 
         //Events
@@ -131,7 +139,8 @@ namespace forms
 
         private void stopButton_Click(object sender, EventArgs e)
         {
-            StoreFilters?.Invoke(this, EventArgs.Empty);
+            cancellationToken.Cancel();
+            this.Close();
         }
 
         //public async void AutomationView_Shown(object sender, EventArgs e)
