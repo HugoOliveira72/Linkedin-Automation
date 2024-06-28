@@ -32,7 +32,7 @@ namespace forms.Models.PageObjects.Sections
 
         public async Task<bool> CheckAddicionalQuestions()
         {
-            return new[] { "Revise sua candidatura", "Addicional", "Perguntas adicionais" }.Any(obj => _additionalQuestions!.ToString()!.Contains(obj));
+            return new[] { "Revise sua candidatura", "Addicional", "Perguntas adicionais", "Additional Questions", "Additional" }.Any(obj => _additionalQuestions!.ToString()!.Contains(obj));
         }
 
         public async Task SendJobApplicationAndClosePage(double securityTime = 0.5)
