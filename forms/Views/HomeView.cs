@@ -1,5 +1,4 @@
 ﻿using forms.Model;
-using forms.Models.Filters;
 using forms.Models.Interfaces;
 using forms.Presenters;
 using forms.Presenters.Controls;
@@ -10,7 +9,6 @@ using forms.Views.Interfaces;
 using forms.Views.Interfaces.Control;
 using forms.Views.UserControls;
 using Krypton.Toolkit;
-using System.Threading;
 
 namespace forms
 {
@@ -33,11 +31,10 @@ namespace forms
             get { return amount_jobs.Text; }
             set { amount_jobs.Text = value; }
         }
-
         public string? CurrentJob
         {
-            get { return txtBox_job.Text; }
-            set { txtBox_job.Text = value; }
+            get { return txtBoxCurrentJob.Text; }
+            set { txtBoxCurrentJob.Text = value; }
         }
         public int AmountOfAppliedJobs
         {
@@ -54,7 +51,6 @@ namespace forms
             get { return richtxtBox.Text; }
             set { richtxtBox.Text = value; }
         }
-
         public bool ButtonEnabled
         {
             get { return stopButton.Enabled; }
@@ -134,6 +130,9 @@ namespace forms
 
         private void startButton_Click(object sender, EventArgs e)
         {
+            txtBox_saved_jobs.Text = "0";
+            txtBox_applied_Jobs.Text = $"0/{amount_jobs.Text}";
+            txtBoxCurrentJob.Text = txtBox_job.Text;
             StartAutomation?.Invoke(this, EventArgs.Empty);
         }
 
@@ -142,18 +141,5 @@ namespace forms
             cancellationToken.Cancel();
             this.Close();
         }
-
-        //public async void AutomationView_Shown(object sender, EventArgs e)
-        //{
-        //    MessageBox.Show("Tela carregada", "Aviso", MessageBoxButtons.OK);
-
-        //    FilterFieldsModel HomeData = _dataService.GetData();
-        //    txtBox_saved_jobs.Text = "0";
-        //    txtBox_applied_Jobs.Text = $"0/{HomeData.AmountOfJobs}";
-        //    txtBox_job.Text = HomeData.TxtboxJob;
-
-        //    StartAutomation?.Invoke(this, EventArgs.Empty);
-        //}
-
     }
 }

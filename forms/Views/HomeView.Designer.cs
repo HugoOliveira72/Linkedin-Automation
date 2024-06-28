@@ -54,6 +54,7 @@
             job_label = new Label();
             txtBox_job = new Krypton.Toolkit.KryptonTextBox();
             amount_jobs = new Krypton.Toolkit.KryptonTextBox();
+            txtBoxCurrentJob = new Krypton.Toolkit.KryptonTextBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxStop).BeginInit();
@@ -390,12 +391,20 @@
             amount_jobs.TabIndex = 38;
             amount_jobs.Validating += Amount_jobs_Validating;
             // 
+            // txtBoxCurrentJob
+            // 
+            txtBoxCurrentJob.Location = new Point(1005, 264);
+            txtBoxCurrentJob.Name = "txtBoxCurrentJob";
+            txtBoxCurrentJob.Size = new Size(200, 23);
+            txtBoxCurrentJob.TabIndex = 39;
+            // 
             // HomeView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImageLayout = ImageLayout.Center;
             ClientSize = new Size(1274, 767);
+            Controls.Add(txtBoxCurrentJob);
             Controls.Add(groupBox_job);
             Controls.Add(richtxtBox);
             Controls.Add(txtBox_saved_jobs);
@@ -457,5 +466,6 @@
         private Label job_label;
         private Krypton.Toolkit.KryptonTextBox txtBox_job;
         private Krypton.Toolkit.KryptonTextBox amount_jobs;
+        private Krypton.Toolkit.KryptonTextBox txtBoxCurrentJob;
     }
 }
