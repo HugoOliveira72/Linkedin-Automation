@@ -58,19 +58,21 @@
             // 
             // comboBox_resolution
             // 
-            comboBox_resolution.AutoCompleteCustomSource.AddRange(new string[] { "1920x1080", "1366x768", "1280x720", "640x470" });
+            comboBox_resolution.AutoCompleteCustomSource.AddRange(new string[] { "1920x1080", "1366x768", "1280x720" });
             comboBox_resolution.AutoCompleteMode = AutoCompleteMode.Suggest;
             comboBox_resolution.AutoCompleteSource = AutoCompleteSource.ListItems;
             comboBox_resolution.CueHint.Color1 = Color.Gray;
             comboBox_resolution.DropBackStyle = Krypton.Toolkit.PaletteBackStyle.ButtonListItem;
             comboBox_resolution.DropDownWidth = 142;
             comboBox_resolution.IntegralHeight = false;
-            comboBox_resolution.Items.AddRange(new object[] { "1920x1080", "1366x768", "1280x720", "640x470" });
-            comboBox_resolution.ItemStyle = Krypton.Toolkit.ButtonStyle.Custom1;
+            comboBox_resolution.Items.AddRange(new object[] { "1920x1080", "1366x768", "1280x720" });
+            comboBox_resolution.ItemStyle = Krypton.Toolkit.ButtonStyle.LowProfile;
             comboBox_resolution.Location = new Point(211, 40);
             comboBox_resolution.Name = "comboBox_resolution";
-            comboBox_resolution.Size = new Size(142, 21);
+            comboBox_resolution.Size = new Size(144, 25);
             comboBox_resolution.StateCommon.ComboBox.Back.Color1 = Color.White;
+            comboBox_resolution.StateCommon.ComboBox.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            comboBox_resolution.StateCommon.ComboBox.Border.Rounding = 5F;
             comboBox_resolution.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
             comboBox_resolution.StateCommon.DropBack.Color1 = Color.DodgerBlue;
             comboBox_resolution.StateCommon.DropBack.Color2 = Color.DodgerBlue;
@@ -85,13 +87,12 @@
             comboBox_resolution.StateTracking.Item.Border.Color1 = Color.FromArgb(200, 221, 238);
             comboBox_resolution.StateTracking.Item.Border.Color2 = Color.FromArgb(200, 221, 238);
             comboBox_resolution.StateTracking.Item.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            comboBox_resolution.TabIndex = 39;
             comboBox_resolution.SelectedIndexChanged += comboBox_resolution_SelectedIndexChanged;
-            comboBox_resolution.TabIndex = 10;
-
             // 
             // comboBox_resolution_type
             // 
-            comboBox_resolution_type.AutoCompleteCustomSource.AddRange(new string[] { "1920x1080", "1366x768", "1280x720", "640x470" });
+            comboBox_resolution_type.AutoCompleteCustomSource.AddRange(new string[] { "Tela cheia", "Janela" });
             comboBox_resolution_type.AutoCompleteMode = AutoCompleteMode.Suggest;
             comboBox_resolution_type.AutoCompleteSource = AutoCompleteSource.ListItems;
             comboBox_resolution_type.CueHint.Color1 = Color.Gray;
@@ -99,11 +100,13 @@
             comboBox_resolution_type.DropDownWidth = 142;
             comboBox_resolution_type.IntegralHeight = false;
             comboBox_resolution_type.Items.AddRange(new object[] { "Tela cheia", "Janela" });
-            comboBox_resolution_type.ItemStyle = Krypton.Toolkit.ButtonStyle.NavigatorStack;
+            comboBox_resolution_type.ItemStyle = Krypton.Toolkit.ButtonStyle.LowProfile;
             comboBox_resolution_type.Location = new Point(36, 40);
             comboBox_resolution_type.Name = "comboBox_resolution_type";
-            comboBox_resolution_type.Size = new Size(142, 21);
+            comboBox_resolution_type.Size = new Size(144, 25);
             comboBox_resolution_type.StateCommon.ComboBox.Back.Color1 = Color.White;
+            comboBox_resolution_type.StateCommon.ComboBox.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            comboBox_resolution_type.StateCommon.ComboBox.Border.Rounding = 5F;
             comboBox_resolution_type.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
             comboBox_resolution_type.StateCommon.DropBack.Color1 = Color.DodgerBlue;
             comboBox_resolution_type.StateCommon.DropBack.Color2 = Color.DodgerBlue;
@@ -118,8 +121,8 @@
             comboBox_resolution_type.StateTracking.Item.Border.Color1 = Color.FromArgb(200, 221, 238);
             comboBox_resolution_type.StateTracking.Item.Border.Color2 = Color.FromArgb(200, 221, 238);
             comboBox_resolution_type.StateTracking.Item.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            comboBox_resolution_type.TabIndex = 39;
             comboBox_resolution_type.SelectedIndexChanged += comboBox_resolution_type_SelectedIndexChanged;
-            comboBox_resolution_type.TabIndex = 11;
             // 
             // groupBoxConfig
             // 
@@ -134,12 +137,12 @@
             groupBoxConfig.TabStop = false;
             groupBoxConfig.Text = "Resolução do navegador";
             // 
-            // ConfigControl
+            // ConfigControlView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(groupBoxConfig);
-            Name = "ConfigControl";
+            Name = "ConfigControlView";
             Size = new Size(1162, 86);
             ((System.ComponentModel.ISupportInitialize)comboBox_resolution).EndInit();
             ((System.ComponentModel.ISupportInitialize)comboBox_resolution_type).EndInit();

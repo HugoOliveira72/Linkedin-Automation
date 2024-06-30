@@ -208,7 +208,7 @@
             // 
             // comboBox_choose_by
             // 
-            comboBox_choose_by.AutoCompleteCustomSource.AddRange(new string[] { "1920x1080", "1366x768", "1280x720", "640x470" });
+            comboBox_choose_by.AutoCompleteCustomSource.AddRange(new string[] { "Mais recentes", "Mais relevantes"});
             comboBox_choose_by.AutoCompleteMode = AutoCompleteMode.Suggest;
             comboBox_choose_by.AutoCompleteSource = AutoCompleteSource.ListItems;
             comboBox_choose_by.CueHint.Color1 = Color.Red;
