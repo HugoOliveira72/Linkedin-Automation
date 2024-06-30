@@ -22,6 +22,7 @@ namespace forms.Presenters
         private ILogRepository _logRepository;
         private OutputStringPatterns stringPatterns = new();
         private PlaywrightUtilities playwrightUtilities = new();
+        public CancellationTokenSource cancellationToken = new();
 
         public HomePresenter(
             IHomeView homeView,
@@ -34,14 +35,21 @@ namespace forms.Presenters
             _dataService = dataService;
             _logService = logService;
             _homeView.StartAutomation += StartAutomation;
+            _homeView.StopAutomation += StopAutomation;
             _loginRepository = loginRepository;
             _logRepository = logRepository;
         }
 
         private async void StartAutomation(object sender, EventArgs e)
         {
-            CancellationTokenSource cancellationToken = new();
+            ///Desativar botão play
+            _homeView.ButtonPlayEnabled = false;
             await Script(cancellationToken.Token);
+        }
+
+        private void StopAutomation(object sender, EventArgs e)
+        {
+            cancellationToken.Cancel();
         }
 
         //Automation Method
@@ -168,15 +176,21 @@ namespace forms.Presenters
             #endregion
 
             //HABILITAR O BOTÃO SAIR
-            _homeView.ButtonEnabled = true;
+            _homeView.ButtonStopEnabled = true;
 
             //APLICAÇÃO DE VAGAS
             while (appliedJobs != Int32.Parse(_homeView.AmountJobs))
             {
                 try
                 {
-                    if (token.IsCancellationRequested) break;
-
+                    if (token.IsCancellationRequested)
+                    {
+                        ///Fechar o navegador
+                        await settings.BrowserContext.CloseAsync();
+                        ///Ativar o botão play
+                        _homeView.ButtonPlayEnabled = true;
+                        break;
+                    }
                     jobsCounter++;
 
                     //JOB LIST SECTION
@@ -235,7 +249,7 @@ namespace forms.Presenters
                             else
                             {
                                 await jobDetailsSection._saveButton!.ClickAsync();
-                                savedJobs++;
+                                savedJobs = SetAndCountSavedJobs(savedJobs);
                                 await ShowSavedJobsMessage(jobsCounter, savedJobs);
                             }
                         }
@@ -263,8 +277,7 @@ namespace forms.Presenters
                         await popupWindowSection.SendJobApplicationAndClosePage();
 
                         /// EXIBE NA TELA INFORMAÇÕES DA CANDIDATURA
-                        appliedJobs++;
-                        await ShowAppliedJobsMessage(jobsCounter, appliedJobs);
+                        appliedJobs = await SetAndCountAppliedJobsAndShow(appliedJobs, jobsCounter);
                         continue;
                     }
                     else // QUANDO BOTÃO AVANÇAR EXISTE!
@@ -312,15 +325,14 @@ namespace forms.Presenters
                         // ENVIAR CANDIDATURA, SEM PERGUNTAS
                         await popupWindowSection.SendJobApplicationAndClosePage();
 
-                        appliedJobs++;
-                        await ShowAppliedJobsMessage(jobsCounter, appliedJobs);
+                        appliedJobs = await SetAndCountAppliedJobsAndShow(appliedJobs, jobsCounter);
                         await AddMessageToRichTextbox(stringPatterns.ShowFinalResult(appliedJobs, savedJobs));
                         continue;
                     }
                     else if (popupWindowSection._additionalQuestions != null) // QUANDO HÁ PERGUNTAS
                     {
                         await popupWindowSection.SaveJobClosePage();
-                        savedJobs++;
+                        savedJobs = SetAndCountSavedJobs(savedJobs);
                         await Task.Delay(TimeSpan.FromSeconds(0.8));
                         await AddMessageToRichTextbox($"Salva a vaga nº{jobsCounter}");
                         await Task.Delay(TimeSpan.FromSeconds(0.8));
@@ -360,5 +372,20 @@ namespace forms.Presenters
             await Task.Delay(TimeSpan.FromSeconds(0.1));
         }
 
+        //LOGIC
+        private async Task<int> SetAndCountAppliedJobsAndShow(int amountOfAppliedJobs, int counterOfJobs)
+        {
+            amountOfAppliedJobs++;
+            _homeView.AmountOfAppliedJobs = amountOfAppliedJobs;
+            await ShowAppliedJobsMessage(counterOfJobs, amountOfAppliedJobs);
+            return amountOfAppliedJobs;
+        }
+
+        private int SetAndCountSavedJobs(int amountOfsavedJobs)
+        {
+            amountOfsavedJobs++;
+            _homeView.AmountOfSavedJobs = amountOfsavedJobs;
+            return amountOfsavedJobs;
+        }
     }
 }

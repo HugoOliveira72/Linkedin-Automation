@@ -1541,3 +1541,138 @@ Call log:
    at forms.Models.PageObjects.Sections.FilterSection.SelectFilter(String labelName, List`1 checkedListBoxItems, Double securityTime) in C:\Users\Hugo\Documents\Repositorios-programação\linkedin-automation\forms\Models\PageObjects\Sections\FilterSection.cs:line 69
 
 =============================	 28/06/2024 09:42:32
+
+=============================	 28/06/2024 09:52:24
+
+=============================	 28/06/2024 09:59:05
+
+=============================	 28/06/2024 10:02:06
+
+=============================	 28/06/2024 10:15:08
+Erro na verificação de segurança: Microsoft.Playwright.TargetClosedException: Target page, context or browser has been closed
+Call log:
+  - waiting for Locator("#global-nav-typeahead") to be visible
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+  -   locator resolved to hidden <div id="global-nav-typeahead" class="search-global-t…>…</div>
+   at Microsoft.Playwright.Transport.Connection.InnerSendMessageToServerAsync[T](ChannelOwner object, String method, Dictionary`2 dictionary, Boolean keepNulls) in /_/src/Playwright/Transport/Connection.cs:line 206
+   at Microsoft.Playwright.Transport.Connection.WrapApiCallAsync[T](Func`1 action, Boolean isInternal) in /_/src/Playwright/Transport/Connection.cs:line 532
+   at Microsoft.Playwright.Core.Frame.WaitForSelectorAsync(String selector, FrameWaitForSelectorOptions options) in /_/src/Playwright/Core/Frame.cs:line 665
+   at forms.Utilities.PlaywrightUtilities.WaitForElementAndHandleExceptionAsync(IPage page, String selector, String successMessage, String errorMessage, Int32 timeout, Boolean showMessageBox) in C:\Users\Hugo\Documents\Repositorios-programação\linkedin-automation\forms\Utilities\PlaywrightUtilities.cs:line 16
+
+=============================	 28/06/2024 10:17:40
+
+=============================	 28/06/2024 10:20:11
+
+=============================	 28/06/2024 10:25:10
+
+=============================	 28/06/2024 11:08:22
+
+=============================	 28/06/2024 12:57:20
