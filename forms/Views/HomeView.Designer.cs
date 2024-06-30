@@ -65,9 +65,9 @@
             // 
             // panelContainer
             // 
-            panelContainer.Location = new Point(473, 79);
+            panelContainer.Location = new Point(379, 87);
             panelContainer.Name = "panelContainer";
-            panelContainer.Size = new Size(800, 150);
+            panelContainer.Size = new Size(894, 150);
             panelContainer.TabIndex = 36;
             // 
             // kryptonButtonHome
@@ -202,7 +202,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(1005, 375);
+            label4.Location = new Point(985, 380);
             label4.Name = "label4";
             label4.Size = new Size(71, 15);
             label4.TabIndex = 57;
@@ -211,7 +211,7 @@
             // number_applied_jobs
             // 
             number_applied_jobs.AutoSize = true;
-            number_applied_jobs.Location = new Point(1005, 307);
+            number_applied_jobs.Location = new Point(985, 312);
             number_applied_jobs.Name = "number_applied_jobs";
             number_applied_jobs.Size = new Size(89, 15);
             number_applied_jobs.TabIndex = 55;
@@ -220,35 +220,39 @@
             // job_applied
             // 
             job_applied.AutoSize = true;
-            job_applied.Location = new Point(1005, 246);
+            job_applied.Location = new Point(985, 251);
             job_applied.Name = "job_applied";
-            job_applied.Size = new Size(35, 15);
+            job_applied.Size = new Size(39, 15);
             job_applied.TabIndex = 53;
-            job_applied.Text = "Vaga:";
+            job_applied.Text = "Cargo";
             // 
             // info_label
             // 
             info_label.AutoSize = true;
             info_label.Location = new Point(12, 237);
             info_label.Name = "info_label";
-            info_label.Size = new Size(28, 15);
+            info_label.Size = new Size(50, 15);
             info_label.TabIndex = 52;
-            info_label.Text = "Info";
+            info_label.Text = "Console";
             // 
             // txtBox_applied_Jobs
             // 
-            txtBox_applied_Jobs.Location = new Point(1005, 325);
+            txtBox_applied_Jobs.Location = new Point(985, 330);
             txtBox_applied_Jobs.Name = "txtBox_applied_Jobs";
             txtBox_applied_Jobs.ReadOnly = true;
-            txtBox_applied_Jobs.Size = new Size(89, 23);
+            txtBox_applied_Jobs.Size = new Size(71, 27);
+            txtBox_applied_Jobs.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            txtBox_applied_Jobs.StateCommon.Border.Rounding = 5F;
             txtBox_applied_Jobs.TabIndex = 67;
             // 
             // txtBox_saved_jobs
             // 
-            txtBox_saved_jobs.Location = new Point(1005, 393);
+            txtBox_saved_jobs.Location = new Point(985, 398);
             txtBox_saved_jobs.Name = "txtBox_saved_jobs";
             txtBox_saved_jobs.ReadOnly = true;
-            txtBox_saved_jobs.Size = new Size(89, 23);
+            txtBox_saved_jobs.Size = new Size(71, 27);
+            txtBox_saved_jobs.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            txtBox_saved_jobs.StateCommon.Border.Rounding = 5F;
             txtBox_saved_jobs.TabIndex = 68;
             // 
             // richtxtBox
@@ -256,6 +260,7 @@
             richtxtBox.HideSelection = false;
             richtxtBox.Location = new Point(12, 264);
             richtxtBox.Name = "richtxtBox";
+            richtxtBox.ReadOnly = true;
             richtxtBox.Size = new Size(946, 491);
             richtxtBox.TabIndex = 70;
             richtxtBox.Text = "";
@@ -266,9 +271,9 @@
             groupBox_job.Controls.Add(job_label);
             groupBox_job.Controls.Add(txtBox_job);
             groupBox_job.Controls.Add(amount_jobs);
-            groupBox_job.Location = new Point(222, 78);
+            groupBox_job.Location = new Point(128, 79);
             groupBox_job.Name = "groupBox_job";
-            groupBox_job.Size = new Size(245, 151);
+            groupBox_job.Size = new Size(245, 158);
             groupBox_job.TabIndex = 71;
             groupBox_job.TabStop = false;
             groupBox_job.Text = "Vaga";
@@ -276,7 +281,7 @@
             // amout_jobs_label
             // 
             amout_jobs_label.AutoSize = true;
-            amout_jobs_label.Location = new Point(24, 74);
+            amout_jobs_label.Location = new Point(24, 82);
             amout_jobs_label.Name = "amout_jobs_label";
             amout_jobs_label.Size = new Size(73, 15);
             amout_jobs_label.TabIndex = 11;
@@ -295,37 +300,43 @@
             // 
             txtBox_job.Location = new Point(24, 40);
             txtBox_job.Name = "txtBox_job";
-            txtBox_job.Size = new Size(200, 23);
+            txtBox_job.Size = new Size(200, 27);
+            txtBox_job.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            txtBox_job.StateCommon.Border.Rounding = 5F;
             txtBox_job.TabIndex = 12;
             txtBox_job.Validating += TxtBox_job_Validating;
             // 
             // amount_jobs
             // 
-            amount_jobs.Location = new Point(24, 92);
+            amount_jobs.Location = new Point(24, 101);
             amount_jobs.Name = "amount_jobs";
-            amount_jobs.Size = new Size(44, 23);
+            amount_jobs.Size = new Size(44, 27);
+            amount_jobs.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            amount_jobs.StateCommon.Border.Rounding = 5F;
             amount_jobs.TabIndex = 38;
             amount_jobs.Validating += Amount_jobs_Validating;
             // 
             // txtBoxCurrentJob
             // 
-            txtBoxCurrentJob.Location = new Point(1005, 264);
+            txtBoxCurrentJob.Location = new Point(985, 269);
             txtBoxCurrentJob.Name = "txtBoxCurrentJob";
             txtBoxCurrentJob.ReadOnly = true;
-            txtBoxCurrentJob.Size = new Size(200, 23);
+            txtBoxCurrentJob.Size = new Size(217, 27);
+            txtBoxCurrentJob.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            txtBoxCurrentJob.StateCommon.Border.Rounding = 5F;
             txtBoxCurrentJob.TabIndex = 39;
             // 
             // playButton
             // 
             playButton.Cursor = Cursors.Hand;
-            playButton.Location = new Point(33, 118);
+            playButton.Location = new Point(20, 101);
             playButton.Name = "playButton";
-            playButton.Size = new Size(67, 58);
+            playButton.Size = new Size(80, 31);
             playButton.StateCommon.Back.Color1 = Color.FromArgb(35, 181, 125);
             playButton.StateCommon.Back.ColorStyle = Krypton.Toolkit.PaletteColorStyle.Solid;
             playButton.StateCommon.Back.Draw = Krypton.Toolkit.InheritBool.True;
             playButton.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            playButton.StateCommon.Border.Rounding = 10F;
+            playButton.StateCommon.Border.Rounding = 15F;
             playButton.StateCommon.Content.ShortText.Color1 = Color.Black;
             playButton.StateCommon.Content.ShortText.ColorStyle = Krypton.Toolkit.PaletteColorStyle.Solid;
             playButton.StateCommon.Content.ShortText.Font = new Font("Malgun Gothic", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -346,14 +357,14 @@
             // stopButton
             // 
             stopButton.Cursor = Cursors.Hand;
-            stopButton.Location = new Point(131, 118);
+            stopButton.Location = new Point(20, 159);
             stopButton.Name = "stopButton";
-            stopButton.Size = new Size(70, 60);
+            stopButton.Size = new Size(80, 31);
             stopButton.StateCommon.Back.Color1 = Color.FromArgb(208, 55, 52);
             stopButton.StateCommon.Back.ColorStyle = Krypton.Toolkit.PaletteColorStyle.Solid;
             stopButton.StateCommon.Back.Draw = Krypton.Toolkit.InheritBool.True;
             stopButton.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            stopButton.StateCommon.Border.Rounding = 10F;
+            stopButton.StateCommon.Border.Rounding = 15F;
             stopButton.StateCommon.Content.ShortText.Color1 = Color.Black;
             stopButton.StateCommon.Content.ShortText.ColorStyle = Krypton.Toolkit.PaletteColorStyle.Solid;
             stopButton.StateCommon.Content.ShortText.Font = new Font("Malgun Gothic", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
