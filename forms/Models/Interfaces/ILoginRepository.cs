@@ -4,7 +4,7 @@ namespace forms.Models.Interfaces
 {
     public interface ILoginRepository : IBaseRepository
     {
-        UserModel ConvertMsgpackFileToObject();
+        UserModel ReadAndConvertMsgpackFileToObject();
         string GetFilePath();
     }
 }

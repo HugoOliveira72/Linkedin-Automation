@@ -45,7 +45,7 @@ namespace forms.Presenters
                     }
 
                     //Carrega usuário do arquivo
-                    UserModel loadedUser = _loginRepository.ConvertMsgpackFileToObject();
+                    UserModel loadedUser = _loginRepository.ReadAndConvertMsgpackFileToObject();
                 }
             }
             catch (FileNotFoundException fileException)
@@ -60,7 +60,7 @@ namespace forms.Presenters
 
         private void OnUserFormLoaded(object sender, EventArgs e)
         {
-            UserModel user = _loginRepository.ConvertMsgpackFileToObject<UserModel>(filePath);
+            UserModel user = _loginRepository.ReadAndConvertMsgpackFileToObject();
 
             if (user.email != "" || user.password != "")
             {

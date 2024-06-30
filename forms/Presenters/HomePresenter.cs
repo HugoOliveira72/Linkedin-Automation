@@ -84,7 +84,7 @@ namespace forms.Presenters
 
             #region LoginPage
             /// LER DADOS DE USUARIO
-            UserModel userInfo = _loginRepository.ConvertMsgpackFileToObject();
+            UserModel userInfo = _loginRepository.ReadAndConvertMsgpackFileToObject();
 
             /// PREENCHIMENTO DAS CREEDENCIAIS
             await AddMessageToRichTextbox("Fazendo login..\n");

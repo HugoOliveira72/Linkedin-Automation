@@ -21,7 +21,7 @@ namespace forms.Repositories
             return File.ReadAllBytes(filepath);
         }
 
-        public T ConvertMsgpackFileToObject<T>(string filePath)
+        public T ReadAndConvertMessagepackFileToObject<T>(string filePath)
         {
             byte[] fileBytes = ReadMessagePackFile(filePath);
 

@@ -8,7 +8,7 @@ namespace forms.Models.Interfaces
 
         public void CreateMessagePackFile(string filepath);
         public byte[] ReadMessagePackFile(string filepath);
-        public T ConvertMsgpackFileToObject<T>(string filePath);
+        public T ReadAndConvertMessagepackFileToObject<T>(string filePath);
         public void UpdateMessagePackFile(string filepath, object obj);
         public void DeleteMessagePackFile();
         public void CreateTextFile(string filepath);

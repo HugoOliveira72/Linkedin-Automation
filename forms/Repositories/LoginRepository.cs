@@ -9,7 +9,7 @@ namespace forms.Repositories
     {
         private const string UserDirectoryXpath = "/config/userDirectoryPath";
 
-        public UserModel ConvertMsgpackFileToObject()
+        public UserModel ReadAndConvertMsgpackFileToObject()
         {
             byte[] fileBytes = ReadMessagePackFile(GetFilePath());
 
