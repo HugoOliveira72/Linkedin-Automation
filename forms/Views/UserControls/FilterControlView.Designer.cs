@@ -37,11 +37,11 @@
             checkedListBox_experience_level = new Krypton.Toolkit.KryptonCheckedListBox();
             location_label = new Label();
             experience_level_label = new Label();
-            comboBox_choose_by = new Krypton.Toolkit.KryptonComboBox();
+            comboBox_classify_by = new Krypton.Toolkit.KryptonComboBox();
             job_type_label = new Label();
             groupBox_filters.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)comboBox_annoucement_date).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)comboBox_choose_by).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)comboBox_classify_by).BeginInit();
             SuspendLayout();
             // 
             // groupBox_filters
@@ -54,11 +54,11 @@
             groupBox_filters.Controls.Add(checkedListBox_experience_level);
             groupBox_filters.Controls.Add(location_label);
             groupBox_filters.Controls.Add(experience_level_label);
-            groupBox_filters.Controls.Add(comboBox_choose_by);
+            groupBox_filters.Controls.Add(comboBox_classify_by);
             groupBox_filters.Controls.Add(job_type_label);
             groupBox_filters.Location = new Point(3, 3);
             groupBox_filters.Name = "groupBox_filters";
-            groupBox_filters.Size = new Size(761, 151);
+            groupBox_filters.Size = new Size(699, 151);
             groupBox_filters.TabIndex = 37;
             groupBox_filters.TabStop = false;
             groupBox_filters.Text = "Filtros";
@@ -66,9 +66,9 @@
             // checkedListBox_remote
             // 
             checkedListBox_remote.Items.AddRange(new object[] { "Remoto", "Híbrido", "Presencial" });
-            checkedListBox_remote.Location = new Point(538, 40);
+            checkedListBox_remote.Location = new Point(552, 40);
             checkedListBox_remote.Name = "checkedListBox_remote";
-            checkedListBox_remote.Size = new Size(182, 58);
+            checkedListBox_remote.Size = new Size(100, 63);
             checkedListBox_remote.StateCheckedNormal.Item.Back.Color1 = Color.FromArgb(104, 182, 246);
             checkedListBox_remote.StateCheckedNormal.Item.Back.Color2 = Color.FromArgb(104, 182, 246);
             checkedListBox_remote.StateCheckedNormal.Item.Back.ColorAngle = 25F;
@@ -80,6 +80,8 @@
             checkedListBox_remote.StateCheckedTracking.Item.Border.Color1 = Color.FromArgb(104, 182, 246);
             checkedListBox_remote.StateCheckedTracking.Item.Border.Color2 = Color.FromArgb(104, 182, 246);
             checkedListBox_remote.StateCheckedTracking.Item.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            checkedListBox_remote.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            checkedListBox_remote.StateCommon.Border.Rounding = 5F;
             checkedListBox_remote.StateTracking.Item.Back.Color1 = Color.FromArgb(187, 222, 251);
             checkedListBox_remote.StateTracking.Item.Back.Color2 = Color.FromArgb(200, 221, 238);
             checkedListBox_remote.StateTracking.Item.Border.Color1 = Color.FromArgb(200, 221, 238);
@@ -102,7 +104,7 @@
             checkedListBox_type_job.Items.AddRange(new object[] { "Tempo integral", "Meio período", "Contrato", "Temporário", "Voluntário", "Estágio", "Outro" });
             checkedListBox_type_job.Location = new Point(365, 40);
             checkedListBox_type_job.Name = "checkedListBox_type_job";
-            checkedListBox_type_job.Size = new Size(128, 96);
+            checkedListBox_type_job.Size = new Size(149, 96);
             checkedListBox_type_job.StateCheckedNormal.Item.Back.Color1 = Color.FromArgb(104, 182, 246);
             checkedListBox_type_job.StateCheckedNormal.Item.Back.Color2 = Color.FromArgb(104, 182, 246);
             checkedListBox_type_job.StateCheckedNormal.Item.Back.ColorAngle = 25F;
@@ -114,6 +116,8 @@
             checkedListBox_type_job.StateCheckedTracking.Item.Border.Color1 = Color.FromArgb(104, 182, 246);
             checkedListBox_type_job.StateCheckedTracking.Item.Border.Color2 = Color.FromArgb(104, 182, 246);
             checkedListBox_type_job.StateCheckedTracking.Item.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            checkedListBox_type_job.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            checkedListBox_type_job.StateCommon.Border.Rounding = 5F;
             checkedListBox_type_job.StateTracking.Item.Back.Color1 = Color.FromArgb(187, 222, 251);
             checkedListBox_type_job.StateTracking.Item.Back.Color2 = Color.FromArgb(200, 221, 238);
             checkedListBox_type_job.StateTracking.Item.Border.Color1 = Color.FromArgb(200, 221, 238);
@@ -144,8 +148,10 @@
             comboBox_annoucement_date.ItemStyle = Krypton.Toolkit.ButtonStyle.LowProfile;
             comboBox_annoucement_date.Location = new Point(26, 94);
             comboBox_annoucement_date.Name = "comboBox_annoucement_date";
-            comboBox_annoucement_date.Size = new Size(144, 21);
+            comboBox_annoucement_date.Size = new Size(144, 25);
             comboBox_annoucement_date.StateCommon.ComboBox.Back.Color1 = Color.White;
+            comboBox_annoucement_date.StateCommon.ComboBox.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            comboBox_annoucement_date.StateCommon.ComboBox.Border.Rounding = 5F;
             comboBox_annoucement_date.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
             comboBox_annoucement_date.StateCommon.DropBack.Color1 = Color.DodgerBlue;
             comboBox_annoucement_date.StateCommon.DropBack.Color2 = Color.DodgerBlue;
@@ -180,6 +186,8 @@
             checkedListBox_experience_level.StateCheckedTracking.Item.Border.Color1 = Color.FromArgb(104, 182, 246);
             checkedListBox_experience_level.StateCheckedTracking.Item.Border.Color2 = Color.FromArgb(104, 182, 246);
             checkedListBox_experience_level.StateCheckedTracking.Item.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            checkedListBox_experience_level.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            checkedListBox_experience_level.StateCommon.Border.Rounding = 5F;
             checkedListBox_experience_level.StateTracking.Item.Back.Color1 = Color.FromArgb(187, 222, 251);
             checkedListBox_experience_level.StateTracking.Item.Back.Color2 = Color.FromArgb(200, 221, 238);
             checkedListBox_experience_level.StateTracking.Item.Border.Color1 = Color.FromArgb(200, 221, 238);
@@ -191,7 +199,7 @@
             // location_label
             // 
             location_label.AutoSize = true;
-            location_label.Location = new Point(538, 22);
+            location_label.Location = new Point(552, 22);
             location_label.Name = "location_label";
             location_label.Size = new Size(52, 15);
             location_label.TabIndex = 25;
@@ -206,37 +214,39 @@
             experience_level_label.TabIndex = 19;
             experience_level_label.Text = "Nível de experiência";
             // 
-            // comboBox_choose_by
+            // comboBox_classify_by
             // 
-            comboBox_choose_by.AutoCompleteCustomSource.AddRange(new string[] { "Mais recentes", "Mais relevantes"});
-            comboBox_choose_by.AutoCompleteMode = AutoCompleteMode.Suggest;
-            comboBox_choose_by.AutoCompleteSource = AutoCompleteSource.ListItems;
-            comboBox_choose_by.CueHint.Color1 = Color.Red;
-            comboBox_choose_by.DropBackStyle = Krypton.Toolkit.PaletteBackStyle.ButtonListItem;
-            comboBox_choose_by.DropDownWidth = 142;
-            comboBox_choose_by.IntegralHeight = false;
-            comboBox_choose_by.Items.AddRange(new object[] { "Mais recentes", "Mais relevantes" });
-            comboBox_choose_by.ItemStyle = Krypton.Toolkit.ButtonStyle.LowProfile;
-            comboBox_choose_by.Location = new Point(26, 40);
-            comboBox_choose_by.Name = "comboBox_choose_by";
-            comboBox_choose_by.Size = new Size(144, 21);
-            comboBox_choose_by.StateCommon.ComboBox.Back.Color1 = Color.White;
-            comboBox_choose_by.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
-            comboBox_choose_by.StateCommon.DropBack.Color1 = Color.DodgerBlue;
-            comboBox_choose_by.StateCommon.DropBack.Color2 = Color.DodgerBlue;
-            comboBox_choose_by.StateCommon.Item.Back.Color1 = Color.White;
-            comboBox_choose_by.StateNormal.ComboBox.Back.Color1 = Color.FromArgb(255, 128, 0);
-            comboBox_choose_by.StateNormal.ComboBox.Content.Color1 = Color.FromArgb(255, 192, 255);
-            comboBox_choose_by.StateNormal.Item.Back.Color1 = SystemColors.ControlLightLight;
-            comboBox_choose_by.StateNormal.Item.Back.Color2 = SystemColors.ControlLightLight;
-            comboBox_choose_by.StateNormal.Item.Back.Draw = Krypton.Toolkit.InheritBool.True;
-            comboBox_choose_by.StateTracking.Item.Back.Color1 = Color.FromArgb(200, 221, 238);
-            comboBox_choose_by.StateTracking.Item.Back.Color2 = Color.FromArgb(187, 222, 251);
-            comboBox_choose_by.StateTracking.Item.Border.Color1 = Color.FromArgb(200, 221, 238);
-            comboBox_choose_by.StateTracking.Item.Border.Color2 = Color.FromArgb(200, 221, 238);
-            comboBox_choose_by.StateTracking.Item.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            comboBox_choose_by.TabIndex = 39;
-            comboBox_choose_by.SelectedIndexChanged += ComboBox_choose_by_SelectedIndexChanged;
+            comboBox_classify_by.AutoCompleteCustomSource.AddRange(new string[] { "Mais recentes", "Mais relevantes" });
+            comboBox_classify_by.AutoCompleteMode = AutoCompleteMode.Suggest;
+            comboBox_classify_by.AutoCompleteSource = AutoCompleteSource.ListItems;
+            comboBox_classify_by.CueHint.Color1 = Color.Red;
+            comboBox_classify_by.DropBackStyle = Krypton.Toolkit.PaletteBackStyle.ButtonListItem;
+            comboBox_classify_by.DropDownWidth = 142;
+            comboBox_classify_by.IntegralHeight = false;
+            comboBox_classify_by.Items.AddRange(new object[] { "Mais recentes", "Mais relevantes" });
+            comboBox_classify_by.ItemStyle = Krypton.Toolkit.ButtonStyle.LowProfile;
+            comboBox_classify_by.Location = new Point(26, 40);
+            comboBox_classify_by.Name = "comboBox_classify_by";
+            comboBox_classify_by.Size = new Size(144, 25);
+            comboBox_classify_by.StateCommon.ComboBox.Back.Color1 = Color.White;
+            comboBox_classify_by.StateCommon.ComboBox.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            comboBox_classify_by.StateCommon.ComboBox.Border.Rounding = 5F;
+            comboBox_classify_by.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
+            comboBox_classify_by.StateCommon.DropBack.Color1 = Color.DodgerBlue;
+            comboBox_classify_by.StateCommon.DropBack.Color2 = Color.DodgerBlue;
+            comboBox_classify_by.StateCommon.Item.Back.Color1 = Color.White;
+            comboBox_classify_by.StateNormal.ComboBox.Back.Color1 = Color.FromArgb(255, 128, 0);
+            comboBox_classify_by.StateNormal.ComboBox.Content.Color1 = Color.FromArgb(255, 192, 255);
+            comboBox_classify_by.StateNormal.Item.Back.Color1 = SystemColors.ControlLightLight;
+            comboBox_classify_by.StateNormal.Item.Back.Color2 = SystemColors.ControlLightLight;
+            comboBox_classify_by.StateNormal.Item.Back.Draw = Krypton.Toolkit.InheritBool.True;
+            comboBox_classify_by.StateTracking.Item.Back.Color1 = Color.FromArgb(200, 221, 238);
+            comboBox_classify_by.StateTracking.Item.Back.Color2 = Color.FromArgb(187, 222, 251);
+            comboBox_classify_by.StateTracking.Item.Border.Color1 = Color.FromArgb(200, 221, 238);
+            comboBox_classify_by.StateTracking.Item.Border.Color2 = Color.FromArgb(200, 221, 238);
+            comboBox_classify_by.StateTracking.Item.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            comboBox_classify_by.TabIndex = 40;
+            comboBox_classify_by.SelectedIndexChanged += ComboBox_choose_by_SelectedIndexChanged;
             // 
             // job_type_label
             // 
@@ -257,7 +267,7 @@
             groupBox_filters.ResumeLayout(false);
             groupBox_filters.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)comboBox_annoucement_date).EndInit();
-            ((System.ComponentModel.ISupportInitialize)comboBox_choose_by).EndInit();
+            ((System.ComponentModel.ISupportInitialize)comboBox_classify_by).EndInit();
             ResumeLayout(false);
         }
 
@@ -269,7 +279,7 @@
         private Label location_label;
         private Label experience_level_label;
         private Label job_type_label;
-        private Krypton.Toolkit.KryptonComboBox comboBox_choose_by;
+        private Krypton.Toolkit.KryptonComboBox comboBox_classify_by;
         private Krypton.Toolkit.KryptonComboBox comboBox_annoucement_date;
         private Krypton.Toolkit.KryptonCheckedListBox checkedListBox_experience_level;
         private Krypton.Toolkit.KryptonCheckedListBox checkedListBox_type_job;

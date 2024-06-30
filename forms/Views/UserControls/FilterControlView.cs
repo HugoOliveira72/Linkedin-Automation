@@ -14,8 +14,8 @@ namespace forms.Views
 
         public string ComboBoxClassifyBy
         {
-            get { return comboBox_choose_by.Text; }
-            set { comboBox_choose_by.Text = value; }
+            get { return comboBox_classify_by.Text; }
+            set { comboBox_classify_by.Text = value; }
         }
         public string comboBoxAnnoucementDate
         {
