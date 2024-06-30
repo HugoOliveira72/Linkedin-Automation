@@ -333,11 +333,13 @@
             txtBox_saved_jobs.Enabled = false;
             txtBox_saved_jobs.Location = new Point(1005, 393);
             txtBox_saved_jobs.Name = "txtBox_saved_jobs";
+            txtBox_saved_jobs.ReadOnly = true;
             txtBox_saved_jobs.Size = new Size(89, 23);
             txtBox_saved_jobs.TabIndex = 68;
             // 
             // richtxtBox
             // 
+            richtxtBox.HideSelection = false;
             richtxtBox.Location = new Point(12, 264);
             richtxtBox.Name = "richtxtBox";
             richtxtBox.Size = new Size(946, 491);
@@ -395,8 +397,63 @@
             // 
             txtBoxCurrentJob.Location = new Point(1005, 264);
             txtBoxCurrentJob.Name = "txtBoxCurrentJob";
+            txtBoxCurrentJob.ReadOnly = true;
             txtBoxCurrentJob.Size = new Size(200, 23);
             txtBoxCurrentJob.TabIndex = 39;
+            // 
+            // playButton
+            // 
+            playButton.Cursor = Cursors.Hand;
+            playButton.Location = new Point(33, 118);
+            playButton.Name = "playButton";
+            playButton.Size = new Size(67, 58);
+            playButton.StateCommon.Back.Color1 = Color.FromArgb(35, 181, 125);
+            playButton.StateCommon.Back.ColorStyle = Krypton.Toolkit.PaletteColorStyle.Solid;
+            playButton.StateCommon.Back.Draw = Krypton.Toolkit.InheritBool.True;
+            playButton.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            playButton.StateCommon.Border.Rounding = 10F;
+            playButton.StateCommon.Content.ShortText.Color1 = Color.Black;
+            playButton.StateCommon.Content.ShortText.ColorStyle = Krypton.Toolkit.PaletteColorStyle.Solid;
+            playButton.StateCommon.Content.ShortText.Font = new Font("Malgun Gothic", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            playButton.StateTracking.Back.Color1 = Color.FromArgb(38, 198, 138);
+            playButton.StateTracking.Back.Color2 = Color.FromArgb(47, 215, 152);
+            playButton.StateTracking.Back.ColorAngle = 50F;
+            playButton.StateTracking.Back.ColorStyle = Krypton.Toolkit.PaletteColorStyle.LinearShadow;
+            playButton.StateTracking.Back.Draw = Krypton.Toolkit.InheritBool.True;
+            playButton.StateTracking.Border.Color1 = Color.FromArgb(100, 181, 125);
+            playButton.StateTracking.Border.ColorStyle = Krypton.Toolkit.PaletteColorStyle.Solid;
+            playButton.StateTracking.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            playButton.StateTracking.Content.ShortText.Color1 = Color.FromArgb(32, 32, 32);
+            playButton.StateTracking.Content.ShortText.ColorStyle = Krypton.Toolkit.PaletteColorStyle.Solid;
+            playButton.TabIndex = 74;
+            playButton.Values.Text = "PLAY";
+            playButton.Click += playButton_Click;
+            // 
+            // stopButton
+            // 
+            stopButton.Cursor = Cursors.Hand;
+            stopButton.Location = new Point(131, 118);
+            stopButton.Name = "stopButton";
+            stopButton.Size = new Size(70, 60);
+            stopButton.StateCommon.Back.Color1 = Color.FromArgb(208, 55, 52);
+            stopButton.StateCommon.Back.ColorStyle = Krypton.Toolkit.PaletteColorStyle.Solid;
+            stopButton.StateCommon.Back.Draw = Krypton.Toolkit.InheritBool.True;
+            stopButton.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            stopButton.StateCommon.Border.Rounding = 10F;
+            stopButton.StateCommon.Content.ShortText.Color1 = Color.Black;
+            stopButton.StateCommon.Content.ShortText.ColorStyle = Krypton.Toolkit.PaletteColorStyle.Solid;
+            stopButton.StateCommon.Content.ShortText.Font = new Font("Malgun Gothic", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            stopButton.StateTracking.Back.Color1 = Color.FromArgb(214, 79, 75);
+            stopButton.StateTracking.Back.Color2 = Color.FromArgb(217, 91, 95);
+            stopButton.StateTracking.Back.ColorStyle = Krypton.Toolkit.PaletteColorStyle.LinearShadow;
+            stopButton.StateTracking.Back.Draw = Krypton.Toolkit.InheritBool.True;
+            stopButton.StateTracking.Border.Color1 = Color.FromArgb(212, 100, 100);
+            stopButton.StateTracking.Border.ColorStyle = Krypton.Toolkit.PaletteColorStyle.Solid;
+            stopButton.StateTracking.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            stopButton.StateTracking.Content.ShortText.Color1 = Color.FromArgb(32, 32, 32);
+            stopButton.TabIndex = 75;
+            stopButton.Values.Text = "STOP";
+            stopButton.Click += stopButton_Click;
             // 
             // HomeView
             // 
