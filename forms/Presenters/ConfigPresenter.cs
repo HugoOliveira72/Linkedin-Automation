@@ -38,10 +38,11 @@ namespace forms.Presenters
                 ConfigurationModel configurationModel = new ConfigurationModel("Tela cheia", "");
                 _configRepository.CreateMessagePackFile(filePath);
                 _configRepository.UpdateMessagePackFile(filePath, configurationModel);
+                _configView.ResolutionTypeSelectedIndex = 0;
             }
             else // Quando o arquivo Resolution existe
             {
-                ConfigurationModel configModel = _configRepository.ConvertMsgpackFileToObject<ConfigurationModel>(filePath);
+                ConfigurationModel configModel = _configRepository.ReadAndConvertMessagepackFileToObject<ConfigurationModel>(filePath);
 
                 // Atribui o primeiro item da lista (que é a primeira linha do arquivo) ao Text do comboBox_resolution_type
                 _configView.ResolutionType = configModel.ScreenType;

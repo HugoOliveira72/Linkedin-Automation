@@ -17,16 +17,22 @@ namespace forms.Views.UserControls
             get { return comboBox_resolution_type.Text; }
             set { comboBox_resolution_type.Text = value; }
         }
-
+        public int ResolutionTypeSelectedIndex
+        {
+            get { return comboBox_resolution_type.SelectedIndex; }
+            set { comboBox_resolution.SelectedIndex = value; }
+        }
         public string? Resolution
         {
             get { return comboBox_resolution.Text; }
             set { comboBox_resolution.Text = value; }
         }
 
+
         //Events
         public event EventHandler ConfigFormLoaded;
         public event EventHandler SaveConfigEvent;
+        public event EventHandler UpdateComponentsEvent;
 
         //Methods
         private void comboBox_resolution_type_SelectedIndexChanged(object sender, EventArgs e)
@@ -44,7 +50,6 @@ namespace forms.Views.UserControls
         {
             //Quando formulário carregado
             //Define no field primeiro item selecionado
-            comboBox_resolution_type.SelectedIndex = 0;
             ConfigFormLoaded?.Invoke(this, EventArgs.Empty);
         }
 
