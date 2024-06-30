@@ -8,7 +8,8 @@
         public int AmountOfAppliedJobs { get; set; }
         public int AmountOfSavedJobs { get; set; }
         public string? RichtxtBox { get; set; }
-        public bool ButtonEnabled { get; set; }
+        public bool ButtonStopEnabled { get; set; }
+        public bool ButtonPlayEnabled { get; set; }
 
         //Events /actions
         event EventHandler StartAutomation;

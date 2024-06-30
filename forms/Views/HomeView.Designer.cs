@@ -40,12 +40,6 @@
             number_applied_jobs = new Label();
             job_applied = new Label();
             info_label = new Label();
-            pictureBoxStop = new PictureBox();
-            labelStopButton = new Label();
-            stopButton = new Button();
-            pictureBoxPlay = new PictureBox();
-            labelPlayButton = new Label();
-            startButton = new Button();
             txtBox_applied_Jobs = new Krypton.Toolkit.KryptonTextBox();
             txtBox_saved_jobs = new Krypton.Toolkit.KryptonTextBox();
             richtxtBox = new Krypton.Toolkit.KryptonRichTextBox();
@@ -55,10 +49,10 @@
             txtBox_job = new Krypton.Toolkit.KryptonTextBox();
             amount_jobs = new Krypton.Toolkit.KryptonTextBox();
             txtBoxCurrentJob = new Krypton.Toolkit.KryptonTextBox();
+            playButton = new Krypton.Toolkit.KryptonButton();
+            stopButton = new Krypton.Toolkit.KryptonButton();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBoxStop).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBoxPlay).BeginInit();
             groupBox_job.SuspendLayout();
             SuspendLayout();
             // 
@@ -241,96 +235,16 @@
             info_label.TabIndex = 52;
             info_label.Text = "Info";
             // 
-            // pictureBoxStop
-            // 
-            pictureBoxStop.BackColor = Color.Transparent;
-            pictureBoxStop.Cursor = Cursors.Hand;
-            pictureBoxStop.Image = Properties.Resources.stopButtonImage;
-            pictureBoxStop.Location = new Point(141, 112);
-            pictureBoxStop.Name = "pictureBoxStop";
-            pictureBoxStop.Size = new Size(40, 40);
-            pictureBoxStop.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBoxStop.TabIndex = 65;
-            pictureBoxStop.TabStop = false;
-            // 
-            // labelStopButton
-            // 
-            labelStopButton.AutoSize = true;
-            labelStopButton.Location = new Point(147, 160);
-            labelStopButton.Name = "labelStopButton";
-            labelStopButton.Size = new Size(31, 15);
-            labelStopButton.TabIndex = 64;
-            labelStopButton.Text = "Stop";
-            // 
-            // stopButton
-            // 
-            stopButton.BackColor = Color.Transparent;
-            stopButton.BackgroundImageLayout = ImageLayout.Stretch;
-            stopButton.Enabled = false;
-            stopButton.FlatStyle = FlatStyle.Flat;
-            stopButton.Font = new Font("Segoe UI", 12F);
-            stopButton.Location = new Point(121, 100);
-            stopButton.Margin = new Padding(20, 3, 3, 3);
-            stopButton.Name = "stopButton";
-            stopButton.Padding = new Padding(80);
-            stopButton.RightToLeft = RightToLeft.No;
-            stopButton.Size = new Size(80, 80);
-            stopButton.TabIndex = 63;
-            stopButton.TextAlign = ContentAlignment.TopCenter;
-            stopButton.TextImageRelation = TextImageRelation.ImageAboveText;
-            stopButton.UseVisualStyleBackColor = false;
-            stopButton.Click += stopButton_Click;
-            // 
-            // pictureBoxPlay
-            // 
-            pictureBoxPlay.BackColor = Color.Transparent;
-            pictureBoxPlay.Cursor = Cursors.Hand;
-            pictureBoxPlay.Image = Properties.Resources.playButton;
-            pictureBoxPlay.Location = new Point(35, 110);
-            pictureBoxPlay.Name = "pictureBoxPlay";
-            pictureBoxPlay.Size = new Size(50, 50);
-            pictureBoxPlay.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBoxPlay.TabIndex = 62;
-            pictureBoxPlay.TabStop = false;
-            pictureBoxPlay.Click += startButton_Click;
-            // 
-            // labelPlayButton
-            // 
-            labelPlayButton.AutoSize = true;
-            labelPlayButton.Location = new Point(45, 163);
-            labelPlayButton.Name = "labelPlayButton";
-            labelPlayButton.Size = new Size(29, 15);
-            labelPlayButton.TabIndex = 61;
-            labelPlayButton.Text = "Play";
-            // 
-            // startButton
-            // 
-            startButton.BackColor = Color.Transparent;
-            startButton.BackgroundImageLayout = ImageLayout.Stretch;
-            startButton.FlatStyle = FlatStyle.Flat;
-            startButton.Font = new Font("Segoe UI", 12F);
-            startButton.Location = new Point(20, 100);
-            startButton.Name = "startButton";
-            startButton.Padding = new Padding(80);
-            startButton.RightToLeft = RightToLeft.No;
-            startButton.Size = new Size(80, 80);
-            startButton.TabIndex = 60;
-            startButton.TextAlign = ContentAlignment.TopCenter;
-            startButton.TextImageRelation = TextImageRelation.ImageAboveText;
-            startButton.UseVisualStyleBackColor = false;
-            startButton.Click += startButton_Click;
-            // 
             // txtBox_applied_Jobs
             // 
-            txtBox_applied_Jobs.Enabled = false;
             txtBox_applied_Jobs.Location = new Point(1005, 325);
             txtBox_applied_Jobs.Name = "txtBox_applied_Jobs";
+            txtBox_applied_Jobs.ReadOnly = true;
             txtBox_applied_Jobs.Size = new Size(89, 23);
             txtBox_applied_Jobs.TabIndex = 67;
             // 
             // txtBox_saved_jobs
             // 
-            txtBox_saved_jobs.Enabled = false;
             txtBox_saved_jobs.Location = new Point(1005, 393);
             txtBox_saved_jobs.Name = "txtBox_saved_jobs";
             txtBox_saved_jobs.ReadOnly = true;
@@ -461,14 +375,13 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImageLayout = ImageLayout.Center;
             ClientSize = new Size(1274, 767);
+            Controls.Add(stopButton);
+            Controls.Add(playButton);
             Controls.Add(txtBoxCurrentJob);
             Controls.Add(groupBox_job);
             Controls.Add(richtxtBox);
             Controls.Add(txtBox_saved_jobs);
             Controls.Add(txtBox_applied_Jobs);
-            Controls.Add(pictureBoxPlay);
-            Controls.Add(labelPlayButton);
-            Controls.Add(startButton);
             Controls.Add(label4);
             Controls.Add(number_applied_jobs);
             Controls.Add(job_applied);
@@ -476,16 +389,11 @@
             Controls.Add(panelContainer);
             Controls.Add(panel2);
             Controls.Add(label1);
-            Controls.Add(pictureBoxStop);
-            Controls.Add(labelStopButton);
-            Controls.Add(stopButton);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "HomeView";
             Text = "Linkedin automation";
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBoxStop).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBoxPlay).EndInit();
             groupBox_job.ResumeLayout(false);
             groupBox_job.PerformLayout();
             ResumeLayout(false);
@@ -508,12 +416,6 @@
         private Label number_applied_jobs;
         private Label job_applied;
         private Label info_label;
-        private PictureBox pictureBoxStop;
-        private Label labelStopButton;
-        private Button stopButton;
-        private PictureBox pictureBoxPlay;
-        private Label labelPlayButton;
-        private Button startButton;
         private Krypton.Toolkit.KryptonButton kryptonLoginButton;
         private Krypton.Toolkit.KryptonTextBox txtBox_applied_Jobs;
         private Krypton.Toolkit.KryptonTextBox txtBox_saved_jobs;
@@ -524,5 +426,7 @@
         private Krypton.Toolkit.KryptonTextBox txtBox_job;
         private Krypton.Toolkit.KryptonTextBox amount_jobs;
         private Krypton.Toolkit.KryptonTextBox txtBoxCurrentJob;
+        private Krypton.Toolkit.KryptonButton stopButton;
+        private Krypton.Toolkit.KryptonButton playButton;
     }
 }

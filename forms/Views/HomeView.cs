@@ -1,5 +1,4 @@
-﻿using forms.Model;
-using forms.Models.Interfaces;
+﻿using forms.Models.Interfaces;
 using forms.Presenters;
 using forms.Presenters.Controls;
 using forms.Repositories;
@@ -14,11 +13,9 @@ namespace forms
 {
     public partial class HomeView : Form, IHomeView
     {
-        private ConfigurationModel screenConfiguration;
         private IDataService<dynamic> _dataService;
         private IFilterControlView filterControlView;
         private ErrorProvider errorProvider = new ErrorProvider();
-        private CancellationTokenSource cancellationToken = new CancellationTokenSource();
 
         //Attributes
         public string Job
@@ -51,10 +48,16 @@ namespace forms
             get { return richtxtBox.Text; }
             set { richtxtBox.Text = value; }
         }
-        public bool ButtonEnabled
+        public bool ButtonStopEnabled
         {
             get { return stopButton.Enabled; }
             set { stopButton.Enabled = value; }
+        }
+
+        public bool ButtonPlayEnabled
+        {
+            get { return playButton.Enabled; }
+            set { playButton.Enabled = value; }
         }
 
         //Events
@@ -128,18 +131,22 @@ namespace forms
 
         #endregion
 
-        private void startButton_Click(object sender, EventArgs e)
-        {
-            txtBox_saved_jobs.Text = "0";
-            txtBox_applied_Jobs.Text = $"0/{amount_jobs.Text}";
-            txtBoxCurrentJob.Text = txtBox_job.Text;
-            StartAutomation?.Invoke(this, EventArgs.Empty);
-        }
-
         private void stopButton_Click(object sender, EventArgs e)
         {
-            cancellationToken.Cancel();
-            this.Close();
+            StopAutomation?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void playButton_Click(object sender, EventArgs e)
+        {
+            //VALIDAÇÃO DOS CAMPOS BEM SUCEDIDA
+            if (ValidateChildren(ValidationConstraints.Enabled))
+            {
+                txtBox_saved_jobs.Text = "0";
+                txtBox_applied_Jobs.Text = $"0/{amount_jobs.Text}";
+                txtBoxCurrentJob.Text = txtBox_job.Text;
+                richtxtBox.Clear();
+                StartAutomation?.Invoke(this, EventArgs.Empty);
+            }
         }
     }
 }
