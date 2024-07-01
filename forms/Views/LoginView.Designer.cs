@@ -139,6 +139,10 @@
             kryptonLoginButton.StateCommon.Content.ShortText.Color1 = Color.FromArgb(33, 33, 33);
             kryptonLoginButton.StateCommon.Content.ShortText.Color2 = Color.FromArgb(33, 33, 33);
             kryptonLoginButton.StateCommon.Content.ShortText.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            kryptonLoginButton.StatePressed.Border.Color1 = Color.Transparent;
+            kryptonLoginButton.StatePressed.Border.ColorStyle = Krypton.Toolkit.PaletteColorStyle.Solid;
+            kryptonLoginButton.StatePressed.Border.Draw = Krypton.Toolkit.InheritBool.True;
+            kryptonLoginButton.StatePressed.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
             kryptonLoginButton.StateTracking.Border.Color1 = Color.FromArgb(33, 150, 243);
             kryptonLoginButton.StateTracking.Border.ColorStyle = Krypton.Toolkit.PaletteColorStyle.Solid;
             kryptonLoginButton.StateTracking.Border.Draw = Krypton.Toolkit.InheritBool.True;

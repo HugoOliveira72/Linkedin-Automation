@@ -1,4 +1,5 @@
-﻿using forms.Models.Interfaces;
+﻿using forms.Models.Filters;
+using forms.Models.Interfaces;
 using forms.Presenters;
 using forms.Presenters.Controls;
 using forms.Repositories;
@@ -8,7 +9,6 @@ using forms.Views.Interfaces;
 using forms.Views.Interfaces.Control;
 using forms.Views.UserControls;
 using Krypton.Toolkit;
-using SixLabors.ImageSharp.PixelFormats;
 
 namespace forms
 {
@@ -87,10 +87,12 @@ namespace forms
             //Ativar outros botões
             kryptonButtonFilter.Enabled = true;  ///Filter
             kryptonButtonSettings.Enabled = true;///Settings
+
         }
         private void kryptonButtonFilter_Click(object sender, EventArgs e)
         {
-            filterControlView = new FilterControlView(this);
+            FilterFieldsModel filterFieldsModel = _dataService.GetData();
+            filterControlView = new FilterControlView(filterFieldsModel);
             new FilterPresenter(filterControlView, _dataService);
             addUserControl((FilterControlView)filterControlView);
 
@@ -158,7 +160,7 @@ namespace forms
 
         private void playButton_Click(object sender, EventArgs e)
         {
-            //VALIDAÇÃO DOS CAMPOS BEM SUCEDIDA
+            //Validação de campos bem sucedida
             if (ValidateChildren(ValidationConstraints.Enabled))
             {
                 txtBox_saved_jobs.Text = "0";
@@ -171,7 +173,7 @@ namespace forms
 
         private void HomeView_Resize(object sender, EventArgs e)
         {
-            //Ajustar tamanho do console de do painel de forma responsiva
+            //Ajustar tamanho do console e do painel de forma responsiva
             panelConsole.Size = new Size(panelConsole.Width, this.Height - 300);
             richtxtBox.Size = new Size(richtxtBox.Width, panelConsole.Height - 20);
         }

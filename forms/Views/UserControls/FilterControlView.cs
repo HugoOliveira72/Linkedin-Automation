@@ -1,4 +1,4 @@
-﻿using forms.Views.Interfaces;
+﻿using forms.Models.Filters;
 using forms.Views.Interfaces.Control;
 using static Krypton.Toolkit.KryptonCheckedListBox;
 
@@ -6,12 +6,7 @@ namespace forms.Views
 {
     public partial class FilterControlView : UserControl, IFilterControlView
     {
-
-        public ErrorProvider errorProvider = new ErrorProvider();
-        private IHomeView _homeView;
-
         //Fields
-
         public string ComboBoxClassifyBy
         {
             get { return comboBox_classify_by.Text; }
@@ -36,10 +31,11 @@ namespace forms.Views
         }
 
         //Constructor
-        public FilterControlView(IHomeView homeView)
+        public FilterControlView(FilterFieldsModel filterFieldsModel = null)
         {
-            _homeView = homeView;
             InitializeComponent();
+            if (filterFieldsModel != null)
+                SetFilterModelFieldsToAttributes(filterFieldsModel);
         }
 
         //Events
@@ -75,6 +71,12 @@ namespace forms.Views
         {
             HandleFilter?.Invoke(this, EventArgs.Empty);
         }
-      
+
+        private void SetFilterModelFieldsToAttributes(FilterFieldsModel fieldsModel)
+        {
+            comboBox_classify_by.Text = fieldsModel.ClassifyBy;
+            comboBox_annoucement_date.Text = fieldsModel.AnnoucementDate;
+        }
+
     }
 }
