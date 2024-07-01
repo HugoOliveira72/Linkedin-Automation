@@ -1,4 +1,6 @@
-﻿namespace forms.Views.UserControls
+﻿using System.Windows.Forms;
+
+namespace forms.Views.UserControls
 {
     partial class MainControlView
     {
@@ -28,32 +30,41 @@
         /// </summary>
         private void InitializeComponent()
         {
-            label1 = new Label();
+            components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainControlView));
+            contextMenuStrip1 = new ContextMenuStrip(components);
+            kryptonRichTextBoxWarningText = new Krypton.Toolkit.KryptonRichTextBox();
             SuspendLayout();
             // 
-            // label1
+            // contextMenuStrip1
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 32F);
-            label1.Location = new Point(384, 47);
-            label1.Name = "label1";
-            label1.Size = new Size(211, 59);
-            label1.TabIndex = 0;
-            label1.Text = "Welcome!";
+            contextMenuStrip1.Font = new Font("Segoe UI", 9F);
+            contextMenuStrip1.Name = "contextMenuStrip1";
+            contextMenuStrip1.Size = new Size(61, 4);
             // 
-            // MainControl
+            // kryptonRichTextBoxWarningText
+            // 
+            kryptonRichTextBoxWarningText.Location = new Point(0, 0);
+            kryptonRichTextBoxWarningText.Name = "kryptonRichTextBoxWarningText";
+            kryptonRichTextBoxWarningText.ReadOnly = true;
+            kryptonRichTextBoxWarningText.Size = new Size(527, 150);
+            kryptonRichTextBoxWarningText.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            kryptonRichTextBoxWarningText.StateCommon.Border.Rounding = 5F;
+            kryptonRichTextBoxWarningText.TabIndex = 2;
+            kryptonRichTextBoxWarningText.Text = resources.GetString("kryptonRichTextBoxWarningText.Text");
+            // 
+            // MainControlView
             // 
             AutoScaleMode = AutoScaleMode.None;
             BackColor = Color.Transparent;
-            Controls.Add(label1);
-            Name = "MainControl";
+            Controls.Add(kryptonRichTextBoxWarningText);
+            Name = "MainControlView";
             Size = new Size(1180, 140);
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
-
-        private Label label1;
+        private ContextMenuStrip contextMenuStrip1;
+        private Krypton.Toolkit.KryptonRichTextBox kryptonRichTextBoxWarningText;
     }
 }

@@ -40,6 +40,7 @@
             labelPassword = new Label();
             loginTitleLabel = new Label();
             checkbox_rememberMe = new CheckBox();
+            label2 = new Label();
             leftPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -178,7 +179,7 @@
             loginTitleLabel.AutoSize = true;
             loginTitleLabel.Font = new Font("Yu Gothic UI", 24F, FontStyle.Bold);
             loginTitleLabel.ForeColor = Color.FromArgb(33, 33, 33);
-            loginTitleLabel.Location = new Point(445, 45);
+            loginTitleLabel.Location = new Point(445, 23);
             loginTitleLabel.Name = "loginTitleLabel";
             loginTitleLabel.Size = new Size(125, 45);
             loginTitleLabel.TabIndex = 50;
@@ -195,6 +196,15 @@
             checkbox_rememberMe.Text = "Lembrar de mim";
             checkbox_rememberMe.UseVisualStyleBackColor = true;
             // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(451, 68);
+            label2.Name = "label2";
+            label2.Size = new Size(162, 15);
+            label2.TabIndex = 52;
+            label2.Text = "Credencials da conta linkedin";
+            // 
             // LoginView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -202,6 +212,7 @@
             AutoSize = true;
             BackColor = Color.White;
             ClientSize = new Size(789, 517);
+            Controls.Add(label2);
             Controls.Add(checkbox_rememberMe);
             Controls.Add(loginTitleLabel);
             Controls.Add(labelPassword);
@@ -239,5 +250,6 @@
         private Label labelPassword;
         private Label loginTitleLabel;
         private CheckBox checkbox_rememberMe;
+        private Label label2;
     }
 }

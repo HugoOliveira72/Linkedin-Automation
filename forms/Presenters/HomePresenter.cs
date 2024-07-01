@@ -372,7 +372,7 @@ namespace forms.Presenters
             await Task.Delay(TimeSpan.FromSeconds(0.1));
         }
 
-        //LOGIC
+        //LOGIC/UI
         private async Task<int> SetAndCountAppliedJobsAndShow(int amountOfAppliedJobs, int counterOfJobs)
         {
             amountOfAppliedJobs++;

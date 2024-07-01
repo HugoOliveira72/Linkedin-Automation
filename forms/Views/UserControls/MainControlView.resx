@@ -117,4 +117,21 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <metadata name="contextMenuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <data name="kryptonRichTextBoxWarningText.Text" xml:space="preserve">
+    <value>!BEM VINDO!
+Test Version 
+    Para inicar a automação
+      -Inserir cargo desejado no campo "Cargo ou compêtencia"
+      -Inserir quantidade de vagas que serão inscritas no campo "N° de vagas"
+      -Dar play
+
+Obs: Essa é uma versão de teste, bugs podem ocorrer
+</value>
+  </data>
+  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>79</value>
+  </metadata>
 </root>
