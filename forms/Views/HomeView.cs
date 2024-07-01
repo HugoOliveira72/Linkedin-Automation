@@ -81,7 +81,7 @@ namespace forms
         {
             MainControlView mainView = new MainControlView();
             addUserControl(mainView);
-                        
+
             //Desativar botão, para não haver mais HOUVER depois de clicado
             kryptonButtonHome.Enabled = false;
             //Ativar outros botões
@@ -93,7 +93,7 @@ namespace forms
             filterControlView = new FilterControlView(this);
             new FilterPresenter(filterControlView, _dataService);
             addUserControl((FilterControlView)filterControlView);
-                        
+
             //Desativar botão, para não haver mais HOUVER depois de clicado
             kryptonButtonFilter.Enabled = false;
             //Ativar outros botões
@@ -106,7 +106,7 @@ namespace forms
             IConfigRepository configRepository = new ConfigRepository();
             new ConfigPresenter(configControlView, configRepository);
             addUserControl((UserControl)configControlView);
-                        
+
             //Desativar botão, para não haver mais HOUVER depois de clicado
             kryptonButtonSettings.Enabled = false;
             //Ativar outros botões
@@ -168,5 +168,13 @@ namespace forms
                 StartAutomation?.Invoke(this, EventArgs.Empty);
             }
         }
+
+        private void HomeView_Resize(object sender, EventArgs e)
+        {
+            //Ajustar tamanho do console de do painel de forma responsiva
+            panelConsole.Size = new Size(panelConsole.Width, this.Height - 300);
+            richtxtBox.Size = new Size(richtxtBox.Width, panelConsole.Height - 20);
+        }
+
     }
 }

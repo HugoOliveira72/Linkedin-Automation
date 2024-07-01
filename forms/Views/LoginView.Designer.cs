@@ -195,6 +195,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            AutoSize = true;
             BackColor = Color.White;
             ClientSize = new Size(789, 517);
             Controls.Add(checkbox_rememberMe);
@@ -205,6 +206,8 @@
             Controls.Add(userTxtBox);
             Controls.Add(passwordTxtBox);
             Controls.Add(leftPanel);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            MaximizeBox = false;
             Name = "LoginView";
             Text = "LoginScreen";
             leftPanel.ResumeLayout(false);
