@@ -95,12 +95,12 @@
             passwordTxtBox.Location = new Point(445, 224);
             passwordTxtBox.Name = "passwordTxtBox";
             passwordTxtBox.PasswordChar = '●';
-            passwordTxtBox.Size = new Size(263, 29);
+            passwordTxtBox.Size = new Size(263, 27);
             passwordTxtBox.StateCommon.Border.Color1 = Color.FromArgb(224, 224, 224, 224);
             passwordTxtBox.StateCommon.Border.Color2 = Color.FromArgb(224, 224, 224, 224);
             passwordTxtBox.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
             passwordTxtBox.StateCommon.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            passwordTxtBox.StateCommon.Border.Rounding = 20F;
+            passwordTxtBox.StateCommon.Border.Rounding = 15F;
             passwordTxtBox.StateCommon.Border.Width = 1;
             passwordTxtBox.StateCommon.Content.Color1 = Color.Gray;
             passwordTxtBox.StateCommon.Content.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -112,12 +112,12 @@
             // 
             userTxtBox.Location = new Point(445, 148);
             userTxtBox.Name = "userTxtBox";
-            userTxtBox.Size = new Size(263, 29);
+            userTxtBox.Size = new Size(263, 27);
             userTxtBox.StateCommon.Border.Color1 = Color.FromArgb(224, 224, 224, 224);
             userTxtBox.StateCommon.Border.Color2 = Color.FromArgb(224, 224, 224, 224);
             userTxtBox.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
             userTxtBox.StateCommon.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            userTxtBox.StateCommon.Border.Rounding = 20F;
+            userTxtBox.StateCommon.Border.Rounding = 15F;
             userTxtBox.StateCommon.Border.Width = 1;
             userTxtBox.StateCommon.Content.Color1 = Color.Gray;
             userTxtBox.StateCommon.Content.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -133,12 +133,16 @@
             kryptonLoginButton.StateCommon.Back.Color1 = Color.FromArgb(33, 150, 243);
             kryptonLoginButton.StateCommon.Back.Color2 = Color.FromArgb(25, 118, 210);
             kryptonLoginButton.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            kryptonLoginButton.StateCommon.Border.Rounding = 25F;
+            kryptonLoginButton.StateCommon.Border.Rounding = 5F;
             kryptonLoginButton.StateCommon.Border.Width = 1;
             kryptonLoginButton.StateCommon.Content.Draw = Krypton.Toolkit.InheritBool.True;
             kryptonLoginButton.StateCommon.Content.ShortText.Color1 = Color.FromArgb(33, 33, 33);
             kryptonLoginButton.StateCommon.Content.ShortText.Color2 = Color.FromArgb(33, 33, 33);
             kryptonLoginButton.StateCommon.Content.ShortText.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            kryptonLoginButton.StateTracking.Border.Color1 = Color.FromArgb(33, 150, 243);
+            kryptonLoginButton.StateTracking.Border.ColorStyle = Krypton.Toolkit.PaletteColorStyle.Solid;
+            kryptonLoginButton.StateTracking.Border.Draw = Krypton.Toolkit.InheritBool.True;
+            kryptonLoginButton.StateTracking.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
             kryptonLoginButton.TabIndex = 47;
             kryptonLoginButton.Values.Text = "LOGIN";
             kryptonLoginButton.Click += kryptonLoginButton_Click;

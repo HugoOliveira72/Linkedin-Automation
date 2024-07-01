@@ -74,7 +74,6 @@
             // 
             kryptonButtonHome.Location = new Point(58, 43);
             kryptonButtonHome.Name = "kryptonButtonHome";
-            kryptonButtonHome.Size = new Size(70, 30);
             kryptonButtonHome.OverrideDefault.Back.Color1 = Color.FromArgb(33, 150, 243);
             kryptonButtonHome.OverrideDefault.Back.ColorStyle = Krypton.Toolkit.PaletteColorStyle.Solid;
             kryptonButtonHome.OverrideDefault.Back.Draw = Krypton.Toolkit.InheritBool.True;
@@ -86,6 +85,7 @@
             kryptonButtonHome.OverrideDefault.Content.ShortText.Color1 = Color.FromArgb(33, 33, 33);
             kryptonButtonHome.OverrideDefault.Content.ShortText.ColorStyle = Krypton.Toolkit.PaletteColorStyle.Solid;
             kryptonButtonHome.OverrideDefault.Content.ShortText.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            kryptonButtonHome.Size = new Size(70, 30);
             kryptonButtonHome.StateDisabled.Back.Color1 = SystemColors.Control;
             kryptonButtonHome.StateDisabled.Back.ColorStyle = Krypton.Toolkit.PaletteColorStyle.Solid;
             kryptonButtonHome.StateDisabled.Back.Draw = Krypton.Toolkit.InheritBool.True;
@@ -157,7 +157,6 @@
             // 
             kryptonButtonSettings.Location = new Point(196, 43);
             kryptonButtonSettings.Name = "kryptonButtonSettings";
-            kryptonButtonSettings.Size = new Size(129, 31);
             kryptonButtonSettings.OverrideDefault.Back.Color1 = Color.FromArgb(33, 150, 243);
             kryptonButtonSettings.OverrideDefault.Back.ColorStyle = Krypton.Toolkit.PaletteColorStyle.Solid;
             kryptonButtonSettings.OverrideDefault.Back.Draw = Krypton.Toolkit.InheritBool.True;
@@ -169,6 +168,7 @@
             kryptonButtonSettings.OverrideDefault.Content.ShortText.Color1 = Color.FromArgb(33, 33, 33);
             kryptonButtonSettings.OverrideDefault.Content.ShortText.ColorStyle = Krypton.Toolkit.PaletteColorStyle.Solid;
             kryptonButtonSettings.OverrideDefault.Content.ShortText.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            kryptonButtonSettings.Size = new Size(129, 31);
             kryptonButtonSettings.StateDisabled.Back.Color1 = SystemColors.Control;
             kryptonButtonSettings.StateDisabled.Back.ColorStyle = Krypton.Toolkit.PaletteColorStyle.Solid;
             kryptonButtonSettings.StateDisabled.Back.Draw = Krypton.Toolkit.InheritBool.True;
@@ -420,6 +420,15 @@
             playButton.StateCommon.Content.ShortText.Color1 = Color.Black;
             playButton.StateCommon.Content.ShortText.ColorStyle = Krypton.Toolkit.PaletteColorStyle.Solid;
             playButton.StateCommon.Content.ShortText.Font = new Font("Malgun Gothic", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            playButton.StateDisabled.Back.Color1 = Color.FromArgb(197, 223, 211);
+            playButton.StateDisabled.Back.ColorStyle = Krypton.Toolkit.PaletteColorStyle.Solid;
+            playButton.StateDisabled.Back.Draw = Krypton.Toolkit.InheritBool.True;
+            playButton.StateDisabled.Border.Color1 = Color.FromArgb(197, 223, 211);
+            playButton.StateDisabled.Border.ColorStyle = Krypton.Toolkit.PaletteColorStyle.Solid;
+            playButton.StateDisabled.Border.Draw = Krypton.Toolkit.InheritBool.True;
+            playButton.StateDisabled.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            playButton.StateDisabled.Content.ShortText.Color1 = Color.FromArgb(117, 117, 117);
+            playButton.StateDisabled.Content.ShortText.ColorStyle = Krypton.Toolkit.PaletteColorStyle.Solid;
             playButton.StateTracking.Back.Color1 = Color.FromArgb(38, 198, 138);
             playButton.StateTracking.Back.Color2 = Color.FromArgb(47, 215, 152);
             playButton.StateTracking.Back.ColorAngle = 50F;
@@ -449,6 +458,15 @@
             stopButton.StateCommon.Content.ShortText.Color1 = Color.Black;
             stopButton.StateCommon.Content.ShortText.ColorStyle = Krypton.Toolkit.PaletteColorStyle.Solid;
             stopButton.StateCommon.Content.ShortText.Font = new Font("Malgun Gothic", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            stopButton.StateDisabled.Back.Color1 = Color.FromArgb(240, 205, 205);
+            stopButton.StateDisabled.Back.ColorStyle = Krypton.Toolkit.PaletteColorStyle.Solid;
+            stopButton.StateDisabled.Back.Draw = Krypton.Toolkit.InheritBool.True;
+            stopButton.StateDisabled.Border.Color1 = Color.FromArgb(240, 205, 205);
+            stopButton.StateDisabled.Border.ColorStyle = Krypton.Toolkit.PaletteColorStyle.Solid;
+            stopButton.StateDisabled.Border.Draw = Krypton.Toolkit.InheritBool.True;
+            stopButton.StateDisabled.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            stopButton.StateDisabled.Content.ShortText.Color1 = Color.FromArgb(117, 117, 117);
+            stopButton.StateDisabled.Content.ShortText.ColorStyle = Krypton.Toolkit.PaletteColorStyle.Solid;
             stopButton.StateTracking.Back.Color1 = Color.FromArgb(214, 79, 75);
             stopButton.StateTracking.Back.Color2 = Color.FromArgb(217, 91, 95);
             stopButton.StateTracking.Back.ColorStyle = Krypton.Toolkit.PaletteColorStyle.LinearShadow;
