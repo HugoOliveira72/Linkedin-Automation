@@ -8,6 +8,7 @@ using forms.Views.Interfaces;
 using forms.Views.Interfaces.Control;
 using forms.Views.UserControls;
 using Krypton.Toolkit;
+using SixLabors.ImageSharp.PixelFormats;
 
 namespace forms
 {
@@ -71,6 +72,7 @@ namespace forms
         {
             _dataService = dataService;
             InitializeComponent();
+            this.Load += kryptonButtonHome_Click;
         }
 
         #region Tabs
@@ -79,12 +81,24 @@ namespace forms
         {
             MainControlView mainView = new MainControlView();
             addUserControl(mainView);
+                        
+            //Desativar botão, para não haver mais HOUVER depois de clicado
+            kryptonButtonHome.Enabled = false;
+            //Ativar outros botões
+            kryptonButtonFilter.Enabled = true;  ///Filter
+            kryptonButtonSettings.Enabled = true;///Settings
         }
         private void kryptonButtonFilter_Click(object sender, EventArgs e)
         {
             filterControlView = new FilterControlView(this);
             new FilterPresenter(filterControlView, _dataService);
             addUserControl((FilterControlView)filterControlView);
+                        
+            //Desativar botão, para não haver mais HOUVER depois de clicado
+            kryptonButtonFilter.Enabled = false;
+            //Ativar outros botões
+            kryptonButtonHome.Enabled = true;    ///Home
+            kryptonButtonSettings.Enabled = true;///Settings
         }
         private void kryptonButtonSettings_Click(object sender, EventArgs e)
         {
@@ -92,6 +106,12 @@ namespace forms
             IConfigRepository configRepository = new ConfigRepository();
             new ConfigPresenter(configControlView, configRepository);
             addUserControl((UserControl)configControlView);
+                        
+            //Desativar botão, para não haver mais HOUVER depois de clicado
+            kryptonButtonSettings.Enabled = false;
+            //Ativar outros botões
+            kryptonButtonHome.Enabled = true;   ///Home
+            kryptonButtonFilter.Enabled = true; ///Filter
         }
         private void addUserControl(UserControl userControl)
         {

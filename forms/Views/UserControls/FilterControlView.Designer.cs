@@ -56,9 +56,9 @@
             groupBox_filters.Controls.Add(experience_level_label);
             groupBox_filters.Controls.Add(comboBox_classify_by);
             groupBox_filters.Controls.Add(job_type_label);
-            groupBox_filters.Location = new Point(3, 3);
+            groupBox_filters.Location = new Point(5, 0);
             groupBox_filters.Name = "groupBox_filters";
-            groupBox_filters.Size = new Size(699, 151);
+            groupBox_filters.Size = new Size(699, 147);
             groupBox_filters.TabIndex = 37;
             groupBox_filters.TabStop = false;
             groupBox_filters.Text = "Filtros";
