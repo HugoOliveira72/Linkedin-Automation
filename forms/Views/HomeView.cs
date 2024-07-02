@@ -10,6 +10,7 @@ using forms.Views.Interfaces;
 using forms.Views.Interfaces.Control;
 using forms.Views.UserControls;
 using Krypton.Toolkit;
+using System.ComponentModel;
 
 namespace forms
 {
@@ -128,32 +129,53 @@ namespace forms
 
         #region Validations
 
-        private void TxtBox_job_Validating(object sender, System.ComponentModel.CancelEventArgs eventArgs)
+        private void TxtBox_job_Validating(object sender, CancelEventArgs eventArgs)
         {
+            //Verifica se campo está vazio
             ValidateTextBox(txtBox_job, "Por favor, insira o cargo/vaga", eventArgs);
         }
 
-        private void Amount_jobs_Validating(object sender, System.ComponentModel.CancelEventArgs eventArgs)
+        private void Amount_jobs_Validating(object sender, CancelEventArgs eventArgs)
         {
-            ValidateTextBox(amount_jobs, "Por favor, insira a quantidade de vagas", eventArgs);
+            //Verifica se campo está vazio
+            if(!ValidateTextBox(amount_jobs, "Por favor, insira a quantidade de vagas", eventArgs))
+            {
+                //Verifica se numero não é menor ou igual a 0
+                if (Int32.Parse(amount_jobs.Text) <= 0)
+                {
+                    HandleValidationError(amount_jobs, "Por favor, insira um número maior que 0", eventArgs);
+                }
+            }
         }
 
-        private void ValidateTextBox(KryptonTextBox textBox, string message, System.ComponentModel.CancelEventArgs cancelEventArgs)
+        private bool ValidateTextBox(KryptonTextBox textBox, string message, CancelEventArgs cancelEventArgs)
         {
-            if (String.IsNullOrEmpty(textBox.Text))
+            if (string.IsNullOrEmpty(textBox.Text))
             {
+                HandleValidationError(textBox, message, cancelEventArgs);
                 cancelEventArgs.Cancel = true;
                 textBox.Focus();
                 errorProvider.SetError(textBox, message);
+                return true;
             }
             else
             {
                 cancelEventArgs.Cancel = false;
                 errorProvider.SetError(textBox, null);
+                return false;
             }
         }
 
+        private void HandleValidationError(KryptonTextBox textBox, string message, CancelEventArgs cancelEventArgs)
+        {
+            cancelEventArgs.Cancel = true;
+            textBox.Focus();
+            errorProvider.SetError(textBox, message);
+        }
+
         #endregion
+
+        #region Actions
 
         private void stopButton_Click(object sender, EventArgs e)
         {
@@ -191,5 +213,6 @@ namespace forms
             consoleRichTxtBox.ScrollToCaret();
         }
 
+        #endregion
     }
 }
