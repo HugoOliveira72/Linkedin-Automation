@@ -47,8 +47,8 @@ namespace Linkedin_Automation.Config
 
         private async Task<int[]> GetResolution()
         {
-            var a = _configRepository.GetResolutionFilePath();
-            ConfigurationModel configModel = _configRepository.ReadAndConvertMessagepackFileToObject<ConfigurationModel>(a);
+            string resolutionFilePath = _configRepository.GetConfigFilePath();
+            ConfigurationModel configModel = _configRepository.ReadAndConvertMessagepackFileToObject<ConfigurationModel>(resolutionFilePath);
 
             string? resolution;
             //Tela cheia

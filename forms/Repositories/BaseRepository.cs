@@ -70,7 +70,7 @@ namespace forms.Repositories
             XmlDocument xmlDocument = new XmlDocument();
             xmlDocument.Load(ConfigFilePath);
 
-            // Obtém os valores da connection string e do diretório
+            // Obtém os valores do diretório
             return xmlDocument.SelectSingleNode(xpath: Xpath).InnerText;
         }
     }
