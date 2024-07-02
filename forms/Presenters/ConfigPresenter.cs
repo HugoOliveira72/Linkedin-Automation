@@ -43,7 +43,7 @@ namespace forms.Presenters
             }
             else // Quando o arquivo Resolution existe
             {
-                ConfigurationModel configModel = _configRepository.ReadAndConvertMessagepackFileToObject<ConfigurationModel>(filePath);
+                ConfigurationModel configModel = _configRepository.ReadAndConvertMessagepackFileToObject<ConfigurationModel>(_filePath);
 
                 // Atribui o primeiro item da lista (que é a primeira linha do arquivo) ao Text do comboBox_resolution_type
                 _configView.ResolutionType = configModel.ScreenType;
