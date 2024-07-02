@@ -171,14 +171,14 @@ namespace forms.Presenters
 
             // Instancia jobListSection
             await AddMessageToRichTextbox(stringPatterns.linePattern());
-            JobListSection jobListSection = await JobListSection.BuildAsync(page, currentPage);
+            JobListSection jobListSection = await JobListSection.BuildAsync(page, _homeView, currentPage);
             int avaiableJobs = jobListSection.getAvailableJob();
             await AddMessageToRichTextbox($"Quantidade de vagas encontradas: {avaiableJobs}!");
             await Task.Delay(TimeSpan.FromSeconds(1));
 
             #endregion
 
-            //HABILITAR O BOTÃO SAIR
+            //HABILITAR O BOTÃO SAIR/STOP
             _homeView.ButtonStopEnabled = true;
 
             //APLICAÇÃO DE VAGAS
@@ -186,13 +186,11 @@ namespace forms.Presenters
             {
                 try
                 {
+                    //Botão Stop pressionado
                     if (token.IsCancellationRequested)
                     {
-                        ///Fechar o navegador
-                        await settings.BrowserContext.CloseAsync();
-                        ///Ativar o botão play
-                        _homeView.ButtonPlayEnabled = true;
-                        break;
+                        await CloseBrowserAndHandleButtonsVisibily(settings);
+                        return;
                     }
                     jobsCounter++;
 
@@ -205,6 +203,7 @@ namespace forms.Presenters
                         // Fechar aplicação
                         if (!hasNextPage)
                         {
+                            await CloseBrowserAndHandleButtonsVisibily(settings);
                             return;
                         }
                         //Recarregar elementos
@@ -322,7 +321,7 @@ namespace forms.Presenters
                     #endregion
 
                     #region Addicional Questions
-                    await Task.Delay(TimeSpan.FromSeconds(0.8));
+
                     popupWindowSection._additionalQuestions = await popupWindowSection.LoadElementAsync("h3");
                     popupWindowSection._advanceButton = await popupWindowSection.LoadElementAsync("button[aria-label='Avançar para próxima etapa']");
                     popupWindowSection._reviewButton = await popupWindowSection.LoadElementAsync("span:has-text('Revisar')");
@@ -398,6 +397,15 @@ namespace forms.Presenters
             amountOfsavedJobs++;
             _homeView.AmountOfSavedJobs = amountOfsavedJobs;
             return amountOfsavedJobs;
+        }
+
+        private async Task CloseBrowserAndHandleButtonsVisibily(PlaywrightConfiguration playwrightConfiguration)
+        {
+            ///Fechar o navegador
+            await playwrightConfiguration.BrowserContext.CloseAsync();
+            ///Ativar o botão play
+            _homeView.ButtonPlayEnabled = true;
+            _homeView.ButtonStopEnabled = false;
         }
     }
 }

@@ -1690,3 +1690,62 @@ Erro genérico: System.NullReferenceException: Object reference not set to an in
    at forms.Models.PageObjects.Sections.JobDetailsSection.InicializateAsync(Double securityTime) in C:\Users\Hugo\Documents\Repositorios-programação\linkedin-automation\forms\Models\PageObjects\Sections\JobDetailsSection.cs:line 40
    at forms.Models.PageObjects.Sections.JobDetailsSection.BuildAsync(IPage page, Double securityTime) in C:\Users\Hugo\Documents\Repositorios-programação\linkedin-automation\forms\Models\PageObjects\Sections\JobDetailsSection.cs:line 23
    at forms.Presenters.HomePresenter.Script(CancellationToken token) in C:\Users\Hugo\Documents\Repositorios-programação\linkedin-automation\forms\Presenters\HomePresenter.cs:line 242
+
+=============================	 02/07/2024 09:06:40
+Erro genérico: Microsoft.Playwright.PlaywrightException: Element is not attached to the DOM
+Call log:
+  - attempting click action
+  -   waiting for element to be visible, enabled and stable
+   at Microsoft.Playwright.Transport.Connection.InnerSendMessageToServerAsync[T](ChannelOwner object, String method, Dictionary`2 dictionary, Boolean keepNulls) in /_/src/Playwright/Transport/Connection.cs:line 206
+   at Microsoft.Playwright.Transport.Connection.WrapApiCallAsync[T](Func`1 action, Boolean isInternal) in /_/src/Playwright/Transport/Connection.cs:line 532
+   at forms.Models.PageObjects.Sections.PopupWindowSection.SendJobApplicationAndClosePage(Double securityTime) in C:\Users\Hugo\Documents\Repositorios-programação\linkedin-automation\forms\Models\PageObjects\Sections\PopupWindowSection.cs:line 49
+   at forms.Presenters.HomePresenter.Script(CancellationToken token) in C:\Users\Hugo\Documents\Repositorios-programação\linkedin-automation\forms\Presenters\HomePresenter.cs:line 282
+
+=============================	 02/07/2024 09:20:30
+Não foi possivel encontrar o elemento: System.TimeoutException: Timeout 3000ms exceeded.
+Call log:
+  - waiting for GetByLabel("Todos os filtros", new() { Exact = true }).Locator("label").Filter(new() { HasText = "Voluntário Filtrar por Voluntário" })
+   at Microsoft.Playwright.Transport.Connection.InnerSendMessageToServerAsync[T](ChannelOwner object, String method, Dictionary`2 dictionary, Boolean keepNulls) in /_/src/Playwright/Transport/Connection.cs:line 206
+   at Microsoft.Playwright.Transport.Connection.WrapApiCallAsync[T](Func`1 action, Boolean isInternal) in /_/src/Playwright/Transport/Connection.cs:line 532
+   at forms.Models.PageObjects.Sections.FilterSection.SelectFilter(String labelName, List`1 checkedListBoxItems, Double securityTime) in C:\Users\Hugo\Documents\Repositorios-programação\linkedin-automation\forms\Models\PageObjects\Sections\FilterSection.cs:line 69
+Erro genérico: Microsoft.Playwright.PlaywrightException: Element is not attached to the DOM
+Call log:
+  - attempting click action
+  -   waiting for element to be visible, enabled and stable
+   at Microsoft.Playwright.Transport.Connection.InnerSendMessageToServerAsync[T](ChannelOwner object, String method, Dictionary`2 dictionary, Boolean keepNulls) in /_/src/Playwright/Transport/Connection.cs:line 206
+   at Microsoft.Playwright.Transport.Connection.WrapApiCallAsync[T](Func`1 action, Boolean isInternal) in /_/src/Playwright/Transport/Connection.cs:line 532
+   at forms.Models.PageObjects.Sections.PopupWindowSection.SendJobApplicationAndClosePage(Double securityTime) in C:\Users\Hugo\Documents\Repositorios-programação\linkedin-automation\forms\Models\PageObjects\Sections\PopupWindowSection.cs:line 49
+   at forms.Presenters.HomePresenter.Script(CancellationToken token) in C:\Users\Hugo\Documents\Repositorios-programação\linkedin-automation\forms\Presenters\HomePresenter.cs:line 286
+
+=============================	 02/07/2024 09:33:46
+Erro genérico: Microsoft.Playwright.PlaywrightException: Element is not attached to the DOM
+Call log:
+  - attempting click action
+  -   waiting for element to be visible, enabled and stable
+   at Microsoft.Playwright.Transport.Connection.InnerSendMessageToServerAsync[T](ChannelOwner object, String method, Dictionary`2 dictionary, Boolean keepNulls) in /_/src/Playwright/Transport/Connection.cs:line 206
+   at Microsoft.Playwright.Transport.Connection.WrapApiCallAsync[T](Func`1 action, Boolean isInternal) in /_/src/Playwright/Transport/Connection.cs:line 532
+   at forms.Models.PageObjects.Sections.PopupWindowSection.SendJobApplicationAndClosePage(Double securityTime) in C:\Users\Hugo\Documents\Repositorios-programação\linkedin-automation\forms\Models\PageObjects\Sections\PopupWindowSection.cs:line 49
+   at forms.Presenters.HomePresenter.Script(CancellationToken token) in C:\Users\Hugo\Documents\Repositorios-programação\linkedin-automation\forms\Presenters\HomePresenter.cs:line 286
+
+=============================	 02/07/2024 09:44:33
+Não foi possivel encontrar o elemento: System.TimeoutException: Timeout 3000ms exceeded.
+Call log:
+  - waiting for GetByLabel("Todos os filtros", new() { Exact = true }).Locator("label").Filter(new() { HasText = "Meio período Filtrar por Meio período" })
+   at Microsoft.Playwright.Transport.Connection.InnerSendMessageToServerAsync[T](ChannelOwner object, String method, Dictionary`2 dictionary, Boolean keepNulls) in /_/src/Playwright/Transport/Connection.cs:line 206
+   at Microsoft.Playwright.Transport.Connection.WrapApiCallAsync[T](Func`1 action, Boolean isInternal) in /_/src/Playwright/Transport/Connection.cs:line 532
+   at forms.Models.PageObjects.Sections.FilterSection.SelectFilter(String labelName, List`1 checkedListBoxItems, Double securityTime) in C:\Users\Hugo\Documents\Repositorios-programação\linkedin-automation\forms\Models\PageObjects\Sections\FilterSection.cs:line 69
+Não foi possivel encontrar o elemento: System.TimeoutException: Timeout 3000ms exceeded.
+Call log:
+  - waiting for GetByLabel("Todos os filtros", new() { Exact = true }).Locator("label").Filter(new() { HasText = "Voluntário Filtrar por Voluntário" })
+   at Microsoft.Playwright.Transport.Connection.InnerSendMessageToServerAsync[T](ChannelOwner object, String method, Dictionary`2 dictionary, Boolean keepNulls) in /_/src/Playwright/Transport/Connection.cs:line 206
+   at Microsoft.Playwright.Transport.Connection.WrapApiCallAsync[T](Func`1 action, Boolean isInternal) in /_/src/Playwright/Transport/Connection.cs:line 532
+   at forms.Models.PageObjects.Sections.FilterSection.SelectFilter(String labelName, List`1 checkedListBoxItems, Double securityTime) in C:\Users\Hugo\Documents\Repositorios-programação\linkedin-automation\forms\Models\PageObjects\Sections\FilterSection.cs:line 69
+Limite de páginas excedido, não há mais vagas para se candidatar: Microsoft.Playwright.PlaywrightException: Element is not attached to the DOM
+Call log:
+  - attempting click action
+  -   waiting for element to be visible, enabled and stable
+   at Microsoft.Playwright.Transport.Connection.InnerSendMessageToServerAsync[T](ChannelOwner object, String method, Dictionary`2 dictionary, Boolean keepNulls) in /_/src/Playwright/Transport/Connection.cs:line 206
+   at Microsoft.Playwright.Transport.Connection.WrapApiCallAsync[T](Func`1 action, Boolean isInternal) in /_/src/Playwright/Transport/Connection.cs:line 532
+   at forms.Presenters.HomePresenter.Script(CancellationToken token) in C:\Users\Hugo\Documents\Repositorios-programação\linkedin-automation\forms\Presenters\HomePresenter.cs:line 297
+
+=============================	 02/07/2024 10:22:35
