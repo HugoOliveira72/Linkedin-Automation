@@ -7,15 +7,17 @@ namespace forms.Models.PageObjects
     {
         public IPage _page;
         private ILocator? _inputSearchJob;
+        private CancellationToken _token;
 
-        public JobPage(IPage page) : base(page)
+        public JobPage(IPage page, CancellationToken token) : base(page,token)
         {
             _page = page;
+            _token = token;
         }
 
-        public static async Task<JobPage> BuildAsync(IPage page, double securityTime = 0.5)
+        public static async Task<JobPage> BuildAsync(IPage page, CancellationToken token, double securityTime = 0.5)
         {
-            JobPage obj = new JobPage(page);
+            JobPage obj = new JobPage(page, token);
             await obj.InicializateAsync(securityTime);
             return obj;
         }

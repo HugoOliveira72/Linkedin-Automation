@@ -23,6 +23,11 @@ namespace forms.Presenters
         private OutputStringPatterns stringPatterns = new();
         private CancellationTokenSource cancellationToken = new();
 
+        private PlaywrightConfiguration _settings;
+        private int _appliedJobs;
+        private int _savedJobs;
+        private BasePage _basePage;
+
         public HomePresenter(
             IHomeView homeView,
             IDataService<dynamic> dataService,
@@ -43,6 +48,8 @@ namespace forms.Presenters
         {
             ///Desativar botão play
             _homeView.ButtonPlayEnabled = false;
+            ///Habilitar botão stop
+            _homeView.ButtonStopEnabled = true;
             await Script(cancellationToken.Token);
         }
 
@@ -54,164 +61,162 @@ namespace forms.Presenters
         //Automation Method
         private async Task Script(CancellationToken token)
         {
-            // OBTEM DADOS DOS FILTROS
-            FilterFieldsModel filterData = _dataService.GetData();
-
-            // VERIFICAÇÃO EXISTENCIA LOG.TXT
-            _logService.LogFileExistingVerification();
-
-            // CONFIGURAÇÃO DO PLAYWRIGHT
-            IConfigRepository configRepository = new ConfigRepository();
-            PlaywrightConfiguration playwrightConfiguration = new PlaywrightConfiguration(configRepository);
-            var settings = await playwrightConfiguration.launchSettingsAsync();
-
-            //INICIO
-            await AddMessageToRichTextbox(stringPatterns.linePattern());
-            await AddMessageToRichTextbox("Iniciando automação\n");
-            await AddMessageToRichTextbox("Abrindo o navegador padrão...\n");
-            IPage page = await settings.BrowserContext!.NewPageAsync();
-            BasePage basePage = new BasePage(page);
-
-            // DIRECIONANDO
-            await AddMessageToRichTextbox("Direcionando para https://www.linkedin.com/\n");
-            await Task.Delay(TimeSpan.FromSeconds(0.5));
-
-            await page.GotoAsync("https://www.linkedin.com/");
-            await Task.Delay(TimeSpan.FromSeconds(5));
-
-            await page.GetByLabel("Principal").GetByRole(AriaRole.Link, new() { Name = "Entrar" }).ClickAsync();
-            await Task.Delay(TimeSpan.FromSeconds(1));
-
-            #region LoginPage
-            /// LER DADOS DE USUARIO
-            UserModel userInfo = _loginRepository.ReadAndConvertMsgpackFileToObject();
-
-            /// PREENCHIMENTO DAS CREEDENCIAIS
-            await AddMessageToRichTextbox("Fazendo login..\n");
-
-            ///Login page
-            LoginPage loginPage = await LoginPage.BuildAsync(page);
-            await loginPage.LoginAsync(userInfo.email, userInfo.password);
-
-            //if (await loginPage.HandleErrorLoginAsync())
-            //    return;
-
-            await AddMessageToRichTextbox("Login bem sucedido\n");
-            await Task.Delay(TimeSpan.FromSeconds(2));
-            #endregion
-
-            #region Securityhandle
-            // CÓDIGO LINKEDIN / VERIFICAÇÃO DE SEGURANÇA (MANUALMENTE)
-            await AddMessageToRichTextbox("Carregando...\n");
-            await AddMessageToRichTextbox("Verifação de segurança\n");
-            var message = await basePage.WaitForElementAndHandleExceptionAsync(page, "#global-nav-typeahead", "Página carregada!", ExceptionMessages.SecurityError);
-            await AddMessageToRichTextbox(message);
-            await Task.Delay(TimeSpan.FromSeconds(2));
-            #endregion
-
-            #region JobPage Search Section
-            // PESQUISA DE VAGAS
-            await AddMessageToRichTextbox(stringPatterns.linePattern());
-            await AddMessageToRichTextbox($"Pesquisando a vaga {_homeView.Job}\n");
-
-            FeedPage feedPage = await FeedPage.BuildAsync(page);
-            await feedPage._jobSpan!.ClickAsync();
-
-            JobPage jobPage = await JobPage.BuildAsync(page);
-            await jobPage.SearchJobAsync(_homeView.Job);
-
-            await AddMessageToRichTextbox($"Pesquisado {_homeView.Job} com sucesso\n");
-            await Task.Delay(TimeSpan.FromSeconds(2));
-            #endregion
-
-            #region FilterSection
-            await AddMessageToRichTextbox(stringPatterns.linePattern());
-            if (filterData != null)
+            try
             {
-                FilterSection jobSearchPage = await FilterSection.BuildAsync(page);
+                // OBTEM DADOS DOS FILTROS
+                FilterFieldsModel filterData = _dataService.GetData();
 
-                await AddMessageToRichTextbox("Aplicando filtros\n");
-                await jobSearchPage.GoToFilterSection(0.8);
+                // VERIFICAÇÃO EXISTENCIA LOG.TXT
+                _logService.LogFileExistingVerification();
 
-                ///Classificar por
-                await AddMessageToRichTextbox(FilterLabelsModel.ClassifyByLabel);
-                await jobSearchPage.SelectFilter(filterData.ClassifyBy);
-                ///Data do anúncio
-                await AddMessageToRichTextbox(FilterLabelsModel.AnnouncimentDateLabel);
-                await jobSearchPage.SelectFilter(filterData.AnnoucementDate);
-                ///Nível de experiência
-                await AddMessageToRichTextbox(FilterLabelsModel.ExperienceLevelLabel);
-                await jobSearchPage.SelectFilter(FilterLabelsModel.ExperienceLevelLabel, filterData.CheckedListBoxExperiences);
-                ///Tipo de vaga
-                await AddMessageToRichTextbox(FilterLabelsModel.JobTypeLabel);
-                await jobSearchPage.SelectFilter(FilterLabelsModel.JobTypeLabel, filterData.CheckedListBoxType_job);
-                ///Remoto
-                await AddMessageToRichTextbox(FilterLabelsModel.RemoteTypeLabel);
-                await jobSearchPage.SelectFilter(FilterLabelsModel.RemoteTypeLabel, filterData.CheckedListBoxRemote);
+                // CONFIGURAÇÃO DO PLAYWRIGHT
+                IConfigRepository configRepository = new ConfigRepository();
+                PlaywrightConfiguration playwrightConfiguration = new PlaywrightConfiguration(configRepository);
+                _settings = await playwrightConfiguration.launchSettingsAsync();
 
-                ///Apply All filters
-                await jobSearchPage.ApplyFilter();
+                //INICIO
+                IPage page = await _settings.BrowserContext!.NewPageAsync();
+                _basePage = new BasePage(page, token);
 
-            }
-            else
-            {
-                await AddMessageToRichTextbox("Não há filtros para serem aplicados!\n");
-            }
-            await Task.Delay(TimeSpan.FromSeconds(3));
-            #endregion
-
-            //JOB LIST SECTION
-            #region GetAllJobs Elements
-            /*
-                - avaiableJobs, Vagas disponiveis podem ser candidadatas
-                - appliedJobs, Vagas candidatadas
-                - savedJobs, Vagas que contem perguntas, são salvas para preenchimento manual posterior
-            */
-            int currentPage = 1, jobsCounter = 0, appliedJobs = 0, savedJobs = 0;
-
-            // Instancia jobListSection
-            await AddMessageToRichTextbox(stringPatterns.linePattern());
-
-            //Quando não encontra nenhuma vaga
-            ILocator? noFoundJob = page.GetByText("Nenhuma vaga corresponde aos seus critérios.");
-            if (noFoundJob != null)
-            {
-                await AddMessageToRichTextbox(ExceptionMessages.CouldNotFoundTheJob);
-                await AddMessageToRichTextbox("Buscando sugestões...");
                 await AddMessageToRichTextbox(stringPatterns.linePattern());
-            }
+                await AddMessageToRichTextbox("Iniciando automação\n");
+                await AddMessageToRichTextbox("Abrindo o navegador padrão...\n");
 
-            JobListSection jobListSection = await JobListSection.BuildAsync(page, _homeView, currentPage);
-            int avaiableJobs = jobListSection.getAvailableJob();
+                // DIRECIONANDO
+                await AddMessageToRichTextbox("Direcionando para https://www.linkedin.com/\n");
+                await Task.Delay(TimeSpan.FromSeconds(0.5));
 
-            if (avaiableJobs > 0)
-            {
-                await AddMessageToRichTextbox($"Quantidade de vagas encontradas: {avaiableJobs}");
+                await page.GotoAsync("https://www.linkedin.com/");
+                await Task.Delay(TimeSpan.FromSeconds(5));
+
+                await page.GetByLabel("Principal").GetByRole(AriaRole.Link, new() { Name = "Entrar" }).ClickAsync();
                 await Task.Delay(TimeSpan.FromSeconds(1));
-            }
-            else
-            {
-                await AddMessageToRichTextbox(ExceptionMessages.CouldNotFoundTheJob);
-                await CloseBrowserAndHandleButtonsVisibily(settings, appliedJobs, savedJobs);
-                return;
-            }
 
-            #endregion
+                #region LoginPage
+                /// LER DADOS DE USUARIO
+                UserModel userInfo = _loginRepository.ReadAndConvertMsgpackFileToObject();
 
-            //HABILITAR O BOTÃO SAIR/STOP
-            _homeView.ButtonStopEnabled = true;
+                /// PREENCHIMENTO DAS CREEDENCIAIS
+                await AddMessageToRichTextbox("Fazendo login..\n");
 
-            //APLICAÇÃO DE VAGAS
-            while (appliedJobs != Int32.Parse(_homeView.AmountJobs))
-            {
-                try
+                ///Login page
+                LoginPage loginPage = await LoginPage.BuildAsync(page, token);
+                await loginPage.LoginAsync(userInfo.email, userInfo.password);
+
+                //if (await loginPage.HandleErrorLoginAsync())
+                //    return;
+
+                await AddMessageToRichTextbox("Login bem sucedido\n");
+                await Task.Delay(TimeSpan.FromSeconds(2));
+
+                #endregion
+
+                #region Securityhandle
+                // CÓDIGO LINKEDIN / VERIFICAÇÃO DE SEGURANÇA (MANUALMENTE)
+                await AddMessageToRichTextbox("Carregando...\n");
+                await AddMessageToRichTextbox("Verifação de segurança\n");
+                var message = await _basePage.WaitForElementAndHandleExceptionAsync(page, "#global-nav-typeahead", "Página carregada!", ExceptionMessages.SecurityError);
+                await AddMessageToRichTextbox(message);
+                await Task.Delay(TimeSpan.FromSeconds(2));
+
+                #endregion
+
+                #region JobPage Search Section
+                // PESQUISA DE VAGAS
+                await AddMessageToRichTextbox(stringPatterns.linePattern());
+                await AddMessageToRichTextbox($"Pesquisando a vaga {_homeView.Job}\n");
+
+                FeedPage feedPage = await FeedPage.BuildAsync(page, token);
+                await feedPage._jobSpan!.ClickAsync();
+
+                JobPage jobPage = await JobPage.BuildAsync(page, token);
+                await jobPage.SearchJobAsync(_homeView.Job);
+
+                await AddMessageToRichTextbox($"Pesquisado {_homeView.Job} com sucesso\n");
+                await Task.Delay(TimeSpan.FromSeconds(2));
+
+                #endregion
+
+                #region FilterSection
+                await AddMessageToRichTextbox(stringPatterns.linePattern());
+                if (filterData != null)
                 {
-                    //Botão Stop pressionado
-                    if (token.IsCancellationRequested)
-                    {
-                        await CloseBrowserAndHandleButtonsVisibily(settings, appliedJobs, savedJobs);
-                        return;
-                    }
+                    FilterSection jobSearchPage = await FilterSection.BuildAsync(page, token);
+
+                    await AddMessageToRichTextbox("Aplicando filtros\n");
+                    await jobSearchPage.GoToFilterSection(0.8);
+
+                    ///Classificar por
+                    await AddMessageToRichTextbox(FilterLabelsModel.ClassifyByLabel);
+                    await jobSearchPage.SelectFilter(filterData.ClassifyBy);
+                    ///Data do anúncio
+                    await AddMessageToRichTextbox(FilterLabelsModel.AnnouncimentDateLabel);
+                    await jobSearchPage.SelectFilter(filterData.AnnoucementDate);
+                    ///Nível de experiência
+                    await AddMessageToRichTextbox(FilterLabelsModel.ExperienceLevelLabel);
+                    await jobSearchPage.SelectFilter(FilterLabelsModel.ExperienceLevelLabel, filterData.CheckedListBoxExperiences);
+                    ///Tipo de vaga
+                    await AddMessageToRichTextbox(FilterLabelsModel.JobTypeLabel);
+                    await jobSearchPage.SelectFilter(FilterLabelsModel.JobTypeLabel, filterData.CheckedListBoxType_job);
+                    ///Remoto
+                    await AddMessageToRichTextbox(FilterLabelsModel.RemoteTypeLabel);
+                    await jobSearchPage.SelectFilter(FilterLabelsModel.RemoteTypeLabel, filterData.CheckedListBoxRemote);
+
+                    ///Apply All filters
+                    await jobSearchPage.ApplyFilter();
+
+                }
+                else
+                {
+                    await AddMessageToRichTextbox("Não há filtros para serem aplicados!\n");
+                }
+                await Task.Delay(TimeSpan.FromSeconds(3));
+
+                #endregion
+
+                //JOB LIST SECTION
+                #region GetAllJobs Elements
+                /*
+                    - avaiableJobs, Vagas disponiveis podem ser candidadatas
+                    - appliedJobs, Vagas candidatadas
+                    - savedJobs, Vagas que contem perguntas, são salvas para preenchimento manual posterior
+                */
+                int currentPage = 1, jobsCounter = 0;
+                _appliedJobs = 0;
+                _savedJobs = 0;
+
+                // Instancia jobListSection
+                await AddMessageToRichTextbox(stringPatterns.linePattern());
+
+                //Quando não encontra nenhuma vaga
+                ILocator? noFoundJob = page.GetByText("Nenhuma vaga corresponde aos seus critérios.");
+                if (noFoundJob != null)
+                {
+                    await AddMessageToRichTextbox(ExceptionMessages.CouldNotFoundTheJob);
+                    await AddMessageToRichTextbox("Buscando sugestões...");
+                    await AddMessageToRichTextbox(stringPatterns.linePattern());
+                }
+
+                JobListSection jobListSection = await JobListSection.BuildAsync(page, _homeView, token, currentPage);
+                int avaiableJobs = jobListSection.getAvailableJob();
+
+                if (avaiableJobs > 0)
+                {
+                    await AddMessageToRichTextbox($"Quantidade de vagas encontradas: {avaiableJobs}");
+                    await Task.Delay(TimeSpan.FromSeconds(1));
+                }
+                else
+                {
+                    await AddMessageToRichTextbox(ExceptionMessages.CouldNotFoundTheJob);
+                    await CloseBrowserAndHandleButtonsVisibily(_settings, _appliedJobs, _savedJobs);
+                    return;
+                }
+
+                #endregion
+
+                //APLICAÇÃO DE VAGAS
+                while (_appliedJobs != Int32.Parse(_homeView.AmountJobs))
+                {
                     jobsCounter++;
 
                     //JOB LIST SECTION
@@ -223,7 +228,7 @@ namespace forms.Presenters
                         // Fechar aplicação
                         if (!hasNextPage)
                         {
-                            await CloseBrowserAndHandleButtonsVisibily(settings, appliedJobs, savedJobs);
+                            await CloseBrowserAndHandleButtonsVisibily(_settings, _appliedJobs, _savedJobs);
                             return;
                         }
                         //Recarregar elementos
@@ -233,11 +238,12 @@ namespace forms.Presenters
                             avaiableJobs = jobListSection.getAvailableJob();
                             currentPage++;
                             jobsCounter = 1;
-                            await AddMessageToRichTextbox(stringPatterns.ShowFinalResult(appliedJobs, savedJobs));
+                            await AddMessageToRichTextbox(stringPatterns.ShowFinalResult(_appliedJobs, _savedJobs));
                             await AddMessageToRichTextbox(stringPatterns.linePattern());
                             await AddMessageToRichTextbox($"Vagas encontradas: {avaiableJobs}");
                         }
                     }
+
                     #endregion
 
                     await AddMessageToRichTextbox(stringPatterns.linePattern());
@@ -254,11 +260,12 @@ namespace forms.Presenters
                         await AddMessageToRichTextbox($"\n\n{stringPatterns.linePattern}{e}");
                         _logRepository.WriteALogError(ExceptionMessages.ErrorToSelectJob, e);
                     }
+
                     #endregion
 
                     //DETAIL SECTION
                     #region Handle subscribe button
-                    JobDetailsSection jobDetailsSection = await JobDetailsSection.BuildAsync(page);
+                    JobDetailsSection jobDetailsSection = await JobDetailsSection.BuildAsync(page, token);
                     // BOTÃO (Candidatar-se a vaga)
                     if (jobDetailsSection._subscribeButton == null)
                     {
@@ -273,8 +280,8 @@ namespace forms.Presenters
                             else
                             {
                                 await jobDetailsSection._saveButton!.ClickAsync();
-                                savedJobs = SetAndCountSavedJobs(savedJobs);
-                                await ShowSavedJobsMessage(jobsCounter, savedJobs);
+                                _savedJobs = SetAndCountSavedJobs(_savedJobs);
+                                await ShowSavedJobsMessage(jobsCounter, _savedJobs);
                             }
                         }
                         else if (await jobDetailsSection.CheckSubscribedStatus())
@@ -289,19 +296,20 @@ namespace forms.Presenters
                         // SE INSCREVE NA VAGA
                         await jobDetailsSection._subscribeButton!.ClickAsync();
                     }
-                    #endregion 
+
+                    #endregion
 
                     //POPUP WINDOW SECTION
                     #region Advance button
                     await Task.Delay(TimeSpan.FromSeconds(1));
-                    PopupWindowSection popupWindowSection = await PopupWindowSection.BuildAsync(page);
+                    PopupWindowSection popupWindowSection = await PopupWindowSection.BuildAsync(page, token);
                     if (popupWindowSection._advanceButton == null)// QUANDO BOTÃO AVANÇAR Ñ EXISTE
                     {
                         /// CLICA BOTÃO ENVIAR CANDIDATURA
                         await popupWindowSection.SendJobApplicationAndClosePage();
 
                         /// EXIBE NA TELA INFORMAÇÕES DA CANDIDATURA
-                        appliedJobs = await SetAndCountAppliedJobsAndShow(appliedJobs, jobsCounter);
+                        _appliedJobs = await SetAndCountAppliedJobsAndShow(_appliedJobs, jobsCounter);
                         continue;
                     }
                     else // QUANDO BOTÃO AVANÇAR EXISTE!
@@ -318,6 +326,7 @@ namespace forms.Presenters
                             continue;
                         }
                     }
+
                     #endregion
 
                     #region Review button
@@ -338,6 +347,7 @@ namespace forms.Presenters
                             _logRepository.WriteALogError(ExceptionMessages.CouldNotClickedTheAdvanceButton, e);
                         }
                     }
+
                     #endregion
 
                     #region Addicional Questions
@@ -356,32 +366,39 @@ namespace forms.Presenters
                         // ENVIAR CANDIDATURA, SEM PERGUNTAS
                         await popupWindowSection.SendJobApplicationAndClosePage();
 
-                        appliedJobs = await SetAndCountAppliedJobsAndShow(appliedJobs, jobsCounter);
-                        await AddMessageToRichTextbox(stringPatterns.ShowFinalResult(appliedJobs, savedJobs));
+                        _appliedJobs = await SetAndCountAppliedJobsAndShow(_appliedJobs, jobsCounter);
+                        await AddMessageToRichTextbox(stringPatterns.ShowFinalResult(_appliedJobs, _savedJobs));
                         continue;
                     }
                     else if (popupWindowSection._additionalQuestions != null) // QUANDO HÁ PERGUNTAS
                     {
                         await popupWindowSection.SaveJobClosePage();
-                        savedJobs = SetAndCountSavedJobs(savedJobs);
+                        _savedJobs = SetAndCountSavedJobs(_savedJobs);
                         await Task.Delay(TimeSpan.FromSeconds(0.8));
                         await AddMessageToRichTextbox($"Salva a vaga nº{jobsCounter}");
                         await Task.Delay(TimeSpan.FromSeconds(0.8));
-                        await AddMessageToRichTextbox(stringPatterns.ShowFinalResult(appliedJobs, savedJobs));
+                        await AddMessageToRichTextbox(stringPatterns.ShowFinalResult(_appliedJobs, _savedJobs));
                         continue;
                     }
                     else if (popupWindowSection._advanceButton != null) // BOTÃO AVANÇAR
                     {
                         await popupWindowSection._advanceButton.ClickAsync();
                     }
+
                     #endregion
                 }
-                catch (Exception e)
-                {
-                    _logRepository.WriteALogError(ExceptionMessages.CommonError, e);
-                    return;
-                }
             }
+            catch (OperationCanceledException)
+            {
+                await CloseBrowserAndHandleButtonsVisibily(_settings, _appliedJobs, _savedJobs);
+                return;
+            }
+            catch (Exception e)
+            {
+                _logRepository.WriteALogError(ExceptionMessages.CommonError, e);
+                return;
+            }
+
         }
 
         //UI
@@ -397,8 +414,9 @@ namespace forms.Presenters
             await AddMessageToRichTextbox($"Total de {savedJobs} vagas salvas");
         }
 
-        private async Task AddMessageToRichTextbox(string message)
+        private async Task AddMessageToRichTextbox(string message, bool verifyToken = true)
         {
+            if (verifyToken) _basePage.VerifyToken();
             _homeView.RichtxtBox += $"{message}\n";
             await Task.Delay(TimeSpan.FromSeconds(0.1));
         }
@@ -422,9 +440,10 @@ namespace forms.Presenters
         private async Task CloseBrowserAndHandleButtonsVisibily(PlaywrightConfiguration playwrightConfiguration, int appliedJobsAmount, int savedJobsAmount)
         {
             ///Fechar o navegador
-            await AddMessageToRichTextbox(stringPatterns.linePattern());
-            await AddMessageToRichTextbox("Fechando navegador...");
-            await AddMessageToRichTextbox(stringPatterns.ShowFinalResult(appliedJobsAmount, savedJobsAmount));
+            await AddMessageToRichTextbox(stringPatterns.linePattern(), false);
+            await AddMessageToRichTextbox("Fechando navegador...", false);
+            await AddMessageToRichTextbox("AUTOMAÇÃO FINALIZADA", false);
+            await AddMessageToRichTextbox(stringPatterns.ShowFinalResult(appliedJobsAmount, savedJobsAmount), false);
             await playwrightConfiguration.BrowserContext.CloseAsync();
             ///Ativar o botão play
             _homeView.ButtonPlayEnabled = true;

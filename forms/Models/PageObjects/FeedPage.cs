@@ -9,14 +9,14 @@ namespace forms.Models.PageObjects
         private IElementHandle? _navBar;
         public IElementHandle? _jobSpan;
 
-        public FeedPage(IPage page) : base(page)
+        public FeedPage(IPage page, CancellationToken token) : base(page, token)
         {
             _page = page;
         }
 
-        public static async Task<FeedPage> BuildAsync(IPage page, double securityTime = 0.5)
+        public static async Task<FeedPage> BuildAsync(IPage page, CancellationToken token, double securityTime = 0.5)
         {
-            FeedPage obj = new FeedPage(page);
+            FeedPage obj = new FeedPage(page, token);
             await obj.InicializateAsync(securityTime);
             return obj;
         }

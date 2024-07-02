@@ -13,14 +13,14 @@ namespace forms.Models.PageObjects.Sections
         public IElementHandle? _feedbackMessage;
         public IElementHandle? _jobAlreadySaved;
 
-        public JobDetailsSection(IPage page) : base(page)
+        public JobDetailsSection(IPage page, CancellationToken token) : base(page, token)
         {
             _page = page;
         }
 
-        public static async Task<JobDetailsSection> BuildAsync(IPage page, double securityTime = 0.5)
+        public static async Task<JobDetailsSection> BuildAsync(IPage page, CancellationToken token, double securityTime = 0.5)
         {
-            JobDetailsSection obj = new JobDetailsSection(page);
+            JobDetailsSection obj = new JobDetailsSection(page, token);
             await obj.InicializateAsync(securityTime);
             return obj;
         }

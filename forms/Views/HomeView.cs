@@ -157,7 +157,7 @@ namespace forms
 
         private void stopButton_Click(object sender, EventArgs e)
         {
-            consoleRichTxtBox.Text += stringPatterns.linePattern();
+            consoleRichTxtBox.Text += stringPatterns.linePattern() + "\n";
             consoleRichTxtBox.Text += "Parando aplicação!\n";
             StopAutomation?.Invoke(this, EventArgs.Empty);
         }

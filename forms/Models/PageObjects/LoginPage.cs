@@ -15,14 +15,14 @@ namespace forms.Models.PageObjects
         private LogRepository _logRepository = new();
         private OutputStringPatterns _outputStringPatterns = new();
 
-        public LoginPage(IPage page) : base(page)
+        public LoginPage(IPage page, CancellationToken token) : base(page, token)
         {
             _page = page;
         }
 
-        public static async Task<LoginPage> BuildAsync(IPage page, double securityTime = 0.5)
+        public static async Task<LoginPage> BuildAsync(IPage page, CancellationToken token, double securityTime = 0.5)
         {
-            LoginPage obj = new LoginPage(page);
+            LoginPage obj = new LoginPage(page, token);
             await obj.InicializateAsync(securityTime);
             return obj;
         }

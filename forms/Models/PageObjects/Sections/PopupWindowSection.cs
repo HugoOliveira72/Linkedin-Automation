@@ -13,14 +13,14 @@ namespace forms.Models.PageObjects.Sections
         public IElementHandle? _saveButton;
         public IElementHandle? _additionalQuestions;
 
-        public PopupWindowSection(IPage page) : base(page)
+        public PopupWindowSection(IPage page, CancellationToken token) : base(page, token)
         {
             _page = page;
         }
 
-        public static async Task<PopupWindowSection> BuildAsync(IPage page, double securityTime = 0.5)
+        public static async Task<PopupWindowSection> BuildAsync(IPage page, CancellationToken token, double securityTime = 0.5)
         {
-            PopupWindowSection obj = new PopupWindowSection(page);
+            PopupWindowSection obj = new PopupWindowSection(page, token);
             await obj.InicializateAsync(securityTime);
             return obj;
         }

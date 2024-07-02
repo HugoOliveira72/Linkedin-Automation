@@ -14,15 +14,16 @@ namespace forms.Models.PageObjects.Sections
         private IElementHandle? _nextPageButton;
         private OutputStringPatterns stringPatterns = new();
 
-        public JobListSection(IPage page, IHomeView homeView) : base(page)
+
+        public JobListSection(IPage page, IHomeView homeView, CancellationToken token) : base(page, token)
         {
             _page = page;
             _homeView = homeView;
         }
 
-        public static async Task<JobListSection> BuildAsync(IPage page, IHomeView homeView, int currentPageNumber, double securityTime = 0.5)
+        public static async Task<JobListSection> BuildAsync(IPage page, IHomeView homeView, CancellationToken token, int currentPageNumber, double securityTime = 0.5)
         {
-            JobListSection obj = new JobListSection(page, homeView);
+            JobListSection obj = new JobListSection(page, homeView, token);
             await obj.InicializateAsync(securityTime, currentPageNumber);
             return obj;
         }
