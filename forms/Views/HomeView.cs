@@ -9,6 +9,7 @@ using forms.Views.Interfaces;
 using forms.Views.Interfaces.Control;
 using forms.Views.UserControls;
 using Krypton.Toolkit;
+using System.Windows.Forms;
 
 namespace forms
 {
@@ -46,8 +47,8 @@ namespace forms
         }
         public string? RichtxtBox
         {
-            get { return richtxtBox.Text; }
-            set { richtxtBox.Text = value; }
+            get { return consoleRichTxtBox.Text; }
+            set { consoleRichTxtBox.Text = value; }
         }
         public bool ButtonStopEnabled
         {
@@ -163,10 +164,11 @@ namespace forms
             //Validação de campos bem sucedida
             if (ValidateChildren(ValidationConstraints.Enabled))
             {
+                //MECHER AQUI
                 txtBox_saved_jobs.Text = "0";
-                txtBox_applied_Jobs.Text = $"0/{amount_jobs.Text}";
+                txtBox_applied_Jobs.Text = $"0/{amount_jobs.Text}"; //AQUI
                 txtBoxCurrentJob.Text = txtBox_job.Text;
-                richtxtBox.Clear();
+                consoleRichTxtBox.Clear();
                 StartAutomation?.Invoke(this, EventArgs.Empty);
             }
         }
@@ -175,7 +177,15 @@ namespace forms
         {
             //Ajustar tamanho do console e do painel de forma responsiva
             panelConsole.Size = new Size(panelConsole.Width, this.Height - 300);
-            richtxtBox.Size = new Size(richtxtBox.Width, panelConsole.Height - 20);
+            consoleRichTxtBox.Size = new Size(consoleRichTxtBox.Width, panelConsole.Height - 20);
+        }
+
+        private void RichtxtBox_TextChanged(object sender, EventArgs e)
+        {
+            // definir o cursor atual para a posição final do richTextBox
+            consoleRichTxtBox.SelectionStart = consoleRichTxtBox.Text.Length;
+            // rolar automaticamente
+            consoleRichTxtBox.ScrollToCaret();
         }
 
     }

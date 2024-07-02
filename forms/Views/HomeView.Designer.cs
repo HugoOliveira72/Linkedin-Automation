@@ -42,7 +42,7 @@
             info_label = new Label();
             txtBox_applied_Jobs = new Krypton.Toolkit.KryptonTextBox();
             txtBox_saved_jobs = new Krypton.Toolkit.KryptonTextBox();
-            richtxtBox = new Krypton.Toolkit.KryptonRichTextBox();
+            consoleRichTxtBox = new Krypton.Toolkit.KryptonRichTextBox();
             groupBox_job = new GroupBox();
             amout_jobs_label = new Label();
             job_label = new Label();
@@ -334,18 +334,19 @@
             txtBox_saved_jobs.StateCommon.Border.Rounding = 5F;
             txtBox_saved_jobs.TabIndex = 68;
             // 
-            // richtxtBox
+            // consoleRichTxtBox
             // 
-            richtxtBox.HideSelection = false;
-            richtxtBox.Location = new Point(3, 9);
-            richtxtBox.MaximumSize = new Size(1920, 1080);
-            richtxtBox.Name = "richtxtBox";
-            richtxtBox.ReadOnly = true;
-            richtxtBox.Size = new Size(820, 402);
-            richtxtBox.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            richtxtBox.StateCommon.Border.Rounding = 5F;
-            richtxtBox.TabIndex = 70;
-            richtxtBox.Text = "";
+            consoleRichTxtBox.HideSelection = false;
+            consoleRichTxtBox.Location = new Point(3, 9);
+            consoleRichTxtBox.MaximumSize = new Size(1920, 1080);
+            consoleRichTxtBox.Name = "consoleRichTxtBox";
+            consoleRichTxtBox.ReadOnly = true;
+            consoleRichTxtBox.Size = new Size(820, 402);
+            consoleRichTxtBox.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            consoleRichTxtBox.StateCommon.Border.Rounding = 5F;
+            consoleRichTxtBox.TabIndex = 70;
+            consoleRichTxtBox.Text = "";
+            consoleRichTxtBox.TextChanged += RichtxtBox_TextChanged;
             // 
             // groupBox_job
             // 
@@ -484,7 +485,7 @@
             // panelConsole
             // 
             panelConsole.BackColor = Color.FromArgb(33, 150, 243);
-            panelConsole.Controls.Add(richtxtBox);
+            panelConsole.Controls.Add(consoleRichTxtBox);
             panelConsole.Location = new Point(12, 255);
             panelConsole.Name = "panelConsole";
             panelConsole.Size = new Size(830, 420);
@@ -543,7 +544,7 @@
         private Krypton.Toolkit.KryptonButton kryptonLoginButton;
         private Krypton.Toolkit.KryptonTextBox txtBox_applied_Jobs;
         private Krypton.Toolkit.KryptonTextBox txtBox_saved_jobs;
-        private Krypton.Toolkit.KryptonRichTextBox richtxtBox;
+        private Krypton.Toolkit.KryptonRichTextBox consoleRichTxtBox;
         private GroupBox groupBox_job;
         private Label amout_jobs_label;
         private Label job_label;
