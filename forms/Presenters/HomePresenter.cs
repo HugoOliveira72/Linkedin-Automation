@@ -5,13 +5,11 @@ using forms.Models.PageObjects.Base;
 using forms.Models.PageObjects.Sections;
 using forms.Repositories;
 using forms.Services;
-using forms.Utilities;
 using forms.Utilities.Messages;
 using forms.Views.Interfaces;
 using Linkedin_Automation.Config;
 using Linkedin_Automation.Model;
 using Microsoft.Playwright;
-using Segment.Model;
 
 namespace forms.Presenters
 {
@@ -173,11 +171,30 @@ namespace forms.Presenters
 
             // Instancia jobListSection
             await AddMessageToRichTextbox(stringPatterns.linePattern());
+
+            //Quando não encontra nenhuma vaga
+            ILocator? noFoundJob = page.GetByText("Nenhuma vaga corresponde aos seus critérios.");
+            if (noFoundJob != null)
+            {
+                await AddMessageToRichTextbox(ExceptionMessages.CouldNotFoundTheJob);
+                await AddMessageToRichTextbox("Buscando sugestões...");
+                await AddMessageToRichTextbox(stringPatterns.linePattern());
+            }
+
             JobListSection jobListSection = await JobListSection.BuildAsync(page, _homeView, currentPage);
             int avaiableJobs = jobListSection.getAvailableJob();
-            await AddMessageToRichTextbox($"Quantidade de vagas encontradas: {avaiableJobs}!");
-            await Task.Delay(TimeSpan.FromSeconds(1));
 
+            if (avaiableJobs > 0)
+            {
+                await AddMessageToRichTextbox($"Quantidade de vagas encontradas: {avaiableJobs}");
+                await Task.Delay(TimeSpan.FromSeconds(1));
+            }
+            else
+            {
+                await AddMessageToRichTextbox(ExceptionMessages.CouldNotFoundTheJob);
+                await CloseBrowserAndHandleButtonsVisibily(settings, appliedJobs, savedJobs);
+                return;
+            }
 
             #endregion
 
@@ -192,7 +209,7 @@ namespace forms.Presenters
                     //Botão Stop pressionado
                     if (token.IsCancellationRequested)
                     {
-                        await CloseBrowserAndHandleButtonsVisibily(settings);
+                        await CloseBrowserAndHandleButtonsVisibily(settings, appliedJobs, savedJobs);
                         return;
                     }
                     jobsCounter++;
@@ -206,7 +223,7 @@ namespace forms.Presenters
                         // Fechar aplicação
                         if (!hasNextPage)
                         {
-                            await CloseBrowserAndHandleButtonsVisibily(settings);
+                            await CloseBrowserAndHandleButtonsVisibily(settings, appliedJobs, savedJobs);
                             return;
                         }
                         //Recarregar elementos
@@ -402,12 +419,16 @@ namespace forms.Presenters
             return amountOfsavedJobs;
         }
 
-        private async Task CloseBrowserAndHandleButtonsVisibily(PlaywrightConfiguration playwrightConfiguration)
+        private async Task CloseBrowserAndHandleButtonsVisibily(PlaywrightConfiguration playwrightConfiguration, int appliedJobsAmount, int savedJobsAmount)
         {
             ///Fechar o navegador
+            await AddMessageToRichTextbox(stringPatterns.linePattern());
+            await AddMessageToRichTextbox("Fechando navegador...");
+            await AddMessageToRichTextbox(stringPatterns.ShowFinalResult(appliedJobsAmount, savedJobsAmount));
             await playwrightConfiguration.BrowserContext.CloseAsync();
             ///Ativar o botão play
             _homeView.ButtonPlayEnabled = true;
+            ///Desativar o botão Stop
             _homeView.ButtonStopEnabled = false;
         }
     }

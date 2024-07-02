@@ -4,6 +4,7 @@ using forms.Presenters;
 using forms.Presenters.Controls;
 using forms.Repositories;
 using forms.Services;
+using forms.Utilities.Messages;
 using forms.Views;
 using forms.Views.Interfaces;
 using forms.Views.Interfaces.Control;
@@ -16,7 +17,8 @@ namespace forms
     {
         private IDataService<dynamic> _dataService;
         private IFilterControlView filterControlView;
-        private ErrorProvider errorProvider = new ErrorProvider();
+        private ErrorProvider errorProvider = new();
+        private OutputStringPatterns stringPatterns = new();
 
         //Attributes
         public string Job
@@ -155,6 +157,8 @@ namespace forms
 
         private void stopButton_Click(object sender, EventArgs e)
         {
+            consoleRichTxtBox.Text += stringPatterns.linePattern();
+            consoleRichTxtBox.Text += "Parando aplicação!\n";
             StopAutomation?.Invoke(this, EventArgs.Empty);
         }
 
