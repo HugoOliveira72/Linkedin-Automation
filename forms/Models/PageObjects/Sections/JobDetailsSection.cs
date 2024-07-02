@@ -33,11 +33,12 @@ namespace forms.Models.PageObjects.Sections
             await Task.Delay(TimeSpan.FromSeconds(securityTime));
             _continueButton = await _supDivElement.QuerySelectorAsync("button[aria-label*='Continuar candidatura']");
             await Task.Delay(TimeSpan.FromSeconds(securityTime));
-            _saveButton = await _supDivElement.QuerySelectorAsync("button[class*='jobs-save-button']");
-            await Task.Delay(TimeSpan.FromSeconds(securityTime));
             _feedbackMessage = await _supDivElement.QuerySelectorAsync("span[class='artdeco-inline-feedback__message']");
             await Task.Delay(TimeSpan.FromSeconds(securityTime));
-            _jobAlreadySaved = await _saveButton!.QuerySelectorAsync("span:has-text('Salvos')");
+            _saveButton = await _supDivElement.QuerySelectorAsync("button[class*='jobs-save-button']");
+            await Task.Delay(TimeSpan.FromSeconds(securityTime));
+            if(_saveButton != null) 
+                _jobAlreadySaved = await _saveButton!.QuerySelectorAsync("span:has-text('Salvos')");
             await Task.Delay(TimeSpan.FromSeconds(securityTime));
         }
 
