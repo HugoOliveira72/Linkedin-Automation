@@ -22,7 +22,7 @@ namespace forms.Presenters
         private ILogRepository _logRepository;
         private OutputStringPatterns stringPatterns = new();
         private PlaywrightUtilities playwrightUtilities = new();
-        public CancellationTokenSource cancellationToken = new();
+        private CancellationTokenSource cancellationToken = new();
 
         public HomePresenter(
             IHomeView homeView,
@@ -325,8 +325,15 @@ namespace forms.Presenters
                     await Task.Delay(TimeSpan.FromSeconds(0.8));
                     popupWindowSection._additionalQuestions = await popupWindowSection.LoadElementAsync("h3");
                     popupWindowSection._advanceButton = await popupWindowSection.LoadElementAsync("button[aria-label='Avançar para próxima etapa']");
+                    popupWindowSection._reviewButton = await popupWindowSection.LoadElementAsync("span:has-text('Revisar')");
+
                     if (!await popupWindowSection.CheckAddicionalQuestions()) // QUANDO NÃO HÁ PERGUNTAS
                     {
+                        if (popupWindowSection._reviewButton != null) ///Quando possui o botão review
+                        {
+                            await popupWindowSection._reviewButton.ClickAsync();
+                            await Task.Delay(TimeSpan.FromSeconds(0.8));
+                        }
                         // ENVIAR CANDIDATURA, SEM PERGUNTAS
                         await popupWindowSection.SendJobApplicationAndClosePage();
 
@@ -344,7 +351,7 @@ namespace forms.Presenters
                         await AddMessageToRichTextbox(stringPatterns.ShowFinalResult(appliedJobs, savedJobs));
                         continue;
                     }
-                    else if (popupWindowSection._advanceButton != null)
+                    else if (popupWindowSection._advanceButton != null) // BOTÃO AVANÇAR
                     {
                         await popupWindowSection._advanceButton.ClickAsync();
                     }

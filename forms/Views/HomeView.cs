@@ -9,7 +9,6 @@ using forms.Views.Interfaces;
 using forms.Views.Interfaces.Control;
 using forms.Views.UserControls;
 using Krypton.Toolkit;
-using System.Windows.Forms;
 
 namespace forms
 {
