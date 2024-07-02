@@ -10,7 +10,6 @@ A aplicação foi construída utilizando a C# 8.0,
   * Encoding CodePages Versão 8.0.0
 
 Funcionalidades
-A aplicação realiza as seguintes operações:
 
 * Registro de Credenciais: As credenciais do usuário são armazenadas em um arquivo local chamado user.msgpack, localizado em forms/Files/. O arquivo é gerado assim que o programa iniciar.
 * Geração de Arquivo de log: A aplicação gera um arquivo de log que registra erros de execução e a data de execução. Tal arquivo também é gerado assim que o programa é executado.
