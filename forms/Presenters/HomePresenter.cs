@@ -68,7 +68,7 @@ namespace forms.Presenters
 
             //INICIO
             await AddMessageToRichTextbox(stringPatterns.linePattern());
-            await AddMessageToRichTextbox("Iniciando...\n");
+            await AddMessageToRichTextbox("Iniciando automação\n");
             await AddMessageToRichTextbox("Abrindo o navegador padrão...\n");
             IPage page = await settings.BrowserContext!.NewPageAsync();
 
@@ -103,6 +103,7 @@ namespace forms.Presenters
             #region Securityhandle
             // CÓDIGO LINKEDIN / VERIFICAÇÃO DE SEGURANÇA (MANUALMENTE)
             await AddMessageToRichTextbox("Carregando...\n");
+            await AddMessageToRichTextbox("Verifação de segurança\n");
             var message = await playwrightUtilities.WaitForElementAndHandleExceptionAsync(page, "#global-nav-typeahead", "Página carregada!", ExceptionMessages.SecurityError);
             await AddMessageToRichTextbox(message);
             await Task.Delay(TimeSpan.FromSeconds(2));
@@ -111,7 +112,7 @@ namespace forms.Presenters
             #region JobPage Search Section
             // PESQUISA DE VAGAS
             await AddMessageToRichTextbox(stringPatterns.linePattern());
-            await AddMessageToRichTextbox($"Pesquisando {_homeView.Job}\n");
+            await AddMessageToRichTextbox($"Pesquisando a vaga {_homeView.Job}\n");
 
             FeedPage feedPage = await FeedPage.BuildAsync(page);
             await feedPage._jobSpan!.ClickAsync();
@@ -119,11 +120,12 @@ namespace forms.Presenters
             JobPage jobPage = await JobPage.BuildAsync(page);
             await jobPage.SearchJobAsync(_homeView.Job);
 
-            await AddMessageToRichTextbox("Pesquisado com sucesso\n");
+            await AddMessageToRichTextbox($"Pesquisado {_homeView.Job} com sucesso\n");
             await Task.Delay(TimeSpan.FromSeconds(2));
             #endregion
 
             #region FilterSection
+            await AddMessageToRichTextbox(stringPatterns.linePattern());
             if (filterData != null)
             {
                 FilterSection jobSearchPage = await FilterSection.BuildAsync(page);
@@ -168,9 +170,10 @@ namespace forms.Presenters
             int currentPage = 1, jobsCounter = 0, appliedJobs = 0, savedJobs = 0;
 
             // Instancia jobListSection
+            await AddMessageToRichTextbox(stringPatterns.linePattern());
             JobListSection jobListSection = await JobListSection.BuildAsync(page, currentPage);
             int avaiableJobs = jobListSection.getAvailableJob();
-            await AddMessageToRichTextbox($"Vagas encontradas: {avaiableJobs}");
+            await AddMessageToRichTextbox($"Quantidade de vagas encontradas: {avaiableJobs}!");
             await Task.Delay(TimeSpan.FromSeconds(1));
 
             #endregion
@@ -197,7 +200,8 @@ namespace forms.Presenters
                     #region NextPageValidation
                     if (jobsCounter > avaiableJobs)
                     {
-                        bool hasNextPage = await jobListSection.GoToNextPage(currentPage, appliedJobs, savedJobs);
+                        ///Possui próxima página
+                        bool hasNextPage = await jobListSection.GoToNextPage();
                         // Fechar aplicação
                         if (!hasNextPage)
                         {
@@ -211,14 +215,15 @@ namespace forms.Presenters
                             currentPage++;
                             jobsCounter = 1;
                             await AddMessageToRichTextbox(stringPatterns.ShowFinalResult(appliedJobs, savedJobs));
+                            await AddMessageToRichTextbox(stringPatterns.linePattern());
                             await AddMessageToRichTextbox($"Vagas encontradas: {avaiableJobs}");
                         }
                     }
                     #endregion
 
                     await AddMessageToRichTextbox(stringPatterns.linePattern());
-                    await AddMessageToRichTextbox($"Página {currentPage}");
-                    await AddMessageToRichTextbox($"Vaga nº {jobsCounter}");
+                    await AddMessageToRichTextbox($"Percorrendo Página {currentPage}");
+                    await AddMessageToRichTextbox($"Selecionando Vaga nº {jobsCounter}");
 
                     #region SelectJob
                     try
@@ -228,7 +233,7 @@ namespace forms.Presenters
                     catch (Exception e)
                     {
                         await AddMessageToRichTextbox($"\n\n{stringPatterns.linePattern}{e}");
-                        _logRepository.WriteALogError("Erro ao selecionar vaga", e);
+                        _logRepository.WriteALogError(ExceptionMessages.ErrorToSelectJob, e);
                     }
                     #endregion
 
@@ -290,7 +295,7 @@ namespace forms.Presenters
                         catch (Exception e)
                         {
                             /// ERRO AO CLICAR NO BOTÃO
-                            _logRepository.WriteALogError("Não foi possivel clicar no botão avançar!", e);
+                            _logRepository.WriteALogError(ExceptionMessages.CouldNotClickedTheAdvanceButton, e);
                             continue;
                         }
                     }
@@ -311,7 +316,7 @@ namespace forms.Presenters
                         catch (Exception e)
                         {
                             await Task.Delay(TimeSpan.FromSeconds(1));
-                            _logRepository.WriteALogError("Erro ao clicar no botão avançar", e);
+                            _logRepository.WriteALogError(ExceptionMessages.CouldNotClickedTheAdvanceButton, e);
                         }
                     }
                     #endregion
@@ -347,7 +352,7 @@ namespace forms.Presenters
                 }
                 catch (Exception e)
                 {
-                    _logRepository.WriteALogError("Erro genérico", e);
+                    _logRepository.WriteALogError(ExceptionMessages.CommonError, e);
                     return;
                 }
             }

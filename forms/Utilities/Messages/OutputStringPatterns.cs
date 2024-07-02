@@ -7,7 +7,7 @@
         {
             string resultText = "";
             resultText += linePattern();
-            resultText += "RESULTADOS\n- VAGAS APLICADAS: ";
+            resultText += "\n- VAGAS APLICADAS: ";
             resultText += appliedJobs;
             resultText += "\n- VAGAS SALVAS: ";
             resultText += savedJobs;

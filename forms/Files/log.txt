@@ -1680,3 +1680,13 @@ Call log:
 =============================	 30/06/2024 20:55:12
 
 =============================	 01/07/2024 12:20:36
+
+=============================	 01/07/2024 21:08:46
+
+=============================	 01/07/2024 21:52:50
+
+=============================	 01/07/2024 21:57:06
+Erro genérico: System.NullReferenceException: Object reference not set to an instance of an object.
+   at forms.Models.PageObjects.Sections.JobDetailsSection.InicializateAsync(Double securityTime) in C:\Users\Hugo\Documents\Repositorios-programação\linkedin-automation\forms\Models\PageObjects\Sections\JobDetailsSection.cs:line 40
+   at forms.Models.PageObjects.Sections.JobDetailsSection.BuildAsync(IPage page, Double securityTime) in C:\Users\Hugo\Documents\Repositorios-programação\linkedin-automation\forms\Models\PageObjects\Sections\JobDetailsSection.cs:line 23
+   at forms.Presenters.HomePresenter.Script(CancellationToken token) in C:\Users\Hugo\Documents\Repositorios-programação\linkedin-automation\forms\Presenters\HomePresenter.cs:line 242

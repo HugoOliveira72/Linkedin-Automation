@@ -1,4 +1,5 @@
-﻿using Microsoft.Playwright;
+﻿using forms.Utilities.Messages;
+using Microsoft.Playwright;
 
 namespace forms.Models.PageObjects.Sections
 {
@@ -35,7 +36,7 @@ namespace forms.Models.PageObjects.Sections
             await _ulElementsJobs[indexJob].ClickAsync();
         }
 
-        public async Task<bool> GoToNextPage(int currentPageNumber, int appliedJobs, int savedJobs)
+        public async Task<bool> GoToNextPage()
         {
             if (_nextPageButton != null)
             {
@@ -44,7 +45,7 @@ namespace forms.Models.PageObjects.Sections
             }
             else
             {
-                MessageBox.Show("Limite de páginas excedido, não há mais vagas para se candidatar", "Limite excedido", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+                MessageBox.Show(ExceptionMessages.PageLimitExceeded, "Limite excedido", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
                 return false;
             }
         }
