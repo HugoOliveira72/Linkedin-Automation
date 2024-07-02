@@ -1,29 +1,9 @@
-﻿using forms.Repositories;
-using forms.Utilities.Messages;
-using Microsoft.Playwright;
+﻿using Microsoft.Playwright;
 
 namespace forms.Utilities
 {
     public class PlaywrightUtilities
     {
-        LogRepository logRepository = new();
-        OutputStringPatterns outputString = new();
-
-        public async Task<string> WaitForElementAndHandleExceptionAsync(IPage page, string selector, string successMessage = "", string errorMessage = "", int timeout = 60000, bool showMessageBox = true)
-        {
-            try
-            {
-                await page.WaitForSelectorAsync(selector, new() { Timeout = timeout });
-                return successMessage;
-            }
-            catch (Exception exception)
-            {
-                if (showMessageBox) MessageBox.Show(errorMessage, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button2);
-                logRepository.WriteALogError(errorMessage, exception);
-                return outputString.errorPattern(errorMessage, exception);
-            }
-        }
-
         public async Task QuerySelectorAndClickAsync(IPage page, string querySelector, double securityTimePause = 0.5)
         {
             await Task.Delay(TimeSpan.FromSeconds(securityTimePause));

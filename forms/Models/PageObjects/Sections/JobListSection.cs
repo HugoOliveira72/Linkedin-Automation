@@ -1,10 +1,11 @@
-﻿using forms.Utilities.Messages;
+﻿using forms.Models.PageObjects.Base;
+using forms.Utilities.Messages;
 using forms.Views.Interfaces;
 using Microsoft.Playwright;
 
 namespace forms.Models.PageObjects.Sections
 {
-    public class JobListSection
+    public class JobListSection : BasePage
     {
         //Properties
         private IPage _page;
@@ -13,7 +14,7 @@ namespace forms.Models.PageObjects.Sections
         private IElementHandle? _nextPageButton;
         private OutputStringPatterns stringPatterns = new();
 
-        public JobListSection(IPage page, IHomeView homeView)
+        public JobListSection(IPage page, IHomeView homeView) : base(page)
         {
             _page = page;
             _homeView = homeView;
@@ -30,7 +31,7 @@ namespace forms.Models.PageObjects.Sections
         {
             await Task.Delay(TimeSpan.FromSeconds(securityTime));
             await ReloadUlElements();
-            _nextPageButton = await _page.QuerySelectorAsync($"button[aria-label='Página {currentPageNumber + 1}']");
+            _nextPageButton = await LoadElementAsync($"button[aria-label='Página {currentPageNumber + 1}']");
             await Task.Delay(TimeSpan.FromSeconds(securityTime));
         }
 

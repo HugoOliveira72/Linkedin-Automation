@@ -1,8 +1,9 @@
-﻿using Microsoft.Playwright;
+﻿using forms.Models.PageObjects.Base;
+using Microsoft.Playwright;
 
 namespace forms.Models.PageObjects.Sections
 {
-    public class JobDetailsSection
+    public class JobDetailsSection : BasePage
     {
         private IPage _page;
         public IElementHandle? _supDivElement;
@@ -12,7 +13,7 @@ namespace forms.Models.PageObjects.Sections
         public IElementHandle? _feedbackMessage;
         public IElementHandle? _jobAlreadySaved;
 
-        public JobDetailsSection(IPage page)
+        public JobDetailsSection(IPage page) : base(page)
         {
             _page = page;
         }
@@ -26,8 +27,7 @@ namespace forms.Models.PageObjects.Sections
 
         private async Task InicializateAsync(double securityTime)
         {
-            await Task.Delay(TimeSpan.FromSeconds(securityTime));
-            _supDivElement = await _page.QuerySelectorAsync("div[class*='jobs-unified-top-card']");
+            _supDivElement = await LoadElementAsync("div[class*='jobs-unified-top-card']");
             await Task.Delay(TimeSpan.FromSeconds(securityTime));
             _subscribeButton = await _supDivElement!.QuerySelectorAsync("button:has-text('Candidatura simplificada')");
             await Task.Delay(TimeSpan.FromSeconds(securityTime));
@@ -37,7 +37,7 @@ namespace forms.Models.PageObjects.Sections
             await Task.Delay(TimeSpan.FromSeconds(securityTime));
             _saveButton = await _supDivElement.QuerySelectorAsync("button[class*='jobs-save-button']");
             await Task.Delay(TimeSpan.FromSeconds(securityTime));
-            if(_saveButton != null) 
+            if (_saveButton != null)
                 _jobAlreadySaved = await _saveButton!.QuerySelectorAsync("span:has-text('Salvos')");
             await Task.Delay(TimeSpan.FromSeconds(securityTime));
         }
@@ -46,7 +46,7 @@ namespace forms.Models.PageObjects.Sections
         {
             return _feedbackMessage != null;
         }
-        
+
     }
 
 }

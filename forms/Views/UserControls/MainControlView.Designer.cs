@@ -47,7 +47,7 @@ namespace forms.Views.UserControls
             kryptonRichTextBoxWarningText.Location = new Point(0, 0);
             kryptonRichTextBoxWarningText.Name = "kryptonRichTextBoxWarningText";
             kryptonRichTextBoxWarningText.ReadOnly = true;
-            kryptonRichTextBoxWarningText.Size = new Size(527, 150);
+            kryptonRichTextBoxWarningText.Size = new Size(450, 150);
             kryptonRichTextBoxWarningText.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
             kryptonRichTextBoxWarningText.StateCommon.Border.Rounding = 5F;
             kryptonRichTextBoxWarningText.TabIndex = 2;

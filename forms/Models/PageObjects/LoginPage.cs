@@ -1,11 +1,11 @@
-﻿using forms.Models.Interfaces;
+﻿using forms.Models.PageObjects.Base;
 using forms.Repositories;
 using forms.Utilities.Messages;
 using Microsoft.Playwright;
 
 namespace forms.Models.PageObjects
 {
-    public class LoginPage
+    public class LoginPage : BasePage
     {
         public IPage _page;
         private ILocator _userNameTextBox;
@@ -15,7 +15,7 @@ namespace forms.Models.PageObjects
         private LogRepository _logRepository = new();
         private OutputStringPatterns _outputStringPatterns = new();
 
-        public LoginPage(IPage page)
+        public LoginPage(IPage page) : base(page)
         {
             _page = page;
         }
@@ -36,7 +36,7 @@ namespace forms.Models.PageObjects
             await Task.Delay(TimeSpan.FromSeconds(securityTime));
             _loginButton = _page.GetByLabel("Entrar", new() { Exact = true });
             await Task.Delay(TimeSpan.FromSeconds(securityTime));
-            _errorLoginDiv = await _page.QuerySelectorAsync("div[error-for=\"password\"]");
+            _errorLoginDiv = await LoadElementAsync("div[error-for=\"password\"]");
         }
 
         public async Task LoginAsync(string userName, string password, double securityTime = 0.5)

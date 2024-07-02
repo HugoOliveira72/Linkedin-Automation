@@ -128,8 +128,16 @@ Test Version
       -Inserir quantidade de vagas que serão inscritas no campo "N° de vagas"
       -Dar play
 
-Obs: Essa é uma versão de teste, bugs podem ocorrer
-</value>
+    Filtros 
+      - Filtros que serão aplicados na busca da vaga
+   
+    Configurações 
+      - Ajusta a resolução do navegador
+
+Obs: Essa é uma versão de teste, bugs podem ocorrer. 
+Contribue relatando erros ou codificando em: 
+
+https://github.com/HugoOliveira72/Linkedin_Automation</value>
   </data>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>79</value>

@@ -1,6 +1,7 @@
 ﻿using forms.Models.Filters;
 using forms.Models.Interfaces;
 using forms.Models.PageObjects;
+using forms.Models.PageObjects.Base;
 using forms.Models.PageObjects.Sections;
 using forms.Repositories;
 using forms.Services;
@@ -10,6 +11,7 @@ using forms.Views.Interfaces;
 using Linkedin_Automation.Config;
 using Linkedin_Automation.Model;
 using Microsoft.Playwright;
+using Segment.Model;
 
 namespace forms.Presenters
 {
@@ -21,7 +23,6 @@ namespace forms.Presenters
         private ILoginRepository _loginRepository;
         private ILogRepository _logRepository;
         private OutputStringPatterns stringPatterns = new();
-        private PlaywrightUtilities playwrightUtilities = new();
         private CancellationTokenSource cancellationToken = new();
 
         public HomePresenter(
@@ -71,6 +72,7 @@ namespace forms.Presenters
             await AddMessageToRichTextbox("Iniciando automação\n");
             await AddMessageToRichTextbox("Abrindo o navegador padrão...\n");
             IPage page = await settings.BrowserContext!.NewPageAsync();
+            BasePage basePage = new BasePage(page);
 
             // DIRECIONANDO
             await AddMessageToRichTextbox("Direcionando para https://www.linkedin.com/\n");
@@ -104,7 +106,7 @@ namespace forms.Presenters
             // CÓDIGO LINKEDIN / VERIFICAÇÃO DE SEGURANÇA (MANUALMENTE)
             await AddMessageToRichTextbox("Carregando...\n");
             await AddMessageToRichTextbox("Verifação de segurança\n");
-            var message = await playwrightUtilities.WaitForElementAndHandleExceptionAsync(page, "#global-nav-typeahead", "Página carregada!", ExceptionMessages.SecurityError);
+            var message = await basePage.WaitForElementAndHandleExceptionAsync(page, "#global-nav-typeahead", "Página carregada!", ExceptionMessages.SecurityError);
             await AddMessageToRichTextbox(message);
             await Task.Delay(TimeSpan.FromSeconds(2));
             #endregion
@@ -175,6 +177,7 @@ namespace forms.Presenters
             int avaiableJobs = jobListSection.getAvailableJob();
             await AddMessageToRichTextbox($"Quantidade de vagas encontradas: {avaiableJobs}!");
             await Task.Delay(TimeSpan.FromSeconds(1));
+
 
             #endregion
 

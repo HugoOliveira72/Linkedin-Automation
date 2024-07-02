@@ -1,15 +1,14 @@
-﻿using forms.Utilities;
+﻿using forms.Models.PageObjects.Base;
 using Microsoft.Playwright;
 
 namespace forms.Models.PageObjects
 {
-    public class JobPage
+    public class JobPage : BasePage
     {
         public IPage _page;
         private ILocator? _inputSearchJob;
-        private PlaywrightUtilities playwrightUtilities = new();
 
-        public JobPage(IPage page)
+        public JobPage(IPage page) : base(page)
         {
             _page = page;
         }
@@ -40,7 +39,7 @@ namespace forms.Models.PageObjects
 
         private async Task VerifyInicialElement()
         {
-            await playwrightUtilities.WaitForElementAndHandleExceptionAsync(
+            await WaitForElementAndHandleExceptionAsync(
                 _page, "input[title*='Pesquisar cargo, competência ou empresa']",
                 "Elemento encontrado",
                 "Erro ao encontrar elemento"
