@@ -40,13 +40,11 @@ namespace forms.Models.PageObjects.Sections
             //Load elements
             await Task.Delay(TimeSpan.FromSeconds(securityTime));
             _sendJobApplicationButton = await _page.QuerySelectorAsync("button:has-text('Enviar candidatura')");
-            await Task.Delay(TimeSpan.FromSeconds(securityTime));
-            _closeButton = await _page.QuerySelectorAsync("button[aria-label='Fechar']");
             //Click elements
             await Task.Delay(TimeSpan.FromSeconds(securityTime));
             await _sendJobApplicationButton.ClickAsync();
-            await Task.Delay(TimeSpan.FromSeconds(securityTime));
-            await _closeButton.ClickAsync();
+            await Task.Delay(TimeSpan.FromSeconds(1));
+            await _page.Keyboard.PressAsync("Escape");
         }
 
         public async Task SaveJobClosePage(double securityTime = 0.5)
@@ -63,8 +61,9 @@ namespace forms.Models.PageObjects.Sections
             await _saveButton.ClickAsync();
         }
 
-        public async Task<IElementHandle?> LoadElementAsync(string selector)
+        public async Task<IElementHandle?> LoadElementAsync(string selector, double time = 0.5)
         {
+            await Task.Delay(TimeSpan.FromSeconds(time));
             return await _page.QuerySelectorAsync(selector);
         }
     }
