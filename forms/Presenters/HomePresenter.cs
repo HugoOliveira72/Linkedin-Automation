@@ -127,8 +127,7 @@ namespace forms.Presenters
                 // CÓDIGO LINKEDIN / VERIFICAÇÃO DE SEGURANÇA (MANUALMENTE)
                 await AddMessageToRichTextbox("Carregando...\n");
                 await AddMessageToRichTextbox("Verifação de segurança\n");
-                var message = await _basePage.WaitForElementAndHandleExceptionAsync(page, "#global-nav-typeahead", "Página carregada!", ExceptionMessages.SecurityError);
-                await AddMessageToRichTextbox(message);
+                await loginPage.HandleSecurity(page, "#global-nav-typeahead", ExceptionMessages.SecurityError);
                 await Task.Delay(TimeSpan.FromSeconds(2));
 
                 #endregion
@@ -204,11 +203,13 @@ namespace forms.Presenters
                 ILocator? noFoundJob = page.GetByText("Nenhuma vaga corresponde aos seus critérios.");
                 if (noFoundJob != null)
                 {
+                    //Procura sugestões
                     await AddMessageToRichTextbox(ExceptionMessages.CouldNotFoundTheJob);
                     await AddMessageToRichTextbox("Buscando sugestões...");
                     await AddMessageToRichTextbox(stringPatterns.linePattern());
                 }
 
+                //Vagas ou sugestões 
                 JobListSection jobListSection = await JobListSection.BuildAsync(page, _homeView, token, currentPage);
                 int avaiableJobs = jobListSection.getAvailableJob();
 
@@ -404,6 +405,10 @@ namespace forms.Presenters
             {
                 await CloseBrowserAndHandleButtonsVisibily(_settings, _appliedJobs, _savedJobs);
                 return;
+            }
+            catch (TimeoutException)
+            {
+                await CloseBrowserAndHandleButtonsVisibily(_settings, _appliedJobs, _savedJobs);
             }
             catch (Exception e)
             {
