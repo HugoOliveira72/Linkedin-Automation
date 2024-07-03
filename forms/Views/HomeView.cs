@@ -155,9 +155,6 @@ namespace forms
             if (string.IsNullOrEmpty(textBox.Text))
             {
                 HandleValidationError(textBox, message, cancelEventArgs);
-                cancelEventArgs.Cancel = true;
-                textBox.Focus();
-                errorProvider.SetError(textBox, message);
                 return true;
             }
             else

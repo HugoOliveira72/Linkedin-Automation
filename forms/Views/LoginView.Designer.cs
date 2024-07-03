@@ -108,6 +108,7 @@
             passwordTxtBox.StateCommon.Content.Padding = new Padding(10, -1, 10, -1);
             passwordTxtBox.TabIndex = 41;
             passwordTxtBox.UseSystemPasswordChar = true;
+            passwordTxtBox.Validating += PasswordTxtBox_Validating;
             // 
             // userTxtBox
             // 
@@ -124,6 +125,7 @@
             userTxtBox.StateCommon.Content.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             userTxtBox.StateCommon.Content.Padding = new Padding(10, -1, 10, -1);
             userTxtBox.TabIndex = 45;
+            userTxtBox.Validating += UserTxtBox_Validating;
             // 
             // kryptonLoginButton
             // 
