@@ -37,8 +37,7 @@ namespace forms.Presenters
             {
                 // Cria um novo arquivo e escreve "Tela cheia" como padrão
                 ConfigurationModel configurationModel = new ConfigurationModel("Tela cheia", "");
-                _configRepository.CreateMessagePackFile(_filePath);
-                _configRepository.UpdateMessagePackFile(_filePath, configurationModel);
+                _configRepository.CreateAndUpdateMessagePackFile(_filePath, configurationModel);
                 _configView.ResolutionTypeSelectedIndex = 0;
             }
             else // Quando o arquivo Resolution existe

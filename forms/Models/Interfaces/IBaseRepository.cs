@@ -7,6 +7,7 @@
         public byte[] ReadMessagePackFile(string filepath);
         public T ReadAndConvertMessagepackFileToObject<T>(string filePath);
         public void UpdateMessagePackFile(string filepath, object obj);
+        public void CreateAndUpdateMessagePackFile(string filepath, object obj);
         public void DeleteMessagePackFile();
         public void CreateTextFile(string filepath);
         public string[] ReadTextFile(string filepath);

@@ -69,13 +69,15 @@ namespace forms
         public event EventHandler StopAutomation;
         public event EventHandler LogFileEvent;
         public event EventHandler StoreFilters;
+        public event EventHandler CreateConfigFile;
+
 
         //Constructor
         public HomeView(IDataService<dynamic> dataService)
         {
             _dataService = dataService;
             InitializeComponent();
-            this.Load += kryptonButtonHome_Click;
+            this.Load += OnLoadHomeView;
         }
 
         #region Tabs
@@ -138,7 +140,7 @@ namespace forms
         private void Amount_jobs_Validating(object sender, CancelEventArgs eventArgs)
         {
             //Verifica se campo está vazio
-            if(!ValidateTextBox(amount_jobs, "Por favor, insira a quantidade de vagas", eventArgs))
+            if (!ValidateTextBox(amount_jobs, "Por favor, insira a quantidade de vagas", eventArgs))
             {
                 //Verifica se numero não é menor ou igual a 0
                 if (Int32.Parse(amount_jobs.Text) <= 0)
@@ -211,6 +213,13 @@ namespace forms
             consoleRichTxtBox.SelectionStart = consoleRichTxtBox.Text.Length;
             // rolar automaticamente
             consoleRichTxtBox.ScrollToCaret();
+        }
+
+        private void OnLoadHomeView(object sender, EventArgs e)
+        {
+            //HomeClick Event
+            kryptonButtonHome_Click(sender, e);
+            CreateConfigFile?.Invoke(this, EventArgs.Empty);
         }
 
         #endregion

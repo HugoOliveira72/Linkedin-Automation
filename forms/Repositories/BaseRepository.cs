@@ -1,4 +1,5 @@
-﻿using forms.Models.Interfaces;
+﻿using forms.Model;
+using forms.Models.Interfaces;
 using MessagePack;
 using Newtonsoft.Json;
 using System.Xml;
@@ -35,6 +36,11 @@ namespace forms.Repositories
             string objJson = JsonConvert.SerializeObject(obj);
             byte[] packed = MessagePackSerializer.Serialize(objJson);
             File.WriteAllBytes(filepath, packed);
+        }
+        public void CreateAndUpdateMessagePackFile(string filepath, object obj)
+        {
+            CreateMessagePackFile(filepath);
+            UpdateMessagePackFile(filepath, obj);
         }
 
         public void DeleteMessagePackFile()

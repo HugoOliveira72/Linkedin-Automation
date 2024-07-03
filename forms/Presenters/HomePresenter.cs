@@ -1,4 +1,5 @@
-﻿using forms.Models.Filters;
+﻿using forms.Model;
+using forms.Models.Filters;
 using forms.Models.Interfaces;
 using forms.Models.PageObjects;
 using forms.Models.PageObjects.Base;
@@ -20,6 +21,7 @@ namespace forms.Presenters
         private ILogService _logService;
         private ILoginRepository _loginRepository;
         private ILogRepository _logRepository;
+        private IConfigRepository _configRepository;
         private OutputStringPatterns stringPatterns = new();
         private CancellationTokenSource cancellationToken = new();
 
@@ -33,15 +35,18 @@ namespace forms.Presenters
             IDataService<dynamic> dataService,
             ILogService logService,
             ILoginRepository loginRepository,
-            ILogRepository logRepository)
+            ILogRepository logRepository,
+            IConfigRepository configRepository)
         {
             _homeView = homeView;
             _dataService = dataService;
             _logService = logService;
             _homeView.StartAutomation += StartAutomation;
             _homeView.StopAutomation += StopAutomation;
+            _homeView.CreateConfigFile += CreateConfigFile;
             _loginRepository = loginRepository;
             _logRepository = logRepository;
+            _configRepository = configRepository;
         }
 
         private async void StartAutomation(object sender, EventArgs e)
@@ -56,6 +61,13 @@ namespace forms.Presenters
         private void StopAutomation(object sender, EventArgs e)
         {
             cancellationToken.Cancel();
+        }
+
+        private void CreateConfigFile(object sender, EventArgs e)
+        {
+            // Cria um novo arquivo e escreve "Tela cheia" como padrão
+            ConfigurationModel configurationModel = new ConfigurationModel("Tela cheia", "");
+            _configRepository.CreateAndUpdateMessagePackFile(_configRepository.GetConfigFilePath(), configurationModel);
         }
 
         //Automation Method

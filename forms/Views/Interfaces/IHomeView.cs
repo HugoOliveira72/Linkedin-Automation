@@ -16,6 +16,7 @@
         event EventHandler StopAutomation;
         event EventHandler LogFileEvent;
         event EventHandler StoreFilters;
+        event EventHandler CreateConfigFile;
 
     }
 }

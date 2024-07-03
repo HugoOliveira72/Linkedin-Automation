@@ -51,11 +51,12 @@ namespace forms.Forms
             ILogRepository logRepository = new LogRepository();
             ILogService logService = new LogService(logRepository);
             ILoginRepository loginRepository = new LoginRepository();
+            IConfigRepository configRepository = new ConfigRepository();
             HomeView homeView = new HomeView(dataService);
-            new HomePresenter(homeView, dataService, logService, loginRepository, logRepository);
-            this.Hide();
+            new HomePresenter(homeView, dataService, logService, loginRepository, logRepository, configRepository);
+            Hide();
             homeView.ShowDialog();
-            this.Show();
+            Show();
         }
     }
 }
