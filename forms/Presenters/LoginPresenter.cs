@@ -61,6 +61,12 @@ namespace forms.Presenters
 
         private void OnUserFormLoaded(object sender, EventArgs e)
         {
+            if (!File.Exists(_filePath))
+            {
+                // Cria o arquivo se não existir
+                UserModel newUser = new UserModel(_loginView.Email, _loginView.Password);
+                _loginRepository.CreateAndUpdateMessagePackFile(_filePath, newUser);
+            }
             UserModel user = _loginRepository.ReadAndConvertMsgpackFileToObject();
 
             if (user.email != "" || user.password != "")

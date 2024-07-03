@@ -14,6 +14,7 @@
         public const string CouldNotClickedTheAdvanceButton = "Limite de páginas excedido, não há mais vagas para se candidatar";
         public const string CommonError = "Erro genérico";
         public const string CouldNotFoundTheJob = "Nenhuma vaga foi encontrada!";
+        public const string Timeout = "Tempo excedido";
 
     }
 }

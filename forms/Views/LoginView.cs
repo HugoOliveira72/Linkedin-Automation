@@ -3,11 +3,14 @@ using forms.Presenters;
 using forms.Presenters.Services;
 using forms.Repositories;
 using forms.Views.Interfaces;
+using Krypton.Toolkit;
+using System.ComponentModel;
 
 namespace forms.Forms
 {
     public partial class LoginView : Form, ILoginView
     {
+        private ErrorProvider errorProvider = new();
         //Properties
         public string? Email
         {
@@ -51,11 +54,45 @@ namespace forms.Forms
             ILogRepository logRepository = new LogRepository();
             ILogService logService = new LogService(logRepository);
             ILoginRepository loginRepository = new LoginRepository();
+            IConfigRepository configRepository = new ConfigRepository();
             HomeView homeView = new HomeView(dataService);
-            new HomePresenter(homeView, dataService, logService, loginRepository, logRepository);
-            this.Hide();
+            new HomePresenter(homeView, dataService, logService, loginRepository, logRepository, configRepository);
+            Hide();
             homeView.ShowDialog();
-            this.Show();
+            Show();
+        }
+
+        private void UserTxtBox_Validating(object sender, CancelEventArgs e)
+        {
+            //Verifica se campo está vazio
+            ValidateTextBox(userTxtBox, "Por favor, insira o usuário", e);
+        }
+
+        private void PasswordTxtBox_Validating(object sender, CancelEventArgs e)
+        {
+            ValidateTextBox(passwordTxtBox, "Por favor, insira a senha", e);
+        }
+
+        private bool ValidateTextBox(KryptonTextBox textBox, string message, CancelEventArgs cancelEventArgs)
+        {
+            if (string.IsNullOrEmpty(textBox.Text))
+            {
+                HandleValidationError(textBox, message, cancelEventArgs);
+                return true;
+            }
+            else
+            {
+                cancelEventArgs.Cancel = false;
+                errorProvider.SetError(textBox, null);
+                return false;
+            }
+        }
+
+        private void HandleValidationError(KryptonTextBox textBox, string message, CancelEventArgs cancelEventArgs)
+        {
+            cancelEventArgs.Cancel = true;
+            //textBox.Focus();
+            errorProvider.SetError(textBox, message);
         }
     }
 }

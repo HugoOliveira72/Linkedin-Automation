@@ -27,18 +27,16 @@ namespace forms.Models.PageObjects.Base
             return await _page.QuerySelectorAsync(selector);
         }
 
-        public async Task<string> WaitForElementAndHandleExceptionAsync(IPage page, string selector, string successMessage = "", string errorMessage = "", int timeout = 60000, bool showMessageBox = true)
+        public async Task WaitForElementAndHandleExceptionAsync(IPage page, string selector, string successMessage = "", string errorMessage = "", int timeout = 60000, bool showMessageBox = true)
         {
             try
             {
                 await page.WaitForSelectorAsync(selector, new() { Timeout = timeout });
-                return successMessage;
             }
             catch (Exception exception)
             {
                 if (showMessageBox) MessageBox.Show(errorMessage, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button2);
                 logRepository.WriteALogError(errorMessage, exception);
-                return outputString.errorPattern(errorMessage, exception);
             }
         }
 

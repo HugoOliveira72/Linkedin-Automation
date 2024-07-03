@@ -1,4 +1,5 @@
-﻿using forms.Models.Interfaces;
+﻿using forms.Model;
+using forms.Models.Interfaces;
 using MessagePack;
 using Newtonsoft.Json;
 using System.Xml;
@@ -35,6 +36,11 @@ namespace forms.Repositories
             byte[] packed = MessagePackSerializer.Serialize(objJson);
             File.WriteAllBytes(filepath, packed);
         }
+        public void CreateAndUpdateMessagePackFile(string filepath, object obj)
+        {
+            CreateMessagePackFile(filepath);
+            UpdateMessagePackFile(filepath, obj);
+        }
 
         public void DeleteMessagePackFile()
         {
@@ -52,9 +58,14 @@ namespace forms.Repositories
             return File.ReadAllLines(filepath);
         }
 
-        public void UpdateTextFile(string filepath, string text)
+        public void AppendTextFile(string filepath, string text)
         {
             File.AppendAllText(filepath, Environment.NewLine + text);
+        }
+
+        public void UpdateTextFile(string filepath, string text)
+        {
+            File.WriteAllText(filepath, text);
         }
 
         public void DeleteTextFile()

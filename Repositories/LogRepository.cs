@@ -15,19 +15,19 @@ namespace forms.Repositories
 
         public void WriteStartMessage()
         {
-            File.AppendAllText(GetFilePath(), Environment.NewLine + outputStringPatterns.startPattern());
+            File.AppendAllText(GetFilePath(), Environment.NewLine + outputStringPatterns.dateLinePattern());
         }
 
         public void WriteALogError(string message, Exception exception)
         {
             string? logText = outputStringPatterns.errorPattern(message, exception);
-            UpdateTextFile(GetFilePath(), logText);
+            AppendTextFile(GetFilePath(), logText);
         }
 
         public void WriteALogError(Exception exception)
         {
             string? logText = outputStringPatterns.errorPattern(exception);
-            UpdateTextFile(GetFilePath(), logText);
+            AppendTextFile(GetFilePath(), logText);
         }
 
         public string GetFilePath()

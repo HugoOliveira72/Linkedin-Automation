@@ -40,7 +40,7 @@
             labelPassword = new Label();
             loginTitleLabel = new Label();
             checkbox_rememberMe = new CheckBox();
-            label2 = new Label();
+            labelShortTextLogin = new Label();
             leftPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -108,6 +108,7 @@
             passwordTxtBox.StateCommon.Content.Padding = new Padding(10, -1, 10, -1);
             passwordTxtBox.TabIndex = 41;
             passwordTxtBox.UseSystemPasswordChar = true;
+            passwordTxtBox.Validating += PasswordTxtBox_Validating;
             // 
             // userTxtBox
             // 
@@ -124,6 +125,7 @@
             userTxtBox.StateCommon.Content.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             userTxtBox.StateCommon.Content.Padding = new Padding(10, -1, 10, -1);
             userTxtBox.TabIndex = 45;
+            userTxtBox.Validating += UserTxtBox_Validating;
             // 
             // kryptonLoginButton
             // 
@@ -149,7 +151,7 @@
             kryptonLoginButton.StateTracking.Border.Draw = Krypton.Toolkit.InheritBool.True;
             kryptonLoginButton.StateTracking.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
             kryptonLoginButton.TabIndex = 47;
-            kryptonLoginButton.Values.Text = "LOGIN";
+            kryptonLoginButton.Values.Text = "INICIAR";
             kryptonLoginButton.Click += kryptonLoginButton_Click;
             // 
             // labelUser
@@ -196,14 +198,14 @@
             checkbox_rememberMe.Text = "Lembrar de mim";
             checkbox_rememberMe.UseVisualStyleBackColor = true;
             // 
-            // label2
+            // labelShortTextLogin
             // 
-            label2.AutoSize = true;
-            label2.Location = new Point(451, 68);
-            label2.Name = "label2";
-            label2.Size = new Size(162, 15);
-            label2.TabIndex = 52;
-            label2.Text = "Credencials da conta linkedin";
+            labelShortTextLogin.AutoSize = true;
+            labelShortTextLogin.Location = new Point(451, 68);
+            labelShortTextLogin.Name = "labelShortTextLogin";
+            labelShortTextLogin.Size = new Size(205, 15);
+            labelShortTextLogin.TabIndex = 52;
+            labelShortTextLogin.Text = "Insira as credencials da conta linkedin";
             // 
             // LoginView
             // 
@@ -212,7 +214,7 @@
             AutoSize = true;
             BackColor = Color.White;
             ClientSize = new Size(789, 517);
-            Controls.Add(label2);
+            Controls.Add(labelShortTextLogin);
             Controls.Add(checkbox_rememberMe);
             Controls.Add(loginTitleLabel);
             Controls.Add(labelPassword);
@@ -250,6 +252,6 @@
         private Label labelPassword;
         private Label loginTitleLabel;
         private CheckBox checkbox_rememberMe;
-        private Label label2;
+        private Label labelShortTextLogin;
     }
 }

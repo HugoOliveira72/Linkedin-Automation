@@ -1,4 +1,5 @@
-﻿using forms.Models.Filters;
+﻿using forms.Model;
+using forms.Models.Filters;
 using forms.Models.Interfaces;
 using forms.Models.PageObjects;
 using forms.Models.PageObjects.Base;
@@ -20,6 +21,7 @@ namespace forms.Presenters
         private ILogService _logService;
         private ILoginRepository _loginRepository;
         private ILogRepository _logRepository;
+        private IConfigRepository _configRepository;
         private OutputStringPatterns stringPatterns = new();
         private CancellationTokenSource cancellationToken = new();
 
@@ -33,15 +35,18 @@ namespace forms.Presenters
             IDataService<dynamic> dataService,
             ILogService logService,
             ILoginRepository loginRepository,
-            ILogRepository logRepository)
+            ILogRepository logRepository,
+            IConfigRepository configRepository)
         {
             _homeView = homeView;
             _dataService = dataService;
             _logService = logService;
             _homeView.StartAutomation += StartAutomation;
             _homeView.StopAutomation += StopAutomation;
+            _homeView.CreateConfigFile += CreateConfigFile;
             _loginRepository = loginRepository;
             _logRepository = logRepository;
+            _configRepository = configRepository;
         }
 
         private async void StartAutomation(object sender, EventArgs e)
@@ -56,6 +61,13 @@ namespace forms.Presenters
         private void StopAutomation(object sender, EventArgs e)
         {
             cancellationToken.Cancel();
+        }
+
+        private void CreateConfigFile(object sender, EventArgs e)
+        {
+            // Cria um novo arquivo e escreve "Tela cheia" como padrão
+            ConfigurationModel configurationModel = new ConfigurationModel("Tela cheia", "");
+            _configRepository.CreateAndUpdateMessagePackFile(_configRepository.GetConfigFilePath(), configurationModel);
         }
 
         //Automation Method
@@ -100,7 +112,7 @@ namespace forms.Presenters
                 await AddMessageToRichTextbox("Fazendo login..\n");
 
                 ///Login page
-                LoginPage loginPage = await LoginPage.BuildAsync(page, token);
+                LoginPage loginPage = await LoginPage.BuildAsync(page, _logRepository, token);
                 await loginPage.LoginAsync(userInfo.email, userInfo.password);
 
                 //if (await loginPage.HandleErrorLoginAsync())
@@ -115,8 +127,7 @@ namespace forms.Presenters
                 // CÓDIGO LINKEDIN / VERIFICAÇÃO DE SEGURANÇA (MANUALMENTE)
                 await AddMessageToRichTextbox("Carregando...\n");
                 await AddMessageToRichTextbox("Verifação de segurança\n");
-                var message = await _basePage.WaitForElementAndHandleExceptionAsync(page, "#global-nav-typeahead", "Página carregada!", ExceptionMessages.SecurityError);
-                await AddMessageToRichTextbox(message);
+                await loginPage.HandleSecurity(page, "#global-nav-typeahead", ExceptionMessages.SecurityError);
                 await Task.Delay(TimeSpan.FromSeconds(2));
 
                 #endregion
@@ -192,11 +203,13 @@ namespace forms.Presenters
                 ILocator? noFoundJob = page.GetByText("Nenhuma vaga corresponde aos seus critérios.");
                 if (noFoundJob != null)
                 {
+                    //Procura sugestões
                     await AddMessageToRichTextbox(ExceptionMessages.CouldNotFoundTheJob);
                     await AddMessageToRichTextbox("Buscando sugestões...");
                     await AddMessageToRichTextbox(stringPatterns.linePattern());
                 }
 
+                //Vagas ou sugestões 
                 JobListSection jobListSection = await JobListSection.BuildAsync(page, _homeView, token, currentPage);
                 int avaiableJobs = jobListSection.getAvailableJob();
 
@@ -393,12 +406,16 @@ namespace forms.Presenters
                 await CloseBrowserAndHandleButtonsVisibily(_settings, _appliedJobs, _savedJobs);
                 return;
             }
+            catch (TimeoutException)
+            {
+                await CloseBrowserAndHandleButtonsVisibily(_settings, _appliedJobs, _savedJobs);
+            }
             catch (Exception e)
             {
                 _logRepository.WriteALogError(ExceptionMessages.CommonError, e);
+                await CloseBrowserAndHandleButtonsVisibily(_settings, _appliedJobs, _savedJobs);
                 return;
             }
-
         }
 
         //UI
@@ -439,11 +456,18 @@ namespace forms.Presenters
 
         private async Task CloseBrowserAndHandleButtonsVisibily(PlaywrightConfiguration playwrightConfiguration, int appliedJobsAmount, int savedJobsAmount)
         {
-            ///Fechar o navegador
             await AddMessageToRichTextbox(stringPatterns.linePattern(), false);
             await AddMessageToRichTextbox("Fechando navegador...", false);
             await AddMessageToRichTextbox("AUTOMAÇÃO FINALIZADA", false);
+
             await AddMessageToRichTextbox(stringPatterns.ShowFinalResult(appliedJobsAmount, savedJobsAmount), false);
+
+            ///Atualizar arquivo de log
+            _logRepository.AppendTextFile(
+                _logRepository.GetFilePath(),
+                $"Execução finalizada em {DateTime.Now}");
+
+            ///Fechar o navegador
             await playwrightConfiguration.BrowserContext.CloseAsync();
             ///Ativar o botão play
             _homeView.ButtonPlayEnabled = true;

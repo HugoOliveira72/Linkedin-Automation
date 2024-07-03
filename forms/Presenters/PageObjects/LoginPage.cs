@@ -1,7 +1,9 @@
-﻿using forms.Models.PageObjects.Base;
+﻿using forms.Models.Interfaces;
+using forms.Models.PageObjects.Base;
 using forms.Repositories;
 using forms.Utilities.Messages;
 using Microsoft.Playwright;
+using static System.ComponentModel.Design.ObjectSelectorEditor;
 
 namespace forms.Models.PageObjects
 {
@@ -12,17 +14,18 @@ namespace forms.Models.PageObjects
         private ILocator _passwordTextBox;
         private ILocator _loginButton;
         private IElementHandle _errorLoginDiv;
-        private LogRepository _logRepository = new();
+        private ILogRepository _logRepository;
         private OutputStringPatterns _outputStringPatterns = new();
 
-        public LoginPage(IPage page, CancellationToken token) : base(page, token)
+        public LoginPage(IPage page, ILogRepository logRepository, CancellationToken token) : base(page, token)
         {
             _page = page;
+            _logRepository = logRepository;
         }
 
-        public static async Task<LoginPage> BuildAsync(IPage page, CancellationToken token, double securityTime = 0.5)
+        public static async Task<LoginPage> BuildAsync(IPage page, ILogRepository logRepository, CancellationToken token, double securityTime = 0.5)
         {
-            LoginPage obj = new LoginPage(page, token);
+            LoginPage obj = new LoginPage(page, logRepository, token);
             await obj.InicializateAsync(securityTime);
             return obj;
         }
@@ -59,6 +62,25 @@ namespace forms.Models.PageObjects
                 return true;
             }
             return false;
+        }
+
+        public async Task HandleSecurity(IPage page, string selector, string errorMessage = "", int timeout = 60000, bool showMessageBox = true)
+        {
+            Exception exception = new Exception();
+            try
+            {
+                await page.WaitForSelectorAsync(selector, new() { Timeout = 1000 });
+            }
+            catch (Exception e)
+            {
+                if (showMessageBox) MessageBox.Show(errorMessage, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button2);
+                _logRepository.WriteALogError(errorMessage, e);
+                exception = e;
+            }
+            if(exception.Source != null && exception.TargetSite != null)
+            {
+                throw new TimeoutException(exception.Message);
+            }
         }
     }
 }

@@ -24,7 +24,7 @@
             return $"Error: {errorDescription}";
         }
 
-        public string startPattern()
+        public string dateLinePattern()
         {
             DateTime dateTime = DateTime.Now;
             return $"\n=============================\t {dateTime}";
