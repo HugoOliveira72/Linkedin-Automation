@@ -30,9 +30,11 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoginView));
             leftPanel = new Panel();
-            labelTitle = new Label();
-            pictureBox2 = new PictureBox();
             pictureBox1 = new PictureBox();
+            pictureBox2 = new PictureBox();
+            pictureBox4 = new PictureBox();
+            labelTitle = new Label();
+            pictureBox3 = new PictureBox();
             passwordTxtBox = new Krypton.Toolkit.KryptonTextBox();
             userTxtBox = new Krypton.Toolkit.KryptonTextBox();
             kryptonLoginButton = new Krypton.Toolkit.KryptonButton();
@@ -42,21 +44,55 @@
             checkbox_rememberMe = new CheckBox();
             labelShortTextLogin = new Label();
             leftPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             SuspendLayout();
             // 
             // leftPanel
             // 
             leftPanel.BackColor = Color.FromArgb(33, 150, 243);
-            leftPanel.Controls.Add(labelTitle);
-            leftPanel.Controls.Add(pictureBox2);
             leftPanel.Controls.Add(pictureBox1);
+            leftPanel.Controls.Add(pictureBox2);
+            leftPanel.Controls.Add(pictureBox4);
+            leftPanel.Controls.Add(labelTitle);
+            leftPanel.Controls.Add(pictureBox3);
             leftPanel.ForeColor = SystemColors.InfoText;
             leftPanel.Location = new Point(-2, 0);
             leftPanel.Name = "leftPanel";
             leftPanel.Size = new Size(341, 515);
             leftPanel.TabIndex = 37;
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.Image = Properties.Resources.umaA;
+            pictureBox1.Location = new Point(234, 165);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(84, 77);
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox1.TabIndex = 53;
+            pictureBox1.TabStop = false;
+            // 
+            // pictureBox2
+            // 
+            pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
+            pictureBox2.Location = new Point(128, 132);
+            pictureBox2.Name = "pictureBox2";
+            pictureBox2.Size = new Size(31, 31);
+            pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox2.TabIndex = 37;
+            pictureBox2.TabStop = false;
+            // 
+            // pictureBox4
+            // 
+            pictureBox4.Image = Properties.Resources.letter_l;
+            pictureBox4.Location = new Point(13, 132);
+            pictureBox4.Name = "pictureBox4";
+            pictureBox4.Size = new Size(109, 110);
+            pictureBox4.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox4.TabIndex = 53;
+            pictureBox4.TabStop = false;
             // 
             // labelTitle
             // 
@@ -65,31 +101,21 @@
             labelTitle.BackColor = Color.FromArgb(33, 150, 243);
             labelTitle.Font = new Font("Segoe UI", 24F, FontStyle.Bold);
             labelTitle.ForeColor = Color.FromArgb(33, 33, 33);
-            labelTitle.Location = new Point(5, 311);
+            labelTitle.Location = new Point(2, 273);
             labelTitle.Name = "labelTitle";
             labelTitle.Size = new Size(336, 45);
             labelTitle.TabIndex = 35;
             labelTitle.Text = "Linkedin Automation";
             // 
-            // pictureBox2
+            // pictureBox3
             // 
-            pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
-            pictureBox2.Location = new Point(201, 83);
-            pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(65, 59);
-            pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox2.TabIndex = 37;
-            pictureBox2.TabStop = false;
-            // 
-            // pictureBox1
-            // 
-            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(46, 83);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(220, 203);
-            pictureBox1.SizeMode = PictureBoxSizeMode.CenterImage;
-            pictureBox1.TabIndex = 36;
-            pictureBox1.TabStop = false;
+            pictureBox3.Image = Properties.Resources.backgouund_in;
+            pictureBox3.Location = new Point(125, 132);
+            pictureBox3.Name = "pictureBox3";
+            pictureBox3.Size = new Size(108, 110);
+            pictureBox3.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox3.TabIndex = 54;
+            pictureBox3.TabStop = false;
             // 
             // passwordTxtBox
             // 
@@ -224,13 +250,16 @@
             Controls.Add(passwordTxtBox);
             Controls.Add(leftPanel);
             FormBorderStyle = FormBorderStyle.FixedSingle;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
             Name = "LoginView";
             Text = "LoginScreen";
             leftPanel.ResumeLayout(false);
             leftPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -243,7 +272,6 @@
         private Panel leftPanel;
         private Label labelTitle;
         private PictureBox pictureBox2;
-        private PictureBox pictureBox1;
         private Krypton.Toolkit.KryptonRichTextBox kryptonRichTextBoxUserName;
         private Krypton.Toolkit.KryptonTextBox userTxtBox;
         private Krypton.Toolkit.KryptonTextBox passwordTxtBox;
@@ -253,5 +281,8 @@
         private Label loginTitleLabel;
         private CheckBox checkbox_rememberMe;
         private Label labelShortTextLogin;
+        private PictureBox pictureBox4;
+        private PictureBox pictureBox3;
+        private PictureBox pictureBox1;
     }
 }
