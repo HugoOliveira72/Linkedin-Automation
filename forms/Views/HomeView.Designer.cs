@@ -545,6 +545,7 @@
             Controls.Add(panelContainer);
             Controls.Add(panel2);
             Controls.Add(label1);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             MinimumSize = new Size(300, 390);
             Name = "HomeView";
             Text = "Linkedin automation";

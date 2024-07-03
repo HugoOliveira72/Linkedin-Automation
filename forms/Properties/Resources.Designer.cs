@@ -63,6 +63,46 @@ namespace ViewPresenter.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap backgouund_in {
+            get {
+                object obj = ResourceManager.GetObject("backgouund_in", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap letter_a {
+            get {
+                object obj = ResourceManager.GetObject("letter-a", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap letter_l {
+            get {
+                object obj = ResourceManager.GetObject("letter-l", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap linkedin_automation_logo_blue {
+            get {
+                object obj = ResourceManager.GetObject("linkedin_automation_logo_blue", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap playButton {
             get {
                 object obj = ResourceManager.GetObject("playButton", resourceCulture);
@@ -76,6 +116,16 @@ namespace ViewPresenter.Properties {
         internal static System.Drawing.Bitmap stopButtonImage {
             get {
                 object obj = ResourceManager.GetObject("stopButtonImage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap umaA {
+            get {
+                object obj = ResourceManager.GetObject("umaA", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
