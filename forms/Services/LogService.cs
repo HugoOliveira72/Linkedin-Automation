@@ -18,7 +18,7 @@ namespace forms.Services
             if (!File.Exists(logPath))
                 _logRepository.CreateTextFile(logPath);
             else
-                _logRepository.UpdateTextFile(logPath, outputStringPatterns.startPattern());
+                _logRepository.AppendTextFile(logPath, outputStringPatterns.dateLinePattern());
         }
     }
 }

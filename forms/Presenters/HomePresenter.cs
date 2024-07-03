@@ -112,7 +112,7 @@ namespace forms.Presenters
                 await AddMessageToRichTextbox("Fazendo login..\n");
 
                 ///Login page
-                LoginPage loginPage = await LoginPage.BuildAsync(page, token);
+                LoginPage loginPage = await LoginPage.BuildAsync(page, _logRepository, token);
                 await loginPage.LoginAsync(userInfo.email, userInfo.password);
 
                 //if (await loginPage.HandleErrorLoginAsync())
@@ -413,9 +413,9 @@ namespace forms.Presenters
             catch (Exception e)
             {
                 _logRepository.WriteALogError(ExceptionMessages.CommonError, e);
+                await CloseBrowserAndHandleButtonsVisibily(_settings, _appliedJobs, _savedJobs);
                 return;
             }
-
         }
 
         //UI
@@ -456,11 +456,18 @@ namespace forms.Presenters
 
         private async Task CloseBrowserAndHandleButtonsVisibily(PlaywrightConfiguration playwrightConfiguration, int appliedJobsAmount, int savedJobsAmount)
         {
-            ///Fechar o navegador
             await AddMessageToRichTextbox(stringPatterns.linePattern(), false);
             await AddMessageToRichTextbox("Fechando navegador...", false);
             await AddMessageToRichTextbox("AUTOMAÇÃO FINALIZADA", false);
+
             await AddMessageToRichTextbox(stringPatterns.ShowFinalResult(appliedJobsAmount, savedJobsAmount), false);
+
+            ///Atualizar arquivo de log
+            _logRepository.AppendTextFile(
+                _logRepository.GetFilePath(),
+                $"Execução finalizada em {DateTime.Now}");
+
+            ///Fechar o navegador
             await playwrightConfiguration.BrowserContext.CloseAsync();
             ///Ativar o botão play
             _homeView.ButtonPlayEnabled = true;

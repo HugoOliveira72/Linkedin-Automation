@@ -18,7 +18,7 @@ namespace forms.Repositories
 
         public byte[] ReadMessagePackFile(string filepath)
         {
-            System.IO.Path.GetDirectoryName(Application.ExecutablePath);
+            //System.IO.Path.GetDirectoryName(Application.ExecutablePath);
             return File.ReadAllBytes(filepath);
         }
 
@@ -51,7 +51,7 @@ namespace forms.Repositories
         //Text Methods
         public void CreateTextFile(string filepath)
         {
-            System.IO.Path.GetDirectoryName(Application.ExecutablePath);
+            //System.IO.Path.GetDirectoryName(Application.ExecutablePath);
             File.WriteAllText(filepath, "");
         }
 
@@ -60,9 +60,14 @@ namespace forms.Repositories
             return File.ReadAllLines(filepath);
         }
 
-        public void UpdateTextFile(string filepath, string text)
+        public void AppendTextFile(string filepath, string text)
         {
             File.AppendAllText(filepath, Environment.NewLine + text);
+        }
+
+        public void UpdateTextFile(string filepath, string text)
+        {
+            File.WriteAllText(filepath, text);
         }
 
         public void DeleteTextFile()
