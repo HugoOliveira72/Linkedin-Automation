@@ -4,15 +4,10 @@
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
 #Log File and UserFile
-forms/Files/log.txt
-forms/Files/userInfo.txt
 forms/Files/user.msgpack
+/forms/Files/log.txt
+/forms/Config/resolution.msgpack
 
-#ResolutionFile
-forms/Config/resolution.txt
-
-#Todo List
-todoLIST.txt
 
 
 # User-specific files
@@ -44,6 +39,38 @@ forms/[Oo]bj/
 forms/[Oo]ut/
 forms/[Ll]og/
 forms/[Ll]ogs/
+
+Model/[Dd]ebug/
+Model/[Dd]ebugPublic/
+Model/[Rr]elease/
+Model/[Rr]eleases/
+Model/x64/
+Model/x86/
+Model/[Ww][Ii][Nn]32/
+Model/[Aa][Rr][Mm]/
+Model/[Aa][Rr][Mm]64/
+Model/bld/
+Model/[Bb]in/
+Model/[Oo]bj/
+Model/[Oo]ut/
+Model/[Ll]og/
+Model/[Ll]ogs/
+
+Repositories/[Dd]ebug/
+Repositories/[Dd]ebugPublic/
+Repositories/[Rr]elease/
+Repositories/[Rr]eleases/
+Repositories/x64/
+Repositories/x86/
+Repositories/[Ww][Ii][Nn]32/
+Repositories/[Aa][Rr][Mm]/
+Repositories/[Aa][Rr][Mm]64/
+Repositories/bld/
+Repositories/[Bb]in/
+Repositories/[Oo]bj/
+Repositories/[Oo]ut/
+Repositories/[Ll]og/
+Repositories/[Ll]ogs/
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/
@@ -373,3 +400,4 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
