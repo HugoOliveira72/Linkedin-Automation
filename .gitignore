@@ -4,16 +4,9 @@
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
 #Log File and UserFile
-forms/Files/log.txt
-forms/Files/userInfo.txt
 forms/Files/user.msgpack
-
-#ResolutionFile
-forms/Config/resolution.txt
-
-#Todo List
-todoLIST.txt
-
+/forms/Files/log.txt
+/forms/Config/resolution.msgpack
 
 # User-specific files
 *.rsuser
@@ -405,4 +398,5 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
 
