@@ -373,3 +373,19 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+Model/[Dd]ebug/
+Model/[Dd]ebugPublic/
+Model/[Rr]elease/
+Model/[Rr]eleases/
+Model/x64/
+Model/x86/
+Model/[Ww][Ii][Nn]32/
+Model/[Aa][Rr][Mm]/
+Model/[Aa][Rr][Mm]64/
+Model/bld/
+Model/[Bb]in/
+Model/[Oo]bj/
+Model/[Oo]ut/
+Model/[Ll]og/
+Model/[Ll]ogs/
