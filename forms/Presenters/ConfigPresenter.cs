@@ -8,7 +8,7 @@ namespace forms.Presenters
     {
         private IConfigControlView _configView;
         private IConfigRepository _configRepository;
-        private string? filePath = "../../../Config/resolution.msgpack";
+        private string _filePath;
 
         public ConfigPresenter(IConfigControlView configView, IConfigRepository configRepository)
         {
@@ -17,6 +17,7 @@ namespace forms.Presenters
 
             _configView.SaveConfigEvent += SaveConfigEvent;
             _configView.ConfigFormLoaded += OnConfigFormLoaded;
+            _filePath = configRepository.GetConfigFilePath();
 
         }
 
@@ -26,23 +27,23 @@ namespace forms.Presenters
             ConfigurationModel configModel = new ConfigurationModel(_configView.ResolutionType, _configView.Resolution);
 
             // Abre o arquivo especificado para gravação
-            _configRepository.UpdateMessagePackFile(filePath, configModel);
+            _configRepository.UpdateMessagePackFile(_filePath, configModel);
         }
 
         private void OnConfigFormLoaded(object sender, EventArgs e)
         {
             // Verifica se o arquivo resolution existe
-            if (!File.Exists(filePath)) // Quando o arquivo Resolution não existe
+            if (!File.Exists(_filePath)) // Quando o arquivo Resolution não existe
             {
                 // Cria um novo arquivo e escreve "Tela cheia" como padrão
                 ConfigurationModel configurationModel = new ConfigurationModel("Tela cheia", "");
-                _configRepository.CreateMessagePackFile(filePath);
-                _configRepository.UpdateMessagePackFile(filePath, configurationModel);
+                _configRepository.CreateMessagePackFile(_filePath);
+                _configRepository.UpdateMessagePackFile(_filePath, configurationModel);
                 _configView.ResolutionTypeSelectedIndex = 0;
             }
             else // Quando o arquivo Resolution existe
             {
-                ConfigurationModel configModel = _configRepository.ReadAndConvertMessagepackFileToObject<ConfigurationModel>(filePath);
+                ConfigurationModel configModel = _configRepository.ReadAndConvertMessagepackFileToObject<ConfigurationModel>(_filePath);
 
                 // Atribui o primeiro item da lista (que é a primeira linha do arquivo) ao Text do comboBox_resolution_type
                 _configView.ResolutionType = configModel.ScreenType;

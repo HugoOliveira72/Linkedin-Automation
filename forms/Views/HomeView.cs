@@ -4,11 +4,13 @@ using forms.Presenters;
 using forms.Presenters.Controls;
 using forms.Repositories;
 using forms.Services;
+using forms.Utilities.Messages;
 using forms.Views;
 using forms.Views.Interfaces;
 using forms.Views.Interfaces.Control;
 using forms.Views.UserControls;
 using Krypton.Toolkit;
+using System.ComponentModel;
 
 namespace forms
 {
@@ -16,7 +18,8 @@ namespace forms
     {
         private IDataService<dynamic> _dataService;
         private IFilterControlView filterControlView;
-        private ErrorProvider errorProvider = new ErrorProvider();
+        private ErrorProvider errorProvider = new();
+        private OutputStringPatterns stringPatterns = new();
 
         //Attributes
         public string Job
@@ -46,8 +49,8 @@ namespace forms
         }
         public string? RichtxtBox
         {
-            get { return richtxtBox.Text; }
-            set { richtxtBox.Text = value; }
+            get { return consoleRichTxtBox.Text; }
+            set { consoleRichTxtBox.Text = value; }
         }
         public bool ButtonStopEnabled
         {
@@ -126,35 +129,58 @@ namespace forms
 
         #region Validations
 
-        private void TxtBox_job_Validating(object sender, System.ComponentModel.CancelEventArgs eventArgs)
+        private void TxtBox_job_Validating(object sender, CancelEventArgs eventArgs)
         {
+            //Verifica se campo está vazio
             ValidateTextBox(txtBox_job, "Por favor, insira o cargo/vaga", eventArgs);
         }
 
-        private void Amount_jobs_Validating(object sender, System.ComponentModel.CancelEventArgs eventArgs)
+        private void Amount_jobs_Validating(object sender, CancelEventArgs eventArgs)
         {
-            ValidateTextBox(amount_jobs, "Por favor, insira a quantidade de vagas", eventArgs);
+            //Verifica se campo está vazio
+            if(!ValidateTextBox(amount_jobs, "Por favor, insira a quantidade de vagas", eventArgs))
+            {
+                //Verifica se numero não é menor ou igual a 0
+                if (Int32.Parse(amount_jobs.Text) <= 0)
+                {
+                    HandleValidationError(amount_jobs, "Por favor, insira um número maior que 0", eventArgs);
+                }
+            }
         }
 
-        private void ValidateTextBox(KryptonTextBox textBox, string message, System.ComponentModel.CancelEventArgs cancelEventArgs)
+        private bool ValidateTextBox(KryptonTextBox textBox, string message, CancelEventArgs cancelEventArgs)
         {
-            if (String.IsNullOrEmpty(textBox.Text))
+            if (string.IsNullOrEmpty(textBox.Text))
             {
+                HandleValidationError(textBox, message, cancelEventArgs);
                 cancelEventArgs.Cancel = true;
                 textBox.Focus();
                 errorProvider.SetError(textBox, message);
+                return true;
             }
             else
             {
                 cancelEventArgs.Cancel = false;
                 errorProvider.SetError(textBox, null);
+                return false;
             }
+        }
+
+        private void HandleValidationError(KryptonTextBox textBox, string message, CancelEventArgs cancelEventArgs)
+        {
+            cancelEventArgs.Cancel = true;
+            textBox.Focus();
+            errorProvider.SetError(textBox, message);
         }
 
         #endregion
 
+        #region Actions
+
         private void stopButton_Click(object sender, EventArgs e)
         {
+            consoleRichTxtBox.Text += stringPatterns.linePattern() + "\n";
+            consoleRichTxtBox.Text += "Parando aplicação!\n";
             StopAutomation?.Invoke(this, EventArgs.Empty);
         }
 
@@ -163,10 +189,11 @@ namespace forms
             //Validação de campos bem sucedida
             if (ValidateChildren(ValidationConstraints.Enabled))
             {
+                //MECHER AQUI
                 txtBox_saved_jobs.Text = "0";
-                txtBox_applied_Jobs.Text = $"0/{amount_jobs.Text}";
+                txtBox_applied_Jobs.Text = $"0/{amount_jobs.Text}"; //AQUI
                 txtBoxCurrentJob.Text = txtBox_job.Text;
-                richtxtBox.Clear();
+                consoleRichTxtBox.Clear();
                 StartAutomation?.Invoke(this, EventArgs.Empty);
             }
         }
@@ -175,8 +202,17 @@ namespace forms
         {
             //Ajustar tamanho do console e do painel de forma responsiva
             panelConsole.Size = new Size(panelConsole.Width, this.Height - 300);
-            richtxtBox.Size = new Size(richtxtBox.Width, panelConsole.Height - 20);
+            consoleRichTxtBox.Size = new Size(consoleRichTxtBox.Width, panelConsole.Height - 20);
         }
 
+        private void RichtxtBox_TextChanged(object sender, EventArgs e)
+        {
+            // definir o cursor atual para a posição final do richTextBox
+            consoleRichTxtBox.SelectionStart = consoleRichTxtBox.Text.Length;
+            // rolar automaticamente
+            consoleRichTxtBox.ScrollToCaret();
+        }
+
+        #endregion
     }
 }

@@ -2,7 +2,7 @@
 {
     public interface IConfigRepository : IBaseRepository
     {
-        string? GetResolutionFilePath();
+        string? GetConfigFilePath();
         public T ConvertMsgpackFileToObject<T>();
 
     }

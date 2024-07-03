@@ -1,7 +1,6 @@
 ﻿using forms.Model;
 using forms.Models.Interfaces;
 using Microsoft.Playwright;
-using Org.BouncyCastle.Tsp;
 
 namespace Linkedin_Automation.Config
 {
@@ -48,8 +47,8 @@ namespace Linkedin_Automation.Config
 
         private async Task<int[]> GetResolution()
         {
-            var a = _configRepository.GetResolutionFilePath();
-            ConfigurationModel configModel = _configRepository.ReadAndConvertMessagepackFileToObject<ConfigurationModel>(a);
+            string resolutionFilePath = _configRepository.GetConfigFilePath();
+            ConfigurationModel configModel = _configRepository.ReadAndConvertMessagepackFileToObject<ConfigurationModel>(resolutionFilePath);
 
             string? resolution;
             //Tela cheia

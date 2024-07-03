@@ -42,7 +42,7 @@
             info_label = new Label();
             txtBox_applied_Jobs = new Krypton.Toolkit.KryptonTextBox();
             txtBox_saved_jobs = new Krypton.Toolkit.KryptonTextBox();
-            richtxtBox = new Krypton.Toolkit.KryptonRichTextBox();
+            consoleRichTxtBox = new Krypton.Toolkit.KryptonRichTextBox();
             groupBox_job = new GroupBox();
             amout_jobs_label = new Label();
             job_label = new Label();
@@ -87,6 +87,17 @@
             kryptonButtonHome.OverrideDefault.Content.ShortText.Color1 = Color.FromArgb(33, 33, 33);
             kryptonButtonHome.OverrideDefault.Content.ShortText.ColorStyle = Krypton.Toolkit.PaletteColorStyle.Solid;
             kryptonButtonHome.OverrideDefault.Content.ShortText.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            kryptonButtonHome.OverrideFocus.Back.Color1 = Color.FromArgb(33, 150, 243);
+            kryptonButtonHome.OverrideFocus.Back.ColorStyle = Krypton.Toolkit.PaletteColorStyle.Solid;
+            kryptonButtonHome.OverrideFocus.Back.Draw = Krypton.Toolkit.InheritBool.True;
+            kryptonButtonHome.OverrideFocus.Back.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.None;
+            kryptonButtonHome.OverrideFocus.Border.Color1 = Color.FromArgb(33, 150, 243);
+            kryptonButtonHome.OverrideFocus.Border.ColorStyle = Krypton.Toolkit.PaletteColorStyle.Solid;
+            kryptonButtonHome.OverrideFocus.Border.Draw = Krypton.Toolkit.InheritBool.True;
+            kryptonButtonHome.OverrideFocus.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            kryptonButtonHome.OverrideFocus.Content.ShortText.Color1 = Color.FromArgb(33, 33, 33);
+            kryptonButtonHome.OverrideFocus.Content.ShortText.ColorStyle = Krypton.Toolkit.PaletteColorStyle.Solid;
+            kryptonButtonHome.OverrideFocus.Content.ShortText.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             kryptonButtonHome.Size = new Size(70, 30);
             kryptonButtonHome.StateDisabled.Back.Color1 = SystemColors.Control;
             kryptonButtonHome.StateDisabled.Back.ColorStyle = Krypton.Toolkit.PaletteColorStyle.Solid;
@@ -170,6 +181,17 @@
             kryptonButtonSettings.OverrideDefault.Content.ShortText.Color1 = Color.FromArgb(33, 33, 33);
             kryptonButtonSettings.OverrideDefault.Content.ShortText.ColorStyle = Krypton.Toolkit.PaletteColorStyle.Solid;
             kryptonButtonSettings.OverrideDefault.Content.ShortText.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            kryptonButtonSettings.OverrideFocus.Back.Color1 = Color.FromArgb(33, 150, 243);
+            kryptonButtonSettings.OverrideFocus.Back.ColorStyle = Krypton.Toolkit.PaletteColorStyle.Solid;
+            kryptonButtonSettings.OverrideFocus.Back.Draw = Krypton.Toolkit.InheritBool.True;
+            kryptonButtonSettings.OverrideFocus.Back.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.None;
+            kryptonButtonSettings.OverrideFocus.Border.Color1 = Color.FromArgb(33, 150, 243);
+            kryptonButtonSettings.OverrideFocus.Border.ColorStyle = Krypton.Toolkit.PaletteColorStyle.Solid;
+            kryptonButtonSettings.OverrideFocus.Border.Draw = Krypton.Toolkit.InheritBool.True;
+            kryptonButtonSettings.OverrideFocus.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            kryptonButtonSettings.OverrideFocus.Content.ShortText.Color1 = Color.FromArgb(33, 33, 33);
+            kryptonButtonSettings.OverrideFocus.Content.ShortText.ColorStyle = Krypton.Toolkit.PaletteColorStyle.Solid;
+            kryptonButtonSettings.OverrideFocus.Content.ShortText.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             kryptonButtonSettings.Size = new Size(129, 31);
             kryptonButtonSettings.StateDisabled.Back.Color1 = SystemColors.Control;
             kryptonButtonSettings.StateDisabled.Back.ColorStyle = Krypton.Toolkit.PaletteColorStyle.Solid;
@@ -232,6 +254,17 @@
             kryptonButtonFilter.OverrideDefault.Content.ShortText.Color1 = Color.FromArgb(33, 33, 33);
             kryptonButtonFilter.OverrideDefault.Content.ShortText.ColorStyle = Krypton.Toolkit.PaletteColorStyle.Solid;
             kryptonButtonFilter.OverrideDefault.Content.ShortText.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            kryptonButtonFilter.OverrideFocus.Back.Color1 = Color.FromArgb(33, 150, 243);
+            kryptonButtonFilter.OverrideFocus.Back.ColorStyle = Krypton.Toolkit.PaletteColorStyle.Solid;
+            kryptonButtonFilter.OverrideFocus.Back.Draw = Krypton.Toolkit.InheritBool.True;
+            kryptonButtonFilter.OverrideFocus.Back.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.None;
+            kryptonButtonFilter.OverrideFocus.Border.Color1 = Color.FromArgb(33, 150, 243);
+            kryptonButtonFilter.OverrideFocus.Border.ColorStyle = Krypton.Toolkit.PaletteColorStyle.Solid;
+            kryptonButtonFilter.OverrideFocus.Border.Draw = Krypton.Toolkit.InheritBool.True;
+            kryptonButtonFilter.OverrideFocus.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            kryptonButtonFilter.OverrideFocus.Content.ShortText.Color1 = Color.FromArgb(33, 33, 33);
+            kryptonButtonFilter.OverrideFocus.Content.ShortText.ColorStyle = Krypton.Toolkit.PaletteColorStyle.Solid;
+            kryptonButtonFilter.OverrideFocus.Content.ShortText.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             kryptonButtonFilter.Size = new Size(73, 31);
             kryptonButtonFilter.StateDisabled.Back.Color1 = SystemColors.Control;
             kryptonButtonFilter.StateDisabled.Back.ColorStyle = Krypton.Toolkit.PaletteColorStyle.Solid;
@@ -334,18 +367,19 @@
             txtBox_saved_jobs.StateCommon.Border.Rounding = 5F;
             txtBox_saved_jobs.TabIndex = 68;
             // 
-            // richtxtBox
+            // consoleRichTxtBox
             // 
-            richtxtBox.HideSelection = false;
-            richtxtBox.Location = new Point(3, 9);
-            richtxtBox.MaximumSize = new Size(1920, 1080);
-            richtxtBox.Name = "richtxtBox";
-            richtxtBox.ReadOnly = true;
-            richtxtBox.Size = new Size(820, 402);
-            richtxtBox.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            richtxtBox.StateCommon.Border.Rounding = 5F;
-            richtxtBox.TabIndex = 70;
-            richtxtBox.Text = "";
+            consoleRichTxtBox.HideSelection = false;
+            consoleRichTxtBox.Location = new Point(3, 9);
+            consoleRichTxtBox.MaximumSize = new Size(1920, 1080);
+            consoleRichTxtBox.Name = "consoleRichTxtBox";
+            consoleRichTxtBox.ReadOnly = true;
+            consoleRichTxtBox.Size = new Size(820, 402);
+            consoleRichTxtBox.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            consoleRichTxtBox.StateCommon.Border.Rounding = 5F;
+            consoleRichTxtBox.TabIndex = 70;
+            consoleRichTxtBox.Text = "";
+            consoleRichTxtBox.TextChanged += RichtxtBox_TextChanged;
             // 
             // groupBox_job
             // 
@@ -484,7 +518,7 @@
             // panelConsole
             // 
             panelConsole.BackColor = Color.FromArgb(33, 150, 243);
-            panelConsole.Controls.Add(richtxtBox);
+            panelConsole.Controls.Add(consoleRichTxtBox);
             panelConsole.Location = new Point(12, 255);
             panelConsole.Name = "panelConsole";
             panelConsole.Size = new Size(830, 420);
@@ -543,7 +577,7 @@
         private Krypton.Toolkit.KryptonButton kryptonLoginButton;
         private Krypton.Toolkit.KryptonTextBox txtBox_applied_Jobs;
         private Krypton.Toolkit.KryptonTextBox txtBox_saved_jobs;
-        private Krypton.Toolkit.KryptonRichTextBox richtxtBox;
+        private Krypton.Toolkit.KryptonRichTextBox consoleRichTxtBox;
         private GroupBox groupBox_job;
         private Label amout_jobs_label;
         private Label job_label;

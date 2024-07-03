@@ -1,22 +1,29 @@
-﻿using Microsoft.Playwright;
+﻿using forms.Models.PageObjects.Base;
+using forms.Utilities.Messages;
+using forms.Views.Interfaces;
+using Microsoft.Playwright;
 
 namespace forms.Models.PageObjects.Sections
 {
-    public class JobListSection
+    public class JobListSection : BasePage
     {
         //Properties
         private IPage _page;
+        private IHomeView _homeView;
         private IReadOnlyList<IElementHandle?> _ulElementsJobs;
         private IElementHandle? _nextPageButton;
+        private OutputStringPatterns stringPatterns = new();
 
-        public JobListSection(IPage page)
+
+        public JobListSection(IPage page, IHomeView homeView, CancellationToken token) : base(page, token)
         {
             _page = page;
+            _homeView = homeView;
         }
 
-        public static async Task<JobListSection> BuildAsync(IPage page, int currentPageNumber, double securityTime = 0.5)
+        public static async Task<JobListSection> BuildAsync(IPage page, IHomeView homeView, CancellationToken token, int currentPageNumber, double securityTime = 0.5)
         {
-            JobListSection obj = new JobListSection(page);
+            JobListSection obj = new JobListSection(page, homeView, token);
             await obj.InicializateAsync(securityTime, currentPageNumber);
             return obj;
         }
@@ -25,7 +32,7 @@ namespace forms.Models.PageObjects.Sections
         {
             await Task.Delay(TimeSpan.FromSeconds(securityTime));
             await ReloadUlElements();
-            _nextPageButton = await _page.QuerySelectorAsync($"button[aria-label='Página {currentPageNumber + 1}']");
+            _nextPageButton = await LoadElementAsync($"button[aria-label='Página {currentPageNumber + 1}']");
             await Task.Delay(TimeSpan.FromSeconds(securityTime));
         }
 
@@ -35,7 +42,7 @@ namespace forms.Models.PageObjects.Sections
             await _ulElementsJobs[indexJob].ClickAsync();
         }
 
-        public async Task<bool> GoToNextPage(int currentPageNumber, int appliedJobs, int savedJobs)
+        public async Task<bool> GoToNextPage()
         {
             if (_nextPageButton != null)
             {
@@ -44,7 +51,12 @@ namespace forms.Models.PageObjects.Sections
             }
             else
             {
-                MessageBox.Show("Limite de páginas excedido, não há mais vagas para se candidatar", "Limite excedido", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+                _homeView.RichtxtBox +=
+                    $"{stringPatterns.linePattern()}\n" +
+                    $"!{ExceptionMessages.PageLimitExceeded}!\n" +
+                    $"{stringPatterns.linePattern()}\n";
+                await Task.Delay(TimeSpan.FromSeconds(0.1));
+                MessageBox.Show(ExceptionMessages.PageLimitExceeded, "Limite excedido", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
                 return false;
             }
         }

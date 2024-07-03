@@ -12,7 +12,7 @@ namespace forms.Presenters
         private ILoginView _loginView;
         private ILoginRepository _loginRepository;
         ILogRepository _logRepository;
-        private string filePath = "../../../Files/user.msgpack";
+        private string _filePath;
 
         //Attr
 
@@ -22,18 +22,19 @@ namespace forms.Presenters
             _loginView = loginView;
             _loginView.UserFormLoaded += OnUserFormLoaded;
             _loginView.LoginEvent += LoginEvent;
+            _filePath = loginRepository.GetFilePath();
         }
 
         private void LoginEvent(object sender, EventArgs e)
         {
             try
             {
-                if (!File.Exists(filePath))
+                if (!File.Exists(_filePath))
                 {
                     // Cria o arquivo se não existir
                     UserModel newUser = new UserModel(_loginView.Email, _loginView.Password);
-                    _loginRepository.CreateMessagePackFile(filePath);
-                    _loginRepository.UpdateMessagePackFile(filePath, newUser);
+                    _loginRepository.CreateMessagePackFile(_filePath);
+                    _loginRepository.UpdateMessagePackFile(_filePath, newUser);
                 }
                 else
                 {
@@ -41,7 +42,7 @@ namespace forms.Presenters
                     {
                         // Atualiza o usuário com novos dados
                         var updatedUser = new UserModel(_loginView.Email, _loginView.Password);
-                        _loginRepository.UpdateMessagePackFile(filePath, updatedUser);
+                        _loginRepository.UpdateMessagePackFile(_filePath, updatedUser);
                     }
 
                     //Carrega usuário do arquivo
@@ -71,7 +72,7 @@ namespace forms.Presenters
 
         private UserModel LoadUser()
         {
-            byte[] fileBytes = _loginRepository.ReadMessagePackFile(filePath);
+            byte[] fileBytes = _loginRepository.ReadMessagePackFile(_filePath);
 
             // Desserializa os bytes em um objeto User
             var loadedUserJson = MessagePackSerializer.Deserialize<dynamic>(fileBytes);

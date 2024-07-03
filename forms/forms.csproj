@@ -13,8 +13,6 @@
     <PackageReference Include="Krypton.Toolkit" Version="85.24.6.176" />
     <PackageReference Include="MessagePack" Version="2.5.168" />
     <PackageReference Include="Microsoft.Playwright" Version="1.44.0" />
-    <PackageReference Include="NPOI" Version="2.7.0" />
-    <PackageReference Include="System.Text.Encoding.CodePages" Version="8.0.0" />
   </ItemGroup>
 
   <ItemGroup>

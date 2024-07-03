@@ -1,8 +1,9 @@
-﻿using Microsoft.Playwright;
+﻿using forms.Models.PageObjects.Base;
+using Microsoft.Playwright;
 
 namespace forms.Models.PageObjects.Sections
 {
-    public class PopupWindowSection
+    public class PopupWindowSection : BasePage
     {
         private IPage _page;
         public IElementHandle? _advanceButton;
@@ -12,14 +13,14 @@ namespace forms.Models.PageObjects.Sections
         public IElementHandle? _saveButton;
         public IElementHandle? _additionalQuestions;
 
-        public PopupWindowSection(IPage page)
+        public PopupWindowSection(IPage page, CancellationToken token) : base(page, token)
         {
             _page = page;
         }
 
-        public static async Task<PopupWindowSection> BuildAsync(IPage page, double securityTime = 0.5)
+        public static async Task<PopupWindowSection> BuildAsync(IPage page, CancellationToken token, double securityTime = 0.5)
         {
-            PopupWindowSection obj = new PopupWindowSection(page);
+            PopupWindowSection obj = new PopupWindowSection(page, token);
             await obj.InicializateAsync(securityTime);
             return obj;
         }
@@ -27,7 +28,7 @@ namespace forms.Models.PageObjects.Sections
         private async Task InicializateAsync(double securityTime)
         {
             await Task.Delay(TimeSpan.FromSeconds(securityTime));
-            _advanceButton = await _page.QuerySelectorAsync("button[aria-label='Avançar para próxima etapa']");
+            _advanceButton = await LoadElementAsync("button[aria-label='Avançar para próxima etapa']");
         }
 
         public async Task<bool> CheckAddicionalQuestions()
@@ -38,34 +39,24 @@ namespace forms.Models.PageObjects.Sections
         public async Task SendJobApplicationAndClosePage(double securityTime = 0.5)
         {
             //Load elements
-            await Task.Delay(TimeSpan.FromSeconds(securityTime));
-            _sendJobApplicationButton = await _page.QuerySelectorAsync("button:has-text('Enviar candidatura')");
-            await Task.Delay(TimeSpan.FromSeconds(securityTime));
-            _closeButton = await _page.QuerySelectorAsync("button[aria-label='Fechar']");
+            _sendJobApplicationButton = await LoadElementAsync("button:has-text('Enviar candidatura')");
             //Click elements
             await Task.Delay(TimeSpan.FromSeconds(securityTime));
             await _sendJobApplicationButton.ClickAsync();
-            await Task.Delay(TimeSpan.FromSeconds(securityTime));
-            await _closeButton.ClickAsync();
+            await Task.Delay(TimeSpan.FromSeconds(1));
+            await _page.Keyboard.PressAsync("Escape");
         }
 
         public async Task SaveJobClosePage(double securityTime = 0.5)
         {
             //Load elements
-            await Task.Delay(TimeSpan.FromSeconds(securityTime));
-            _closeButton = await _page.QuerySelectorAsync("button[aria-label='Fechar']");
+            _closeButton = await LoadElementAsync("button[aria-label='Fechar']");
             await Task.Delay(TimeSpan.FromSeconds(securityTime));
             //Click Elements
             await _closeButton.ClickAsync();
-            await Task.Delay(TimeSpan.FromSeconds(securityTime));
-            _saveButton = await _page.QuerySelectorAsync("button[data-control-name='save_application_btn']");
+            _saveButton = await LoadElementAsync("button[data-control-name='save_application_btn']");
             await Task.Delay(TimeSpan.FromSeconds(securityTime));
             await _saveButton.ClickAsync();
-        }
-
-        public async Task<IElementHandle?> LoadElementAsync(string selector)
-        {
-            return await _page.QuerySelectorAsync(selector);
         }
     }
 }

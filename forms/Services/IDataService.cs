@@ -1,6 +1,4 @@
-﻿using NPOI.SS.Formula.Functions;
-
-namespace forms.Services
+﻿namespace forms.Services
 {
     public interface IDataService<T>
     {

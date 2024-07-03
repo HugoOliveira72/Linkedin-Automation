@@ -1,28 +1,28 @@
 ﻿using forms.Models.Filters;
+using forms.Models.PageObjects.Base;
 using forms.Repositories;
-using forms.Utilities;
 using forms.Utilities.Messages;
 using Microsoft.Playwright;
 
 namespace forms.Models.PageObjects.Sections
 {
-    public class FilterSection
+    public class FilterSection : BasePage
     {
         private IPage _page;
         private ILocator showAllFiltersButton;
         private ILocator buttonFilterEasyApply;
         private ILocator applyFilterButton;
         private LogRepository _logRepository = new();
-        private PlaywrightUtilities playwrightUtilities = new();
 
-        public FilterSection(IPage page)
+
+        public FilterSection(IPage page, CancellationToken token) : base(page, token)
         {
             _page = page;
         }
 
-        public static async Task<FilterSection> BuildAsync(IPage page, double securityTime = 0.5)
+        public static async Task<FilterSection> BuildAsync(IPage page, CancellationToken token, double securityTime = 0.5)
         {
-            FilterSection obj = new FilterSection(page);
+            FilterSection obj = new FilterSection(page, token);
             await obj.InicializateAsync(securityTime);
             return obj;
         }
@@ -35,7 +35,7 @@ namespace forms.Models.PageObjects.Sections
 
         private async Task LoadFilterElements(double securityTime = 0.5)
         {
-            await playwrightUtilities.WaitForElementAndHandleExceptionAsync(_page, "#selected-vertical", "Div de filtros carregada", "Erro ao carregar div de filtros");
+            await WaitForElementAndHandleExceptionAsync(_page, "#selected-vertical", "Div de filtros carregada", "Erro ao carregar div de filtros");
             await Task.Delay(TimeSpan.FromSeconds(securityTime));
             buttonFilterEasyApply = _page.GetByText("Desativada Alternar filtro Candidatura simplificada");
             await Task.Delay(TimeSpan.FromSeconds(securityTime));
@@ -66,7 +66,7 @@ namespace forms.Models.PageObjects.Sections
                     await Task.Delay(TimeSpan.FromSeconds(securityTime));
                     var element = _page.GetByLabel("Todos os filtros", new() { Exact = true }).Locator("label").Filter(new() { HasText = $"{selectedItem} Filtrar por {selectedItem}" });
                     await Task.Delay(TimeSpan.FromSeconds(securityTime));
-                    await element.ClickAsync(new() { Timeout = 3000});
+                    await element.ClickAsync(new() { Timeout = 3000 });
                 }
                 catch (Exception e)
                 {

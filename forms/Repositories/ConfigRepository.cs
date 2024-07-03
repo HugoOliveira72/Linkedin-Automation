@@ -17,7 +17,7 @@ namespace forms.Repositories
             return JsonConvert.DeserializeObject<T>(convertedObject);
         }
 
-        public string? GetResolutionFilePath()
+        public string? GetConfigFilePath()
         {
             return GetFilePath(ResolutionDirectoryXpath);
         }

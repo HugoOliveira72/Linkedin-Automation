@@ -1,7 +1,4 @@
-﻿using forms.Model;
-using NPOI.SS.Formula.Functions;
-
-namespace forms.Models.Interfaces
+﻿namespace forms.Models.Interfaces
 {
     public interface IBaseRepository
     {
