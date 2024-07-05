@@ -15,7 +15,9 @@ Libs:
 
 Como usar
 
-* Instalar o programa baixando o arquivo .exe
+* Clonar o repositório
+* Instalar dependencias do projeto (Instalar as libs com o gerenciador de pacote NuGet, bibliotecas citadas logo acima)
+* Recompilar e Rodar o projeto
 * Inserir usuário e senha da conta do linkedin na tela de LOGIN
 * No campo "Cargo ou competência" inserir o cargo
 * No campo "N° de vagas" inserir o número de vagas que serão automatizadas
