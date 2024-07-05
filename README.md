@@ -21,9 +21,11 @@ Como usar
   usuário e também o arquivo de log. Atenção! O diretório deve ser criado para não haver erros.
 
 Criação arquivo Files nas branchs Master,dev-mvp,MVP-architecture
+
 ![image](https://github.com/HugoOliveira72/Linkedin-automation/assets/84344414/59a9d3c6-9aa9-46f3-a6e2-3c4c5a39f982)
 
 Criação do arquivo Files na branch feature-biblioteca-de-classes
+
 ![image](https://github.com/HugoOliveira72/Linkedin-automation/assets/84344414/055b4c9d-e610-448a-a08f-441a266484fc)
 
 
