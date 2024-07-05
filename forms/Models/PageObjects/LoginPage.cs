@@ -69,7 +69,7 @@ namespace forms.Models.PageObjects
             Exception exception = new Exception();
             try
             {
-                await page.WaitForSelectorAsync(selector, new() { Timeout = 1000 });
+                await page.WaitForSelectorAsync(selector, new() { Timeout = timeout });
             }
             catch (Exception e)
             {
