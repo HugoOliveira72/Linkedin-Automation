@@ -8,7 +8,6 @@ namespace forms.Views.UserControls
         {
             InitializeComponent();
             this.Load += OnFormLoaded;
-            AssociateAndRaiseViewEvents();
         }
         
         //Properties
