@@ -66,8 +66,11 @@ namespace forms.Presenters
         private void CreateConfigFile(object sender, EventArgs e)
         {
             // Cria um novo arquivo e escreve "Tela cheia" como padrão
-            ConfigurationModel configurationModel = new ConfigurationModel("Tela cheia", "");
-            _configRepository.CreateAndUpdateMessagePackFile(_configRepository.GetConfigFilePath(), configurationModel);
+            if (!File.Exists(_configRepository.GetConfigFilePath())) // Quando o arquivo Resolution não existe
+            {
+                ConfigurationModel configurationModel = new ConfigurationModel("Tela cheia", "");
+                _configRepository.CreateAndUpdateMessagePackFile(_configRepository.GetConfigFilePath(), configurationModel);
+            }
         }
 
         //Automation Method
