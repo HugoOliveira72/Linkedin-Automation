@@ -19,6 +19,15 @@ Como usar
 * Instalar dependencias do projeto (Instalar as libs com o gerenciador de pacote NuGet, bibliotecas citadas logo acima)
 * Dentro do projeto principal forms (ViewPresenter caso a branch for feacture-biblioteca-de-classes) criar a pasta FILES para armazenar os arquivos
   usuário e também o arquivo de log. Atenção! O diretório deve ser criado para não haver erros.
+
+Criação arquivo Files nas branchs Master,dev-mvp,MVP-architecture
+![image](https://github.com/HugoOliveira72/Linkedin-automation/assets/84344414/59a9d3c6-9aa9-46f3-a6e2-3c4c5a39f982)
+
+Criação do arquivo Files na branch feature-biblioteca-de-classes
+![image](https://github.com/HugoOliveira72/Linkedin-automation/assets/84344414/055b4c9d-e610-448a-a08f-441a266484fc)
+
+
+
 * Recompilar e Rodar o projeto
 * Inserir usuário e senha da conta do linkedin na tela de LOGIN
 * No campo "Cargo ou competência" inserir o cargo
