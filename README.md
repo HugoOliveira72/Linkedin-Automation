@@ -17,6 +17,8 @@ Como usar
 
 * Clonar o repositório
 * Instalar dependencias do projeto (Instalar as libs com o gerenciador de pacote NuGet, bibliotecas citadas logo acima)
+* Dentro do projeto principal forms (ViewPresenter caso a branch for feacture-biblioteca-de-classes) criar a pasta FILES para armazenar os arquivos
+  usuário e também o arquivo de log. Atenção! O diretório deve ser criado para não haver erros.
 * Recompilar e Rodar o projeto
 * Inserir usuário e senha da conta do linkedin na tela de LOGIN
 * No campo "Cargo ou competência" inserir o cargo
