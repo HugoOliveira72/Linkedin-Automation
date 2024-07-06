@@ -312,13 +312,13 @@ namespace forms.Presenters
                     await Task.Delay(TimeSpan.FromSeconds(1));
                     PopupWindowSection popupWindowSection = await PopupWindowSection.BuildAsync(page, _logRepository, token);
 
-                    ///Realiza verificação lembrete de segurança OBS, necessita de otimização
-                    //await AddMessageToRichTextbox(stringPatterns.linePattern());
-                    //await AddMessageToRichTextbox($"Verificando existencia de lembrete de segurança");
-                    //await AddMessageToRichTextbox($"Por favor aguarde...");
-                    //await AddMessageToRichTextbox(stringPatterns.linePattern());
-                    //await AddMessageToRichTextbox("Verificação realizada com sucesso!");
-                    //await popupWindowSection.CheckSecurityReminder();
+                    /// Realiza verificação lembrete de segurança OBS, necessita de otimização
+                    await AddMessageToRichTextbox(stringPatterns.linePattern());
+                    await AddMessageToRichTextbox($"Verificando existencia de lembrete de segurança");
+                    await AddMessageToRichTextbox($"Por favor aguarde...");
+                    await AddMessageToRichTextbox(stringPatterns.linePattern());
+                    await popupWindowSection.CheckSecurityReminder();
+                    await AddMessageToRichTextbox("Verificação realizada com sucesso!");
 
                     if (popupWindowSection._advanceButton == null)// QUANDO BOTÃO AVANÇAR Ñ EXISTE
                     {

@@ -70,16 +70,8 @@ namespace forms.Models.PageObjects.Sections
 
         public async Task CheckSecurityReminder()
         {
-            try
-            {
-                await _page.GetByLabel("Lembrete de segurança da").GetByText("Antes de se candidatar,").ClickAsync();
-                await _page.GetByRole(AriaRole.Button, new() { Name = "Candidatura simplificada à" }).ClickAsync();
-            }
-            catch (Exception ex)
-            {
-                _logRepository.WriteALogError(ExceptionMessages.CouldNotFoundElement + "Erro esperado", ex);
-            }
-
+            if (await _page.GetByLabel("Lembrete de segurança da").GetByText("Antes de se candidatar,").IsVisibleAsync())
+                await _page.GetByText("Continuar candidatura").ClickAsync();
         }
     }
 }
