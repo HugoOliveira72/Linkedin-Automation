@@ -216,6 +216,7 @@ namespace forms
         {
             //HomeClick Event
             kryptonButtonHome_Click(sender, e);
+            //Criar arquivo de Config
             CreateConfigFile?.Invoke(this, EventArgs.Empty);
         }
 

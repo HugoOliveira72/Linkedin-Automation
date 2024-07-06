@@ -4,13 +4,13 @@ namespace forms.Views.UserControls
 {
     public partial class ConfigControlView : UserControl, IConfigControlView
     {
+        private bool firstLoad = false;
         public ConfigControlView()
         {
             InitializeComponent();
             this.Load += OnFormLoaded;
-            AssociateAndRaiseViewEvents();
         }
-        
+
         //Properties
         public string? ResolutionType
         {
