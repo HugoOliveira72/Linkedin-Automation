@@ -162,10 +162,12 @@ namespace forms.Presenters
 
                     ///Classificar por
                     await AddMessageToRichTextbox(FilterLabelsModel.ClassifyByLabel);
-                    await jobSearchPage.SelectFilter(filterData.ClassifyBy);
+                    if(!string.IsNullOrEmpty(filterData.ClassifyBy))
+                        await jobSearchPage.SelectFilter(filterData.ClassifyBy);
                     ///Data do anúncio
                     await AddMessageToRichTextbox(FilterLabelsModel.AnnouncimentDateLabel);
-                    await jobSearchPage.SelectFilter(filterData.AnnoucementDate);
+                    if (!string.IsNullOrEmpty(filterData.AnnoucementDate))
+                        await jobSearchPage.SelectFilter(filterData.AnnoucementDate);
                     ///Nível de experiência
                     await AddMessageToRichTextbox(FilterLabelsModel.ExperienceLevelLabel);
                     await jobSearchPage.SelectFilter(FilterLabelsModel.ExperienceLevelLabel, filterData.CheckedListBoxExperiences);
@@ -201,16 +203,6 @@ namespace forms.Presenters
 
                 // Instancia jobListSection
                 await AddMessageToRichTextbox(stringPatterns.linePattern());
-
-                //Quando não encontra nenhuma vaga
-                ILocator? noFoundJob = page.GetByText("Nenhuma vaga corresponde aos seus critérios.");
-                if (noFoundJob != null)
-                {
-                    //Procura sugestões
-                    await AddMessageToRichTextbox(ExceptionMessages.CouldNotFoundTheJob);
-                    await AddMessageToRichTextbox("Buscando sugestões...");
-                    await AddMessageToRichTextbox(stringPatterns.linePattern());
-                }
 
                 //Vagas ou sugestões 
                 JobListSection jobListSection = await JobListSection.BuildAsync(page, _homeView, token, currentPage);
@@ -318,7 +310,16 @@ namespace forms.Presenters
                     //POPUP WINDOW SECTION
                     #region Advance button
                     await Task.Delay(TimeSpan.FromSeconds(1));
-                    PopupWindowSection popupWindowSection = await PopupWindowSection.BuildAsync(page, token);
+                    PopupWindowSection popupWindowSection = await PopupWindowSection.BuildAsync(page, _logRepository, token);
+
+                    ///Realiza verificação lembrete de segurança OBS, necessita de otimização
+                    //await AddMessageToRichTextbox(stringPatterns.linePattern());
+                    //await AddMessageToRichTextbox($"Verificando existencia de lembrete de segurança");
+                    //await AddMessageToRichTextbox($"Por favor aguarde...");
+                    //await AddMessageToRichTextbox(stringPatterns.linePattern());
+                    //await AddMessageToRichTextbox("Verificação realizada com sucesso!");
+                    //await popupWindowSection.CheckSecurityReminder();
+
                     if (popupWindowSection._advanceButton == null)// QUANDO BOTÃO AVANÇAR Ñ EXISTE
                     {
                         /// CLICA BOTÃO ENVIAR CANDIDATURA

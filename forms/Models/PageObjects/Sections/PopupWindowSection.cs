@@ -1,4 +1,7 @@
-﻿using forms.Models.PageObjects.Base;
+﻿using forms.Models.Interfaces;
+using forms.Models.PageObjects.Base;
+using forms.Repositories;
+using forms.Utilities.Messages;
 using Microsoft.Playwright;
 
 namespace forms.Models.PageObjects.Sections
@@ -12,15 +15,19 @@ namespace forms.Models.PageObjects.Sections
         public IElementHandle? _reviewButton;
         public IElementHandle? _saveButton;
         public IElementHandle? _additionalQuestions;
+        public ILocator? _securitySearchJob;
 
-        public PopupWindowSection(IPage page, CancellationToken token) : base(page, token)
+        private ILogRepository _logRepository;
+
+        public PopupWindowSection(IPage page, ILogRepository logRepository, CancellationToken token) : base(page, token)
         {
             _page = page;
+            _logRepository = logRepository;
         }
 
-        public static async Task<PopupWindowSection> BuildAsync(IPage page, CancellationToken token, double securityTime = 0.5)
+        public static async Task<PopupWindowSection> BuildAsync(IPage page, ILogRepository logRepository, CancellationToken token, double securityTime = 0.5)
         {
-            PopupWindowSection obj = new PopupWindowSection(page, token);
+            PopupWindowSection obj = new PopupWindowSection(page, logRepository, token);
             await obj.InicializateAsync(securityTime);
             return obj;
         }
@@ -29,6 +36,7 @@ namespace forms.Models.PageObjects.Sections
         {
             await Task.Delay(TimeSpan.FromSeconds(securityTime));
             _advanceButton = await LoadElementAsync("button[aria-label='Avançar para próxima etapa']");
+            await Task.Delay(TimeSpan.FromSeconds(securityTime));
         }
 
         public async Task<bool> CheckAddicionalQuestions()
@@ -42,7 +50,8 @@ namespace forms.Models.PageObjects.Sections
             _sendJobApplicationButton = await LoadElementAsync("button:has-text('Enviar candidatura')");
             //Click elements
             await Task.Delay(TimeSpan.FromSeconds(securityTime));
-            await _sendJobApplicationButton.ClickAsync();
+            if (_sendJobApplicationButton != null)
+                await _sendJobApplicationButton.ClickAsync();
             await Task.Delay(TimeSpan.FromSeconds(1));
             await _page.Keyboard.PressAsync("Escape");
         }
@@ -57,6 +66,20 @@ namespace forms.Models.PageObjects.Sections
             _saveButton = await LoadElementAsync("button[data-control-name='save_application_btn']");
             await Task.Delay(TimeSpan.FromSeconds(securityTime));
             await _saveButton.ClickAsync();
+        }
+
+        public async Task CheckSecurityReminder()
+        {
+            try
+            {
+                await _page.GetByLabel("Lembrete de segurança da").GetByText("Antes de se candidatar,").ClickAsync();
+                await _page.GetByRole(AriaRole.Button, new() { Name = "Candidatura simplificada à" }).ClickAsync();
+            }
+            catch (Exception ex)
+            {
+                _logRepository.WriteALogError(ExceptionMessages.CouldNotFoundElement + "Erro esperado", ex);
+            }
+
         }
     }
 }
