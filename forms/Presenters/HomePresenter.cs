@@ -382,6 +382,14 @@ namespace forms.Presenters
                             await popupWindowSection._reviewButton.ClickAsync();
                             await Task.Delay(TimeSpan.FromSeconds(0.8));
                         }
+
+                        popupWindowSection._workExperienceElement =  await popupWindowSection.LoadElementAsync("span:has-text('Work experience')");
+                        if(popupWindowSection._workExperienceElement != null)
+                        {
+                            await SaveVacancyProcedure(popupWindowSection, jobsCounter);
+                            continue;
+                        }
+
                         // ENVIAR CANDIDATURA, SEM PERGUNTAS
                         await popupWindowSection.SendJobApplicationAndClosePage();
 
@@ -391,12 +399,7 @@ namespace forms.Presenters
                     }
                     else if (popupWindowSection._additionalQuestions != null) // QUANDO HÁ PERGUNTAS
                     {
-                        await popupWindowSection.SaveJobClosePage();
-                        _savedJobs = SetAndCountSavedJobs(_savedJobs);
-                        await Task.Delay(TimeSpan.FromSeconds(0.8));
-                        await AddMessageToRichTextbox($"Salva a vaga nº{jobsCounter}");
-                        await Task.Delay(TimeSpan.FromSeconds(0.8));
-                        await AddMessageToRichTextbox(stringPatterns.ShowFinalResult(_appliedJobs, _savedJobs));
+                        await SaveVacancyProcedure(popupWindowSection, jobsCounter);
                         continue;
                     }
                     else if (popupWindowSection._advanceButton != null) // BOTÃO AVANÇAR
@@ -479,6 +482,16 @@ namespace forms.Presenters
             _homeView.ButtonPlayEnabled = true;
             ///Desativar o botão Stop
             _homeView.ButtonStopEnabled = false;
+        }
+
+        private async Task SaveVacancyProcedure(PopupWindowSection popUpSection, int jobsCounter)
+        {
+            await popUpSection.SaveJobClosePage();
+            _savedJobs = SetAndCountSavedJobs(_savedJobs);
+            await Task.Delay(TimeSpan.FromSeconds(0.8));
+            await AddMessageToRichTextbox($"Salva a vaga nº{jobsCounter}");
+            await Task.Delay(TimeSpan.FromSeconds(0.8));
+            await AddMessageToRichTextbox(stringPatterns.ShowFinalResult(_appliedJobs, _savedJobs));
         }
     }
 }

@@ -15,7 +15,7 @@ namespace forms.Models.PageObjects.Sections
         public IElementHandle? _reviewButton;
         public IElementHandle? _saveButton;
         public IElementHandle? _additionalQuestions;
-        public ILocator? _securitySearchJob;
+        public IElementHandle? _workExperienceElement;
 
         private ILogRepository _logRepository;
 
