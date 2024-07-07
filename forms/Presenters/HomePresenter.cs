@@ -23,7 +23,7 @@ namespace forms.Presenters
         private ILogRepository _logRepository;
         private IConfigRepository _configRepository;
         private OutputStringPatterns stringPatterns = new();
-        private CancellationTokenSource cancellationToken = new();
+        private CancellationTokenSource cancellationToken;
 
         private PlaywrightConfiguration _settings;
         private int _appliedJobs;
@@ -51,6 +51,8 @@ namespace forms.Presenters
 
         private async void StartAutomation(object sender, EventArgs e)
         {
+            ///Implementar uma nova instancia de cancellation Token
+            cancellationToken = new();
             ///Desativar botão play
             _homeView.ButtonPlayEnabled = false;
             ///Habilitar botão stop
