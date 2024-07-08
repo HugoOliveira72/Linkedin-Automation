@@ -1,10 +1,10 @@
 LINKEDIN AUTOMATION
 
-Esta é uma aplicação de desktop desenvolvida para automatizar o processo de inscrição em vagas no LinkedIn. 
+Esta é uma aplicação de desktop desenvolvida para automatizar o processo de inscrição em vagas no LinkedIn. Versão de teste, podem conter bugs.
 
 Ferramentas e bibliotecas:
 
-*A aplicação foi construída utilizando a C# .NET Versão = 8.0, 
+*A aplicação foi construída utilizando .NET (Versão 8.0) e windows Forms.
 
 Libs:
 
@@ -41,14 +41,14 @@ Criação do arquivo Files na branch feature-biblioteca-de-classes
 
 Funcionalidades
 
-* Registro de Credenciais: As credenciais do usuário são armazenadas em um arquivo local chamado user.msgpack, localizado em [forms]/Files/. O arquivo é gerado assim que o programa iniciar.
-* Geração de Arquivo de log: A aplicação gera um arquivo de log que registra erros de execução e a data de execução. Tal arquivo também é gerado em [forms]/Files assim que o programa é executado.
-* Inscrição em Vagas Simplificadas: A aplicação é capaz de se inscrever automaticamente em vagas que possuem um processo de candidatura simplificada.
+* Inscrição em Vagas: A aplicação é capaz de se inscrever automaticamente em vagas que possuem um processo de candidatura simplificada.
 * Salvamento de Vagas: As vagas que requerem o preenchimento de formulários são salvas, para que o usuário possa continuar o processo de inscrição manualmente em um momento posterior.
 * Filtragem de vagas: É possível filtrar o tipo de vaga com a aba filtro. Os filtros são originalmente os mesmos do linkedin.
+* Registro de Credenciais: As credenciais do usuário são armazenadas em um arquivo local chamado user.msgpack, localizado em [forms]/Files/. O arquivo é gerado assim que o programa iniciar.
+* Geração de Arquivo de log: A aplicação gera um arquivo de log que registra erros de execução e a data de execução. Tal arquivo também é gerado em [forms]/Files assim que o programa é executado.
 * Ajuste de resolução do navegador: É possível ajustar a resolução do navegador na aba configuração, havendo as opções:
-    * Tela cheia, adequa o navegador ao tamanho padrão de tela do usuário. 
-    *Janela, que possui as resoluções:
+    * Tela cheia, adequa o navegador ao tamanho padrão de tela do usuário.
+    * Janela, que possui as resoluções:
     1920x1080
     1366x768
     1280x720
