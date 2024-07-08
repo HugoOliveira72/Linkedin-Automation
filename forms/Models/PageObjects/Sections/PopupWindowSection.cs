@@ -15,7 +15,7 @@ namespace forms.Models.PageObjects.Sections
         public IElementHandle? _reviewButton;
         public IElementHandle? _saveButton;
         public IElementHandle? _additionalQuestions;
-        public ILocator? _securitySearchJob;
+        public IElementHandle? _workExperienceElement;
 
         private ILogRepository _logRepository;
 
@@ -41,7 +41,7 @@ namespace forms.Models.PageObjects.Sections
 
         public async Task<bool> CheckAddicionalQuestions()
         {
-            return new[] { "Revise sua candidatura", "Addicional", "Perguntas adicionais", "Additional Questions", "Additional" }.Any(obj => _additionalQuestions!.ToString()!.Contains(obj));
+            return new[] { "Addicional", "Perguntas adicionais", "Additional Questions"}.Any(obj => _additionalQuestions!.ToString()!.Contains(obj));
         }
 
         public async Task SendJobApplicationAndClosePage(double securityTime = 0.5)
