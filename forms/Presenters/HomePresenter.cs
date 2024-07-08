@@ -218,7 +218,7 @@ namespace forms.Presenters
                 else
                 {
                     await AddMessageToRichTextbox(ExceptionMessages.CouldNotFoundTheJob);
-                    await CloseBrowserAndHandleButtonsVisibily(_settings, _appliedJobs, _savedJobs);
+                    await CloseBrowserAndHandleButtonsVisibilyAsync(_settings, _appliedJobs, _savedJobs);
                     return;
                 }
 
@@ -238,7 +238,7 @@ namespace forms.Presenters
                         // Fechar aplicação
                         if (!hasNextPage)
                         {
-                            await CloseBrowserAndHandleButtonsVisibily(_settings, _appliedJobs, _savedJobs);
+                            await CloseBrowserAndHandleButtonsVisibilyAsync(_settings, _appliedJobs, _savedJobs);
                             return;
                         }
                         //Recarregar elementos
@@ -409,20 +409,22 @@ namespace forms.Presenters
 
                     #endregion
                 }
+                await CloseBrowserAndHandleButtonsVisibilyAsync(_settings, _appliedJobs, _savedJobs);
+
             }
             catch (OperationCanceledException)
             {
-                await CloseBrowserAndHandleButtonsVisibily(_settings, _appliedJobs, _savedJobs);
+                await CloseBrowserAndHandleButtonsVisibilyAsync(_settings, _appliedJobs, _savedJobs);
                 return;
             }
             catch (TimeoutException)
             {
-                await CloseBrowserAndHandleButtonsVisibily(_settings, _appliedJobs, _savedJobs);
+                await CloseBrowserAndHandleButtonsVisibilyAsync(_settings, _appliedJobs, _savedJobs);
             }
             catch (Exception e)
             {
                 _logRepository.WriteALogError(ExceptionMessages.CommonError, e);
-                await CloseBrowserAndHandleButtonsVisibily(_settings, _appliedJobs, _savedJobs);
+                await CloseBrowserAndHandleButtonsVisibilyAsync(_settings, _appliedJobs, _savedJobs);
                 return;
             }
         }
@@ -463,7 +465,7 @@ namespace forms.Presenters
             return amountOfsavedJobs;
         }
 
-        private async Task CloseBrowserAndHandleButtonsVisibily(PlaywrightConfiguration playwrightConfiguration, int appliedJobsAmount, int savedJobsAmount)
+        private async Task CloseBrowserAndHandleButtonsVisibilyAsync(PlaywrightConfiguration playwrightConfiguration, int appliedJobsAmount, int savedJobsAmount)
         {
             await AddMessageToRichTextbox(stringPatterns.linePattern(), false);
             await AddMessageToRichTextbox("Fechando navegador...", false);
