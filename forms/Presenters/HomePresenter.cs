@@ -23,7 +23,7 @@ namespace forms.Presenters
         private ILogRepository _logRepository;
         private IConfigRepository _configRepository;
         private OutputStringPatterns stringPatterns = new();
-        private CancellationTokenSource cancellationToken = new();
+        private CancellationTokenSource cancellationToken;
 
         private PlaywrightConfiguration _settings;
         private int _appliedJobs;
@@ -51,6 +51,8 @@ namespace forms.Presenters
 
         private async void StartAutomation(object sender, EventArgs e)
         {
+            ///Implementar uma nova instancia de cancellation Token
+            cancellationToken = new();
             ///Desativar botão play
             _homeView.ButtonPlayEnabled = false;
             ///Habilitar botão stop
@@ -216,7 +218,7 @@ namespace forms.Presenters
                 else
                 {
                     await AddMessageToRichTextbox(ExceptionMessages.CouldNotFoundTheJob);
-                    await CloseBrowserAndHandleButtonsVisibily(_settings, _appliedJobs, _savedJobs);
+                    await CloseBrowserAndHandleButtonsVisibilyAsync(_settings, _appliedJobs, _savedJobs);
                     return;
                 }
 
@@ -236,7 +238,7 @@ namespace forms.Presenters
                         // Fechar aplicação
                         if (!hasNextPage)
                         {
-                            await CloseBrowserAndHandleButtonsVisibily(_settings, _appliedJobs, _savedJobs);
+                            await CloseBrowserAndHandleButtonsVisibilyAsync(_settings, _appliedJobs, _savedJobs);
                             return;
                         }
                         //Recarregar elementos
@@ -380,6 +382,14 @@ namespace forms.Presenters
                             await popupWindowSection._reviewButton.ClickAsync();
                             await Task.Delay(TimeSpan.FromSeconds(0.8));
                         }
+
+                        popupWindowSection._workExperienceElement =  await popupWindowSection.LoadElementAsync("span:has-text('Work experience')");
+                        if(popupWindowSection._workExperienceElement != null)
+                        {
+                            await SaveVacancyProcedure(popupWindowSection, jobsCounter);
+                            continue;
+                        }
+
                         // ENVIAR CANDIDATURA, SEM PERGUNTAS
                         await popupWindowSection.SendJobApplicationAndClosePage();
 
@@ -389,12 +399,7 @@ namespace forms.Presenters
                     }
                     else if (popupWindowSection._additionalQuestions != null) // QUANDO HÁ PERGUNTAS
                     {
-                        await popupWindowSection.SaveJobClosePage();
-                        _savedJobs = SetAndCountSavedJobs(_savedJobs);
-                        await Task.Delay(TimeSpan.FromSeconds(0.8));
-                        await AddMessageToRichTextbox($"Salva a vaga nº{jobsCounter}");
-                        await Task.Delay(TimeSpan.FromSeconds(0.8));
-                        await AddMessageToRichTextbox(stringPatterns.ShowFinalResult(_appliedJobs, _savedJobs));
+                        await SaveVacancyProcedure(popupWindowSection, jobsCounter);
                         continue;
                     }
                     else if (popupWindowSection._advanceButton != null) // BOTÃO AVANÇAR
@@ -404,20 +409,22 @@ namespace forms.Presenters
 
                     #endregion
                 }
+                await CloseBrowserAndHandleButtonsVisibilyAsync(_settings, _appliedJobs, _savedJobs);
+
             }
             catch (OperationCanceledException)
             {
-                await CloseBrowserAndHandleButtonsVisibily(_settings, _appliedJobs, _savedJobs);
+                await CloseBrowserAndHandleButtonsVisibilyAsync(_settings, _appliedJobs, _savedJobs);
                 return;
             }
             catch (TimeoutException)
             {
-                await CloseBrowserAndHandleButtonsVisibily(_settings, _appliedJobs, _savedJobs);
+                await CloseBrowserAndHandleButtonsVisibilyAsync(_settings, _appliedJobs, _savedJobs);
             }
             catch (Exception e)
             {
                 _logRepository.WriteALogError(ExceptionMessages.CommonError, e);
-                await CloseBrowserAndHandleButtonsVisibily(_settings, _appliedJobs, _savedJobs);
+                await CloseBrowserAndHandleButtonsVisibilyAsync(_settings, _appliedJobs, _savedJobs);
                 return;
             }
         }
@@ -458,7 +465,7 @@ namespace forms.Presenters
             return amountOfsavedJobs;
         }
 
-        private async Task CloseBrowserAndHandleButtonsVisibily(PlaywrightConfiguration playwrightConfiguration, int appliedJobsAmount, int savedJobsAmount)
+        private async Task CloseBrowserAndHandleButtonsVisibilyAsync(PlaywrightConfiguration playwrightConfiguration, int appliedJobsAmount, int savedJobsAmount)
         {
             await AddMessageToRichTextbox(stringPatterns.linePattern(), false);
             await AddMessageToRichTextbox("Fechando navegador...", false);
@@ -477,6 +484,16 @@ namespace forms.Presenters
             _homeView.ButtonPlayEnabled = true;
             ///Desativar o botão Stop
             _homeView.ButtonStopEnabled = false;
+        }
+
+        private async Task SaveVacancyProcedure(PopupWindowSection popUpSection, int jobsCounter)
+        {
+            await popUpSection.SaveJobClosePage();
+            _savedJobs = SetAndCountSavedJobs(_savedJobs);
+            await Task.Delay(TimeSpan.FromSeconds(0.8));
+            await AddMessageToRichTextbox($"Salva a vaga nº{jobsCounter}");
+            await Task.Delay(TimeSpan.FromSeconds(0.8));
+            await AddMessageToRichTextbox(stringPatterns.ShowFinalResult(_appliedJobs, _savedJobs));
         }
     }
 }

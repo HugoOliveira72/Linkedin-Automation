@@ -41,8 +41,8 @@ Criação do arquivo Files na branch feature-biblioteca-de-classes
 
 Funcionalidades
 
-* Registro de Credenciais: As credenciais do usuário são armazenadas em um arquivo local chamado user.msgpack, localizado em [projeto]/Files/. O arquivo é gerado assim que o programa iniciar.
-* Geração de Arquivo de log: A aplicação gera um arquivo de log que registra erros de execução e a data de execução. Tal arquivo também é gerado em [projeto]/Files assim que o programa é executado.
+* Registro de Credenciais: As credenciais do usuário são armazenadas em um arquivo local chamado user.msgpack, localizado em [viewPresenter]/Files/. O arquivo é gerado assim que o programa iniciar.
+* Geração de Arquivo de log: A aplicação gera um arquivo de log que registra erros de execução e a data de execução. Tal arquivo também é gerado em [viewPresenter]/Files assim que o programa é executado.
 * Inscrição em Vagas Simplificadas: A aplicação é capaz de se inscrever automaticamente em vagas que possuem um processo de candidatura simplificada.
 * Salvamento de Vagas: As vagas que requerem o preenchimento de formulários são salvas, para que o usuário possa continuar o processo de inscrição manualmente em um momento posterior.
 * Filtragem de vagas: É possível filtrar o tipo de vaga com a aba filtro. Os filtros são originalmente os mesmos do linkedin.
