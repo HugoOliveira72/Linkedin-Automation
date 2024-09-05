@@ -53,3 +53,6 @@ Funcionalidades
     1366x768
     1280x720
 * Exibição de Dados Correntes/Console: A aplicação possui um console, que exibe dados correntes e a ação que está ocorrendo no momento.
+
+Video do software em funcionamento
+https://www.linkedin.com/posts/hug-oliveira_ol%C3%A1-conex%C3%B5es-devido-a-uma-necessidade-activity-7216148137504043008-CCi1?utm_source=share&utm_medium=member_desktop
